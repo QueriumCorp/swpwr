@@ -4,9 +4,9 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import logo from './logo.svg';
-import './App.css';
+import './SWPower.css';
 
-function App() {
+function SWPower() {
   return (
     <div className="App">
       <header className="App-header">
@@ -27,4 +27,4 @@ function App() {
   );
 }
 
-export default App;
+export default SWPower;

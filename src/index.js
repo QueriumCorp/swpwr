@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import SWPower from './SWPower';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SWPower />
   </React.StrictMode>,
   document.getElementById('root')
 );
