@@ -1,28 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import Button from 'react-bootstrap/Button';
+import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import logo from './logo.svg';
 import './SWPower.css';
+
+
+function ControlledCarousel() {
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
+  return (
+    <Carousel activeIndex={index} onSelect={handleSelect} interval={null} variant={"dark"}>
+      <Carousel.Item className="page min-vh-100">
+        <Carousel.Caption>
+          <h3>First slide label</h3>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      
+      <Carousel.Item className="page min-vh-100">
+        <Carousel.Caption>
+          <h3>Second slide label</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+
+      <Carousel.Item className="page min-vh-100">
+        <Carousel.Caption>
+          <h3>Third slide label</h3>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+  );
+}
+
 
 function SWPower() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to <Button>reload</Button>.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="SWPowerComponent">
+        <ControlledCarousel />
     </div>
   );
 }
