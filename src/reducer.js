@@ -4,6 +4,8 @@ export const blankWork = {
     label: "the problem label",
     description: "a desc",
     class: "sampleWord",
+    stimulus: `A mountain bike is on sale for $399. Its regular price is $650. 
+    What is the difference between the regular price and the sale price?`,
     stepsMnemonic: "POWER",
     steps: [
       {

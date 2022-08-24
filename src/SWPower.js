@@ -8,6 +8,7 @@ import workReducer, { blankWork } from "./reducer.js";
 
 import PowerTitle from "./components/powerTitle/powerTitle.js";
 import "./SWPower.css";
+import Stimulator from "./components/stimulator/stimulator.js";
 
 function ControlledCarousel() {
   const [index, setIndex] = useState(0);
@@ -42,6 +43,7 @@ function ControlledCarousel() {
               ></PowerTitle>
               <h3>{step.label}</h3>
               <p>{step.instruction}</p>
+              <Stimulator text={work.problem.stimulus}></Stimulator>
               <Button onClick={DoSomething}>Click Me</Button>
             </Carousel.Caption>
           </Carousel.Item>
