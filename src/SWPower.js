@@ -5,6 +5,8 @@ import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import workReducer, { blankWork } from "./reducer.js";
+
+import PowerTitle from "./components/powerTitle/powerTitle.js";
 import "./SWPower.css";
 
 function ControlledCarousel() {
@@ -34,6 +36,10 @@ function ControlledCarousel() {
         return (
           <Carousel.Item key={i} className="page min-vh-100">
             <Carousel.Caption className="pageCaption">
+              <PowerTitle
+                title={work.problem.stepsMnemonic}
+                current={step.mnemonicIndex}
+              ></PowerTitle>
               <h3>{step.label}</h3>
               <p>{step.instruction}</p>
               <Button onClick={DoSomething}>Click Me</Button>
