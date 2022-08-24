@@ -1,14 +1,12 @@
 import React, { useState, useReducer } from "react";
 
 import Carousel from "react-bootstrap/Carousel";
-import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import workReducer, { blankWork } from "./reducer.js";
 
 import PowerTitle from "./components/powerTitle/powerTitle.js";
 import "./SWPower.css";
-import Stimulator from "./components/stimulator/stimulator.js";
 import PowerContent from "./components/powerContent/powerContent.js";
 
 function ControlledCarousel() {
@@ -20,12 +18,6 @@ function ControlledCarousel() {
 
   // Student's WorkProduct
   const [work, workDispatch] = useReducer(workReducer, blankWork);
-  function DoSomething() {
-    workDispatch({
-      type: "updateSomething",
-      payload: { something: "chimichanga!" },
-    });
-  }
 
   return (
     <Carousel
@@ -44,8 +36,11 @@ function ControlledCarousel() {
                 instructions={step.instruction}
                 current={step.mnemonicIndex}
               ></PowerTitle>
-              <Stimulator text={work.problem.stimulus}></Stimulator>
-              <PowerContent type={step.type}></PowerContent>
+              <PowerContent
+                problem={work.problem}
+                type={step.type}
+                dispatcher={workDispatch}
+              ></PowerContent>
             </Carousel.Caption>
           </Carousel.Item>
         );

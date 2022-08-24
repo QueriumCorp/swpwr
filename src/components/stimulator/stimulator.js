@@ -3,8 +3,26 @@ import React from "react";
 import "./stimulator.css";
 
 function Stimulator(props) {
+  const enabled = props.enabled || false;
   const text = props.text;
-  return <div className="stimulator">{text}</div>;
+
+  function createTag() {
+    if (window.getSelection) {
+      const selectedText = window.getSelection().toString();
+      if (selectedText.length) {
+        console.info(selectedText);
+      }
+    }
+  }
+
+  return (
+    <div
+      onMouseUp={createTag}
+      className={`stimulator ${enabled ? "taggable" : ""}`}
+    >
+      {text}
+    </div>
+  );
 }
 
 export default Stimulator;

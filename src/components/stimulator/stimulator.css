@@ -2,4 +2,8 @@
   background: lightgray;
   text-align: left;
   color: black;
+  user-select: none;
+}
+.taggable {
+  user-select: auto;
 }
