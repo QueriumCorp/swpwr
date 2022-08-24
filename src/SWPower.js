@@ -39,12 +39,11 @@ function ControlledCarousel() {
             <Carousel.Caption className="pageCaption">
               <PowerTitle
                 title={work.problem.stepsMnemonic}
+                subTitle={step.label}
+                instructions={step.instruction}
                 current={step.mnemonicIndex}
               ></PowerTitle>
-              <h3>{step.label}</h3>
-              <p>{step.instruction}</p>
               <Stimulator text={work.problem.stimulus}></Stimulator>
-              <Button onClick={DoSomething}>Click Me</Button>
             </Carousel.Caption>
           </Carousel.Item>
         );

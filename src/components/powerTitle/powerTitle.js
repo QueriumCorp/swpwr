@@ -4,9 +4,12 @@ import "./powerTitle.css";
 
 function PowerTitle(props) {
   const current = props.current;
+  const title = props.title;
+  const subTitle = props.subTitle;
+  const instructions = props.instructions;
   return (
     <div className="powerTitle">
-      {props.title.split("").map(function (char, index) {
+      {title.split("").map(function (char, index) {
         return (
           <span
             aria-hidden="true"
@@ -17,6 +20,8 @@ function PowerTitle(props) {
           </span>
         );
       })}
+      <div>{subTitle}</div>
+      <p>{instructions}</p>
     </div>
   );
 }
