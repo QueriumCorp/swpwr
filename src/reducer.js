@@ -25,7 +25,7 @@ export const blankWork = {
           selections you made.`,
       },
       {
-        label: "Work",
+        label: "Work the Problem",
         instruction: "Work the Problem",
         longInstruction: `Enter you solutions steps one by one.`,
       },

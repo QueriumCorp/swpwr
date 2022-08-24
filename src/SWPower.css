@@ -1,6 +1,6 @@
 .SWPowerComponent {
-height:100vh;
-width:100%;
+  height: 100vh;
+  width: 100%;
 }
 
 .App-logo {
@@ -14,10 +14,13 @@ width:100%;
   }
 }
 
-
 .page {
   min-height: 100%;
   background-color: aquamarine;
+}
+
+.pageCaption {
+  bottom: initial;
 }
 
 .App-header {
@@ -34,5 +37,3 @@ width:100%;
 .App-link {
   color: #61dafb;
 }
-
-

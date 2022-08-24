@@ -33,7 +33,7 @@ function ControlledCarousel() {
       {work.problem.steps.map((step, i) => {
         return (
           <Carousel.Item key={i} className="page min-vh-100">
-            <Carousel.Caption>
+            <Carousel.Caption className="pageCaption">
               <h3>{step.label}</h3>
               <p>{step.instruction}</p>
               <Button onClick={DoSomething}>Click Me</Button>
