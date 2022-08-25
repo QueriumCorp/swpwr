@@ -71,11 +71,15 @@ export const blankWork = {
       },
     ],
   },
+  solution: {
+    tags: [],
+  },
 };
 
 const workReducer = (work, action) => {
   // console.info("reducer", action);
   let newProduct = { ...work };
+  newProduct._lastUpdated = Date.now();
 
   switch (action.type) {
     case "init": {
@@ -84,9 +88,9 @@ const workReducer = (work, action) => {
     }
 
     // Something
-    case "updateSomething": {
+    case "addTag": {
       console.info(action.payload.something);
-      newProduct.something = action.payload.something;
+      newProduct.solution.tags.push(action.payload);
       return newProduct;
     }
 

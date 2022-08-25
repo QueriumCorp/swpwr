@@ -14,16 +14,16 @@ import "./powerContent.css";
 function PowerContent(props) {
   console.info(props);
   const contentType = props.type;
-  // const problem = props.problem;
-  // const dispatch = props.dispatcher;
+  const problem = props.problem;
+  const dispatch = props.dispatcher;
 
   return (
     <div className="powerContent">
       <div style={{ color: "green" }}>{contentType}</div>
       {
         {
-          READ: <ReadView></ReadView>,
-          TAG: <TagView></TagView>,
+          READ: <ReadView stimulus={problem.stimulus}></ReadView>,
+          TAG: <TagView problem={problem} onChange={dispatch}></TagView>,
           DIAGRAMMER: <DiagrammerView></DiagrammerView>,
           DIAGRAMSELECT: <DiagramSelectView></DiagramSelectView>,
           EQUATIONATOR: <EquationatorView></EquationatorView>,

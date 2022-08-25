@@ -20,7 +20,6 @@ function SWPower() {
     <div className="SWPowerComponent">
       <Wizard header={<Header />} footer={<Footer />}>
         {work.problem.steps.map((step, i) => {
-          console.info(step);
           return (
             <PowerContent
               key={i}

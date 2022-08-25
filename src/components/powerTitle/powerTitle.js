@@ -14,8 +14,6 @@ function PowerTitle(props) {
   const instructions = problem.steps[activeStep].instruction;
   const mnemonicIndex = problem.steps[activeStep].mnemonicIndex;
 
-  console.info(activeStep, title, subTitle, instructions, mnemonicIndex);
-
   return (
     <div className="powerTitle">
       {title.split("").map(function (char, index) {

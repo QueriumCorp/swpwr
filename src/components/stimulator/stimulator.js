@@ -10,7 +10,10 @@ function Stimulator(props) {
     if (window.getSelection) {
       const selectedText = window.getSelection().toString();
       if (selectedText.length) {
-        console.info(selectedText);
+        props.onChange({
+          type: "addTag",
+          payload: selectedText,
+        });
       }
     }
   }
