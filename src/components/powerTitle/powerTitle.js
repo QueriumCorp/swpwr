@@ -1,12 +1,18 @@
 import React from "react";
 
+import { useWizard } from "react-use-wizard";
+
 import "./powerTitle.css";
 
 function PowerTitle(props) {
-  const current = props.current;
-  const title = props.title;
-  const subTitle = props.subTitle;
-  const instructions = props.instructions;
+  const problem = props.problem;
+
+  const { activeStep } = useWizard();
+
+  const title = problem.stepsMnemonic;
+  const subTitle = problem.steps[activeStep].label;
+  const instructions = problem.steps[activeStep].instruction;
+
   return (
     <div className="powerTitle">
       {title.split("").map(function (char, index) {
@@ -14,7 +20,7 @@ function PowerTitle(props) {
           <span
             aria-hidden="true"
             key={index}
-            className={index === current ? "powerTitleCurrentLetter" : ""}
+            className={index === activeStep ? "powerTitleCurrentLetter" : ""}
           >
             {char}
           </span>

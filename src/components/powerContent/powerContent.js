@@ -12,13 +12,14 @@ import ReviewerView from "../../stepViews/reviewerView/reviewerView";
 import "./powerContent.css";
 
 function PowerContent(props) {
+  console.info(props);
   const contentType = props.type;
   // const problem = props.problem;
   // const dispatch = props.dispatcher;
 
   return (
     <div className="powerContent">
-      <div>{contentType}</div>
+      <div style={{ color: "green" }}>{contentType}</div>
       {
         {
           READ: <ReadView></ReadView>,

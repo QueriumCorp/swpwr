@@ -1,0 +1,14 @@
+.Info {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.Actions {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  gap: 1rem;
+  flex-direction: row;
+}
