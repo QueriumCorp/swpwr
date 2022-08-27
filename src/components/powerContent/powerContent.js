@@ -12,7 +12,6 @@ import ReviewerView from "../../stepViews/reviewerView/reviewerView";
 import "./powerContent.css";
 
 function PowerContent(props) {
-  console.info(props);
   const contentType = props.type;
   const problem = props.problem;
   const solution = props.solution;
@@ -31,8 +30,14 @@ function PowerContent(props) {
               onChange={dispatch}
             ></TagView>
           ),
+          DIAGRAMSELECT: (
+            <DiagramSelectView
+              problem={problem}
+              solution={solution}
+              onChange={dispatch}
+            ></DiagramSelectView>
+          ),
           DIAGRAMMER: <DiagrammerView></DiagrammerView>,
-          DIAGRAMSELECT: <DiagramSelectView></DiagramSelectView>,
           EQUATIONATOR: <EquationatorView></EquationatorView>,
           STEPWISE: <StepWiseView></StepWiseView>,
           EXPLAINER: <ExplainerView></ExplainerView>,

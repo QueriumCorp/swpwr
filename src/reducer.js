@@ -73,6 +73,7 @@ export const blankWork = {
   },
   solution: {
     tags: [],
+    selectedDiagram: null,
   },
 };
 
@@ -105,6 +106,12 @@ const workReducer = (work, action) => {
           break;
         }
       }
+      return newProduct;
+    }
+
+    // deleteTag
+    case "diagramSelected": {
+      newProduct.solution.selectedDiagram = action.payload;
       return newProduct;
     }
 

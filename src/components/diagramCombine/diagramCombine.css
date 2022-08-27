@@ -1,0 +1,53 @@
+.diagramContainer {
+  padding: 5px;
+}
+.diagramCombine {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+}
+.selected {
+  background-color: yellowgreen;
+}
+.diagramTitle {
+  min-height: 100px;
+  flex-grow: 1;
+}
+.diagramExample {
+  display: flex;
+  min-height: 100px;
+  flex-grow: 1;
+  padding: 10px;
+}
+.diagramBox {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border: solid 1px black;
+}
+.diagramTop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  border: solid 1px black;
+}
+.diagramBottom {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+.diagramBottomLeft {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px black;
+}
+.diagramBottomRight {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px black;
+}

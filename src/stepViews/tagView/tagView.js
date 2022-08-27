@@ -6,8 +6,6 @@ import Stimulator from "../../components/stimulator/stimulator";
 import "./tagView.css";
 
 function TagView(props) {
-  console.info(props);
-
   function dispatch(action) {
     props.onChange(action);
   }
