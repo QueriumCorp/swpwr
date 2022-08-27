@@ -10,7 +10,6 @@ export const Actions = () => <div className="Actions"></div>;
 export const Info = () => <div className="Info"></div>;
 
 const Footer = (props) => {
-  const steps = props.problem.steps;
   const {
     nextStep,
     previousStep,
