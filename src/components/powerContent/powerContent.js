@@ -37,11 +37,41 @@ function PowerContent(props) {
               onChange={dispatch}
             ></DiagramSelectView>
           ),
-          DIAGRAMMER: <DiagrammerView></DiagrammerView>,
-          EQUATIONATOR: <EquationatorView></EquationatorView>,
-          STEPWISE: <StepWiseView></StepWiseView>,
-          EXPLAINER: <ExplainerView></ExplainerView>,
-          REVIEWER: <ReviewerView></ReviewerView>,
+          DIAGRAMMER: (
+            <DiagrammerView
+              problem={problem}
+              solution={solution}
+              onChange={dispatch}
+            ></DiagrammerView>
+          ),
+          EQUATIONATOR: (
+            <EquationatorView
+              problem={problem}
+              solution={solution}
+              onChange={dispatch}
+            ></EquationatorView>
+          ),
+          STEPWISE: (
+            <StepWiseView
+              problem={problem}
+              solution={solution}
+              onChange={dispatch}
+            ></StepWiseView>
+          ),
+          EXPLAINER: (
+            <ExplainerView
+              problem={problem}
+              solution={solution}
+              onChange={dispatch}
+            ></ExplainerView>
+          ),
+          REVIEWER: (
+            <ReviewerView
+              problem={problem}
+              solution={solution}
+              onChange={dispatch}
+            ></ReviewerView>
+          ),
         }[contentType]
       }
     </div>

@@ -12,6 +12,7 @@ function PowerTitle(props) {
   const title = problem.stepsMnemonic;
   const subTitle = problem.steps[activeStep].label;
   const instructions = problem.steps[activeStep].instruction;
+  const longInstruction = problem.steps[activeStep].longInstruction;
   const mnemonicIndex = problem.steps[activeStep].mnemonicIndex;
 
   return (
@@ -29,6 +30,7 @@ function PowerTitle(props) {
       })}
       <div>{subTitle}</div>
       <p>{instructions}</p>
+      <p>{longInstruction}</p>
     </div>
   );
 }

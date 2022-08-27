@@ -9,7 +9,8 @@ import Button from "../button/button";
 export const Actions = () => <div className="Actions"></div>;
 export const Info = () => <div className="Info"></div>;
 
-const Footer = () => {
+const Footer = (props) => {
+  const steps = props.problem.steps;
   const {
     nextStep,
     previousStep,
@@ -28,7 +29,7 @@ const Footer = () => {
         <p>Has next step: {!isLastStep ? "✅" : "⛔"} </p>
         <br />
         <p>
-          Active step: {activeStep + 1} <br />
+          Active step: {activeStep} <br />
         </p>
         <br />
         <p>
@@ -45,7 +46,13 @@ const Footer = () => {
         </Button>
         <Button
           label="Next"
-          onClick={() => nextStep()}
+          onClick={() => {
+            try {
+              nextStep();
+            } catch (e) {
+              console.info("None Shall Pass", e);
+            }
+          }}
           disabled={isLoading || isLastStep}
         />
       </div>

@@ -15,6 +15,7 @@ export const blankWork = {
         longInstruction: `Take two deep breaths then slowly read the following word problem.  Reflect on what is 
         the question asking you. Say the problem in your own words.`,
         type: "READ",
+        valid: 1,
       },
       {
         label: "Prepare",
@@ -24,6 +25,7 @@ export const blankWork = {
           the important pieces of text. This will allow you to quickly paste helpful 
           snippets as you work the problem.`,
         type: "TAG",
+        valid: 0,
       },
       {
         label: "Organize",
@@ -31,6 +33,7 @@ export const blankWork = {
         instruction: "Match the problem to a diagram",
         longInstruction: `Pick a diagram! Any diagram will do!`,
         type: "DIAGRAMSELECT",
+        valid: 0,
       },
       {
         label: "Organize",
@@ -40,6 +43,7 @@ export const blankWork = {
           the values with your keyboard or drag and drop them from the 
           selections you made.`,
         type: "DIAGRAMMER",
+        valid: 0,
       },
       {
         label: "Organize",
@@ -47,6 +51,7 @@ export const blankWork = {
         instruction: "Setup the Equation",
         longInstruction: `Need explanatory instruction copy here.`,
         type: "EQUATIONATOR",
+        valid: 0,
       },
       {
         label: "Work the Problem",
@@ -54,6 +59,7 @@ export const blankWork = {
         instruction: "Solve the equation",
         longInstruction: `Enter you solutions steps one by one.`,
         type: "STEPWISE",
+        valid: 0,
       },
       {
         label: "Explain",
@@ -61,6 +67,7 @@ export const blankWork = {
         instruction: "Explain your Solution",
         longInstruction: `Justify your approach and explain your solution.`,
         type: "EXPLAINER",
+        valid: 0,
       },
       {
         label: "Review",
@@ -68,6 +75,7 @@ export const blankWork = {
         instruction: "Review your Work",
         longInstruction: `Always review and, if necessary, revise your work before submitting it for grading.`,
         type: "REVIEWER",
+        valid: 0,
       },
     ],
   },
