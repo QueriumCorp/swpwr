@@ -24,6 +24,7 @@ function SWPower() {
             <PowerContent
               key={i}
               problem={work.problem}
+              solution={work.solution}
               type={step.type}
               dispatcher={workDispatch}
             ></PowerContent>

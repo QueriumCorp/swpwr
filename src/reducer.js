@@ -77,7 +77,7 @@ export const blankWork = {
 };
 
 const workReducer = (work, action) => {
-  // console.info("reducer", action);
+  console.info("reducer", action);
   let newProduct = { ...work };
   newProduct._lastUpdated = Date.now();
 
@@ -87,10 +87,24 @@ const workReducer = (work, action) => {
       return blankWork;
     }
 
-    // Something
+    // addTag
     case "addTag": {
-      console.info(action.payload.something);
+      if (newProduct.solution.tags.find((tag) => tag === action.payload)) {
+        console.info("dupe!!!");
+        break;
+      }
       newProduct.solution.tags.push(action.payload);
+      return newProduct;
+    }
+
+    // deleteTag
+    case "deleteTag": {
+      for (let i = 0; i < newProduct.solution.tags.length; i++) {
+        if (newProduct.solution.tags[i] === action.payload) {
+          newProduct.solution.tags.splice(i, 1);
+          break;
+        }
+      }
       return newProduct;
     }
 

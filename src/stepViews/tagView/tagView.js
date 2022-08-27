@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Chip } from "@react-md/chip";
+import Chipster from "../../components/chipster/chipster";
 
 import Stimulator from "../../components/stimulator/stimulator";
 import "./tagView.css";
@@ -19,7 +19,7 @@ function TagView(props) {
         enabled={true}
         onChange={dispatch}
       ></Stimulator>
-      <Chip id="example-chip-1">I'm a chip!</Chip>
+      <Chipster chips={props.solution.tags} onChange={dispatch}></Chipster>
     </div>
   );
 }

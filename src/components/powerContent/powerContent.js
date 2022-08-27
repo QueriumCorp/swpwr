@@ -15,6 +15,7 @@ function PowerContent(props) {
   console.info(props);
   const contentType = props.type;
   const problem = props.problem;
+  const solution = props.solution;
   const dispatch = props.dispatcher;
 
   return (
@@ -23,7 +24,13 @@ function PowerContent(props) {
       {
         {
           READ: <ReadView stimulus={problem.stimulus}></ReadView>,
-          TAG: <TagView problem={problem} onChange={dispatch}></TagView>,
+          TAG: (
+            <TagView
+              problem={problem}
+              solution={solution}
+              onChange={dispatch}
+            ></TagView>
+          ),
           DIAGRAMMER: <DiagrammerView></DiagrammerView>,
           DIAGRAMSELECT: <DiagramSelectView></DiagramSelectView>,
           EQUATIONATOR: <EquationatorView></EquationatorView>,
