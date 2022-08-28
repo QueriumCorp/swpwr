@@ -1,7 +1,7 @@
-.diagramCompareContainer {
+.diagramContainer {
   padding: 5px;
 }
-.diagramCompare {
+.diagramCombine {
   border: 1px solid black;
   display: flex;
   flex-direction: row;
@@ -9,42 +9,42 @@
 .selected {
   background-color: yellowgreen;
 }
-.diagramCompareTitle {
+.diagramTitle {
   min-height: 100px;
   flex-grow: 1;
 }
-.diagramCompareExample {
+.diagramExample {
   display: flex;
   min-height: 100px;
   flex-grow: 1;
   padding: 10px;
 }
-.diagramCompareBox {
+.diagramBox {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   border: solid 1px black;
 }
-.diagramCompareTop {
+.diagramTop {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-grow: 1;
   border: solid 1px black;
 }
-.diagramCompareBottom {
+.diagramBottom {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
 }
-.diagramCompareBottomLeft {
+.diagramBottomLeft {
   display: flex;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
   border: solid 1px black;
 }
-.diagramCompareBottomRight {
+.diagramBottomRight {
   display: flex;
   flex-grow: 1;
   align-items: center;

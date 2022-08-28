@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useWizard } from "react-use-wizard";
 import Toast from "react-bootstrap/Toast";
 
-import DiagramList from "../../components/diagramList/diagramList";
 import Stimulator from "../../components/stimulator/stimulator";
 
 import "./diagrammerView.css";

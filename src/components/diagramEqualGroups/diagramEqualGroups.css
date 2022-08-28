@@ -1,7 +1,7 @@
-.diagramCombineContainer {
+.diagramEqualGroupsContainer {
   padding: 5px;
 }
-.diagramCombine {
+.diagramEqualGroups {
   border: 1px solid black;
   display: flex;
   flex-direction: row;
@@ -9,45 +9,41 @@
 .selected {
   background-color: yellowgreen;
 }
-.diagramCombineTitle {
+.diagramEqualGroupsTitle {
   min-height: 100px;
   flex-grow: 1;
 }
-.diagramCombineExample {
+.diagramEqualGroupsExample {
   display: flex;
   min-height: 100px;
   flex-grow: 1;
   padding: 10px;
 }
-.diagramCombineBox {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  border: solid 1px black;
-}
-.diagramCombineTop {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  border: solid 1px black;
-}
-.diagramCombineBottom {
+.diagramEqualGroupsBox {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-}
-.diagramCombineBottomLeft {
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
   border: solid 1px black;
 }
-.diagramCombineBottomRight {
+
+.diagramEqualGroupsStart {
   display: flex;
-  flex-grow: 1;
   align-items: center;
   justify-content: center;
+  flex-grow: 1;
+  border: solid 1px black;
+}
+.diagramEqualGroupsChange {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  border: solid 1px black;
+}
+.diagramEqualGroupsEnd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
   border: solid 1px black;
 }

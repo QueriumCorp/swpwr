@@ -1,7 +1,10 @@
 import React from "react";
+
 import DiagramChange from "../diagramChange/diagramChange";
+import DiagramEqualGroups from "../diagramEqualGroups/diagramEqualGroups";
 import DiagramCombine from "../diagramCombine/diagramCombine";
-import DiagramCompare from "../diagramCompare/diagramCompare";
+import DiagramMultiplyTimes from "../diagramMultiplyTimes/diagramMultiplyTimes";
+
 import "./diagramList.css";
 
 function DiagramList(props) {
@@ -14,14 +17,18 @@ function DiagramList(props) {
         selected={current === "COMBINE"}
         onChange={onChange}
       ></DiagramCombine>
-      <DiagramCompare
-        selected={current === "COMPARE"}
+      <DiagramMultiplyTimes
+        selected={current === "MULTIPLYTIMES"}
         onChange={onChange}
-      ></DiagramCompare>
+      ></DiagramMultiplyTimes>
       <DiagramChange
         selected={current === "CHANGE"}
         onChange={onChange}
       ></DiagramChange>
+      <DiagramEqualGroups
+        selected={current === "EQUALGROUPS"}
+        onChange={onChange}
+      ></DiagramEqualGroups>
     </div>
   );
 }
