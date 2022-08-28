@@ -1,9 +1,9 @@
 import React from "react";
 
 import Card from "react-bootstrap/Card";
-import Chipster from "../chipster/chipster";
 
 import "./diagrammer.css";
+import Tags from "./tags";
 
 function Change(props) {
   console.info(props);
@@ -34,7 +34,7 @@ function Change(props) {
               </div>
             </div>
           </div>
-          <Chipster chips={props.solution.tags}></Chipster>
+          <Tags tags={props.solution.tags}></Tags>
         </Card.Body>
       </Card>
     </div>

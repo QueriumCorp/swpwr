@@ -1,5 +1,8 @@
 import React from "react";
 
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import Change from "./change";
 import Combine from "./combine";
 
@@ -15,40 +18,42 @@ function Diagrammer(props) {
   console.info(solution.selectedDiagram);
 
   return (
-    <div className="Diagrammer">
-      {
+    <DndProvider backend={HTML5Backend}>
+      <div className="Diagrammer">
         {
-          COMBINE: (
-            <Combine
-              problem={problem}
-              solution={solution}
-              onChange={onChange}
-            ></Combine>
-          ),
-          CHANGE: (
-            <Change
-              problem={problem}
-              solution={solution}
-              onChange={onChange}
-            ></Change>
-          ),
-          EQUALGROUPS: (
-            <EqualGroups
-              problem={problem}
-              solution={solution}
-              onChange={onChange}
-            ></EqualGroups>
-          ),
-          MULTIPLYTIMES: (
-            <MultiplyTimes
-              problem={problem}
-              solution={solution}
-              onChange={onChange}
-            ></MultiplyTimes>
-          ),
-        }[solution.selectedDiagram]
-      }
-    </div>
+          {
+            COMBINE: (
+              <Combine
+                problem={problem}
+                solution={solution}
+                onChange={onChange}
+              ></Combine>
+            ),
+            CHANGE: (
+              <Change
+                problem={problem}
+                solution={solution}
+                onChange={onChange}
+              ></Change>
+            ),
+            EQUALGROUPS: (
+              <EqualGroups
+                problem={problem}
+                solution={solution}
+                onChange={onChange}
+              ></EqualGroups>
+            ),
+            MULTIPLYTIMES: (
+              <MultiplyTimes
+                problem={problem}
+                solution={solution}
+                onChange={onChange}
+              ></MultiplyTimes>
+            ),
+          }[solution.selectedDiagram]
+        }
+      </div>
+    </DndProvider>
   );
 }
 
