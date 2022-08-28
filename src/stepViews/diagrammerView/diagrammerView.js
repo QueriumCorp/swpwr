@@ -37,7 +37,8 @@ function DiagrammerView(props) {
           <Toast.Body>You must select a diagram before proceeding!</Toast.Body>
         </Toast>
         <Diagrammer
-          current={solution.selectedDiagram}
+          problem={problem}
+          solution={solution}
           onChange={onChange}
         ></Diagrammer>
       </div>

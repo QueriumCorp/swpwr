@@ -8,19 +8,45 @@ import EqualGroups from "./equalGroups";
 import MultiplyTimes from "./multiplyTimes";
 
 function Diagrammer(props) {
-  console.info(props);
-  const diagramType = props.current;
+  const problem = props.problem;
+  const solution = props.solution;
   const onChange = props.onChange;
+
+  console.info(solution.selectedDiagram);
 
   return (
     <div className="Diagrammer">
       {
         {
-          COMBINE: <Combine></Combine>,
-          CHANGE: <Change></Change>,
-          EQUALGROUPS: <EqualGroups></EqualGroups>,
-          MULTIPLYTIMES: <MultiplyTimes></MultiplyTimes>,
-        }[diagramType]
+          COMBINE: (
+            <Combine
+              problem={problem}
+              solution={solution}
+              onChange={onChange}
+            ></Combine>
+          ),
+          CHANGE: (
+            <Change
+              problem={problem}
+              solution={solution}
+              onChange={onChange}
+            ></Change>
+          ),
+          EQUALGROUPS: (
+            <EqualGroups
+              problem={problem}
+              solution={solution}
+              onChange={onChange}
+            ></EqualGroups>
+          ),
+          MULTIPLYTIMES: (
+            <MultiplyTimes
+              problem={problem}
+              solution={solution}
+              onChange={onChange}
+            ></MultiplyTimes>
+          ),
+        }[solution.selectedDiagram]
       }
     </div>
   );

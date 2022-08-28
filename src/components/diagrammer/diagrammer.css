@@ -1,0 +1,49 @@
+.diagramChangeContainer {
+  padding: 5px;
+}
+.diagramChange {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+.selected {
+  background-color: yellowgreen;
+}
+.diagramChangeTitle {
+  min-height: 100px;
+  flex-grow: 1;
+}
+.diagramChangeExample {
+  display: flex;
+  min-height: 100px;
+  flex-grow: 1;
+  padding: 10px;
+}
+.diagramChangeBox {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  border: solid 1px black;
+}
+
+.diagramChangeStart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  border: solid 1px black;
+}
+.diagramChangeChange {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  border: solid 1px black;
+}
+.diagramChangeEnd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  border: solid 1px black;
+}
