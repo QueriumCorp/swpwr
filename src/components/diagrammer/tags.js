@@ -1,49 +1,44 @@
 import React from "react";
 
+import { useDrag } from "react-dnd";
+
 import { Chip } from "@react-md/chip";
-import { AddCircleSVGIcon } from "@react-md/material-icons";
 
 import "./tags.css";
 
-function XCircleIcon(props) {
+function Tag(props) {
+  console.info(props);
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "TAG",
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   return (
-    <AddCircleSVGIcon
-      {...props}
+    <Chip
+      key={props.idx}
+      ref={drag}
       style={{
-        transform: "rotate(45deg)",
-        WebkitTransform: "rotate(45deg)",
+        opacity: isDragging ? 0.5 : 1,
+        fontSize: 25,
+        fontWeight: "bold",
+        cursor: "move",
       }}
-    />
+    >
+      {props.tag}
+    </Chip>
   );
 }
 
 function Tags(props) {
   const tags = [...props.tags];
   tags.push("unknown");
-  const onChange = props.onChange;
-
-  function deleteChip(chip) {
-    console.info("deleteChip:", chip);
-    if (chip.length) {
-      onChange({
-        type: "deleteTag",
-        payload: chip,
-      });
-    }
-  }
 
   return (
     <div className="tags">
-      {tags.map((chip, i) => {
-        return (
-          <Chip
-            key={i}
-            onClick={() => deleteChip(chip)}
-            rightIcon={<XCircleIcon />}
-          >
-            {chip}
-          </Chip>
-        );
+      {tags.map((tag, i) => {
+        return <Tag key={i} idx={i} tag={tag}></Tag>;
       })}
     </div>
   );
