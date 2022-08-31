@@ -7,9 +7,11 @@ import { Chip } from "@react-md/chip";
 import "./tags.css";
 
 function Tag(props) {
+  const tagValue = props.tag;
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: !isNaN(props.tag) ? "NUM" : "STR",
-    value: props.tag,
+    item: { tagValue },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),

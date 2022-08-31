@@ -19,10 +19,10 @@ function DiagrammerView(props) {
   const { handleStep } = useWizard();
 
   handleStep(() => {
-    // if (!solution.selectedDiagram) {
-    //   toggleToast();
-    //   throw "Need to select a diagram";
-    // }
+    if (!solution.selectedDiagram) {
+      toggleToast();
+      throw Object.assign(new Error("in diagrammerView"), { code: 402 });
+    }
   });
 
   return (

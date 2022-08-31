@@ -15,8 +15,6 @@ function Diagrammer(props) {
   const solution = props.solution;
   const onChange = props.onChange;
 
-  console.info(solution.selectedDiagram);
-
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="Diagrammer">

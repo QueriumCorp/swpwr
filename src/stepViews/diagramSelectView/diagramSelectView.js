@@ -21,7 +21,7 @@ function DiagramSelectView(props) {
   handleStep(() => {
     if (!solution.selectedDiagram) {
       toggleToast();
-      throw "Need to select a diagram";
+      throw Object.assign(new Error("in diagramSelectView"), { code: 403 });
     }
   });
 

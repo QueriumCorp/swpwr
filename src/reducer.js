@@ -82,6 +82,13 @@ export const blankWork = {
   solution: {
     tags: [],
     selectedDiagram: null,
+    diagram: {
+      change: {
+        start: "",
+        change: "",
+        end: "",
+      },
+    },
   },
 };
 
@@ -117,9 +124,27 @@ const workReducer = (work, action) => {
       return newProduct;
     }
 
-    // deleteTag
+    // diagramSelected
     case "diagramSelected": {
       newProduct.solution.selectedDiagram = action.payload;
+      return newProduct;
+    }
+
+    // changeDiagramStart
+    case "changeDiagramStart": {
+      newProduct.solution.diagram.change.start = action.payload;
+      return newProduct;
+    }
+
+    // changeDiagramChange
+    case "changeDiagramChange": {
+      newProduct.solution.diagram.change.change = action.payload;
+      return newProduct;
+    }
+
+    // changeDiagramEnd
+    case "changeDiagramEnd": {
+      newProduct.solution.diagram.change.end = action.payload;
       return newProduct;
     }
 
