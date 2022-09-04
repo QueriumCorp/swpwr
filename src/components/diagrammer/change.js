@@ -8,7 +8,7 @@ import "./diagrammer.css";
 import Tags from "./tags";
 
 function Change(props) {
-  const problem = props.problem;
+  // const problem = props.problem;
   const solution = props.solution;
   const onChange = props.onChange;
 
