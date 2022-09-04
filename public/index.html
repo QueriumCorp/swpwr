@@ -166,14 +166,10 @@
 
     <!-- ### START OF STEPWISE STUFF ### -->
     <!-- The following div holds the SW component off screen -->
-    <div style="position: fixed; left: -10000px">
+    <div id="swBackStage" style="position: fixed; left: -10000px">
       <!-- when the s navs to the StepWise page to work the problem, we reparent
-      the #swBuffer into the page -->
-      <div id="swBuffer">
-        <div
-          style="position: relative; clear: both; height: 640px; margin: 0 auto"
-          data-enhance="false"
-        >
+      the #swClient into the page -->
+      <div id="swClient">
           <querium
             label="QUES-6011"
             description="Solve by addition.  \(\begin{array}{c}7x-2y=3 \\4x+5y=3.25\end{array}\)"

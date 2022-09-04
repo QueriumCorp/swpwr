@@ -37,6 +37,7 @@ const Footer = (props) => {
       </div>
       <div className="Actions">
         <Button
+          className="WizButton"
           label="Previous"
           onClick={() => previousStep()}
           disabled={isLoading || isFirstStep}
@@ -44,6 +45,7 @@ const Footer = (props) => {
           Previous
         </Button>
         <Button
+          className="WizButton"
           label="Next"
           onClick={() => {
             try {

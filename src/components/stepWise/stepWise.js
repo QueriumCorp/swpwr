@@ -7,20 +7,18 @@ export default class SWContainer extends React.Component {
   }
 
   componentDidMount() {
-    const qqNode = this.myRef.current.appendChild(
-      document.createElement("querium")
-    );
-    qqNode.className = "qq";
-
     setTimeout(() => {
-      console.info("trying to start the question");
       document
-        .getElementById("swHolder")
-        .appendChild(document.getElementById("swBuffer"));
+        .getElementById("swStage")
+        .appendChild(document.getElementById("swClient"));
     }, 0);
   }
-
+  componentWillUnmount() {
+    document
+      .getElementById("swBackStage")
+      .appendChild(document.getElementById("swStage"));
+  }
   render() {
-    return <div id="swHolder" ref={this.myRef}></div>;
+    return <div id="swStage" ref={this.myRef}></div>;
   }
 }
