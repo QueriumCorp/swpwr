@@ -17,7 +17,7 @@ export default class SWContainer extends React.Component {
       document
         .getElementById("swHolder")
         .appendChild(document.getElementById("swBuffer"));
-    }, 2000);
+    }, 0);
   }
 
   render() {
