@@ -1,22 +1,9 @@
-/* global angular */
-
 import React from "react";
 
 export default class SWContainer extends React.Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
-
-    angular.module("myApp", []).controller("MyController", [
-      "$scope",
-      function ($scope) {
-        $scope.greetMe = "World";
-      },
-    ]);
-
-    angular.element(function () {
-      angular.bootstrap(document, ["myApp"]);
-    });
   }
 
   componentDidMount() {
@@ -27,17 +14,13 @@ export default class SWContainer extends React.Component {
 
     setTimeout(() => {
       console.info("trying to start the question");
-      window.querium.startQuestion(
-        "appID",
-        "JoeSixpack",
-        { type: "gradeBasicAlgebra", definition: "SolveFor[4(y-5)-3y=-1,y]" },
-        {},
-        {}
-      );
+      document
+        .getElementById("swHolder")
+        .appendChild(document.getElementById("swBuffer"));
     }, 2000);
   }
 
   render() {
-    return <div ref={this.myRef}></div>;
+    return <div id="swHolder" ref={this.myRef}></div>;
   }
 }

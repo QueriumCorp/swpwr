@@ -25,6 +25,130 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Querium StepWise Power</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://stepwise.querium.com/libs/mathquill/mathquill.js"></script>
+
+    <!-- #### START OF STEPWISE STUFF #### -->
+    <link
+      rel="stylesheet"
+      id="options_typography_Open+Sans:400,700-css"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
+      type="text/css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="options_typography_Lato:300,900-css"
+      href="https://fonts.googleapis.com/css?family=Lato:300,900"
+      type="text/css"
+      media="all"
+    />
+
+    <base href="/testq_assets/" />
+    <!-- Custom CSS -->
+    <link href="css/scrolling-nav.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- MathJax is required as is support for Latex, MathML and ASCIIMath -->
+    <script
+      type="text/javascript"
+      async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    ></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ messageStyle: 'none', skipStartupTypeset: true, showMathMenu: true, tex2jax: { preview: 'none' }, asciimath2jax: { delimiters: [['`','`'],['``','``']], preview: "none" }, AsciiMath: {displaystyle: false} }); MathJax.Hub.Register.LoadHook("[MathJax]/extensions/asciimath2jax.js",function () { var AM = MathJax.Extension.asciimath2jax, CREATEPATTERNS = AM.createPatterns; AM.createPatterns = function () { var result = CREATEPATTERNS.call(this); this.match['``'].mode = ";mode=display"; return result; }; }); MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready",function () { var AM = MathJax.InputJax.AsciiMath; AM.postfilterHooks.Add(function (data) { if (data.script.type.match(/;mode=display/)) {data.math.root.display = "block"} return data; }); });
+    </script>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+    />
+
+    <script type="text/javascript">
+      function getInternetExplorerVersion() {
+        // Returns the version of Internet Explorer or a -1 (indicating the use of another browser).
+        var rv = -1; // Return value assumes failure.
+        if (navigator.appName == "Microsoft Internet Explorer") {
+          var ua = navigator.userAgent;
+          var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+          if (re.exec(ua) != null) {
+            rv = parseFloat(RegExp.$1);
+          }
+        }
+        return rv;
+      }
+
+      var ieVer = getInternetExplorerVersion();
+      if (ieVer > 2 && ieVer < 10) {
+        alert(
+          "Sorry, you are using an obsolete version of Internet Explorer. Querium has been designed for the secure, modern web.  Querium joins Microsoft in encouraging you to upgrade to Internet Explorer 10 or 11."
+        );
+        window.open(
+          "http://blogs.msdn.com/b/ie/archive/2014/08/07/stay-up-to-date-with-internet-explorer.aspx",
+          "_self"
+        );
+      }
+    </script>
+
+    <!-- Loads the Lato font used by default in the StepWise UI. Can be     -->
+    <!-- overridden with a cascaded style sheet                             -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Oswald"
+      rel="stylesheet"
+    />
+
+    <!-- REQUIRED CSS files for Querium StepWise Client                     -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/ng-sortable/dist/ng-sortable.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/ng-scrollbar/dist/ng-scrollbar.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://stepwise.querium.com/libs/mathquill/mathquill.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://stepwise.querium.com/client/querium-stepwise-1.6.8.css"
+    />
+
+    <!-- REQUIRED Javascript files for Querium StepWise Client -->
+    <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-sanitize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+
+    <script
+      type="text/javascript"
+      src="https://stepwise.querium.com/client/querium-stepwise-1.6.8.1-jira.js"
+    ></script>
+
+    <!-- Set this to true to enable logging -->
+    <script>
+      querium.qEvalLogging = true;
+    </script>
+
+    <!-- #### END OF STEPWISE STUFF #### -->
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -39,5 +163,216 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <!-- ### START OF STEPWISE STUFF ### -->
+    <!-- The following div holds the SW component off screen -->
+    <div style="position: fixed; left: -10000px">
+      <!-- when the s navs to the StepWise page to work the problem, we reparent
+      the #swBuffer into the page -->
+      <div id="swBuffer">
+        <div
+          style="position: relative; clear: both; height: 640px; margin: 0 auto"
+          data-enhance="false"
+        >
+          <querium
+            label="QUES-6011"
+            description="Solve by addition.  \(\begin{array}{c}7x-2y=3 \\4x+5y=3.25\end{array}\)"
+            definition="SolveFor[7x-2y=3 && 4x+5y=3.25, {x,y}, EliminationMethod]"
+            mathml="\(\)"
+            type="gradeBasicAlgebra"
+            hint1=""
+            hint2=""
+            hint3=""
+          ></querium>
+        </div>
+      </div>
+    </div>
+
+    <!-- Just hiding the test page widgets so I don't have to spend time
+    detangling them -->
+    <div style="display: none">
+      <p>
+        Your question will be running on version 1.6.8.1 of the StepWise Client
+        (1.6.6 + Firebase + log button fixes).
+      </p>
+
+      <p></p>
+      <p>
+        <label for="author">Author:</label>
+        <input id="author" />&nbsp;
+        <button onclick="saveTest()">Save Author Name</button>
+      </p>
+      <p>
+        <label for="server">StepWiseAI Server:</label>
+        <input id="server" style="width: 400px" />&nbsp;
+        <button onclick="setServer()">Set</button>
+      </p>
+      <ul>
+        <li>https://stepwisedev.querium.com/webMathematica/api/</li>
+        <li>https://stepwise.querium.com/webMathematica/api/</li>
+        <li>https://stepwiseai.querium.com/webMathematica/api/</li>
+        <li>https://stepwiseai00.querium.com/webMathematica/api/</li>
+        <li>https://stepwiseai01.querium.com/webMathematica/api/</li>
+        <li>https://stepwiseai02.querium.com/webMathematica/api/</li>
+        <li>https://stepwiseai03.querium.com/webMathematica/api/</li>
+        <li>https://stepwiseai04.querium.com/webMathematica/api/</li>
+      </ul>
+    </div>
+    <script type="text/javascript">
+      var qqUser =
+        localStorage.getItem("name") == null ||
+        localStorage.getItem("name").length === 0
+          ? "Gary Busey"
+          : localStorage.getItem("name");
+      var server =
+        localStorage.getItem("server") == null ||
+        localStorage.getItem("server").length === 0
+          ? "https://stepwise.querium.com/api/"
+          : localStorage.getItem("server");
+      var questionList = [];
+      var urlParams = getJsonFromUrl(true);
+      var problemID = urlParams.assignment_id;
+      var theProblem = false;
+
+      window.onload = function () {
+        document.getElementById("author").value = qqUser;
+        document.getElementById("server").value = server;
+        querium.serverURL = server;
+      };
+
+      document.getElementById("author").onblur = function (e) {
+        var author = document.getElementById("author").value;
+        if (author.length > 2) {
+          localStorage.setItem("name", author);
+        }
+      };
+      document.getElementById("author").onkeypress = function (e) {
+        var event = e || window.event;
+        var charCode = event.which || event.keyCode;
+
+        if (charCode == "13") {
+          var author = document.getElementById("author").value;
+          if (author.length > 2) {
+            localStorage.setItem("name", author);
+          }
+          return false;
+        }
+      };
+      document.getElementById("server").onblur = function (e) {
+        var server = document.getElementById("server").value;
+        localStorage.setItem("server", server);
+        querium.serverURL = server;
+      };
+      document.getElementById("server").onkeypress = function (e) {
+        var event = e || window.event;
+        var charCode = event.which || event.keyCode;
+
+        if (charCode == "13") {
+          var server = document.getElementById("server").value;
+          localStorage.setItem("server", server);
+          querium.serverURL = server;
+          return false;
+        }
+      };
+
+      function saveTest() {
+        var author = document.getElementById("author").value;
+        if (author.length > 2) {
+          localStorage.setItem("name", author);
+          var state = querium.saveState("querium");
+          state.problemDef = state.problemDef.replace(/^"(.+(?="$))"$/, "$1");
+          /* testRef.push({
+                      problemID: problemID,
+                      author: author,
+                      log: JSON.stringify(state)
+                  }); 
+                  alert('Test saved');
+      */
+          alert("Name saved");
+        } else {
+          alert("Who am I?  Why am I here?");
+        }
+      }
+
+      function setServer() {
+        var server = document.getElementById("server").value;
+        localStorage.setItem("server", server);
+        querium.serverURL = server;
+        alert("Server changed to " + server);
+      }
+
+      function getJsonFromUrl(hashBased) {
+        var query;
+        if (hashBased) {
+          var pos = location.href.indexOf("?");
+          if (pos == -1) return [];
+          query = location.href.substr(pos + 1);
+        } else {
+          query = location.search.substr(1);
+        }
+        var result = {};
+        query.split("&").forEach(function (part) {
+          if (!part) return;
+          var item = part.split("=");
+          var key = item[0];
+          var from = key.indexOf("[");
+          if (from == -1) result[key] = decodeURIComponent(item[1]);
+          else {
+            var to = key.indexOf("]");
+            var index = key.substring(from + 1, to);
+            key = key.substring(0, from);
+            if (!result[key]) result[key] = [];
+            if (!index) result[key].push(item[1]);
+            else result[key][index] = item[1];
+          }
+        });
+        return result;
+      }
+    </script>
+
+    <script type="text/javascript">
+      var callbacks = {
+        success: celebrate,
+        status: updateProgress,
+      };
+
+      var options = {
+        hideMenu: true,
+        scribbles: false,
+      };
+
+      function saveProgress() {
+        console.dir(querium.saveState());
+      }
+
+      function celebrate(stats) {
+        console.log("celebrating victory in webApp");
+        console.dir(stats);
+        alert("Victory is OURS!");
+        var btnElement = document.querySelector("#endOfSW");
+        console.log("btnElement = ", btnElement);
+        var classValues = btnElement.classList;
+        console.log("classValues = ", classValues);
+        btnElement.classList.remove(
+          "ui-disabled"
+        ); /* Enable next question button after StepWise */
+        setCorrect(); /* This counts as a correct question */
+        updateCorrect(); /* increase the number of stars */
+        showCorrect(); /* Update the stars right now */
+      }
+
+      function updateProgress(stats) {
+        console.log("updatingProgress in webApp");
+        console.dir(stats);
+      }
+
+      querium.appID = "JiraTestPage";
+      querium.student = qqUser;
+      console.log("querium.student = " + querium.student);
+      querium.callbacks = {
+        success: celebrate,
+      };
+      querium.options = options;
+    </script>
   </body>
 </html>
