@@ -39,6 +39,12 @@ const workReducer = (work, action) => {
       return newProduct;
     }
 
+    // diagramAnalyzed
+    case "updateAnalysis": {
+      newProduct.solution.diagramAnalysis = action.payload;
+      return newProduct;
+    }
+
     // diagramSelected
     case "diagramSelected": {
       newProduct.solution.selectedDiagram = action.payload;

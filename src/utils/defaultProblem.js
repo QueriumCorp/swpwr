@@ -26,10 +26,19 @@ export const defaultProblem = {
       valid: 0,
     },
     {
+      label: "Prepare",
+      mnemonicIndex: 0,
+      instruction: "Which schema will you use?",
+      longInstruction: `State which schema you think you will use and discuss why you chose that one. 
+      (Not graded)`,
+      type: "DIAGRAMANALYZE",
+      valid: 0,
+    },
+    {
       label: "Organize",
       mnemonicIndex: 1,
-      instruction: "Match the problem to a diagram",
-      longInstruction: `Pick a diagram! Any diagram will do!`,
+      instruction: "What type of problem is this?",
+      longInstruction: `What type of problem is this?`,
       type: "DIAGRAMSELECT",
       valid: 0,
     },

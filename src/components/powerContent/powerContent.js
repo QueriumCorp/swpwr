@@ -8,6 +8,7 @@ import EquationatorView from "../../stepViews/equationatorView/equationatorView"
 import StepWiseView from "../../stepViews/stepwiseView/stepwiseView";
 import ExplainerView from "../../stepViews/explainerView/explainerView";
 import ReviewerView from "../../stepViews/reviewerView/reviewerView";
+import DiagramAnalyzeView from "../../stepViews/diagramAnalyzeView/diagramAnalyzeView";
 
 import "./powerContent.css";
 
@@ -28,6 +29,13 @@ function PowerContent(props) {
               solution={solution}
               onChange={dispatch}
             ></TagView>
+          ),
+          DIAGRAMANALYZE: (
+            <DiagramAnalyzeView
+              problem={problem}
+              solution={solution}
+              onChange={dispatch}
+            ></DiagramAnalyzeView>
           ),
           DIAGRAMSELECT: (
             <DiagramSelectView
