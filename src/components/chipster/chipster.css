@@ -1,5 +1,17 @@
 .chipster {
-  background: lightgray;
+  margin: 30px 20px 10px 20px;
   text-align: left;
   color: black;
+}
+
+.chip {
+  margin: 10px 5px 5px 5px;
+}
+
+.noChips {
+  text-align: center;
+  font-style: italic;
+  color: lightgray;
+  font-size: 36px;
+  user-select: none;
 }

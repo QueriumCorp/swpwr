@@ -31,21 +31,26 @@ function Chipster(props) {
     }
   }
 
-  return (
-    <div className="chipster">
-      {chips.map((chip, i) => {
-        return (
-          <Chip
-            key={i}
-            onClick={() => deleteChip(chip)}
-            rightIcon={<XCircleIcon />}
-          >
-            {chip}
-          </Chip>
-        );
-      })}
-    </div>
-  );
+  if (chips.length) {
+    return (
+      <div className="chipster">
+        {chips.map((chip, i) => {
+          return (
+            <Chip
+              className="chip"
+              key={i}
+              onClick={() => deleteChip(chip)}
+              rightIcon={<XCircleIcon />}
+            >
+              {chip}
+            </Chip>
+          );
+        })}
+      </div>
+    );
+  } else {
+    return <div className="noChips">select text to create tags</div>;
+  }
 }
 
 export default Chipster;

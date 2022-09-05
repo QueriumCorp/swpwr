@@ -21,7 +21,7 @@ const Footer = (props) => {
   } = useWizard();
 
   return (
-    <div class="powerFooter">
+    <div className="powerFooter">
       <div className="Info">
         <p>Has previous step: {!isFirstStep ? "✅" : "⛔"}</p>
         <br />
