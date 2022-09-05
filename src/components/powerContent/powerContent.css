@@ -1,6 +1,4 @@
-.powerTitle {
-  color: lightgray;
-}
-.powerTitleCurrentLetter {
-  color: orangered;
+.powerContent {
+  flex: 1;
+  overflow-y: scroll;
 }

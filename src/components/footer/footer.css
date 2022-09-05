@@ -1,3 +1,7 @@
+.powerFooter {
+  background: white;
+  border-top: 1px solid black;
+}
 .Info {
   display: flex;
   justify-content: center;
