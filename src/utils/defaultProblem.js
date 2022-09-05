@@ -18,10 +18,10 @@ export const defaultProblem = {
     {
       label: "Prepare",
       mnemonicIndex: 0,
-      instruction: "Analyze the stimulus and highlight key facts",
-      longInstruction: `What are the key pieces of information in the word problem below? Select 
-          the important pieces of text. This will allow you to quickly paste helpful 
-          snippets as you work the problem.`,
+      instruction: "Identify Important Information",
+      longInstruction: `Identify the key facts in the word problem below. Select 
+      these important pieces of text. This will allow you to quickly paste helpful 
+      snippets as you work the problem.`,
       type: "TAG",
       valid: 0,
     },
