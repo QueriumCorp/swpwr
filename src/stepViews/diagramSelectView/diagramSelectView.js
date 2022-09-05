@@ -21,7 +21,7 @@ function DiagramSelectView(props) {
   handleStep(() => {
     if (!solution.selectedDiagram) {
       toggleToast();
-      throw Object.assign(new Error("in diagramSelectView"), { code: 403 });
+      throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page.";
     }
   });
 
