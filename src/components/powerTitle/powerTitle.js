@@ -17,20 +17,24 @@ function PowerTitle(props) {
 
   return (
     <div className="powerTitle">
-      {title.split("").map(function (char, index) {
-        return (
-          <span
-            aria-hidden="true"
-            key={index}
-            className={index === mnemonicIndex ? "powerTitleCurrentLetter" : ""}
-          >
-            {char}
-          </span>
-        );
-      })}
-      <div>{subTitle}</div>
-      <p>{instructions}</p>
-      <p>{longInstruction}</p>
+      <div className="titleText">
+        {title.split("").map(function (char, index) {
+          return (
+            <span
+              aria-hidden="true"
+              key={index}
+              className={
+                index === mnemonicIndex ? "powerTitleCurrentLetter" : ""
+              }
+            >
+              {char}
+            </span>
+          );
+        })}
+      </div>
+      <div className="subTitle">{subTitle}</div>
+      <p className="instructions">{instructions}</p>
+      <p className="longInstruction">{longInstruction}</p>
     </div>
   );
 }

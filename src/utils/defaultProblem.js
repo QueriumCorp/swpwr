@@ -9,9 +9,9 @@ export const defaultProblem = {
     {
       label: "Prepare",
       mnemonicIndex: 0,
-      instruction: "Familiarize yourself with the word problem",
-      longInstruction: `Take two deep breaths then slowly read the following word problem.  Reflect on what is 
-        the question asking you. Say the problem in your own words.`,
+      instruction: "Read the Problem",
+      longInstruction: `Take two deep breaths. Read the word problem carefully. What is the 
+      problem about? What does it ask you to find?`,
       type: "READ",
       valid: 1,
     },

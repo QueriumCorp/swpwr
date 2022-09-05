@@ -1,7 +1,26 @@
 .powerTitle {
+  padding: 10px;
+}
+.titleText {
   color: lightgray;
-  background-color: blue;
+  font-size: 52px;
+  line-height: 0.75;
 }
 .powerTitleCurrentLetter {
-  color: orangered;
+  color: #5286e9;
+}
+.subTitle {
+  color: #5286e9;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.instructions {
+  font-family: Garamond, serif;
+  font-size: 40px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+.longInstructions {
+  font-size: 18px;
+  margin-top: 10px;
 }
