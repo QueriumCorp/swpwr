@@ -3,6 +3,7 @@
   text-align: left;
   color: black;
   user-select: none;
+  padding: 18px 36px 18px 36px;
 }
 .taggable {
   user-select: auto;

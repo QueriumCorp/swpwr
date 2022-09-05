@@ -19,7 +19,6 @@ function PowerContent(props) {
 
   return (
     <div className="powerContent">
-      <div style={{ color: "green" }}>{contentType}</div>
       {
         {
           READ: <ReadView stimulus={problem.stimulus}></ReadView>,
