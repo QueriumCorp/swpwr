@@ -6,7 +6,6 @@ import "./stepwiseView.css";
 function StepWiseView(props) {
   return (
     <div className="StepWise">
-      <h1>StepWise</h1>
       <SWContainer />
     </div>
   );

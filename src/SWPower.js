@@ -19,7 +19,9 @@ function SWPower() {
     <div className="SWPowerComponent">
       <Wizard
         header={<PowerTitle problem={work.problem} />}
-        footer={<PowerFooter problem={work.problem} />}
+        footer={
+          <PowerFooter problem={work.problem} dispatcher={workDispatch} />
+        }
       >
         {work.problem.steps.map((step, i) => {
           return (

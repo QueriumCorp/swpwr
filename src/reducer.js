@@ -69,6 +69,12 @@ const workReducer = (work, action) => {
       return newProduct;
     }
 
+    // changeDiagramEnd
+    case "SUBMIT": {
+      console.info(work);
+      return newProduct;
+    }
+
     // Default
     default: {
       console.error("Bad reducer action:", action);

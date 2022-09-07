@@ -36,26 +36,42 @@ const PowerFooter = (props) => {
         </p>
       </div>
       <div className="Actions">
-        <Button
-          className="WizButton"
-          label="Previous"
-          onClick={() => previousStep()}
-          disabled={isLoading || isFirstStep}
-        >
-          Previous
-        </Button>
-        <Button
-          className="WizButton"
-          label="Next"
-          onClick={() => {
-            try {
-              nextStep();
-            } catch (e) {
-              console.info("None Shall Pass", e);
-            }
-          }}
-          disabled={isLoading || isLastStep}
-        />
+        {!isFirstStep && (
+          /* !isLastStep && */ <Button
+            className="WizButton"
+            label="Previous"
+            onClick={() => previousStep()}
+            disabled={isLoading}
+          >
+            Previous
+          </Button>
+        )}
+
+        {!isLastStep && (
+          <Button
+            className="WizButton"
+            label="Next"
+            onClick={() => {
+              try {
+                nextStep();
+              } catch (e) {
+                console.info("None Shall Pass", e);
+              }
+            }}
+            disabled={isLoading}
+          />
+        )}
+
+        {isLastStep && (
+          <Button
+            className="WizButton"
+            label="Submit"
+            onClick={() => {
+              props.dispatcher({ type: "SUBMIT" });
+            }}
+            disabled={isLoading}
+          />
+        )}
       </div>
     </div>
   );
