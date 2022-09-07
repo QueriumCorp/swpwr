@@ -16,21 +16,22 @@ function DiagramCombine(props) {
     });
   }
   return (
-    <div className="diagramCombineContainer">
+    <div className="diagramSample">
       <Card onClick={clickHandler}>
-        <Card.Body className={`diagramCombine ${selected ? "selected" : ""}`}>
-          <div className="diagramCombineTitle">
+        <Card.Body className={`diagramCard ${selected ? "selected" : ""}`}>
+          <div className="diagramTitle">
             <h3>COMBINE</h3>
-            <p>Are amounts compared for a difference?</p>
+            <p>Are parts put together into a total? </p>
           </div>
-          <div className="diagramCombineExample">
+          <div className="diagramExample">
             <div className="diagramCombineBox">
-              <div className="diagramCombineTop">Greater</div>
+              <div className="diagramCombineTop">Total</div>
               <div className="diagramCombineBottom">
-                <div className="diagramCombineBottomLeft">Less</div>
-                <div className="diagramCombineBottomRight">Difference</div>
+                <div className="diagramCombineBottomLeft">Part</div>
+                <div className="diagramCombineBottomRight">Part</div>
               </div>
             </div>
+            <div className="diagramEquation">P + Q = T</div>
           </div>
         </Card.Body>
       </Card>

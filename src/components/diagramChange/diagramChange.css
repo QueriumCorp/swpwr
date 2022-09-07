@@ -1,49 +1,40 @@
-.diagramChangeContainer {
-  padding: 5px;
-}
-.diagramChange {
-  border: 1px solid black;
-  display: flex;
-  flex-direction: row;
-}
-.selected {
-  background-color: yellowgreen;
-}
-.diagramChangeTitle {
-  min-height: 100px;
-  flex-grow: 1;
-}
-.diagramChangeExample {
-  display: flex;
-  min-height: 100px;
-  flex-grow: 1;
-  padding: 10px;
-}
 .diagramChangeBox {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  border: solid 1px black;
 }
 
+.diagramChangeItem {
+  min-height: 80px;
+  width: 80px;
+  margin: 3px;
+  background: lightgray;
+  user-select: none;
+}
+.diagramChangeArrowBox {
+  position: relative;
+  height: 20px;
+}
+.diagramChangeArrow {
+  position: absolute;
+  height: 40px;
+  width: 100%;
+}
 .diagramChangeStart {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
   border: solid 1px black;
 }
 .diagramChangeChange {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
   border: solid 1px black;
 }
 .diagramChangeEnd {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
   border: solid 1px black;
 }

@@ -1,29 +1,13 @@
-.diagramCombineContainer {
-  padding: 5px;
-}
-.diagramCombine {
-  border: 1px solid black;
-  display: flex;
-  flex-direction: row;
-}
 .selected {
   background-color: yellowgreen;
 }
-.diagramCombineTitle {
-  min-height: 100px;
-  flex-grow: 1;
-}
-.diagramCombineExample {
-  display: flex;
-  min-height: 100px;
-  flex-grow: 1;
-  padding: 10px;
-}
+
 .diagramCombineBox {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   border: solid 1px black;
+  background: lightgray;
 }
 .diagramCombineTop {
   display: flex;
@@ -31,11 +15,13 @@
   justify-content: center;
   flex-grow: 1;
   border: solid 1px black;
+  min-height: 50px;
 }
 .diagramCombineBottom {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
+  min-height: 50px;
 }
 .diagramCombineBottomLeft {
   display: flex;

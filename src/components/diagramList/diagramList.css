@@ -1,3 +1,31 @@
 .DiagramSelect {
   color: initial;
 }
+
+.diagramSample {
+  padding: 5px;
+}
+
+.diagramCard {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+}
+
+.diagramTitle {
+  min-height: 100px;
+  flex-grow: 1;
+}
+.diagramExample {
+  display: flex;
+  min-height: 100px;
+  min-width: 300px;
+  max-width: 300px;
+  flex-grow: 1;
+  padding: 10px;
+  flex-direction: column;
+}
+.diagramEquation {
+  text-align: center;
+  font-size: 24px;
+}
