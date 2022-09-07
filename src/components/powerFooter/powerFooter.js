@@ -1,4 +1,4 @@
-import "./footer.css";
+import "./powerFooter.css";
 
 import React from "react";
 
@@ -9,7 +9,7 @@ import Button from "../button/button";
 export const Actions = () => <div className="Actions"></div>;
 export const Info = () => <div className="Info"></div>;
 
-const Footer = (props) => {
+const PowerFooter = (props) => {
   const {
     nextStep,
     previousStep,
@@ -61,4 +61,4 @@ const Footer = (props) => {
   );
 };
 
-export default Footer;
+export default PowerFooter;

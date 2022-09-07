@@ -9,7 +9,7 @@ import workReducer, { blankWork } from "./reducer.js";
 import PowerTitle from "./components/powerTitle/powerTitle.js";
 import "./SWPower.css";
 import PowerContent from "./components/powerContent/powerContent.js";
-import Footer from "./components/footer/footer.js";
+import PowerFooter from "./components/powerFooter/powerFooter.js";
 
 function SWPower() {
   const [work, workDispatch] = useReducer(workReducer, blankWork);
@@ -18,7 +18,10 @@ function SWPower() {
 
   return (
     <div className="SWPowerComponent">
-      <Wizard header={<Header />} footer={<Footer problem={work.problem} />}>
+      <Wizard
+        header={<Header />}
+        footer={<PowerFooter problem={work.problem} />}
+      >
         {work.problem.steps.map((step, i) => {
           return (
             <PowerContent
