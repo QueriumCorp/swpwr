@@ -6,20 +6,19 @@ import { Wizard } from "react-use-wizard";
 
 import workReducer, { blankWork } from "./reducer.js";
 
-import PowerTitle from "./components/powerTitle/powerTitle.js";
 import "./SWPower.css";
+
+import PowerTitle from "./components/powerTitle/powerTitle.js";
 import PowerContent from "./components/powerContent/powerContent.js";
 import PowerFooter from "./components/powerFooter/powerFooter.js";
 
 function SWPower() {
   const [work, workDispatch] = useReducer(workReducer, blankWork);
 
-  const Header = () => <PowerTitle problem={work.problem}></PowerTitle>;
-
   return (
     <div className="SWPowerComponent">
       <Wizard
-        header={<Header />}
+        header={<PowerTitle problem={work.problem} />}
         footer={<PowerFooter problem={work.problem} />}
       >
         {work.problem.steps.map((step, i) => {
