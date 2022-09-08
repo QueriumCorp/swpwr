@@ -1,0 +1,14 @@
+.diagramExample {
+  display: flex;
+  min-height: 100px;
+  min-width: 300px;
+  max-width: 300px;
+  flex-grow: 1;
+  padding: 10px;
+  flex-direction: column;
+}
+
+.changeTitle {
+  margin-bottom: -8px;
+  user-select: none;
+}
