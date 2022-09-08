@@ -30,13 +30,6 @@ function DiagramChange(props) {
           </div>
           <div className="diagramExample">
             <DiagramChangeWidget />
-            <div className="diagramChangeBox">
-              <div className="diagramChangeItem diagramChangeStart">Start</div>
-              <div className="diagramChangeItem diagramChangeChange">
-                Change
-              </div>
-              <div className="diagramChangeItem diagramChangeEnd">End</div>
-            </div>
             <div className="diagramEquation">S +/- C = E</div>
           </div>
         </Card.Body>
