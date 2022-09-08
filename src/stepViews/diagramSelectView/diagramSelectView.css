@@ -1,3 +1,11 @@
 .DiagramSelect {
   color: initial;
+  overflow-y: scroll;
+}
+.DiagramSelectView {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
 }

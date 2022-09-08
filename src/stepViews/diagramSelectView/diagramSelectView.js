@@ -26,7 +26,7 @@ function DiagramSelectView(props) {
   });
 
   return (
-    <div>
+    <div className="DiagramSelectView">
       <Stimulator text={problem.stimulus} enabled={false}></Stimulator>
 
       <div className="DiagramSelect">
