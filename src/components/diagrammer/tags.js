@@ -4,7 +4,7 @@ import { useDrag } from "react-dnd";
 
 import { Chip } from "@react-md/chip";
 
-import "./tags.css";
+import "../chipster/chipster.css";
 
 function Tag(props) {
   const tagValue = props.tag;
@@ -21,10 +21,9 @@ function Tag(props) {
     <Chip
       key={props.idx}
       ref={drag}
+      className="chip"
       style={{
         opacity: isDragging ? 0.5 : 1,
-        fontSize: 25,
-        fontWeight: "bold",
         cursor: "move",
       }}
     >
