@@ -4,6 +4,7 @@
   color: black;
   user-select: none;
   padding: 18px 36px 18px 36px;
+  border-bottom: 1px solid black;
 }
 .taggable {
   user-select: auto;
