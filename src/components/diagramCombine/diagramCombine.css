@@ -11,6 +11,7 @@
 }
 .diagramCombineTop {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   flex-grow: 1;
@@ -25,6 +26,7 @@
 }
 .diagramCombineBottomLeft {
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
@@ -32,6 +34,7 @@
 }
 .diagramCombineBottomRight {
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
   align-items: center;
   justify-content: center;

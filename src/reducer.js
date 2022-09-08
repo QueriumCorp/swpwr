@@ -69,8 +69,26 @@ const workReducer = (work, action) => {
       return newProduct;
     }
 
-    // changeDiagramEnd
+    // combineDiagramTotal
+    case "combineDiagramTotal": {
+      newProduct.solution.diagram.combine.total = action.payload;
+      return newProduct;
+    }
+
+    // combineDiagramPart1
+    case "combineDiagramPart1": {
+      newProduct.solution.diagram.combine.part1 = action.payload;
+      return newProduct;
+    }
+
+    // combineDiagramPart2
+    case "combineDiagramPart2": {
+      newProduct.solution.diagram.combine.part2 = action.payload;
+      return newProduct;
+    }
+    // SUBMIT
     case "SUBMIT": {
+      alert("YOU SUBMIT! Bend the knee and look in the console!");
       console.info(work);
       return newProduct;
     }

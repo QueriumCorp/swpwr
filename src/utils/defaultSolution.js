@@ -8,5 +8,10 @@ export const defaultSolution = {
       change: "",
       end: "",
     },
+    combine: {
+      total: "",
+      part1: "",
+      part2: "",
+    },
   },
 };
