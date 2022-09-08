@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./diagramCombine.css";
+import DiagramCombineWidget from "./diagramCombineWidget";
 
 function DiagramCombine(props) {
   const selected = props.selected;
@@ -24,13 +25,7 @@ function DiagramCombine(props) {
             <p>Are parts put together into a total? </p>
           </div>
           <div className="diagramExample">
-            <div className="diagramCombineBox">
-              <div className="diagramCombineTop">Total</div>
-              <div className="diagramCombineBottom">
-                <div className="diagramCombineBottomLeft">Part</div>
-                <div className="diagramCombineBottomRight">Part</div>
-              </div>
-            </div>
+            <DiagramCombineWidget />
             <div className="diagramEquation">P + Q = T</div>
           </div>
         </Card.Body>
