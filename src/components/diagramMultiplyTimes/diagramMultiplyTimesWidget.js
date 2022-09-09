@@ -3,9 +3,6 @@ import React from "react";
 import "./diagramMultiplyTimes.css";
 
 export default function DiagramMultiplyTimesWidget(props) {
-  const selected = props.selected;
-  const onChange = props.onChange;
-
   return (
     <div className="diagramMultipleBox">
       <div className="diagramMultipleItem diagramMultipleStart">

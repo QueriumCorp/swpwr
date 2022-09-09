@@ -3,10 +3,6 @@ import React from "react";
 import "./diagramChange.css";
 
 export default function DiagramChangeWidget(props) {
-  const editable = props.editable;
-  const selected = props.selected;
-  const onChange = props.onChange;
-
   return (
     <div className="diagramChange">
       <div className="diagramChangeArrowBox">

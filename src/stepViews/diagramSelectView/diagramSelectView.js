@@ -21,7 +21,7 @@ function DiagramSelectView(props) {
   handleStep(() => {
     if (!solution.selectedDiagram) {
       toggleToast();
-      throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page.";
+      throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page."; // eslint-disable-line no-throw-literal
     }
   });
 
