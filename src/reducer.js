@@ -104,6 +104,25 @@ const workReducer = (work, action) => {
       newProduct.solution.diagram.times.multiplier = action.payload;
       return newProduct;
     }
+
+    // groupsDiagramProduct
+    case "groupsDiagramProduct": {
+      newProduct.solution.diagram.groups.product = action.payload;
+      return newProduct;
+    }
+
+    // groupsDiagramNumber
+    case "groupsDiagramNumber": {
+      newProduct.solution.diagram.groups.number = action.payload;
+      return newProduct;
+    }
+
+    // groupsDiagramGroups
+    case "groupsDiagramGroups": {
+      newProduct.solution.diagram.groups.groups = action.payload;
+      return newProduct;
+    }
+
     // SUBMIT
     case "SUBMIT": {
       alert("YOU SUBMIT! Bend the knee and look in the console!");

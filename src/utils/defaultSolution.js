@@ -18,5 +18,10 @@ export const defaultSolution = {
       multiplier: "",
       product: "",
     },
+    groups: {
+      groups: "",
+      number: "",
+      product: "",
+    },
   },
 };
