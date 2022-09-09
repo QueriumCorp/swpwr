@@ -1,8 +1,8 @@
 .diagramExample {
   display: flex;
   min-height: 100px;
-  min-width: 300px;
-  max-width: 300px;
+  min-width: 400px;
+  max-width: 400px;
   flex-grow: 1;
   padding: 10px;
   flex-direction: column;
@@ -37,4 +37,34 @@
   width: 100%;
   text-align: center;
   border: solid 1px black;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.react-toggle-track {
+  background-color: red;
+  color: white;
+}
+.react-toggle-track-check {
+  display: flex;
+  align-items: center;
+}
+.react-toggle-track-x {
+  display: flex;
+  align-items: center;
+}
+.signToggle.react-toggle--checked .react-toggle-track {
+  background-color: green;
+  color: white;
+}
+.signToggle.react-toggle--unchecked .react-toggle-track {
+  background-color: red;
+  display: flex;
+  align-items: center;
+}
+.react-toggle {
+  vertical-align: middle;
+}
+.react-icons {
+  vertical-align: middle;
 }

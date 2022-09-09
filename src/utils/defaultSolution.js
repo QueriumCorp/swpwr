@@ -5,6 +5,7 @@ export const defaultSolution = {
   diagram: {
     change: {
       start: "",
+      sign: true,
       change: "",
       end: "",
     },

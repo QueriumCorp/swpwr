@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Card from "react-bootstrap/Card";
 
 import { useDrop } from "react-dnd";
+import Toggle from "react-toggle";
+import "react-toggle/style.css";
+import { TiPlus } from "react-icons/ti";
+import { FaMinus } from "react-icons/fa";
 
 import Tags from "./tags";
 
@@ -13,6 +17,8 @@ export default function Change(props) {
   // const problem = props.problem;
   const solution = props.solution;
   const onChange = props.onChange;
+
+  const [positive, setPositive] = useState(true);
 
   const [{ isOverStart }, startDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
@@ -43,6 +49,10 @@ export default function Change(props) {
 
   function handleChangeStart(event) {
     onChange({ type: "changeDiagramStart", payload: event.target.value });
+  }
+  function handleSignToggle(event) {
+    setPositive(!positive);
+    onChange({ type: "changeDiagramSign", payload: !positive });
   }
   function handleChangeChange(event) {
     onChange({ type: "changeDiagramChange", payload: event.target.value });
@@ -96,6 +106,15 @@ export default function Change(props) {
                   className="inputField"
                 />
               </div>
+              <Toggle
+                defaultChecked={positive}
+                className="signToggle"
+                icons={{
+                  checked: <TiPlus size={28} />,
+                  unchecked: <FaMinus size={42} />,
+                }}
+                onChange={handleSignToggle}
+              />
               <div
                 className="diagramChangeItem"
                 ref={changeDrop}

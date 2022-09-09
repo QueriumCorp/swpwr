@@ -57,6 +57,12 @@ const workReducer = (work, action) => {
       return newProduct;
     }
 
+    // changeDiagramSign
+    case "changeDiagramSign": {
+      newProduct.solution.diagram.change.sign = action.payload;
+      return newProduct;
+    }
+
     // changeDiagramChange
     case "changeDiagramChange": {
       newProduct.solution.diagram.change.change = action.payload;
