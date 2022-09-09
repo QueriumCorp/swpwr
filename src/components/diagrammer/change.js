@@ -18,7 +18,7 @@ export default function Change(props) {
   const solution = props.solution;
   const onChange = props.onChange;
 
-  const [positive, setPositive] = useState(true);
+  const [positive, setPositive] = useState(props.solution.diagram.change.sign);
 
   const [{ isOverStart }, startDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
