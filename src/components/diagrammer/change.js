@@ -54,7 +54,7 @@ export default function Change(props) {
     <div className="diagramChangeContainer">
       <Card>
         <Card.Body className="diagramChange">
-          <div className="diagramChangeTitle">
+          <div className="diagramTitle">
             <h3>CHANGE</h3>
           </div>
           <div className="diagramExample">

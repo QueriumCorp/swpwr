@@ -86,6 +86,24 @@ const workReducer = (work, action) => {
       newProduct.solution.diagram.combine.part2 = action.payload;
       return newProduct;
     }
+
+    // timesDiagramProduct
+    case "timesDiagramProduct": {
+      newProduct.solution.diagram.times.product = action.payload;
+      return newProduct;
+    }
+
+    // timesDiagramSets
+    case "timesDiagramSets": {
+      newProduct.solution.diagram.times.sets = action.payload;
+      return newProduct;
+    }
+
+    // timesDiagramMultiplier
+    case "timesDiagramMultiplier": {
+      newProduct.solution.diagram.times.multiplier = action.payload;
+      return newProduct;
+    }
     // SUBMIT
     case "SUBMIT": {
       alert("YOU SUBMIT! Bend the knee and look in the console!");

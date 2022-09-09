@@ -26,7 +26,7 @@
   align-items: center;
   justify-content: center;
   border: none;
-  background: white;
+  background: transparent;
 }
 .diagramMultipleMultiple {
   display: flex;
@@ -39,7 +39,7 @@
   align-items: center;
   justify-content: center;
   border: none;
-  background: white;
+  background: transparent;
 }
 .diagramMultipleIcon {
   position: absolute;

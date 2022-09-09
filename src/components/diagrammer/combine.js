@@ -54,7 +54,7 @@ export default function Combine(props) {
     <div className="diagramChangeContainer">
       <Card>
         <Card.Body className="diagramChange">
-          <div className="diagramChangeTitle">
+          <div className="diagramTitle">
             <h3>COMBINE</h3>
           </div>
           <div className="diagramExample">
@@ -98,45 +98,6 @@ export default function Combine(props) {
                 </div>
               </div>
             </div>
-
-            {/* <div className="diagramChangeBox">
-              <div
-                className="diagramChangeItem"
-                ref={totalDrop}
-                style={{ background: isOverTotal ? "red" : "" }}
-              >
-                Total
-                <input
-                  value={solution.diagram.change.Total}
-                  onChange={handleCombineTotal}
-                  className="inputField"
-                />
-              </div>
-              <div
-                className="diagramChangeItem"
-                ref={part1Drop}
-                style={{ background: isOverPart1 ? "red" : "" }}
-              >
-                change
-                <input
-                  value={solution.diagram.change.change}
-                  onChange={handleCombinePart1}
-                  className="inputField"
-                />
-              </div>
-              <div
-                className="diagramChangeItem"
-                ref={part2Drop}
-                style={{ background: isOverPart2 ? "red" : "" }}
-              >
-                end
-                <input
-                  value={solution.diagram.change.end}
-                  onChange={handleCombinePart2}
-                  className="inputField"
-                />
-              </div>
-            </div> */}
           </div>
           <Tags tags={props.solution.tags}></Tags>
         </Card.Body>

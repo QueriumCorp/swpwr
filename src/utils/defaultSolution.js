@@ -13,5 +13,10 @@ export const defaultSolution = {
       part1: "",
       part2: "",
     },
+    times: {
+      sets: "",
+      multiplier: "",
+      product: "",
+    },
   },
 };
