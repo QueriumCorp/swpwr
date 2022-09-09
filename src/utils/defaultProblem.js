@@ -52,14 +52,15 @@ export const defaultProblem = {
       type: "DIAGRAMMER",
       valid: 0,
     },
-    {
-      label: "Organize",
-      mnemonicIndex: 1,
-      instruction: "Setup the Equation",
-      longInstruction: `Take your diagram and transform it into a math equation.`,
-      type: "EQUATIONATOR",
-      valid: 0,
-    },
+    // Alan's figma shows this as out of scope
+    // {
+    //   label: "Organize",
+    //   mnemonicIndex: 1,
+    //   instruction: "Setup the Equation",
+    //   longInstruction: `Take your diagram and transform it into a math equation.`,
+    //   type: "EQUATIONATOR",
+    //   valid: 0,
+    // },
     {
       label: "Work the Problem",
       mnemonicIndex: 2,
