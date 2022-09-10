@@ -13,8 +13,8 @@
 }
 
 .diagramTitle {
-  min-height: 100px;
   flex-grow: 1;
+  user-select: none;
 }
 .diagramExample {
   display: flex;
