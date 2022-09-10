@@ -9,6 +9,7 @@ import { TiPlus } from "react-icons/ti";
 import { FaMinus } from "react-icons/fa";
 
 import Tags from "./tags";
+import insertAtCaret from "../../utils/insertIntoField.js";
 
 import "./diagrammer.css";
 import "../diagramChange/diagramChange.css";
@@ -19,6 +20,8 @@ export default function Change(props) {
   const onChange = props.onChange;
 
   const [positive, setPositive] = useState(props.solution.diagram.change.sign);
+
+  const [focused, setFocused] = useState(null);
 
   const [{ isOverStart }, startDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
@@ -60,6 +63,35 @@ export default function Change(props) {
   function handleChangeEnd(event) {
     onChange({ type: "changeDiagramEnd", payload: event.target.value });
   }
+
+  function handleFocus(event) {
+    setFocused(event.target || event.srcElement);
+  }
+
+  function handleSoftKey(key) {
+    const result = insertAtCaret(focused, key);
+    if (!result) return;
+
+    switch (focused.id) {
+      case "start":
+        onChange({ type: "changeDiagramStart", payload: result.newStr });
+        break;
+      case "change":
+        onChange({ type: "changeDiagramChange", payload: result.newStr });
+        break;
+      case "end":
+        onChange({ type: "changeDiagramEnd", payload: result.newStr });
+        break;
+      default:
+        console.error("bad handleSoftKey", key, result, focused);
+    }
+    setTimeout(() => {
+      focused.setSelectionRange(result.newStart, result.newEnd);
+    }, 10);
+    focused.focus();
+  }
+
+  // JSX
   return (
     <div className="diagramChangeContainer">
       <Card>
@@ -101,8 +133,10 @@ export default function Change(props) {
               >
                 start
                 <input
+                  id="start"
                   value={solution.diagram.change.start}
                   onChange={handleChangeStart}
+                  onFocus={handleFocus}
                   className="inputField"
                 />
               </div>
@@ -122,8 +156,10 @@ export default function Change(props) {
               >
                 change
                 <input
+                  id="change"
                   value={solution.diagram.change.change}
                   onChange={handleChangeChange}
+                  onFocus={handleFocus}
                   className="inputField"
                 />
               </div>
@@ -134,14 +170,26 @@ export default function Change(props) {
               >
                 end
                 <input
+                  id="end"
                   value={solution.diagram.change.end}
                   onChange={handleChangeEnd}
+                  onFocus={handleFocus}
                   className="inputField"
                 />
               </div>
             </div>
           </div>
           <Tags tags={props.solution.tags}></Tags>
+          <div>
+            <h4>Keys</h4>
+            <button
+              onClick={(evt) => {
+                handleSoftKey("42");
+              }}
+            >
+              42
+            </button>
+          </div>
         </Card.Body>
       </Card>
     </div>
