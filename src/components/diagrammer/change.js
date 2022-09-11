@@ -14,6 +14,7 @@ import insertAtCaret from "../../utils/insertIntoField.js";
 import "./diagrammer.css";
 import "../diagramChange/diagramChange.css";
 import isMobile from "../../utils/deviceInfo";
+import Keypad from "../keypad/keypad";
 
 const mobileDevice = isMobile();
 
@@ -187,13 +188,7 @@ export default function Change(props) {
           </div>
           <Tags tags={props.solution.tags}></Tags>
           <div>
-            <button
-              onClick={(evt) => {
-                handleSoftKey("42");
-              }}
-            >
-              42
-            </button>
+            <Keypad></Keypad>
           </div>
         </Card.Body>
       </Card>

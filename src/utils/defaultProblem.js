@@ -7,6 +7,14 @@ export const defaultProblem = {
   stepsMnemonic: "POWER",
   steps: [
     {
+      label: "TEST",
+      mnemonicIndex: 1,
+      instruction: "Test Page",
+      longInstruction: `This is a page to test components during development`,
+      type: "TEST",
+      valid: 0,
+    },
+    {
       label: "Prepare",
       mnemonicIndex: 0,
       instruction: "Read the Problem",

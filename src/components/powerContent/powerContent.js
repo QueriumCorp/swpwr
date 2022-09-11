@@ -11,6 +11,7 @@ import ReviewerView from "../../stepViews/reviewerView/reviewerView";
 import DiagramAnalyzeView from "../../stepViews/diagramAnalyzeView/diagramAnalyzeView";
 
 import "./powerContent.css";
+import TestView from "../../stepViews/testView/testView";
 
 function PowerContent(props) {
   const contentType = props.type;
@@ -78,6 +79,13 @@ function PowerContent(props) {
               solution={solution}
               onChange={dispatch}
             ></ReviewerView>
+          ),
+          TEST: (
+            <TestView
+              problem={problem}
+              solution={solution}
+              onChange={dispatch}
+            ></TestView>
           ),
         }[contentType]
       }
