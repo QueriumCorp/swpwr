@@ -187,7 +187,6 @@ export default function Change(props) {
           </div>
           <Tags tags={props.solution.tags}></Tags>
           <div>
-            <h4>Keys</h4>
             <button
               onClick={(evt) => {
                 handleSoftKey("42");

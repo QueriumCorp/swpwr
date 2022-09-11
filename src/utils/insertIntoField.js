@@ -59,6 +59,4 @@ export default function insertAtCaret(focused, text) {
   }
 
   return { newStr, newStart, newEnd };
-  // inputField.setSelectionRange(newStart, newEnd);
-  // inputField.focus();
 }
