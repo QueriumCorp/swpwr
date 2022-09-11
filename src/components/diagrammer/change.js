@@ -13,6 +13,9 @@ import insertAtCaret from "../../utils/insertIntoField.js";
 
 import "./diagrammer.css";
 import "../diagramChange/diagramChange.css";
+import isMobile from "../../utils/deviceInfo";
+
+const mobileDevice = isMobile();
 
 export default function Change(props) {
   // const problem = props.problem;
@@ -138,6 +141,7 @@ export default function Change(props) {
                   onChange={handleChangeStart}
                   onFocus={handleFocus}
                   className="inputField"
+                  readonly={mobileDevice}
                 />
               </div>
               <Toggle
@@ -161,6 +165,7 @@ export default function Change(props) {
                   onChange={handleChangeChange}
                   onFocus={handleFocus}
                   className="inputField"
+                  readonly={mobileDevice}
                 />
               </div>
               <div
@@ -175,6 +180,7 @@ export default function Change(props) {
                   onChange={handleChangeEnd}
                   onFocus={handleFocus}
                   className="inputField"
+                  readonly={mobileDevice}
                 />
               </div>
             </div>
