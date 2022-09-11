@@ -2,10 +2,10 @@ import React from "react";
 
 import "./keypad.css";
 
-export default function Keypad() {
+export default function Keypad({ className, style, children }) {
   return (
-    <div>
-      <h1>Keypad</h1>
+    <div className={`keypad ${className}`} style={style}>
+      {children}
     </div>
   );
 }

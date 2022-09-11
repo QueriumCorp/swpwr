@@ -2,17 +2,28 @@ import React from "react";
 
 import "./keypad.css";
 
-export default function KeyAlgorithm() {
-  function handleSoftKey(key) {
-    console.info("key", key);
+export default function Key({
+  className,
+  style,
+  size,
+  children,
+  retKey,
+  onClick,
+}) {
+  const keySize = size ? parseInt(size, 10) : 1;
+
+  function handleSoftKey() {
+    onClick(retKey);
   }
   return (
     <button
+      className={`key ${className}`}
+      style={{ flexGrow: keySize, ...style }}
       onClick={(evt) => {
-        handleSoftKey("42");
+        handleSoftKey();
       }}
     >
-      42
+      {children}
     </button>
   );
 }

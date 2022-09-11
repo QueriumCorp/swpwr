@@ -1,7 +1,18 @@
 .keypad {
-  background-color: red;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
 }
-
+.keyrow {
+  flex-grow: 1;
+  display: flex;
+  justify-content: stretch;
+}
 .key {
-  background-color: blue;
+  flex-grow: 1;
 }
