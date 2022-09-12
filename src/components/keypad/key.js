@@ -13,7 +13,9 @@ export default function Key({
   const keySize = size ? parseInt(size, 10) : 1;
 
   function handleSoftKey() {
-    onClick(retKey);
+    if (onClick) {
+      onClick(retKey);
+    }
   }
   return (
     <button
