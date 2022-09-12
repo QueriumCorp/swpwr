@@ -28,28 +28,60 @@ export default function TestView(props) {
       >
         <Keypad className="myKeypad" style={{ fontSize: "2rem" }}>
           <KeyRow>
-            <Key>&lt;</Key>
-            <Key>&gt;</Key>
-            <Key>
+            <Key
+              onClick={keyClick}
+              retKey="&LARR;"
+              style={{ background: "orange" }}
+            >
+              &larr;
+            </Key>
+            <Key
+              onClick={keyClick}
+              retKey="&RARR;"
+              style={{ background: "orange" }}
+            >
+              &rarr;
+            </Key>
+            <Key
+              onClick={keyClick}
+              retKey="&BKSP;"
+              style={{ background: "orange" }}
+            >
               <BsBackspace />
             </Key>
           </KeyRow>
           <KeyRow>
-            <Key onClick={keyClick} retKey="7" style={{ background: "orange" }}>
+            <Key onClick={keyClick} retKey="7">
               <i>7</i>
             </Key>
-            <Key>8</Key>
-            <Key>9</Key>
+            <Key onClick={keyClick} retKey="8">
+              8
+            </Key>
+            <Key onClick={keyClick} retKey="9">
+              9
+            </Key>
           </KeyRow>
           <KeyRow>
-            <Key>4</Key>
-            <Key>5</Key>
-            <Key>6</Key>
+            <Key onClick={keyClick} retKey="4">
+              4
+            </Key>
+            <Key onClick={keyClick} retKey="5">
+              5
+            </Key>
+            <Key onClick={keyClick} retKey="6">
+              6
+            </Key>
           </KeyRow>
           <KeyRow>
-            <Key>1</Key>
-            <Key>2</Key>
-            <Key>3</Key>
+            <Key onClick={keyClick} retKey="1">
+              1
+            </Key>
+            <Key onClick={keyClick} retKey="2">
+              2
+            </Key>
+            <Key onClick={keyClick} retKey="3">
+              3
+            </Key>
           </KeyRow>
         </Keypad>
       </div>

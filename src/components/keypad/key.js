@@ -13,7 +13,7 @@ export default function Key({
   const keySize = size ? parseInt(size, 10) : 1;
 
   function handleSoftKey() {
-    if (onClick) {
+    if (onClick && retKey) {
       onClick(retKey);
     }
   }
