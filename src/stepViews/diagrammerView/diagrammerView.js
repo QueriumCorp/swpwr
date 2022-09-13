@@ -26,22 +26,20 @@ function DiagrammerView(props) {
   });
 
   return (
-    <div>
+    <div className="DiagrammerView">
       <Stimulator text={problem.stimulus} enabled={false}></Stimulator>
 
-      <div className="Diagrammer">
-        <Toast show={showToast} onClose={toggleToast}>
-          <Toast.Header>
-            <strong className="me-auto">Select a Diagram</strong>
-          </Toast.Header>
-          <Toast.Body>You must select a diagram before proceeding!</Toast.Body>
-        </Toast>
-        <Diagrammer
-          problem={problem}
-          solution={solution}
-          onChange={onChange}
-        ></Diagrammer>
-      </div>
+      <Diagrammer
+        problem={problem}
+        solution={solution}
+        onChange={onChange}
+      ></Diagrammer>
+      <Toast show={showToast} onClose={toggleToast}>
+        <Toast.Header>
+          <strong className="me-auto">Select a Diagram</strong>
+        </Toast.Header>
+        <Toast.Body>You must select a diagram before proceeding!</Toast.Body>
+      </Toast>
     </div>
   );
 }

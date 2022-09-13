@@ -8,13 +8,16 @@ import "react-toggle/style.css";
 import { TiPlus } from "react-icons/ti";
 import { FaMinus } from "react-icons/fa";
 
+import Key from "../../components/keypad/key";
+import Keypad from "../../components/keypad/keypad";
+import KeyRow from "../../components/keypad/keyrow";
+import { BsBackspace } from "react-icons/bs";
 import Tags from "./tags";
 import insertAtCaret from "../../utils/insertIntoField.js";
 
 import "./diagrammer.css";
 import "../diagramChange/diagramChange.css";
 import isMobile from "../../utils/deviceInfo";
-import Keypad from "../keypad/keypad";
 
 const mobileDevice = isMobile();
 
@@ -98,7 +101,7 @@ export default function Change(props) {
   // JSX
   return (
     <div className="diagramChangeContainer">
-      <Card>
+      <Card style={{ flexGrow: "2" }}>
         <Card.Body className="diagramChange">
           <div className="diagramTitle">
             <h3>CHANGE</h3>
@@ -142,7 +145,7 @@ export default function Change(props) {
                   onChange={handleChangeStart}
                   onFocus={handleFocus}
                   className="inputField"
-                  readonly={mobileDevice}
+                  readOnly={mobileDevice}
                 />
               </div>
               <Toggle
@@ -166,7 +169,7 @@ export default function Change(props) {
                   onChange={handleChangeChange}
                   onFocus={handleFocus}
                   className="inputField"
-                  readonly={mobileDevice}
+                  readOnly={mobileDevice}
                 />
               </div>
               <div
@@ -181,14 +184,74 @@ export default function Change(props) {
                   onChange={handleChangeEnd}
                   onFocus={handleFocus}
                   className="inputField"
-                  readonly={mobileDevice}
+                  readOnly={mobileDevice}
                 />
               </div>
             </div>
           </div>
           <Tags tags={props.solution.tags}></Tags>
-          <div>
-            <Keypad></Keypad>
+          <div className="keypadBox">
+            <Keypad
+              className="myKeypad"
+              style={{ minHeight: "300px", minWidth: "200px" }}
+            >
+              <KeyRow>
+                <Key
+                  onClick={handleSoftKey}
+                  retKey="&LARR;"
+                  style={{ background: "orange" }}
+                >
+                  &larr;
+                </Key>
+                <Key
+                  onClick={handleSoftKey}
+                  retKey="&RARR;"
+                  style={{ background: "orange" }}
+                >
+                  &rarr;
+                </Key>
+                <Key
+                  onClick={handleSoftKey}
+                  retKey="&BKSP;"
+                  style={{ background: "orange" }}
+                >
+                  <BsBackspace />
+                </Key>
+              </KeyRow>
+              <KeyRow>
+                <Key onClick={handleSoftKey} retKey="7">
+                  <i>7</i>
+                </Key>
+                <Key onClick={handleSoftKey} retKey="8">
+                  8
+                </Key>
+                <Key onClick={handleSoftKey} retKey="9">
+                  9
+                </Key>
+              </KeyRow>
+              <KeyRow>
+                <Key onClick={handleSoftKey} retKey="4">
+                  4
+                </Key>
+                <Key onClick={handleSoftKey} retKey="5">
+                  5
+                </Key>
+                <Key onClick={handleSoftKey} retKey="6">
+                  6
+                </Key>
+              </KeyRow>
+              <KeyRow>
+                <Key onClick={handleSoftKey} retKey="1">
+                  1
+                </Key>
+                <Key onClick={handleSoftKey} retKey="2">
+                  2
+                </Key>
+                <Key onClick={handleSoftKey} retKey="3">
+                  3
+                </Key>
+              </KeyRow>
+            </Keypad>
           </div>
         </Card.Body>
       </Card>

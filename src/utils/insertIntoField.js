@@ -8,7 +8,7 @@ export default function insertAtCaret(focused, text) {
   console.info(focused, text);
   const inputField = focused;
   if (!inputField || inputField.tagName === "button") {
-    console.error("NO FIELD SELECTED");
+    console.error("insertAtCaret: NO FIELD SELECTED");
     return false;
   }
 
