@@ -146,6 +146,7 @@ export default function Change(props) {
                   onFocus={handleFocus}
                   className="inputField"
                   readOnly={mobileDevice}
+                  autoFocus
                 />
               </div>
               <Toggle
