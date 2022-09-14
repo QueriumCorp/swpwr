@@ -6,19 +6,24 @@ import KeyRow from "../../components/keypad/keyrow";
 import { BsBackspace } from "react-icons/bs";
 
 import "./testView.css";
+import handleSoftKey from "../../utils/manipulateField";
 
 export default function TestView(props) {
-  const problem = props.problem;
-  const solution = props.solution;
-  const onChange = props.onChange;
-
   function keyClick(val) {
-    console.info(val);
+    const target = document.querySelector("#testInput");
+    const result = handleSoftKey(target, val);
+    if (result) {
+      target.value = result.newStr;
+      target.setSelectionRange(result.newStart, result.newEnd);
+    }
+    if (target !== document.activeElement) {
+      target.focus();
+    }
   }
 
   return (
     <div className="testBox">
-      <input />
+      <input id="testInput" autoFocus />
       <div
         style={{
           position: "absolute",

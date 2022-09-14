@@ -21,7 +21,8 @@ export default function Key({
     <button
       className={`key ${className}`}
       style={{ flexGrow: keySize, ...style }}
-      onClick={(evt) => {
+      onMouseDown={(evt) => {
+        evt.preventDefault();
         handleSoftKey();
       }}
     >

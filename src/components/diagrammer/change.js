@@ -13,11 +13,11 @@ import Keypad from "../../components/keypad/keypad";
 import KeyRow from "../../components/keypad/keyrow";
 import { BsBackspace } from "react-icons/bs";
 import Tags from "./tags";
-import insertAtCaret from "../../utils/insertIntoField.js";
 
 import "./diagrammer.css";
 import "../diagramChange/diagramChange.css";
 import isMobile from "../../utils/deviceInfo";
+import handleSoftKey from "../../utils/manipulateField.js";
 
 const mobileDevice = isMobile();
 
@@ -75,27 +75,27 @@ export default function Change(props) {
     setFocused(event.target || event.srcElement);
   }
 
-  function handleSoftKey(key) {
-    const result = insertAtCaret(focused, key);
-    if (!result) return;
+  function handleSoftKeyPress(key) {
+    const result = handleSoftKey(focused, key);
 
-    switch (focused.id) {
-      case "start":
-        onChange({ type: "changeDiagramStart", payload: result.newStr });
-        break;
-      case "change":
-        onChange({ type: "changeDiagramChange", payload: result.newStr });
-        break;
-      case "end":
-        onChange({ type: "changeDiagramEnd", payload: result.newStr });
-        break;
-      default:
-        console.error("bad handleSoftKey", key, result, focused);
+    if (result) {
+      switch (focused.id) {
+        case "start":
+          onChange({ type: "changeDiagramStart", payload: result.newStr });
+          break;
+        case "change":
+          onChange({ type: "changeDiagramChange", payload: result.newStr });
+          break;
+        case "end":
+          onChange({ type: "changeDiagramEnd", payload: result.newStr });
+          break;
+        default:
+          console.error("bad handleSoftKeyPress", key, result, focused);
+      }
+      setTimeout(() => {
+        focused.setSelectionRange(result.newStart, result.newEnd);
+      }, 0);
     }
-    setTimeout(() => {
-      focused.setSelectionRange(result.newStart, result.newEnd);
-    }, 10);
-    focused.focus();
   }
 
   // JSX
@@ -198,21 +198,21 @@ export default function Change(props) {
             >
               <KeyRow>
                 <Key
-                  onClick={handleSoftKey}
+                  onClick={handleSoftKeyPress}
                   retKey="&LARR;"
                   style={{ background: "orange" }}
                 >
                   &larr;
                 </Key>
                 <Key
-                  onClick={handleSoftKey}
+                  onClick={handleSoftKeyPress}
                   retKey="&RARR;"
                   style={{ background: "orange" }}
                 >
                   &rarr;
                 </Key>
                 <Key
-                  onClick={handleSoftKey}
+                  onClick={handleSoftKeyPress}
                   retKey="&BKSP;"
                   style={{ background: "orange" }}
                 >
@@ -220,35 +220,35 @@ export default function Change(props) {
                 </Key>
               </KeyRow>
               <KeyRow>
-                <Key onClick={handleSoftKey} retKey="7">
+                <Key onClick={handleSoftKeyPress} retKey="7">
                   <i>7</i>
                 </Key>
-                <Key onClick={handleSoftKey} retKey="8">
+                <Key onClick={handleSoftKeyPress} retKey="8">
                   8
                 </Key>
-                <Key onClick={handleSoftKey} retKey="9">
+                <Key onClick={handleSoftKeyPress} retKey="9">
                   9
                 </Key>
               </KeyRow>
               <KeyRow>
-                <Key onClick={handleSoftKey} retKey="4">
+                <Key onClick={handleSoftKeyPress} retKey="4">
                   4
                 </Key>
-                <Key onClick={handleSoftKey} retKey="5">
+                <Key onClick={handleSoftKeyPress} retKey="5">
                   5
                 </Key>
-                <Key onClick={handleSoftKey} retKey="6">
+                <Key onClick={handleSoftKeyPress} retKey="6">
                   6
                 </Key>
               </KeyRow>
               <KeyRow>
-                <Key onClick={handleSoftKey} retKey="1">
+                <Key onClick={handleSoftKeyPress} retKey="1">
                   1
                 </Key>
-                <Key onClick={handleSoftKey} retKey="2">
+                <Key onClick={handleSoftKeyPress} retKey="2">
                   2
                 </Key>
-                <Key onClick={handleSoftKey} retKey="3">
+                <Key onClick={handleSoftKeyPress} retKey="3">
                   3
                 </Key>
               </KeyRow>
