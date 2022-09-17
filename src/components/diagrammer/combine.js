@@ -67,14 +67,14 @@ export default function Combine(props) {
 
     if (result) {
       switch (focused.id) {
-        case "start":
-          onChange({ type: "changeDiagramStart", payload: result.newStr });
+        case "total":
+          onChange({ type: "combineDiagramTotal", payload: result.newStr });
           break;
-        case "change":
-          onChange({ type: "changeDiagramChange", payload: result.newStr });
+        case "part1":
+          onChange({ type: "combineDiagramPart1", payload: result.newStr });
           break;
-        case "end":
-          onChange({ type: "changeDiagramEnd", payload: result.newStr });
+        case "part2":
+          onChange({ type: "combineDiagramPart2", payload: result.newStr });
           break;
         default:
           console.error("bad handleSoftKeyPress", key, result, focused);
@@ -102,6 +102,7 @@ export default function Combine(props) {
               >
                 Total
                 <input
+                  id="total"
                   value={solution.diagram.combine.total}
                   onChange={handleCombineTotal}
                   onFocus={handleFocus}
@@ -116,6 +117,7 @@ export default function Combine(props) {
                 >
                   Part
                   <input
+                    id="part1"
                     value={solution.diagram.combine.part1}
                     onChange={handleCombinePart1}
                     onFocus={handleFocus}
@@ -129,6 +131,7 @@ export default function Combine(props) {
                 >
                   Part
                   <input
+                    id="part2"
                     value={solution.diagram.combine.part2}
                     onChange={handleCombinePart2}
                     onFocus={handleFocus}
