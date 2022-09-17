@@ -107,6 +107,7 @@ export default function Combine(props) {
                   onChange={handleCombineTotal}
                   onFocus={handleFocus}
                   className="inputField"
+                  autoFocus={true}
                 />
               </div>
               <div className="diagramCombineBottom">

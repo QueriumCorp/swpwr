@@ -124,6 +124,7 @@ export default function EqualGroups(props) {
                     onChange={handleGroupsGroups}
                     onFocus={handleFocus}
                     className="inputField"
+                    autoFocus={true}
                   />
                 </div>
               </div>
