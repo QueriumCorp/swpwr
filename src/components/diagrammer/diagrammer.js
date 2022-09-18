@@ -4,6 +4,10 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 
+/*
+https://stackoverflow.com/questions/10357844/how-to-disable-rubber-band-in-ios-web-apps/20250111#20250111
+*/
+
 import isMobile from "../../utils/deviceInfo";
 
 import Change from "./change";
