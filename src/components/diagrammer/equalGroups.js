@@ -8,6 +8,7 @@ import Tags from "./tags";
 
 import "./diagrammer.css";
 import "../diagramEqualGroups/diagramEqualGroups.css";
+
 import Keypad from "../keypad/keypad";
 import KeyRow from "../keypad/keyrow";
 import Key from "../keypad/key";
@@ -87,14 +88,14 @@ export default function EqualGroups(props) {
 
   //JSX
   return (
-    <div className="diagramChangeContainer">
-      <Card>
-        <Card.Body className="diagramChange">
+    <div className="diagramContainer">
+      <Card style={{ flexGrow: "2" }}>
+        <Card.Body className="diagramScroll">
           <div className="diagramTitle">
             <h3>EQUAL GROUPS</h3>
           </div>
           <div className="diagramExample">
-            <div className="diagramMultipleBox">
+            <div className="diagramBox">
               <div
                 className="diagramEqualItem diagramMultipleStart"
                 ref={groupsDrop}

@@ -8,6 +8,7 @@ import Tags from "./tags";
 
 import "./diagrammer.css";
 import "../diagramCombine/diagramCombine.css";
+
 import Keypad from "../keypad/keypad";
 import KeyRow from "../keypad/keyrow";
 import Key from "../keypad/key";
@@ -87,9 +88,9 @@ export default function Combine(props) {
 
   // JSX
   return (
-    <div className="diagramChangeContainer">
-      <Card>
-        <Card.Body className="diagramChange">
+    <div className="diagramContainer">
+      <Card style={{ flexGrow: "2" }}>
+        <Card.Body className="diagramScroll">
           <div className="diagramTitle">
             <h3>COMBINE</h3>
           </div>

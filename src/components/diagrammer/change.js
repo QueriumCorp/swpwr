@@ -3,21 +3,24 @@ import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 
 import { useDrop } from "react-dnd";
-import Toggle from "react-toggle";
-import "react-toggle/style.css";
-import { TiPlus } from "react-icons/ti";
-import { FaMinus } from "react-icons/fa";
+
+import Tags from "./tags";
+
+import "./diagrammer.css";
+import "../diagramChange/diagramChange.css";
 
 import Key from "../../components/keypad/key";
 import Keypad from "../../components/keypad/keypad";
 import KeyRow from "../../components/keypad/keyrow";
 import { BsBackspace } from "react-icons/bs";
-import Tags from "./tags";
-
-import "./diagrammer.css";
-import "../diagramChange/diagramChange.css";
-import isMobile from "../../utils/deviceInfo";
 import handleSoftKey from "../../utils/manipulateField.js";
+
+import Toggle from "react-toggle";
+import "react-toggle/style.css";
+import { TiPlus } from "react-icons/ti";
+import { FaMinus } from "react-icons/fa";
+
+import isMobile from "../../utils/deviceInfo";
 
 const mobileDevice = isMobile();
 
@@ -100,9 +103,9 @@ export default function Change(props) {
 
   // JSX
   return (
-    <div className="diagramChangeContainer">
+    <div className="diagramContainer">
       <Card style={{ flexGrow: "2" }}>
-        <Card.Body className="diagramChange">
+        <Card.Body className="diagramScroll">
           <div className="diagramTitle">
             <h3>CHANGE</h3>
           </div>
@@ -132,7 +135,7 @@ export default function Change(props) {
                 </g>
               </svg>
             </div>
-            <div className="diagramChangeBox">
+            <div className="diagramBox">
               <div
                 className="diagramChangeItem"
                 ref={startDrop}

@@ -8,6 +8,7 @@ import Tags from "./tags";
 
 import "./diagrammer.css";
 import "../diagramMultiplyTimes/diagramMultiplyTimes.css";
+
 import Keypad from "../keypad/keypad";
 import KeyRow from "../keypad/keyrow";
 import Key from "../keypad/key";
@@ -87,14 +88,14 @@ export default function MultiplyTimes(props) {
 
   // JSX
   return (
-    <div className="diagramChangeContainer">
-      <Card>
-        <Card.Body className="diagramChange">
+    <div className="diagramContainer">
+      <Card style={{ flexGrow: "2" }}>
+        <Card.Body className="diagramScroll">
           <div className="diagramTitle">
             <h3>MULTIPLE TIMES</h3>
           </div>
           <div className="diagramExample">
-            <div className="diagramMultipleBox">
+            <div className="diagramBox">
               <div
                 className="diagramMultipleItem diagramMultipleStart"
                 ref={setsDrop}
@@ -119,7 +120,7 @@ export default function MultiplyTimes(props) {
                 <div className="verticalIconLayout">
                   Sets
                   <input
-                    input="sets"
+                    id="sets"
                     value={solution.diagram.times.sets}
                     onChange={handleTimesSets}
                     onFocus={handleFocus}
