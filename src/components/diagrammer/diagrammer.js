@@ -2,6 +2,9 @@ import React from "react";
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
+
+import isMobile from "../../utils/deviceInfo";
 
 import Change from "./change";
 import Combine from "./combine";
@@ -16,7 +19,7 @@ function Diagrammer(props) {
   const onChange = props.onChange;
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={isMobile() ? HTML5Backend : TouchBackend}>
       <div className="Diagrammer">
         {
           {
