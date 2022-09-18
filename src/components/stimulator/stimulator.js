@@ -21,6 +21,7 @@ function Stimulator(props) {
   return (
     <div
       onMouseUp={createTag}
+      onTouchEnd={createTag}
       className={`stimulator ${enabled ? "taggable" : ""}`}
     >
       {text}
