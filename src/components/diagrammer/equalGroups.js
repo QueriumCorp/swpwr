@@ -15,6 +15,9 @@ import Key from "../keypad/key";
 import { BsBackspace } from "react-icons/bs";
 import handleSoftKey from "../../utils/manipulateField.js";
 
+import isMobile from "../../utils/deviceInfo";
+const mobileDevice = isMobile();
+
 export default function EqualGroups(props) {
   // const problem = props.problem;
   const solution = props.solution;
@@ -126,6 +129,7 @@ export default function EqualGroups(props) {
                     onFocus={handleFocus}
                     className="inputField"
                     autoFocus={true}
+                    readOnly={mobileDevice}
                   />
                 </div>
               </div>
@@ -144,6 +148,7 @@ export default function EqualGroups(props) {
                   onChange={handleGroupsNumber}
                   onFocus={handleFocus}
                   className="inputField"
+                  readOnly={mobileDevice}
                 />
               </div>
 
@@ -177,6 +182,7 @@ export default function EqualGroups(props) {
                     onChange={handleGroupsProduct}
                     onFocus={handleFocus}
                     className="inputField"
+                    readOnly={mobileDevice}
                   />
                 </div>
               </div>

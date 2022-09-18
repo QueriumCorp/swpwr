@@ -21,7 +21,6 @@ import { TiPlus } from "react-icons/ti";
 import { FaMinus } from "react-icons/fa";
 
 import isMobile from "../../utils/deviceInfo";
-
 const mobileDevice = isMobile();
 
 export default function Change(props) {
