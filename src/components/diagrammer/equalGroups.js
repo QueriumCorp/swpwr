@@ -188,7 +188,7 @@ export default function EqualGroups(props) {
               </div>
             </div>
           </div>
-          <Tags tags={props.solution.tags}></Tags>{" "}
+          <Tags tags={props.solution.tags}></Tags>
           <div className="keypadBox">
             <Keypad
               className="myKeypad"

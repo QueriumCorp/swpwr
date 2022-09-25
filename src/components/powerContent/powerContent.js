@@ -12,6 +12,7 @@ import DiagramAnalyzeView from "../../stepViews/diagramAnalyzeView/diagramAnalyz
 
 import "./powerContent.css";
 import TestView from "../../stepViews/testView/testView";
+import IdentifierView from "../../stepViews/identifierView/identifierView";
 
 function PowerContent(props) {
   const contentType = props.type;
@@ -65,6 +66,13 @@ function PowerContent(props) {
               solution={solution}
               onChange={dispatch}
             ></StepWiseView>
+          ),
+          IDENTIFIER: (
+            <IdentifierView
+              problem={problem}
+              solution={solution}
+              onChange={dispatch}
+            ></IdentifierView>
           ),
           EXPLAINER: (
             <ExplainerView

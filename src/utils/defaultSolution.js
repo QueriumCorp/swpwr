@@ -25,4 +25,8 @@ export const defaultSolution = {
       product: "",
     },
   },
+  identify: {
+    number: "",
+    label: "",
+  },
 };

@@ -129,6 +129,18 @@ const workReducer = (work, action) => {
       return newProduct;
     }
 
+    // identifyNumber
+    case "identifyNumber": {
+      newProduct.solution.identify.number = action.payload;
+      return newProduct;
+    }
+
+    // identifyLabel
+    case "identifyLabel": {
+      newProduct.solution.identify.label = action.payload;
+      return newProduct;
+    }
+
     // SUBMIT
     case "SUBMIT": {
       alert("YOU SUBMIT! Bend the knee and look in the console!");

@@ -22,7 +22,7 @@ export default function DiagramMultiplyTimesWidget(props) {
             />
           </svg>
         </div>
-        <div className="diagramMultipleLabel">Sets</div>{" "}
+        <div className="diagramMultipleLabel">Sets</div>
       </div>
       <div>X</div>
       <div className="diagramMultipleItem diagramMultipleMultiple">

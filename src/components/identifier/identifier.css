@@ -1,0 +1,12 @@
+.IdentifierFields {
+  display: flex;
+  min-height: 100px;
+  justify-content: space-around;
+  align-items: center;
+}
+.Number {
+  max-height: 2rem;
+}
+.Label {
+  max-height: 2rem;
+}
