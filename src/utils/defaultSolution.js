@@ -29,4 +29,6 @@ export const defaultSolution = {
     number: "",
     label: "",
   },
+  explanation: "",
+  rationalization: "",
 };

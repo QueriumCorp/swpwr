@@ -1,9 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+
+import { useWizard } from "react-use-wizard";
+import Toast from "react-bootstrap/Toast";
+
+import Explainer from "../../components/explainer/explainer";
+import Stimulator from "../../components/stimulator/stimulator";
 
 import "./explainerView.css";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-function ExplainerView(props) {
-  return <div className="Explainer">{"Explainer"}</div>;
+export default function ExplainerView(props) {
+  const solution = props.solution;
+  const onChange = props.onChange;
+
+  const [showToast, setShowToast] = useState(false);
+
+  const toggleToast = () => setShowToast(!showToast);
+  const { handleStep } = useWizard();
+
+  handleStep(() => {
+    if (!solution.explanation.length) {
+      toggleToast();
+      throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page."; // eslint-disable-line no-throw-literal
+    }
+  });
+
+  return (
+    <div className="Explainer">
+      <Stimulator text={props.problem.stimulus} enabled={false}></Stimulator>
+      <div className="DiagramAnalyze">
+        <Toast show={showToast} onClose={toggleToast}>
+          <Toast.Header>
+            <strong className="me-auto">Explain your Answer</strong>
+          </Toast.Header>
+          <Toast.Body>
+            You must answer the original question in plain language before
+            proceding!
+          </Toast.Body>
+        </Toast>
+        <DndProvider backend={HTML5Backend}>
+          <Explainer solution={solution} onChange={onChange}></Explainer>
+        </DndProvider>
+      </div>
+    </div>
+  );
 }
-
-export default ExplainerView;

@@ -141,6 +141,12 @@ const workReducer = (work, action) => {
       return newProduct;
     }
 
+    // explanation
+    case "explanation": {
+      newProduct.solution.explanation = action.payload;
+      return newProduct;
+    }
+
     // SUBMIT
     case "SUBMIT": {
       alert("YOU SUBMIT! Bend the knee and look in the console!");
