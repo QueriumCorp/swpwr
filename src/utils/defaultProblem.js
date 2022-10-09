@@ -75,6 +75,15 @@ export const defaultProblem = {
       instruction: "Solve the equation",
       longInstruction: `Take your diagram and transform it into a math equation.`,
       type: "STEPWISE",
+      swlabel: "QUES-6011",
+      description:
+        "Solve by addition.  (\begin{array}{c}7x-2y=3 \\4x+5y=3.25end{array})",
+      definition: "SolveFor[7x-2y=3 && 4x+5y=3.25, {x,y}, EliminationMethod]",
+      mathml: "()",
+      swtype: "gradeBasicAlgebra",
+      hint1: "",
+      hint2: "",
+      hint3: "",
       valid: 0,
     },
     {
