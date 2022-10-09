@@ -41,6 +41,7 @@ export default function Reviewer(props) {
   // JSX
   return (
     <div className="ReviewerFields">
+      <div className="ReviewerExplanation">{solution.explanation}</div>
       <TextArea
         id="review"
         ref={review}
