@@ -41,6 +41,9 @@ export default function Explainer(props) {
   // JSX
   return (
     <div className="ExplainerFields">
+      <div className="ExplanationIdentify">
+        {solution.identify.number} {solution.identify.label}
+      </div>
       <TextArea
         id="explanation"
         ref={explanation}
