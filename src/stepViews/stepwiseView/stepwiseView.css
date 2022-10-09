@@ -1,3 +1,4 @@
 .StepWise {
-  color: olive;
+  display: flex;
+  flex-grow: 2;
 }

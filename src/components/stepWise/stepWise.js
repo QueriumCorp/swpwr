@@ -19,6 +19,12 @@ export default class SWContainer extends React.Component {
       .appendChild(document.getElementById("swStage"));
   }
   render() {
-    return <div id="swStage" ref={this.myRef}></div>;
+    return (
+      <div
+        id="swStage"
+        style={{ flexGrow: 2, display: "flex" }}
+        ref={this.myRef}
+      ></div>
+    );
   }
 }
