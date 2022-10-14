@@ -67,7 +67,7 @@ const PowerFooter = (props) => {
             className="WizButton"
             label="Submit"
             onClick={() => {
-              props.dispatcher({ type: "SUBMIT" });
+              props.onSubmit(props.solution);
             }}
             disabled={isLoading}
           />

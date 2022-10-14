@@ -12,7 +12,9 @@ import PowerTitle from "./components/powerTitle/powerTitle.js";
 import PowerContent from "./components/powerContent/powerContent.js";
 import PowerFooter from "./components/powerFooter/powerFooter.js";
 
-function SWPower() {
+function SWPower(props) {
+  const onSubmit = props.onSubmit;
+
   const [work, workDispatch] = useReducer(workReducer, blankWork);
 
   return (
@@ -20,7 +22,12 @@ function SWPower() {
       <Wizard
         header={<PowerTitle problem={work.problem} />}
         footer={
-          <PowerFooter problem={work.problem} dispatcher={workDispatch} />
+          <PowerFooter
+            problem={work.problem}
+            solution={work.solution}
+            dispatcher={workDispatch}
+            onSubmit={onSubmit}
+          />
         }
       >
         {work.problem.steps.map((step, i) => {

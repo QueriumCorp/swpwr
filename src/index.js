@@ -3,4 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import SWPower from "./SWPower";
 
-ReactDOM.render(<SWPower />, document.getElementById("root"));
+function onSubmitCallback(solution) {
+  console.info(solution);
+}
+ReactDOM.render(
+  <SWPower onSubmit={onSubmitCallback} />,
+  document.getElementById("root")
+);
