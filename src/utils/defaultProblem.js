@@ -75,11 +75,12 @@ export const defaultProblem = {
       instruction: "Solve the equation",
       longInstruction: `Take your diagram and transform it into a math equation.`,
       type: "STEPWISE",
-      swlabel: "QUES-6011",
+      swlabel: "QUES-6011X",
+      // eslint-disable-next-line
       description:
-        "Solve by addition.  (\begin{array}{c}7x-2y=3 \\4x+5y=3.25end{array})",
+        "Solve by addition, fool.  \\begin{array}{c}7x-2y=3 \\\\4x+5y=3.25\\end{array}", // eslint-disable-line
       definition: "SolveFor[7x-2y=3 && 4x+5y=3.25, {x,y}, EliminationMethod]",
-      mathml: "()",
+      mathml: "\\(\\)",
       swtype: "gradeBasicAlgebra",
       hint1: "",
       hint2: "",

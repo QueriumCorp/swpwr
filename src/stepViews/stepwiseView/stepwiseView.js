@@ -6,7 +6,11 @@ import "./stepwiseView.css";
 function StepWiseView(props) {
   return (
     <div className="StepWise">
-      <SWContainer />
+      <SWContainer
+        problem={props.problem}
+        solution={props.solution}
+        onChange={props.onChange}
+      />
     </div>
   );
 }

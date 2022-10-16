@@ -1,3 +1,5 @@
+/* global querium */
+
 import React from "react";
 
 export default class SWContainer extends React.Component {
@@ -7,10 +9,17 @@ export default class SWContainer extends React.Component {
   }
 
   componentDidMount() {
+    // TODO: We need to support multiple sw questions in different steps
+    const problem = this.props.problem.steps[5];
     setTimeout(() => {
       document
         .getElementById("swStage")
         .appendChild(document.getElementById("swClient"));
+      querium.startQuestion("JiraTestPage", "Winry", {
+        label: problem.swlabel,
+        type: problem.swtype,
+        definition: problem.definition,
+      });
     }, 0);
   }
   componentWillUnmount() {

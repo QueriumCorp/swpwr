@@ -16,6 +16,7 @@ function SWPower(props) {
   const onSubmit = props.onSubmit;
 
   const [work, workDispatch] = useReducer(workReducer, blankWork);
+  console.info(work.problem);
 
   return (
     <div className="SWPowerComponent">
