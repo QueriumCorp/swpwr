@@ -223,12 +223,12 @@
       var qqUser =
         localStorage.getItem("name") == null ||
         localStorage.getItem("name").length === 0
-          ? "Gary Busey"
+          ? "SW4WP User"
           : localStorage.getItem("name");
       var server =
         localStorage.getItem("server") == null ||
         localStorage.getItem("server").length === 0
-          ? "https://stepwise.querium.com/api/"
+          ? "https://stepwise.querium.com/webMathematica/api/"
           : localStorage.getItem("server");
       var questionList = [];
       var urlParams = getJsonFromUrl(true);
@@ -367,7 +367,7 @@
         console.dir(stats);
       }
 
-      querium.appID = "JiraTestPage";
+      querium.appID = "SW4WPapp";
       querium.student = qqUser;
       console.log("querium.student = " + querium.student);
       querium.callbacks = {
