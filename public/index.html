@@ -370,9 +370,9 @@
       querium.appID = "SW4WPapp";
       querium.student = qqUser;
       console.log("querium.student = " + querium.student);
-      querium.callbacks = {
-        success: celebrate,
-      };
+      // querium.callbacks = {
+      //   success: celebrate,
+      // };
       querium.options = options;
     </script>
 
@@ -380,7 +380,7 @@
       window.swpwr_onSubmit = (solution) =>{
         console.info(solution);
       };
-      
+
       window.swpwr_problem = {
         label: "the problem label",
         description: "a desc",

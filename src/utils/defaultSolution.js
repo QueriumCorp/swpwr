@@ -25,6 +25,7 @@ export const defaultSolution = {
       product: "",
     },
   },
+  stepWise: {},
   identify: {
     number: "",
     label: "",

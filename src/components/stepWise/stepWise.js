@@ -6,6 +6,12 @@ export default class SWContainer extends React.Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
+    this.successCallback = (stats) => {
+      props.onChange({
+        type: "saveStepWise",
+        payload: stats,
+      });
+    };
   }
 
   componentDidMount() {
@@ -15,11 +21,20 @@ export default class SWContainer extends React.Component {
       document
         .getElementById("swStage")
         .appendChild(document.getElementById("swClient"));
-      querium.startQuestion("JiraTestPage", "Winry", {
-        label: problem.swlabel,
-        type: problem.swtype,
-        definition: problem.definition,
-      });
+      querium.startQuestion(
+        "JiraTestPage",
+        "Winry",
+        {
+          label: problem.swlabel,
+          type: problem.swtype,
+          definition: problem.definition,
+        },
+        { success: this.successCallback },
+        {
+          hideMenu: true,
+          scribbles: false,
+        }
+      );
     }, 0);
   }
   componentWillUnmount() {

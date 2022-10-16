@@ -129,6 +129,13 @@ const workReducer = (work, action) => {
       return newProduct;
     }
 
+    // saveStepWise
+    case "saveStepWise": {
+      newProduct.solution.stepWise = action.payload;
+      console.info(newProduct);
+      return newProduct;
+    }
+
     // identifyNumber
     case "identifyNumber": {
       newProduct.solution.identify.number = action.payload;
