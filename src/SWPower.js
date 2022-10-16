@@ -14,9 +14,9 @@ import PowerFooter from "./components/powerFooter/powerFooter.js";
 
 function SWPower(props) {
   const onSubmit = props.onSubmit;
+  const initializedWork = { ...blankWork, problem: props.problem };
 
-  const [work, workDispatch] = useReducer(workReducer, blankWork);
-  console.info(work.problem);
+  const [work, workDispatch] = useReducer(workReducer, initializedWork);
 
   return (
     <div className="SWPowerComponent">

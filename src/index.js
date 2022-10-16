@@ -3,10 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import SWPower from "./SWPower";
 
-function onSubmitCallback(solution) {
-  console.info(solution);
-}
 ReactDOM.render(
-  <SWPower onSubmit={onSubmitCallback} />,
+  <SWPower onSubmit={window.swpwr_onSubmit} problem={window.swpwr_problem} />,
   document.getElementById("root")
 );
