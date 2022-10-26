@@ -20,7 +20,7 @@
 }
 .Actions {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin: 1rem;
   gap: 1rem;
   flex-direction: row;
