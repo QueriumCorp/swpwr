@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "esbuild src/index.js --bundle --outfile=public/assets/app.js --loader:.js=jsx",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
