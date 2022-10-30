@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -18,10 +18,18 @@ function SWPower(props) {
 
   const [work, workDispatch] = useReducer(workReducer, initializedWork);
 
+  const [maximized, setMaximized] = useState(true);
+
   return (
-    <div className="SWPowerComponent">
+    <div className={"SWPowerComponent " + (maximized ? "Maximized" : "")}>
       <Wizard
-        header={<PowerTitle problem={work.problem} />}
+        header={
+          <PowerTitle
+            problem={work.problem}
+            maximized={maximized}
+            setMaximized={setMaximized}
+          />
+        }
         footer={
           <PowerFooter
             problem={work.problem}

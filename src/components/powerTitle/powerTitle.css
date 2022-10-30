@@ -2,6 +2,8 @@
   padding: 10px;
 }
 .titleText {
+  display: flex;
+  justify-content: space-between;
   color: lightgray;
   font-size: 52px;
   line-height: 0.75;

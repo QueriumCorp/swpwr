@@ -1,8 +1,16 @@
 .SWPowerComponent {
-  min-height: 100vh;
+  min-height: 600px;
   max-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+}
+
+.Maximized {
+  background: white;
+  position: fixed;
+  top: 0px;
+  min-height: 100vh;
+  max-height: 100vh;
 }

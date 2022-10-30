@@ -9589,12 +9589,19 @@ a.text-dark:hover {
 
 /* src/SWPower.css */
 .SWPowerComponent {
-  min-height: 100vh;
+  min-height: 600px;
   max-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+}
+.Maximized {
+  background: white;
+  position: fixed;
+  top: 0px;
+  min-height: 100vh;
+  max-height: 100vh;
 }
 
 /* src/components/powerTitle/powerTitle.css */
@@ -9602,6 +9609,8 @@ a.text-dark:hover {
   padding: 10px;
 }
 .titleText {
+  display: flex;
+  justify-content: space-between;
   color: lightgray;
   font-size: 52px;
   line-height: 0.75;
