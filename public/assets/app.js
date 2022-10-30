@@ -29965,7 +29965,11 @@ For more info, visit https://fb.me/react-mock-scheduler`);
           {
             label: problem.swlabel,
             type: problem.swtype,
-            definition: problem.definition
+            description: problem.description,
+            definition: problem.definition,
+            hint1: problem.hint1,
+            hint2: problem.hint2,
+            hint3: problem.hint3
           },
           { success: this.successCallback },
           {

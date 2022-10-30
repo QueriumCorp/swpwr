@@ -6,10 +6,10 @@ export default class SWContainer extends React.Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
-    this.successCallback = (stats) => {
+    this.successCallback = stats => {
       props.onChange({
         type: "saveStepWise",
-        payload: stats,
+        payload: stats
       });
     };
   }
@@ -27,12 +27,16 @@ export default class SWContainer extends React.Component {
         {
           label: problem.swlabel,
           type: problem.swtype,
+          description: problem.description,
           definition: problem.definition,
+          hint1: problem.hint1,
+          hint2: problem.hint2,
+          hint3: problem.hint3
         },
         { success: this.successCallback },
         {
           hideMenu: true,
-          scribbles: false,
+          scribbles: false
         }
       );
     }, 0);
