@@ -21767,7 +21767,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     const longInstruction = problem.steps[activeStep].longInstruction;
     const mnemonicIndex = problem.steps[activeStep].mnemonicIndex;
     const handleMaximize = () => {
-      console.info("max/min clicked");
       props.setMaximized(!props.maximized);
     };
     return /* @__PURE__ */ import_react4.default.createElement("div", {
@@ -25115,8 +25114,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       className: "DiagramSelect"
     }, /* @__PURE__ */ import_react52.default.createElement(Toast_default, {
       show: showToast,
-      onClose: toggleToast
-    }, /* @__PURE__ */ import_react52.default.createElement(Toast_default.Header, null, /* @__PURE__ */ import_react52.default.createElement("strong", {
+      onClose: toggleToast,
+      style: { margin: "auto" }
+    }, /* @__PURE__ */ import_react52.default.createElement(Toast_default.Header, {
+      style: {
+        background: "red",
+        color: "white",
+        justifyContent: "space-between"
+      }
+    }, /* @__PURE__ */ import_react52.default.createElement("strong", {
       className: "me-auto"
     }, "Select a Diagram")), /* @__PURE__ */ import_react52.default.createElement(Toast_default.Body, null, "You must select a diagram before proceeding!")), /* @__PURE__ */ import_react52.default.createElement(diagramList_default, {
       current: solution.selectedDiagram,
@@ -29942,8 +29948,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       onChange
     }), /* @__PURE__ */ import_react79.default.createElement(Toast_default, {
       show: showToast,
-      onClose: toggleToast
-    }, /* @__PURE__ */ import_react79.default.createElement(Toast_default.Header, null, /* @__PURE__ */ import_react79.default.createElement("strong", {
+      onClose: toggleToast,
+      style: { margin: "auto" }
+    }, /* @__PURE__ */ import_react79.default.createElement(Toast_default.Header, {
+      style: {
+        background: "red",
+        color: "white",
+        justifyContent: "space-between"
+      }
+    }, /* @__PURE__ */ import_react79.default.createElement("strong", {
       className: "me-auto"
     }, "Select a Diagram")), /* @__PURE__ */ import_react79.default.createElement(Toast_default.Body, null, "You must select a diagram before proceeding!")));
   }
@@ -30713,8 +30726,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       className: "DiagramAnalyze"
     }, /* @__PURE__ */ import_react93.default.createElement(Toast_default, {
       show: showToast,
-      onClose: toggleToast
-    }, /* @__PURE__ */ import_react93.default.createElement(Toast_default.Header, null, /* @__PURE__ */ import_react93.default.createElement("strong", {
+      onClose: toggleToast,
+      style: { margin: "auto" }
+    }, /* @__PURE__ */ import_react93.default.createElement(Toast_default.Header, {
+      style: {
+        background: "red",
+        color: "white",
+        justifyContent: "space-between"
+      }
+    }, /* @__PURE__ */ import_react93.default.createElement("strong", {
       className: "me-auto"
     }, "Explain your Answer")), /* @__PURE__ */ import_react93.default.createElement(Toast_default.Body, null, "You must answer the original question in plain language before proceding!")), /* @__PURE__ */ import_react93.default.createElement(DndProvider, {
       backend: HTML5Backend
@@ -30797,8 +30817,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       className: "DiagramAnalyze"
     }, /* @__PURE__ */ import_react95.default.createElement(Toast_default, {
       show: showToast,
-      onClose: toggleToast
-    }, /* @__PURE__ */ import_react95.default.createElement(Toast_default.Header, null, /* @__PURE__ */ import_react95.default.createElement("strong", {
+      onClose: toggleToast,
+      style: { margin: "auto" }
+    }, /* @__PURE__ */ import_react95.default.createElement(Toast_default.Header, {
+      style: {
+        background: "red",
+        color: "white",
+        justifyContent: "space-between"
+      }
+    }, /* @__PURE__ */ import_react95.default.createElement("strong", {
       className: "me-auto"
     }, "Does your Answer Make Sense?")), /* @__PURE__ */ import_react95.default.createElement(Toast_default.Body, null, "You must explain how your answer makes sense!")), /* @__PURE__ */ import_react95.default.createElement(DndProvider, {
       backend: HTML5Backend
@@ -30859,8 +30886,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       className: "DiagramAnalyze"
     }, /* @__PURE__ */ import_react97.default.createElement(Toast_default, {
       show: showToast,
-      onClose: toggleToast
-    }, /* @__PURE__ */ import_react97.default.createElement(Toast_default.Header, null, /* @__PURE__ */ import_react97.default.createElement("strong", {
+      onClose: toggleToast,
+      style: { margin: "auto" }
+    }, /* @__PURE__ */ import_react97.default.createElement(Toast_default.Header, {
+      style: {
+        background: "red",
+        color: "white",
+        justifyContent: "space-between"
+      }
+    }, /* @__PURE__ */ import_react97.default.createElement("strong", {
       className: "me-auto"
     }, "Analyze Which Diagram")), /* @__PURE__ */ import_react97.default.createElement(Toast_default.Body, null, "You must provide your analysis of which type of problem this is!")), /* @__PURE__ */ import_react97.default.createElement(diagramAnalysis_default, {
       current: solution.diagramAnalysis,
@@ -30994,8 +31028,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       className: "DiagramAnalyze"
     }, /* @__PURE__ */ import_react100.default.createElement(Toast_default, {
       show: showToast,
-      onClose: toggleToast
-    }, /* @__PURE__ */ import_react100.default.createElement(Toast_default.Header, null, /* @__PURE__ */ import_react100.default.createElement("strong", {
+      onClose: toggleToast,
+      style: { margin: "auto" }
+    }, /* @__PURE__ */ import_react100.default.createElement(Toast_default.Header, {
+      style: {
+        background: "red",
+        color: "white",
+        justifyContent: "space-between"
+      }
+    }, /* @__PURE__ */ import_react100.default.createElement("strong", {
       className: "me-auto"
     }, "Identify Number and Label")), /* @__PURE__ */ import_react100.default.createElement(Toast_default.Body, null, "You must provide the ", /* @__PURE__ */ import_react100.default.createElement("i", null, "number"), " and ", /* @__PURE__ */ import_react100.default.createElement("i", null, "label"), " before moving forward")), /* @__PURE__ */ import_react100.default.createElement(Identifier, {
       solution,

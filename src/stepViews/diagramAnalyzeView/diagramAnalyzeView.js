@@ -29,8 +29,18 @@ function DiagramAnalyzeView(props) {
       <Stimulator text={problem.stimulus} enabled={false}></Stimulator>
 
       <div className="DiagramAnalyze">
-        <Toast show={showToast} onClose={toggleToast}>
-          <Toast.Header>
+        <Toast
+          show={showToast}
+          onClose={toggleToast}
+          style={{ margin: "auto" }}
+        >
+          <Toast.Header
+            style={{
+              background: "red",
+              color: "white",
+              justifyContent: "space-between"
+            }}
+          >
             <strong className="me-auto">Analyze Which Diagram</strong>
           </Toast.Header>
           <Toast.Body>

@@ -30,8 +30,18 @@ export default function ReviewerView(props) {
     <div className="Reviewer">
       <Stimulator text={props.problem.stimulus} enabled={false}></Stimulator>
       <div className="DiagramAnalyze">
-        <Toast show={showToast} onClose={toggleToast}>
-          <Toast.Header>
+        <Toast
+          show={showToast}
+          onClose={toggleToast}
+          style={{ margin: "auto" }}
+        >
+          <Toast.Header
+            style={{
+              background: "red",
+              color: "white",
+              justifyContent: "space-between"
+            }}
+          >
             <strong className="me-auto">Does your Answer Make Sense?</strong>
           </Toast.Header>
           <Toast.Body>You must explain how your answer makes sense!</Toast.Body>

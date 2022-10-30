@@ -34,8 +34,14 @@ function DiagrammerView(props) {
         solution={solution}
         onChange={onChange}
       ></Diagrammer>
-      <Toast show={showToast} onClose={toggleToast}>
-        <Toast.Header>
+      <Toast show={showToast} onClose={toggleToast} style={{ margin: "auto" }}>
+        <Toast.Header
+          style={{
+            background: "red",
+            color: "white",
+            justifyContent: "space-between"
+          }}
+        >
           <strong className="me-auto">Select a Diagram</strong>
         </Toast.Header>
         <Toast.Body>You must select a diagram before proceeding!</Toast.Body>

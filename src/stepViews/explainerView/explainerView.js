@@ -30,8 +30,18 @@ export default function ExplainerView(props) {
     <div className="Explainer">
       <Stimulator text={props.problem.stimulus} enabled={false}></Stimulator>
       <div className="DiagramAnalyze">
-        <Toast show={showToast} onClose={toggleToast}>
-          <Toast.Header>
+        <Toast
+          show={showToast}
+          onClose={toggleToast}
+          style={{ margin: "auto" }}
+        >
+          <Toast.Header
+            style={{
+              background: "red",
+              color: "white",
+              justifyContent: "space-between"
+            }}
+          >
             <strong className="me-auto">Explain your Answer</strong>
           </Toast.Header>
           <Toast.Body>
