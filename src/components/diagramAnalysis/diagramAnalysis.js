@@ -12,7 +12,7 @@ function DiagramAnalysis(props) {
     const analysis = event.target.value;
     onChange({
       type: "updateAnalysis",
-      payload: analysis,
+      payload: analysis
     });
   }
   return (
@@ -24,6 +24,7 @@ function DiagramAnalysis(props) {
         animate="true"
         placeholder="type your analysis here..."
         defaultValue={current}
+        theme="filled"
         onChange={updateAnalysis}
       />
     </div>

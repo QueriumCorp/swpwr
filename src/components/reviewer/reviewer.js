@@ -53,6 +53,7 @@ export default function Reviewer(props) {
         animate="true"
         className="Review"
         style={{ background: isOverReview ? "#007AFF" : "" }}
+        theme="filled"
         autoFocus
       />
       <Tags tags={props.solution.tags}></Tags>

@@ -55,6 +55,7 @@ export default function Explainer(props) {
         animate="true"
         className="Explanation"
         style={{ background: isOverExplanation ? "#007AFF" : "" }}
+        theme="filled"
         autoFocus
       />
       <Tags tags={props.solution.tags}></Tags>

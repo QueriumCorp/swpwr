@@ -30665,6 +30665,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       animate: "true",
       className: "Explanation",
       style: { background: isOverExplanation ? "#007AFF" : "" },
+      theme: "filled",
       autoFocus: true
     }), /* @__PURE__ */ import_react92.default.createElement(tags_default, {
       tags: props.solution.tags
@@ -30748,6 +30749,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       animate: "true",
       className: "Review",
       style: { background: isOverReview ? "#007AFF" : "" },
+      theme: "filled",
       autoFocus: true
     }), /* @__PURE__ */ import_react94.default.createElement(tags_default, {
       tags: props.solution.tags
@@ -30811,6 +30813,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       animate: "true",
       placeholder: "type your analysis here...",
       defaultValue: current,
+      theme: "filled",
       onChange: updateAnalysis
     }));
   }
