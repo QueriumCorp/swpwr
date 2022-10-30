@@ -21,7 +21,7 @@ export const defaultProblem = {
       longInstruction: `Take two deep breaths. Read the word problem carefully. What is the 
       problem about? What does it ask you to find?`,
       type: "READ",
-      valid: 1,
+      valid: 1
     },
     {
       label: "Prepare",
@@ -31,7 +31,7 @@ export const defaultProblem = {
       these important pieces of text. This will allow you to quickly paste helpful 
       snippets as you work the problem.`,
       type: "TAG",
-      valid: 0,
+      valid: 0
     },
     {
       label: "Prepare",
@@ -39,7 +39,7 @@ export const defaultProblem = {
       instruction: "What kind of problem is this?",
       longInstruction: `Discuss what type of problem you think this is. (Not graded)`,
       type: "DIAGRAMANALYZE",
-      valid: 0,
+      valid: 0
     },
     {
       label: "Organize",
@@ -47,7 +47,7 @@ export const defaultProblem = {
       instruction: "What type of problem is this?",
       longInstruction: `Select the problem type that best describes this problme`,
       type: "DIAGRAMSELECT",
-      valid: 0,
+      valid: 0
     },
     {
       label: "Organize",
@@ -58,7 +58,7 @@ export const defaultProblem = {
       or you can drag and drop the important information that you selected 
       earlier. If an amount is unknown, enter 'unknown'.`,
       type: "DIAGRAMMER",
-      valid: 0,
+      valid: 0
     },
     // Alan's figma shows this as out of scope
     // {
@@ -78,14 +78,14 @@ export const defaultProblem = {
       swlabel: "QUES-6011X",
       // eslint-disable-next-line
       description:
-        "Solve by addition, fool.  \\begin{array}{c}7x-2y=3 \\\\4x+5y=3.25\\end{array}", // eslint-disable-line
+        "Solve by addition, foolish defaultProblem.  \\(\\begin{array}{c}7x-2y=3 \\\\4x+5y=3.25\\end{array}\\)", // eslint-disable-line
       definition: "SolveFor[7x-2y=3 && 4x+5y=3.25, {x,y}, EliminationMethod]",
       mathml: "\\(\\)",
       swtype: "gradeBasicAlgebra",
       hint1: "",
       hint2: "",
       hint3: "",
-      valid: 0,
+      valid: 0
     },
     {
       label: "Explain",
@@ -93,7 +93,7 @@ export const defaultProblem = {
       instruction: "Identify the Number and the Label ",
       longInstruction: `What is the number and what is its label ?`,
       type: "IDENTIFIER",
-      valid: 0,
+      valid: 0
     },
     {
       label: "Explain",
@@ -101,7 +101,7 @@ export const defaultProblem = {
       instruction: "Explain your Answer",
       longInstruction: `Answer the original question in plain language.`,
       type: "EXPLAINER",
-      valid: 0,
+      valid: 0
     },
     {
       label: "Review",
@@ -109,7 +109,7 @@ export const defaultProblem = {
       instruction: "Does your answer make sense?",
       longInstruction: `Discuss if your answer seems reasonable.`,
       type: "REVIEWER",
-      valid: 0,
-    },
-  ],
+      valid: 0
+    }
+  ]
 };

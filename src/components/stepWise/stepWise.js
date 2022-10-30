@@ -21,6 +21,7 @@ export default class SWContainer extends React.Component {
       document
         .getElementById("swStage")
         .appendChild(document.getElementById("swClient"));
+      console.info("starting sw question");
       querium.startQuestion(
         "JiraTestPage",
         "Winry",
@@ -29,6 +30,7 @@ export default class SWContainer extends React.Component {
           type: problem.swtype,
           description: problem.description,
           definition: problem.definition,
+          mathml: problem.mathml,
           hint1: problem.hint1,
           hint2: problem.hint2,
           hint3: problem.hint3

@@ -21466,7 +21466,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         longInstruction: `Take your diagram and transform it into a math equation.`,
         type: "STEPWISE",
         swlabel: "QUES-6011X",
-        description: "Solve by addition, fool.  \\begin{array}{c}7x-2y=3 \\\\4x+5y=3.25\\end{array}",
+        description: "Solve by addition, foolish defaultProblem.  \\(\\begin{array}{c}7x-2y=3 \\\\4x+5y=3.25\\end{array}\\)",
         definition: "SolveFor[7x-2y=3 && 4x+5y=3.25, {x,y}, EliminationMethod]",
         mathml: "\\(\\)",
         swtype: "gradeBasicAlgebra",
@@ -29959,6 +29959,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       const problem = this.props.problem.steps[5];
       setTimeout(() => {
         document.getElementById("swStage").appendChild(document.getElementById("swClient"));
+        console.info("starting sw question");
         querium.startQuestion(
           "JiraTestPage",
           "Winry",
@@ -29967,6 +29968,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
             type: problem.swtype,
             description: problem.description,
             definition: problem.definition,
+            mathml: problem.mathml,
             hint1: problem.hint1,
             hint2: problem.hint2,
             hint3: problem.hint3
