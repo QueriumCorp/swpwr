@@ -14,10 +14,10 @@ export default function Reviewer(props) {
 
   const [{ isOverReview }, review] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) => handleDrop(item.tagValue),
-    collect: (monitor) => ({
-      isOverReview: !!monitor.isOver(),
-    }),
+    drop: item => handleDrop(item.tagValue),
+    collect: monitor => ({
+      isOverReview: !!monitor.isOver()
+    })
   }));
 
   function handleDrop(str) {
@@ -52,7 +52,7 @@ export default function Reviewer(props) {
         maxRows="10"
         animate="true"
         className="Review"
-        style={{ background: isOverReview ? "red" : "" }}
+        style={{ background: isOverReview ? "#007AFF" : "" }}
         autoFocus
       />
       <Tags tags={props.solution.tags}></Tags>

@@ -14,10 +14,10 @@ export default function Explainer(props) {
 
   const [{ isOverExplanation }, explanation] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) => handleDrop(item.tagValue),
-    collect: (monitor) => ({
-      isOverExplanation: !!monitor.isOver(),
-    }),
+    drop: item => handleDrop(item.tagValue),
+    collect: monitor => ({
+      isOverExplanation: !!monitor.isOver()
+    })
   }));
 
   function handleDrop(str) {
@@ -54,7 +54,7 @@ export default function Explainer(props) {
         maxRows="10"
         animate="true"
         className="Explanation"
-        style={{ background: isOverExplanation ? "red" : "" }}
+        style={{ background: isOverExplanation ? "#007AFF" : "" }}
         autoFocus
       />
       <Tags tags={props.solution.tags}></Tags>

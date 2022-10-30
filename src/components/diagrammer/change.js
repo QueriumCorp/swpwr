@@ -34,29 +34,29 @@ export default function Change(props) {
 
   const [{ isOverStart }, startDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "changeDiagramStart", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverStart: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverStart: !!monitor.isOver()
+    })
   }));
 
   const [{ isOverChange }, changeDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "changeDiagramChange", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverChange: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverChange: !!monitor.isOver()
+    })
   }));
 
   const [{ isOverEnd }, endDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "changeDiagramEnd", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverEnd: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverEnd: !!monitor.isOver()
+    })
   }));
 
   function handleChangeStart(event) {
@@ -138,7 +138,7 @@ export default function Change(props) {
               <div
                 className="diagramChangeItem"
                 ref={startDrop}
-                style={{ background: isOverStart ? "red" : "" }}
+                style={{ background: isOverStart ? "#007AFF" : "" }}
               >
                 start
                 <input
@@ -156,14 +156,14 @@ export default function Change(props) {
                 className="signToggle"
                 icons={{
                   checked: <TiPlus size={28} />,
-                  unchecked: <FaMinus size={42} />,
+                  unchecked: <FaMinus size={42} />
                 }}
                 onChange={handleSignToggle}
               />
               <div
                 className="diagramChangeItem"
                 ref={changeDrop}
-                style={{ background: isOverChange ? "red" : "" }}
+                style={{ background: isOverChange ? "#007AFF" : "" }}
               >
                 change
                 <input
@@ -178,7 +178,7 @@ export default function Change(props) {
               <div
                 className="diagramChangeItem"
                 ref={endDrop}
-                style={{ background: isOverEnd ? "red" : "" }}
+                style={{ background: isOverEnd ? "#007AFF" : "" }}
               >
                 end
                 <input

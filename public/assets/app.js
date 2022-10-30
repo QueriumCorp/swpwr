@@ -29244,7 +29244,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }, /* @__PURE__ */ import_react74.default.createElement("div", {
       className: "diagramChangeItem",
       ref: startDrop,
-      style: { background: isOverStart ? "red" : "" }
+      style: { background: isOverStart ? "#007AFF" : "" }
     }, "start", /* @__PURE__ */ import_react74.default.createElement("input", {
       id: "start",
       value: solution.diagram.change.start,
@@ -29268,7 +29268,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }), /* @__PURE__ */ import_react74.default.createElement("div", {
       className: "diagramChangeItem",
       ref: changeDrop,
-      style: { background: isOverChange ? "red" : "" }
+      style: { background: isOverChange ? "#007AFF" : "" }
     }, "change", /* @__PURE__ */ import_react74.default.createElement("input", {
       id: "change",
       value: solution.diagram.change.change,
@@ -29279,7 +29279,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     })), /* @__PURE__ */ import_react74.default.createElement("div", {
       className: "diagramChangeItem",
       ref: endDrop,
-      style: { background: isOverEnd ? "red" : "" }
+      style: { background: isOverEnd ? "#007AFF" : "" }
     }, "end", /* @__PURE__ */ import_react74.default.createElement("input", {
       id: "end",
       value: solution.diagram.change.end,
@@ -29412,7 +29412,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }, /* @__PURE__ */ import_react75.default.createElement("div", {
       className: "diagramCombineTop",
       ref: totalDrop,
-      style: { background: isOverTotal ? "red" : "" }
+      style: { background: isOverTotal ? "#007AFF" : "" }
     }, "Total", /* @__PURE__ */ import_react75.default.createElement("input", {
       id: "total",
       value: solution.diagram.combine.total,
@@ -29426,7 +29426,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }, /* @__PURE__ */ import_react75.default.createElement("div", {
       className: "diagramCombineBottomLeft",
       ref: part1Drop,
-      style: { background: isOverPart1 ? "red" : "" }
+      style: { background: isOverPart1 ? "#007AFF" : "" }
     }, "Part", /* @__PURE__ */ import_react75.default.createElement("input", {
       id: "part1",
       value: solution.diagram.combine.part1,
@@ -29437,7 +29437,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     })), /* @__PURE__ */ import_react75.default.createElement("div", {
       className: "diagramCombineBottomRight",
       ref: part2Drop,
-      style: { background: isOverPart2 ? "red" : "" }
+      style: { background: isOverPart2 ? "#007AFF" : "" }
     }, "Part", /* @__PURE__ */ import_react75.default.createElement("input", {
       id: "part2",
       value: solution.diagram.combine.part2,
@@ -29570,7 +29570,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }, /* @__PURE__ */ import_react76.default.createElement("div", {
       className: "diagramEqualItem diagramMultipleStart",
       ref: groupsDrop,
-      style: { background: isOverGroups ? "red" : "" }
+      style: { background: isOverGroups ? "#007AFF" : "" }
     }, /* @__PURE__ */ import_react76.default.createElement("div", {
       className: "diagramMultipleIcon"
     }, /* @__PURE__ */ import_react76.default.createElement("svg", {
@@ -29597,7 +29597,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }))), /* @__PURE__ */ import_react76.default.createElement("div", null, "X"), /* @__PURE__ */ import_react76.default.createElement("div", {
       className: "squareIcon verticalIconLayout",
       ref: numberDrop,
-      style: { background: isOverNumber ? "red" : "" }
+      style: { background: isOverNumber ? "#007AFF" : "" }
     }, "Number", /* @__PURE__ */ import_react76.default.createElement("input", {
       id: "number",
       value: solution.diagram.groups.number,
@@ -29608,7 +29608,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     })), /* @__PURE__ */ import_react76.default.createElement("div", null, " = "), /* @__PURE__ */ import_react76.default.createElement("div", {
       className: "diagramEqualItem diagramMultipleEnd",
       ref: productDrop,
-      style: { background: isOverProduct ? "red" : "" }
+      style: { background: isOverProduct ? "#007AFF" : "" }
     }, /* @__PURE__ */ import_react76.default.createElement("div", {
       className: "diagramMultipleIcon"
     }, /* @__PURE__ */ import_react76.default.createElement("svg", {
@@ -29755,7 +29755,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }, /* @__PURE__ */ import_react77.default.createElement("div", {
       className: "diagramMultipleItem diagramMultipleStart",
       ref: setsDrop,
-      style: { background: isOverSets ? "red" : "" }
+      style: { background: isOverSets ? "#007AFF" : "" }
     }, /* @__PURE__ */ import_react77.default.createElement("div", {
       className: "diagramMultipleIcon"
     }, /* @__PURE__ */ import_react77.default.createElement("svg", {
@@ -29782,7 +29782,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }))), /* @__PURE__ */ import_react77.default.createElement("div", null, "X"), /* @__PURE__ */ import_react77.default.createElement("div", {
       className: "squareIcon verticalIconLayout",
       ref: multiplierDrop,
-      style: { background: isOverMultiplier ? "red" : "" }
+      style: { background: isOverMultiplier ? "#007AFF" : "" }
     }, "Multiplier", /* @__PURE__ */ import_react77.default.createElement("input", {
       id: "multiplier",
       value: solution.diagram.times.multiplier,
@@ -29793,7 +29793,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     })), /* @__PURE__ */ import_react77.default.createElement("div", null, " = "), /* @__PURE__ */ import_react77.default.createElement("div", {
       className: "diagramMultipleItem diagramMultipleEnd",
       ref: productDrop,
-      style: { background: isOverProduct ? "red" : "" }
+      style: { background: isOverProduct ? "#007AFF" : "" }
     }, /* @__PURE__ */ import_react77.default.createElement("div", {
       className: "diagramMultipleIcon"
     }, /* @__PURE__ */ import_react77.default.createElement("svg", {
@@ -30658,7 +30658,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       maxRows: "10",
       animate: "true",
       className: "Explanation",
-      style: { background: isOverExplanation ? "red" : "" },
+      style: { background: isOverExplanation ? "#007AFF" : "" },
       autoFocus: true
     }), /* @__PURE__ */ import_react92.default.createElement(tags_default, {
       tags: props.solution.tags
@@ -30741,7 +30741,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       maxRows: "10",
       animate: "true",
       className: "Review",
-      style: { background: isOverReview ? "red" : "" },
+      style: { background: isOverReview ? "#007AFF" : "" },
       autoFocus: true
     }), /* @__PURE__ */ import_react94.default.createElement(tags_default, {
       tags: props.solution.tags

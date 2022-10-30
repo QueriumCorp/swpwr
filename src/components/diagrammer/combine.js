@@ -27,29 +27,29 @@ export default function Combine(props) {
 
   const [{ isOverTotal }, totalDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "combineDiagramTotal", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverTotal: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverTotal: !!monitor.isOver()
+    })
   }));
 
   const [{ isOverPart1 }, part1Drop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "combineDiagramPart1", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverPart1: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverPart1: !!monitor.isOver()
+    })
   }));
 
   const [{ isOverPart2 }, part2Drop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "combineDiagramPart2", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverPart2: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverPart2: !!monitor.isOver()
+    })
   }));
 
   function handleCombineTotal(event) {
@@ -102,7 +102,7 @@ export default function Combine(props) {
               <div
                 className="diagramCombineTop"
                 ref={totalDrop}
-                style={{ background: isOverTotal ? "red" : "" }}
+                style={{ background: isOverTotal ? "#007AFF" : "" }}
               >
                 Total
                 <input
@@ -119,7 +119,7 @@ export default function Combine(props) {
                 <div
                   className="diagramCombineBottomLeft"
                   ref={part1Drop}
-                  style={{ background: isOverPart1 ? "red" : "" }}
+                  style={{ background: isOverPart1 ? "#007AFF" : "" }}
                 >
                   Part
                   <input
@@ -134,7 +134,7 @@ export default function Combine(props) {
                 <div
                   className="diagramCombineBottomRight"
                   ref={part2Drop}
-                  style={{ background: isOverPart2 ? "red" : "" }}
+                  style={{ background: isOverPart2 ? "#007AFF" : "" }}
                 >
                   Part
                   <input

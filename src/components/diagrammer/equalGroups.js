@@ -27,29 +27,29 @@ export default function EqualGroups(props) {
 
   const [{ isOverProduct }, productDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "groupsDiagramProduct", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverProduct: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverProduct: !!monitor.isOver()
+    })
   }));
 
   const [{ isOverGroups }, groupsDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "groupsDiagramGroups", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverGroups: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverGroups: !!monitor.isOver()
+    })
   }));
 
   const [{ isOverNumber }, numberDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "groupsDiagramNumber", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverNumber: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverNumber: !!monitor.isOver()
+    })
   }));
 
   function handleGroupsProduct(event) {
@@ -102,7 +102,7 @@ export default function EqualGroups(props) {
               <div
                 className="diagramEqualItem diagramMultipleStart"
                 ref={groupsDrop}
-                style={{ background: isOverGroups ? "red" : "" }}
+                style={{ background: isOverGroups ? "#007AFF" : "" }}
               >
                 <div className="diagramMultipleIcon">
                   <svg
@@ -139,7 +139,7 @@ export default function EqualGroups(props) {
               <div
                 className="squareIcon verticalIconLayout"
                 ref={numberDrop}
-                style={{ background: isOverNumber ? "red" : "" }}
+                style={{ background: isOverNumber ? "#007AFF" : "" }}
               >
                 Number
                 <input
@@ -157,7 +157,7 @@ export default function EqualGroups(props) {
               <div
                 className="diagramEqualItem diagramMultipleEnd"
                 ref={productDrop}
-                style={{ background: isOverProduct ? "red" : "" }}
+                style={{ background: isOverProduct ? "#007AFF" : "" }}
               >
                 <div className="diagramMultipleIcon">
                   <svg

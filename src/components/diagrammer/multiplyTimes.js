@@ -27,29 +27,29 @@ export default function MultiplyTimes(props) {
 
   const [{ isOverProduct }, productDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "timesDiagramProduct", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverProduct: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverProduct: !!monitor.isOver()
+    })
   }));
 
   const [{ isOverSets }, setsDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "timesDiagramSets", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverSets: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverSets: !!monitor.isOver()
+    })
   }));
 
   const [{ isOverMultiplier }, multiplierDrop] = useDrop(() => ({
     accept: ["NUM", "STR"],
-    drop: (item) =>
+    drop: item =>
       onChange({ type: "timesDiagramMultiplier", payload: item.tagValue }),
-    collect: (monitor) => ({
-      isOverMultiplier: !!monitor.isOver(),
-    }),
+    collect: monitor => ({
+      isOverMultiplier: !!monitor.isOver()
+    })
   }));
 
   function handleTimesProduct(event) {
@@ -102,7 +102,7 @@ export default function MultiplyTimes(props) {
               <div
                 className="diagramMultipleItem diagramMultipleStart"
                 ref={setsDrop}
-                style={{ background: isOverSets ? "red" : "" }}
+                style={{ background: isOverSets ? "#007AFF" : "" }}
               >
                 <div className="diagramMultipleIcon">
                   <svg
@@ -139,7 +139,7 @@ export default function MultiplyTimes(props) {
               <div
                 className="squareIcon verticalIconLayout"
                 ref={multiplierDrop}
-                style={{ background: isOverMultiplier ? "red" : "" }}
+                style={{ background: isOverMultiplier ? "#007AFF" : "" }}
               >
                 Multiplier
                 <input
@@ -157,7 +157,7 @@ export default function MultiplyTimes(props) {
               <div
                 className="diagramMultipleItem diagramMultipleEnd"
                 ref={productDrop}
-                style={{ background: isOverProduct ? "red" : "" }}
+                style={{ background: isOverProduct ? "#007AFF" : "" }}
               >
                 <div className="diagramMultipleIcon">
                   <svg
