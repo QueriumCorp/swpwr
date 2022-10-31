@@ -6,14 +6,6 @@ export const defaultProblem = {
     What is the difference between the regular price and the sale price?`,
   stepsMnemonic: "POWER",
   steps: [
-    // {
-    //   label: "TEST",
-    //   mnemonicIndex: 1,
-    //   instruction: "Test Page",
-    //   longInstruction: `This is a page to test components during development`,
-    //   type: "TEST",
-    //   valid: 0,
-    // },
     {
       label: "Prepare",
       mnemonicIndex: 0,
@@ -31,6 +23,7 @@ export const defaultProblem = {
       these important pieces of text. This will allow you to quickly paste helpful 
       snippets as you work the problem.`,
       type: "TAG",
+      correct: 2, // minimum number of key facts
       valid: 0
     },
     {
@@ -39,6 +32,7 @@ export const defaultProblem = {
       instruction: "What kind of problem is this?",
       longInstruction: `Discuss what type of problem you think this is. (Not graded)`,
       type: "DIAGRAMANALYZE",
+      correct: 20, // minimum length of their answer
       valid: 0
     },
     {
@@ -47,6 +41,7 @@ export const defaultProblem = {
       instruction: "What type of problem is this?",
       longInstruction: `Select the problem type that best describes this problme`,
       type: "DIAGRAMSELECT",
+      correct: "EQUALGROUPS", // "COMBINE", "MULTIPLYTIMES", "EQUALGROUPS", "CHANGE"
       valid: 0
     },
     {
@@ -101,6 +96,7 @@ export const defaultProblem = {
       instruction: "Explain your Answer",
       longInstruction: `Answer the original question in plain language.`,
       type: "EXPLAINER",
+      correct: 20, // minimum length of their answer
       valid: 0
     },
     {
@@ -109,6 +105,7 @@ export const defaultProblem = {
       instruction: "Does your answer make sense?",
       longInstruction: `Discuss if your answer seems reasonable.`,
       type: "REVIEWER",
+      correct: 20, // minimum length of their answer
       valid: 0
     }
   ]

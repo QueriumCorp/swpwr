@@ -1,35 +1,36 @@
 export const defaultSolution = {
   tags: [],
-  diagramAnalysis: "This is just some long text so I can test more easily!",
+  diagramAnalysis: "",
   selectedDiagram: null,
   diagram: {
     change: {
       start: "",
       sign: true,
       change: "",
-      end: "",
+      end: ""
     },
     combine: {
       total: "",
       part1: "",
-      part2: "",
+      part2: ""
     },
     times: {
       sets: "",
       multiplier: "",
-      product: "",
+      product: ""
     },
     groups: {
       groups: "",
       number: "",
-      product: "",
-    },
+      product: ""
+    }
   },
   stepWise: {},
   identify: {
     number: "",
-    label: "",
+    label: ""
   },
   explanation: "",
   rationalization: "",
+  timeStamps: []
 };
