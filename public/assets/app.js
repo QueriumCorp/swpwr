@@ -21546,6 +21546,11 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
 
   // src/reducer.js
+  var timeStamps = defaultProblem.steps.map((element) => {
+    return { step: element.type, timestamp: 0 };
+  });
+  timeStamps.unshift({ step: "BEGIN", timestamp: Date.now() });
+  console.info(timeStamps);
   var blankWork = {
     _lastUpdated: null,
     problem: { ...defaultProblem },
@@ -31182,8 +31187,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
 
   // src/SWPower.js
   function SWPower(props) {
+    debugger;
     const onSubmit = props.onSubmit;
-    const initializedWork = { ...blankWork, problem: props.problem };
+    const initializedWork = props.problem ? { ...blankWork, problem: props.problem } : { ...blankWork };
     const [work, workDispatch] = (0, import_react104.useReducer)(reducer_default, initializedWork);
     const [maximized, setMaximized] = (0, import_react104.useState)(true);
     return /* @__PURE__ */ import_react104.default.createElement("div", {
@@ -31216,7 +31222,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   import_react_dom2.default.render(
     /* @__PURE__ */ import_react105.default.createElement(SWPower_default, {
       onSubmit: window.swpwr_onSubmit,
-      problem: window.swpwr_problem
+      problem: window.swpwr_problems
     }),
     document.getElementById("root")
   );

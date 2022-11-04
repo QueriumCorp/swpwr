@@ -1,10 +1,16 @@
 import { defaultProblem } from "./utils/defaultProblem";
 import { defaultSolution } from "./utils/defaultSolution";
 
+const timeStamps = defaultProblem.steps.map(element => {
+  return { step: element.type, timestamp: 0 };
+});
+timeStamps.unshift({ step: "BEGIN", timestamp: Date.now() });
+console.info(timeStamps);
+
 export const blankWork = {
   _lastUpdated: null,
   problem: { ...defaultProblem },
-  solution: { ...defaultSolution },
+  solution: { ...defaultSolution }
 };
 
 const workReducer = (work, action) => {
@@ -20,7 +26,7 @@ const workReducer = (work, action) => {
 
     // addTag
     case "addTag": {
-      if (newProduct.solution.tags.find((tag) => tag === action.payload)) {
+      if (newProduct.solution.tags.find(tag => tag === action.payload)) {
         console.info("dupe!!!");
         break;
       }

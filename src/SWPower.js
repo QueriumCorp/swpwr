@@ -13,8 +13,11 @@ import PowerContent from "./components/powerContent/powerContent.js";
 import PowerFooter from "./components/powerFooter/powerFooter.js";
 
 function SWPower(props) {
+  debugger;
   const onSubmit = props.onSubmit;
-  const initializedWork = { ...blankWork, problem: props.problem };
+  const initializedWork = props.problem
+    ? { ...blankWork, problem: props.problem }
+    : { ...blankWork };
 
   const [work, workDispatch] = useReducer(workReducer, initializedWork);
 
