@@ -13,7 +13,6 @@ import PowerContent from "./components/powerContent/powerContent.js";
 import PowerFooter from "./components/powerFooter/powerFooter.js";
 
 function SWPower(props) {
-  debugger;
   const onSubmit = props.onSubmit;
   const initializedWork = props.problem
     ? { ...blankWork, problem: props.problem }

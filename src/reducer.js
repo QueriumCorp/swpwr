@@ -5,12 +5,11 @@ const timeStamps = defaultProblem.steps.map(element => {
   return { step: element.type, timestamp: 0 };
 });
 timeStamps.unshift({ step: "BEGIN", timestamp: Date.now() });
-console.info(timeStamps);
 
 export const blankWork = {
   _lastUpdated: null,
   problem: { ...defaultProblem },
-  solution: { ...defaultSolution }
+  solution: { ...defaultSolution, timeStamps: timeStamps }
 };
 
 const workReducer = (work, action) => {

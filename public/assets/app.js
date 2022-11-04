@@ -21550,11 +21550,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     return { step: element.type, timestamp: 0 };
   });
   timeStamps.unshift({ step: "BEGIN", timestamp: Date.now() });
-  console.info(timeStamps);
   var blankWork = {
     _lastUpdated: null,
     problem: { ...defaultProblem },
-    solution: { ...defaultSolution }
+    solution: { ...defaultSolution, timeStamps }
   };
   var workReducer = (work, action) => {
     console.info("reducer", action);
