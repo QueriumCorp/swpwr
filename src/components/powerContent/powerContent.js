@@ -24,12 +24,19 @@ function PowerContent(props) {
     <div className="powerContent">
       {
         {
-          READ: <ReadView stimulus={problem.stimulus}></ReadView>,
+          READ: (
+            <ReadView
+              stimulus={problem.stimulus}
+              onChange={dispatch}
+              contentType={contentType}
+            ></ReadView>
+          ),
           TAG: (
             <TagView
               problem={problem}
               solution={solution}
               onChange={dispatch}
+              contentType={contentType}
             ></TagView>
           ),
           DIAGRAMANALYZE: (
@@ -37,6 +44,7 @@ function PowerContent(props) {
               problem={problem}
               solution={solution}
               onChange={dispatch}
+              contentType={contentType}
             ></DiagramAnalyzeView>
           ),
           DIAGRAMSELECT: (
@@ -44,6 +52,7 @@ function PowerContent(props) {
               problem={problem}
               solution={solution}
               onChange={dispatch}
+              contentType={contentType}
             ></DiagramSelectView>
           ),
           DIAGRAMMER: (
@@ -51,6 +60,7 @@ function PowerContent(props) {
               problem={problem}
               solution={solution}
               onChange={dispatch}
+              contentType={contentType}
             ></DiagrammerView>
           ),
           EQUATIONATOR: (
@@ -58,6 +68,7 @@ function PowerContent(props) {
               problem={problem}
               solution={solution}
               onChange={dispatch}
+              contentType={contentType}
             ></EquationatorView>
           ),
           STEPWISE: (
@@ -65,6 +76,7 @@ function PowerContent(props) {
               problem={problem}
               solution={solution}
               onChange={dispatch}
+              contentType={contentType}
             ></StepWiseView>
           ),
           IDENTIFIER: (
@@ -72,6 +84,7 @@ function PowerContent(props) {
               problem={problem}
               solution={solution}
               onChange={dispatch}
+              contentType={contentType}
             ></IdentifierView>
           ),
           EXPLAINER: (
@@ -79,6 +92,7 @@ function PowerContent(props) {
               problem={problem}
               solution={solution}
               onChange={dispatch}
+              contentType={contentType}
             ></ExplainerView>
           ),
           REVIEWER: (
@@ -86,6 +100,7 @@ function PowerContent(props) {
               problem={problem}
               solution={solution}
               onChange={dispatch}
+              contentType={contentType}
             ></ReviewerView>
           ),
           TEST: (
@@ -93,8 +108,9 @@ function PowerContent(props) {
               problem={problem}
               solution={solution}
               onChange={dispatch}
+              contentType={contentType}
             ></TestView>
-          ),
+          )
         }[contentType]
       }
     </div>

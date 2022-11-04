@@ -23,6 +23,8 @@ export default function ExplainerView(props) {
     if (!solution.explanation.length) {
       toggleToast();
       throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page."; // eslint-disable-line no-throw-literal
+    } else {
+      console.info(props);
     }
   });
 

@@ -23,6 +23,19 @@ const workReducer = (work, action) => {
       return blankWork;
     }
 
+    // markTime
+    case "markTime": {
+      let idx = newProduct.solution.timeStamps.findIndex(
+        x => x.step === action.payload.contentType
+      );
+      newProduct.solution.timeStamps[idx] = {
+        step: action.payload.contentType,
+        timestamp: action.payload.timeStamp
+      };
+      console.info(newProduct);
+      return newProduct;
+    }
+
     // addTag
     case "addTag": {
       if (newProduct.solution.tags.find(tag => tag === action.payload)) {
