@@ -19,9 +19,15 @@ function DiagrammerView(props) {
   const { handleStep } = useWizard();
 
   handleStep(() => {
+    // TODO: Need to check values are all filled
     if (!solution.selectedDiagram) {
       toggleToast();
       throw Object.assign(new Error("in diagrammerView"), { code: 402 });
+    } else {
+      onChange({
+        type: "markTime",
+        payload: { contentType: props.contentType, timeStamp: Date.now() }
+      });
     }
   });
 
