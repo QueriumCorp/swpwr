@@ -19,10 +19,39 @@ function DiagrammerView(props) {
   const { handleStep } = useWizard();
 
   handleStep(() => {
-    // TODO: Need to check values are all filled
-    if (!solution.selectedDiagram) {
+    let fieldsFilled = false;
+    const step = problem.steps.find(s => s.type === "DIAGRAMSELECT");
+    switch (step.correct) {
+      case "COMBINE":
+        fieldsFilled =
+          solution.diagram.combine.total.length &&
+          solution.diagram.combine.part1.length &&
+          solution.diagram.combine.part2.length;
+        break;
+      case "MULTIPLYTIMES":
+        fieldsFilled =
+          solution.diagram.times.sets.length &&
+          solution.diagram.times.multiplier.length &&
+          solution.diagram.times.product.length;
+        break;
+      case "EQUALGROUPS":
+        fieldsFilled =
+          solution.diagram.groups.groups.length &&
+          solution.diagram.groups.number.length &&
+          solution.diagram.groups.product.length;
+        break;
+      case "CHANGE":
+        fieldsFilled =
+          solution.diagram.change.start.length &&
+          solution.diagram.change.change.length &&
+          solution.diagram.change.end.length;
+        break;
+      default:
+        fieldsFilled = false;
+    }
+    if (!fieldsFilled) {
       toggleToast();
-      throw Object.assign(new Error("in diagrammerView"), { code: 402 });
+      throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page."; // eslint-disable-line no-throw-literal
     } else {
       onChange({
         type: "markTime",
@@ -50,7 +79,9 @@ function DiagrammerView(props) {
         >
           <strong className="me-auto">Select a Diagram</strong>
         </Toast.Header>
-        <Toast.Body>You must select a diagram before proceeding!</Toast.Body>
+        <Toast.Body>
+          You must provide a value for each field before proceeding!
+        </Toast.Body>
       </Toast>
     </div>
   );
