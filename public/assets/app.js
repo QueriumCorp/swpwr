@@ -21430,6 +21430,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       these important pieces of text. This will allow you to quickly paste helpful 
       snippets as you work the problem.`,
         type: "TAG",
+        correct: 2,
         valid: 0
       },
       {
@@ -21438,6 +21439,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         instruction: "What kind of problem is this?",
         longInstruction: `Discuss what type of problem you think this is. (Not graded)`,
         type: "DIAGRAMANALYZE",
+        correct: 20,
         valid: 0
       },
       {
@@ -21446,6 +21448,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         instruction: "What type of problem is this?",
         longInstruction: `Select the problem type that best describes this problme`,
         type: "DIAGRAMSELECT",
+        correct: "EQUALGROUPS",
         valid: 0
       },
       {
@@ -21489,6 +21492,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         instruction: "Explain your Answer",
         longInstruction: `Answer the original question in plain language.`,
         type: "EXPLAINER",
+        correct: 20,
         valid: 0
       },
       {
@@ -21497,6 +21501,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         instruction: "Does your answer make sense?",
         longInstruction: `Discuss if your answer seems reasonable.`,
         type: "REVIEWER",
+        correct: 20,
         valid: 0
       }
     ]
@@ -21505,7 +21510,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   // src/utils/defaultSolution.js
   var defaultSolution = {
     tags: [],
-    diagramAnalysis: "This is just some long text so I can test more easily!",
+    diagramAnalysis: "",
     selectedDiagram: null,
     diagram: {
       change: {
@@ -21536,7 +21541,8 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       label: ""
     },
     explanation: "",
-    rationalization: ""
+    rationalization: "",
+    timeStamps: []
   };
 
   // src/reducer.js
@@ -21758,7 +21764,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
 
   // src/components/powerTitle/powerTitle.js
   function PowerTitle(props) {
-    console.info(props);
     const problem = props.problem;
     const { activeStep } = useWizard();
     const title = problem.stepsMnemonic;
@@ -25096,11 +25101,21 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     const problem = props.problem;
     const solution = props.solution;
     const onChange = props.onChange;
+    const [toastMsg, setToastMsg] = (0, import_react52.useState)("No toast to see here");
     const [showToast, setShowToast] = (0, import_react52.useState)(false);
     const toggleToast = () => setShowToast(!showToast);
     const { handleStep } = useWizard();
     handleStep(() => {
       if (!solution.selectedDiagram) {
+        setToastMsg("You must select a diagram before proceeding!");
+        toggleToast();
+        throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page.";
+      }
+      const step = problem.steps.find((s) => s.type === "DIAGRAMSELECT");
+      if (solution.selectedDiagram !== step.correct) {
+        setToastMsg(
+          "That's not the right diagram for this problem.  Try a different choice."
+        );
         toggleToast();
         throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page.";
       }
@@ -25124,7 +25139,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       }
     }, /* @__PURE__ */ import_react52.default.createElement("strong", {
       className: "me-auto"
-    }, "Select a Diagram")), /* @__PURE__ */ import_react52.default.createElement(Toast_default.Body, null, "You must select a diagram before proceeding!")), /* @__PURE__ */ import_react52.default.createElement(diagramList_default, {
+    }, "Select a Diagram")), /* @__PURE__ */ import_react52.default.createElement(Toast_default.Body, null, toastMsg)), /* @__PURE__ */ import_react52.default.createElement(diagramList_default, {
       current: solution.selectedDiagram,
       onChange
     })));

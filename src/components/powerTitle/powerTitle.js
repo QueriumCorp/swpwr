@@ -7,7 +7,6 @@ import { FiMinimize2, FiMaximize2 } from "react-icons/fi";
 import "./powerTitle.css";
 
 function PowerTitle(props) {
-  console.info(props);
   const problem = props.problem;
 
   const { activeStep } = useWizard();

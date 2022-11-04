@@ -13,13 +13,23 @@ function DiagramSelectView(props) {
   const solution = props.solution;
   const onChange = props.onChange;
 
+  const [toastMsg, setToastMsg] = useState("No toast to see here");
   const [showToast, setShowToast] = useState(false);
-
   const toggleToast = () => setShowToast(!showToast);
   const { handleStep } = useWizard();
 
   handleStep(() => {
     if (!solution.selectedDiagram) {
+      setToastMsg("You must select a diagram before proceeding!");
+      toggleToast();
+      throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page."; // eslint-disable-line no-throw-literal
+    }
+
+    const step = problem.steps.find(s => s.type === "DIAGRAMSELECT");
+    if (solution.selectedDiagram !== step.correct) {
+      setToastMsg(
+        "That's not the right diagram for this problem.  Try a different choice."
+      );
       toggleToast();
       throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page."; // eslint-disable-line no-throw-literal
     }
@@ -44,7 +54,7 @@ function DiagramSelectView(props) {
           >
             <strong className="me-auto">Select a Diagram</strong>
           </Toast.Header>
-          <Toast.Body>You must select a diagram before proceeding!</Toast.Body>
+          <Toast.Body>{toastMsg}</Toast.Body>
         </Toast>
         <DiagramList
           current={solution.selectedDiagram}

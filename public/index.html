@@ -37,7 +37,7 @@
       media="all"
     />
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -136,11 +136,14 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
-      <!-- ### The div to which React will attach ### -->
-      <div style="min-height: 200px; background: magenta"><h1>edX Header Chrome</h1></div>
-      <div id="root"></div>
-      <div style="min-height: 100px; background: purple"><h3>edX Footer Chrome</h3></div>
-
+    <!-- ### The div to which React will attach ### -->
+    <div style="min-height: 200px; background: magenta">
+      <h1>edX Header Chrome</h1>
+    </div>
+    <div id="root"></div>
+    <div style="min-height: 100px; background: purple">
+      <h3>edX Footer Chrome</h3>
+    </div>
 
     <!-- ### START OF STEPWISE STUFF ### -->
     <!-- The following div holds the SW component off screen -->
@@ -148,8 +151,7 @@
       <!-- when the s navs to the StepWise page to work the problem, we reparent
       the #swClient into the page -->
       <div id="swClient" style="position: relative; flex-grow:2;">
-          <querium></querium>
-        </div>
+        <querium></querium>
       </div>
     </div>
 
@@ -199,19 +201,19 @@
       var problemID = urlParams.assignment_id;
       var theProblem = false;
 
-      window.onload = function () {
+      window.onload = function() {
         document.getElementById("author").value = qqUser;
         document.getElementById("server").value = server;
         querium.serverURL = server;
       };
 
-      document.getElementById("author").onblur = function (e) {
+      document.getElementById("author").onblur = function(e) {
         var author = document.getElementById("author").value;
         if (author.length > 2) {
           localStorage.setItem("name", author);
         }
       };
-      document.getElementById("author").onkeypress = function (e) {
+      document.getElementById("author").onkeypress = function(e) {
         var event = e || window.event;
         var charCode = event.which || event.keyCode;
 
@@ -223,12 +225,12 @@
           return false;
         }
       };
-      document.getElementById("server").onblur = function (e) {
+      document.getElementById("server").onblur = function(e) {
         var server = document.getElementById("server").value;
         localStorage.setItem("server", server);
         querium.serverURL = server;
       };
-      document.getElementById("server").onkeypress = function (e) {
+      document.getElementById("server").onkeypress = function(e) {
         var event = e || window.event;
         var charCode = event.which || event.keyCode;
 
@@ -276,7 +278,7 @@
           query = location.search.substr(1);
         }
         var result = {};
-        query.split("&").forEach(function (part) {
+        query.split("&").forEach(function(part) {
           if (!part) return;
           var item = part.split("=");
           var key = item[0];
@@ -298,12 +300,12 @@
     <script type="text/javascript">
       var callbacks = {
         success: celebrate,
-        status: updateProgress,
+        status: updateProgress
       };
 
       var options = {
         hideMenu: true,
-        scribbles: false,
+        scribbles: false
       };
 
       function saveProgress() {
@@ -341,7 +343,7 @@
     </script>
 
     <script>
-      window.swpwr_onSubmit = (solution) =>{
+      window.swpwr_onSubmit = solution => {
         console.info(solution);
       };
 
@@ -350,35 +352,28 @@
         description: "a desc",
         class: "sampleWord",
         stimulus: `A mountain bike is on sale for $399. Its regular price is $650. 
-          What is the difference between the regular price and the sale price?`,
+    What is the difference between the regular price and the sale price?`,
         stepsMnemonic: "POWER",
         steps: [
-          // {
-          //   label: "TEST",
-          //   mnemonicIndex: 1,
-          //   instruction: "Test Page",
-          //   longInstruction: `This is a page to test components during development`,
-          //   type: "TEST",
-          //   valid: 0,
-          // },
           {
             label: "Prepare",
             mnemonicIndex: 0,
             instruction: "Read the Problem",
             longInstruction: `Take two deep breaths. Read the word problem carefully. What is the 
-            problem about? What does it ask you to find?`,
+      problem about? What does it ask you to find?`,
             type: "READ",
-            valid: 1,
+            valid: 1
           },
           {
             label: "Prepare",
             mnemonicIndex: 0,
             instruction: "Identify Important Information",
             longInstruction: `Identify the key facts in the word problem below. Select 
-            these important pieces of text. This will allow you to quickly paste helpful 
-            snippets as you work the problem.`,
+      these important pieces of text. This will allow you to quickly paste helpful 
+      snippets as you work the problem.`,
             type: "TAG",
-            valid: 0,
+            correct: 2, // minimum number of key facts
+            valid: 0
           },
           {
             label: "Prepare",
@@ -386,7 +381,8 @@
             instruction: "What kind of problem is this?",
             longInstruction: `Discuss what type of problem you think this is. (Not graded)`,
             type: "DIAGRAMANALYZE",
-            valid: 0,
+            correct: 20, // minimum length of their answer
+            valid: 0
           },
           {
             label: "Organize",
@@ -394,18 +390,19 @@
             instruction: "What type of problem is this?",
             longInstruction: `Select the problem type that best describes this problme`,
             type: "DIAGRAMSELECT",
-            valid: 0,
+            correct: "EQUALGROUPS", // "COMBINE", "MULTIPLYTIMES", "EQUALGROUPS", "CHANGE"
+            valid: 0
           },
           {
             label: "Organize",
             mnemonicIndex: 1,
             instruction: "Fill in the Diagram",
             longInstruction: `Fill in each amount in the diagram with information from the problem. 
-            You can click in each box and type the information using your keyboard, 
-            or you can drag and drop the important information that you selected 
-            earlier. If an amount is unknown, enter 'unknown'.`,
+      You can click in each box and type the information using your keyboard, 
+      or you can drag and drop the important information that you selected 
+      earlier. If an amount is unknown, enter 'unknown'.`,
             type: "DIAGRAMMER",
-            valid: 0,
+            valid: 0
           },
           // Alan's figma shows this as out of scope
           // {
@@ -422,17 +419,18 @@
             instruction: "Solve the equation",
             longInstruction: `Take your diagram and transform it into a math equation.`,
             type: "STEPWISE",
-            swlabel: "QUES-6011 YOY",
+            swlabel: "QUES-6011X",
             // eslint-disable-next-line
             description:
-            "Solve by addition, foolish index.  \\(\\begin{array}{c}7x-2y=3 \\\\4x+5y=3.25\\end{array}\\)", // eslint-disable-line
-            definition: "SolveFor[7x-2y=3 && 4x+5y=3.25, {x,y}, EliminationMethod]",
+              "Solve by addition, foolish defaultProblem.  \\(\\begin{array}{c}7x-2y=3 \\\\4x+5y=3.25\\end{array}\\)", // eslint-disable-line
+            definition:
+              "SolveFor[7x-2y=3 && 4x+5y=3.25, {x,y}, EliminationMethod]",
             mathml: "\\(\\)",
             swtype: "gradeBasicAlgebra",
             hint1: "",
             hint2: "",
             hint3: "",
-            valid: 0,
+            valid: 0
           },
           {
             label: "Explain",
@@ -440,7 +438,7 @@
             instruction: "Identify the Number and the Label ",
             longInstruction: `What is the number and what is its label ?`,
             type: "IDENTIFIER",
-            valid: 0,
+            valid: 0
           },
           {
             label: "Explain",
@@ -448,7 +446,8 @@
             instruction: "Explain your Answer",
             longInstruction: `Answer the original question in plain language.`,
             type: "EXPLAINER",
-            valid: 0,
+            correct: 20, // minimum length of their answer
+            valid: 0
           },
           {
             label: "Review",
@@ -456,15 +455,15 @@
             instruction: "Does your answer make sense?",
             longInstruction: `Discuss if your answer seems reasonable.`,
             type: "REVIEWER",
-            valid: 0,
-          },
-        ],
+            correct: 20, // minimum length of their answer
+            valid: 0
+          }
+        ]
       };
-
     </script>
 
     <!-- Load React App Code -->
     <script src="/assets/app.js" async defer></script>
-    <link rel="stylesheet" href="/assets/app.css"/>
+    <link rel="stylesheet" href="/assets/app.css" />
   </body>
 </html>
