@@ -4,6 +4,6 @@ import "./index.css";
 import SWPower from "./SWPower";
 
 ReactDOM.render(
-  <SWPower onSubmit={window.swpwr_onSubmit} problem={window.swpwr_problem} />,
+  <SWPower onSubmit={window.swpwr_onSubmit} problem={window.swpwr_problems} />,
   document.getElementById("root")
 );
