@@ -8,6 +8,7 @@ import "./powerTitle.css";
 
 function PowerTitle(props) {
   const problem = props.problem;
+  const maximizable = props.maximizable;
 
   const { activeStep } = useWizard();
 
@@ -39,13 +40,17 @@ function PowerTitle(props) {
             );
           })}
         </div>
-        {props.maximized ? (
-          <div onClick={handleMaximize}>
-            <FiMinimize2 />
-          </div>
-        ) : (
-          <div onClick={handleMaximize}>
-            <FiMaximize2 />
+        {maximizable && (
+          <div>
+            {props.maximized ? (
+              <div onClick={handleMaximize}>
+                <FiMinimize2 />
+              </div>
+            ) : (
+              <div onClick={handleMaximize}>
+                <FiMaximize2 />
+              </div>
+            )}
           </div>
         )}
       </div>
