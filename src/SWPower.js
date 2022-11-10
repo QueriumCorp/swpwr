@@ -30,7 +30,7 @@ function SWPower(props) {
             problem={work.problem}
             maximized={maximized}
             setMaximized={setMaximized}
-            maximizable={false}
+            maximizable={true}
           />
         }
         footer={
