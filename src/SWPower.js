@@ -20,7 +20,7 @@ function SWPower(props) {
 
   const [work, workDispatch] = useReducer(workReducer, initializedWork);
 
-  const [maximized, setMaximized] = useState(true);
+  const [maximized, setMaximized] = useState(false);
 
   return (
     <div className={"SWPowerComponent " + (maximized ? "Maximized" : "")}>
@@ -30,7 +30,7 @@ function SWPower(props) {
             problem={work.problem}
             maximized={maximized}
             setMaximized={setMaximized}
-            maximizable={true}
+            maximizable={false}
           />
         }
         footer={
