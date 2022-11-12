@@ -250,6 +250,11 @@ export default function MultiplyTimes(props) {
                   3
                 </Key>
               </KeyRow>
+              <KeyRow>
+                <Key onClick={handleSoftKeyPress} retKey="0">
+                  0
+                </Key>
+              </KeyRow>{" "}
             </Keypad>
           </div>
         </Card.Body>

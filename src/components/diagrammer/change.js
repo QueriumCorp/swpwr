@@ -196,7 +196,7 @@ export default function Change(props) {
           <div className="keypadBox">
             <Keypad
               className="myKeypad"
-              style={{ minHeight: "300px", minWidth: "200px" }}
+              style={{ minHeight: "250px", minWidth: "200px" }}
             >
               <KeyRow>
                 <Key
@@ -252,6 +252,11 @@ export default function Change(props) {
                 </Key>
                 <Key onClick={handleSoftKeyPress} retKey="3">
                   3
+                </Key>
+              </KeyRow>
+              <KeyRow>
+                <Key onClick={handleSoftKeyPress} retKey="0">
+                  0
                 </Key>
               </KeyRow>
             </Keypad>
