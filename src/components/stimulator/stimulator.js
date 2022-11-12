@@ -1,4 +1,6 @@
-import React from "react";
+/*global MathJax*/
+
+import React, { useEffect } from "react";
 
 import "./stimulator.css";
 
@@ -12,11 +14,15 @@ function Stimulator(props) {
       if (selectedText.length) {
         props.onChange({
           type: "addTag",
-          payload: selectedText,
+          payload: selectedText
         });
       }
     }
   }
+
+  useEffect(() => {
+    window.MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+  });
 
   return (
     <div
