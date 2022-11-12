@@ -37,7 +37,7 @@ export default class SWContainer extends React.Component {
         },
         { success: this.successCallback },
         {
-          hideMenu: true,
+          hideMenu: false,
           scribbles: false
         }
       );
