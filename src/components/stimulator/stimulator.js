@@ -21,7 +21,15 @@ function Stimulator(props) {
   }
 
   useEffect(() => {
-    window.MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    // If MathJax is loaded, render
+    if (window.MathJax) {
+      window.MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    } else {
+      // give it a second to load
+      setTimeout(() => {
+        window.MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+      }, "1000");
+    }
   });
 
   return (
