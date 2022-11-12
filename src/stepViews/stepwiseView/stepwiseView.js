@@ -46,7 +46,7 @@ function StepWiseView(props) {
         >
           <strong className="me-auto">Solve the Equation</strong>
         </Toast.Header>
-        <Toast.Body>You must solve the equation before continuing!</Toast.Body>
+        <Toast.Body>You must solve the equation before continuing! Click 'Enter Step' after you enter each step.</Toast.Body>
       </Toast>
       <SWContainer
         problem={props.problem}

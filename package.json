@@ -35,7 +35,8 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      "not op_mini all"
+      "not op_mini all",
+      "ios_saf > 10"
     ],
     "development": [
       "last 1 chrome version",
