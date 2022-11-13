@@ -140,26 +140,22 @@
     <!-- <div style="min-height: 200px; background: magenta">
       <h1>edX Header Chrome</h1>
     </div> -->
-    <style>
-      .SWPowerComponent {
-        flex-grow: 2;
-      }
-    </style>
+
     <div
       id="problem1"
       style="min-height: 100vh; display:flex; flex-direction: column;"
     ></div>
     <div
       id="problem2"
-      style="min-height: 100vh; display:flex; flex-direction: column;"
+      style="min-height: 75vh; display:flex; flex-direction: column;"
     ></div>
     <div
       id="problem3"
-      style="min-height: 100vh; display:flex; flex-direction: column;"
+      style="min-height: 50vh; display:flex; flex-direction: column;"
     ></div>
     <div
       id="problem4"
-      style="min-height: 100vh; display:flex; flex-direction: column;"
+      style="min-height: 25vh; width: 75vw; display:flex; flex-direction: column;"
     ></div>
     <!-- <div style="min-height: 100px; background: purple">
       <h3>edX Footer Chrome</h3>
@@ -170,7 +166,10 @@
     <div id="swBackStage" style="position: fixed; left: -10000px">
       <!-- when the s navs to the StepWise page to work the problem, we reparent
       the #swClient into the page -->
-      <div id="swClient" style="position: relative; flex-grow:2;">
+      <div
+        id="swClient"
+        style="position: relative; flex-grow:2; overflow: scroll;"
+      >
         <querium></querium>
       </div>
     </div>
