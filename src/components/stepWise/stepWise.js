@@ -19,13 +19,11 @@ export default class SWContainer extends React.Component {
     // TODO: We need to support multiple sw questions in different steps
     const problem = this.props.problem.steps[5];
     setTimeout(() => {
-      // document;
-      // .getElementById("swStage")
       this.myRef.current.appendChild(document.getElementById("swClient"));
       console.info("starting sw question");
       querium.startQuestion(
-        "JiraTestPage",
-        "Winry",
+        window.querium.appID,
+        window.querium.student,
         {
           label: problem.swlabel,
           type: problem.swtype,
