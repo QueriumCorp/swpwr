@@ -393,25 +393,7 @@
               correct: 2, // minimum number of key facts
               valid: 0
             },
-            {
-              label: "Work the Problem",
-              mnemonicIndex: 2,
-              instruction: "Solve the equation",
-              longInstruction: `Take your diagram and transform it into a math equation.`,
-              type: "STEPWISE",
-              swlabel: "QUES-6011X",
-              // eslint-disable-next-line
-              description:
-                "Solve by addition, foolish defaultProblem.  \\(\\begin{array}{c}7x-2y=3 \\\\4x+5y=3.25\\end{array}\\)", // eslint-disable-line
-              definition:
-                "SolveFor[7x-2y=3 && 4x+5y=3.25, {x,y}, EliminationMethod]",
-              mathml: "\\(\\)",
-              swtype: "gradeBasicAlgebra",
-              hint1: "",
-              hint2: "",
-              hint3: "",
-              valid: 0
-            },
+
             {
               label: "Prepare",
               mnemonicIndex: 0,
@@ -441,7 +423,25 @@
               type: "DIAGRAMMER",
               valid: 0
             },
-
+            {
+              label: "Work the Problem",
+              mnemonicIndex: 2,
+              instruction: "Solve the equation",
+              longInstruction: `Take your diagram and transform it into a math equation.`,
+              type: "STEPWISE",
+              swlabel: "QUES-6011X",
+              // eslint-disable-next-line
+              description:
+                "Solve by addition, foolish defaultProblem.  \\(\\begin{array}{c}7x-2y=3 \\\\4x+5y=3.25\\end{array}\\)", // eslint-disable-line
+              definition:
+                "SolveFor[7x-2y=3 && 4x+5y=3.25, {x,y}, EliminationMethod]",
+              mathml: "\\(\\)",
+              swtype: "gradeBasicAlgebra",
+              hint1: "",
+              hint2: "",
+              hint3: "",
+              valid: 0
+            },
             {
               label: "Explain",
               mnemonicIndex: 3,

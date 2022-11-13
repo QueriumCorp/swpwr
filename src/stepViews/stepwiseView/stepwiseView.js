@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 
 import { useWizard } from "react-use-wizard";
 import Toast from "react-bootstrap/Toast";
-import ReactJson from "react-json-view";
+// import ReactJson from "react-json-view";
 
 import SWContainer from "../../components/stepWise/stepWise";
 
 import "./stepwiseView.css";
+import MultiplyTimesDisplay from "../../components/diagrammer/multiplyTimesDisplay";
+import CombineDisplay from "../../components/diagrammer/combineDisplay";
+import ChangeDisplay from "../../components/diagrammer/changeDisplay";
+import EqualGroupsDisplay from "../../components/diagrammer/equalGroupsDisplay";
 
 function StepWiseView(props) {
   const solution = props.solution;
@@ -37,11 +41,11 @@ function StepWiseView(props) {
   useEffect(() => {
     // If MathJax is loaded, render
     if (window.MathJax) {
-      window.MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+      window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
     } else {
       // give it a second to load
       setTimeout(() => {
-        window.MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
       }, "1000");
     }
   });
@@ -64,12 +68,23 @@ function StepWiseView(props) {
         </Toast.Body>
       </Toast>
 
+      <div>
+        {
+          {
+            COMBINE: <CombineDisplay solution={solution} />,
+            MULTIPLYTIMES: <MultiplyTimesDisplay solution={solution} />,
+            EQUALGROUPS: <EqualGroupsDisplay solution={solution} />,
+            CHANGE: <ChangeDisplay solution={solution} />
+          }[solution.selectedDiagram]
+        }
+      </div>
+
       {!completed ? (
         <SWContainer
           problem={props.problem}
           solution={props.solution}
           onChange={successHandler}
-        />
+        ></SWContainer>
       ) : (
         <div className="successMsg">
           <h1>Success!</h1>
