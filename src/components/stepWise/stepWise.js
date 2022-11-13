@@ -2,6 +2,7 @@
 
 import React from "react";
 
+import "./stepWise.css";
 export default class SWContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -18,9 +19,9 @@ export default class SWContainer extends React.Component {
     // TODO: We need to support multiple sw questions in different steps
     const problem = this.props.problem.steps[5];
     setTimeout(() => {
-      document
-        .getElementById("swStage")
-        .appendChild(document.getElementById("swClient"));
+      // document;
+      // .getElementById("swStage")
+      this.myRef.current.appendChild(document.getElementById("swClient"));
       console.info("starting sw question");
       querium.startQuestion(
         "JiraTestPage",
