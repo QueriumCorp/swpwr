@@ -17,7 +17,9 @@ export default class SWContainer extends React.Component {
 
   componentDidMount() {
     // TODO: We need to support multiple sw questions in different steps
-    const problem = this.props.problem.steps[5];
+    const problem = this.props.problem.steps.find(step => {
+      return step.type === "STEPWISE";
+    });
     setTimeout(() => {
       this.myRef.current.appendChild(document.getElementById("swClient"));
       console.info("starting sw question");
@@ -45,7 +47,7 @@ export default class SWContainer extends React.Component {
   componentWillUnmount() {
     document
       .getElementById("swBackStage")
-      .appendChild(document.getElementById("swStage"));
+      .appendChild(document.getElementById("swClient"));
   }
   render() {
     return (

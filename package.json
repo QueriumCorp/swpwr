@@ -16,6 +16,7 @@
     "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "^16.4.2",
     "react-icons": "^4.4.0",
+    "react-json-view": "^1.21.3",
     "react-md": "^5.1.4",
     "react-scripts": "2.0.3",
     "react-toggle": "^4.1.3",

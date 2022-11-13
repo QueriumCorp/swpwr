@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { useWizard } from "react-use-wizard";
 import Toast from "react-bootstrap/Toast";
+import ReactJson from "react-json-view";
 
 import SWContainer from "../../components/stepWise/stepWise";
 
@@ -52,11 +53,18 @@ function StepWiseView(props) {
         </Toast.Body>
       </Toast>
 
-      <SWContainer
-        problem={props.problem}
-        solution={props.solution}
-        onChange={successHandler}
-      />
+      {!completed ? (
+        <SWContainer
+          problem={props.problem}
+          solution={props.solution}
+          onChange={successHandler}
+        />
+      ) : (
+        <div>
+          <h1>VICTORY!</h1>
+          <ReactJson src={solution.stepWise}></ReactJson>
+        </div>
+      )}
     </div>
   );
 }
