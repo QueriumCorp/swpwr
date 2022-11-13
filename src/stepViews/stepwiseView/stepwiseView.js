@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useWizard } from "react-use-wizard";
 import Toast from "react-bootstrap/Toast";
@@ -34,6 +34,17 @@ function StepWiseView(props) {
     }
   });
 
+  useEffect(() => {
+    // If MathJax is loaded, render
+    if (window.MathJax) {
+      window.MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    } else {
+      // give it a second to load
+      setTimeout(() => {
+        window.MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+      }, "1000");
+    }
+  });
   // JSX
   return (
     <div className="StepWise">
@@ -60,9 +71,17 @@ function StepWiseView(props) {
           onChange={successHandler}
         />
       ) : (
-        <div>
-          <h1>VICTORY!</h1>
-          <ReactJson src={solution.stepWise}></ReactJson>
+        <div className="successMsg">
+          <h1>Success!</h1>
+          <p>You finished with working the problem. Your final answer was:</p>
+          <p style={{ textAlign: "center" }}>
+            {
+              solution.stepWise.stepDetails[
+                solution.stepWise.stepDetails.length - 1
+              ].mathML
+            }
+          </p>
+          {/* <ReactJson src={solution.stepWise}></ReactJson> */}
         </div>
       )}
     </div>

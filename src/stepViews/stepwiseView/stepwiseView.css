@@ -3,6 +3,10 @@
   flex-grow: 2;
 }
 
+.successMsg {
+  margin: 10px;
+}
+
 .toasty {
   position: absolute;
   z-index: 10;
