@@ -28,16 +28,9 @@ export default function IdentifierView(props) {
       });
     }
   });
-  debugger;
+
   return (
     <div className="Identifier">
-      <p style={{ textAlign: "center" }}>
-        {
-          solution.stepWise.stepDetails[
-            solution.stepWise.stepDetails.length - 1
-          ].mathML
-        }
-      </p>
       <Stimulator text={props.problem.stimulus} enabled={false}></Stimulator>
       <div className="DiagramAnalyze">
         <Toast show={showToast} onClose={toggleToast} className="toasty">
