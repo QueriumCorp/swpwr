@@ -47,7 +47,7 @@ export default function Reviewer(props) {
         ref={review}
         value={solution.review}
         onChange={handleReview}
-        placeholder="Discuss how your answer makes sense"
+        placeholder="Enter your answer here"
         rows="4"
         maxRows="10"
         animate="true"

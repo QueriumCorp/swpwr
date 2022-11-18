@@ -22,7 +22,7 @@ function DiagramAnalysis(props) {
         maxRows="10"
         resize="false"
         animate="true"
-        placeholder="type your analysis here..."
+        placeholder="Enter your answer here"
         defaultValue={current}
         theme="filled"
         onChange={updateAnalysis}

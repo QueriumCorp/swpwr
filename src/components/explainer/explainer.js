@@ -49,7 +49,7 @@ export default function Explainer(props) {
         ref={explanation}
         value={solution.explanation}
         onChange={handleExplanation}
-        placeholder="Explain your answer"
+        placeholder="Enter your answer here"
         rows="4"
         maxRows="10"
         animate="true"
