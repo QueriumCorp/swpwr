@@ -64,6 +64,7 @@ const PowerFooter = props => {
 
         {isLastStep && (
           <Button
+            id="WizButtonSubmit"
             className="WizButton"
             label="Submit"
             onClick={() => {

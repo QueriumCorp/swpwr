@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useWizard } from "react-use-wizard";
 import Toast from "react-bootstrap/Toast";
@@ -13,7 +13,9 @@ import { TouchBackend } from "react-dnd-touch-backend";
 import isMobile from "../../utils/deviceInfo";
 
 export default function ReviewerView(props) {
+  const problem = props.problem;
   const solution = props.solution;
+  const step = problem.steps.find(step => step.type === "REVIEWER");
   const onChange = props.onChange;
 
   const [showToast, setShowToast] = useState(false);
@@ -22,7 +24,8 @@ export default function ReviewerView(props) {
   const { handleStep } = useWizard();
 
   handleStep(() => {
-    if (!solution.explanation.length) {
+    console.info("reviewer handleStep");
+    if (!solution.review.length) {
       toggleToast();
       throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page."; // eslint-disable-line no-throw-literal
     } else {
@@ -31,6 +34,15 @@ export default function ReviewerView(props) {
         payload: { contentType: props.contentType, timeStamp: Date.now() }
       });
     }
+  });
+
+  const handleChange = details => {
+    onChange(details);
+  };
+
+  useEffect(() => {
+    document.getElementById("WizButtonSubmit").disabled =
+      solution.review.length < step.correct ? true : false;
   });
 
   return (
@@ -56,7 +68,7 @@ export default function ReviewerView(props) {
           <Toast.Body>You must explain how your answer makes sense!</Toast.Body>
         </Toast>
         <DndProvider backend={isMobile() ? TouchBackend : HTML5Backend}>
-          <Reviewer solution={solution} onChange={onChange}></Reviewer>
+          <Reviewer solution={solution} onChange={handleChange}></Reviewer>
         </DndProvider>
       </div>
     </div>

@@ -31,6 +31,6 @@ export const defaultSolution = {
     label: ""
   },
   explanation: "",
-  rationalization: "",
+  review: "",
   timeStamps: []
 };
