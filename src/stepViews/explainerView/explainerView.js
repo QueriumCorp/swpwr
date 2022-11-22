@@ -13,8 +13,10 @@ import { TouchBackend } from "react-dnd-touch-backend";
 import isMobile from "../../utils/deviceInfo";
 
 export default function ExplainerView(props) {
+  const problem = props.problem;
   const solution = props.solution;
   const onChange = props.onChange;
+  const step = problem.steps.find(step => step.type === "EXPLAINER");
 
   const [showToast, setShowToast] = useState(false);
 
@@ -22,7 +24,7 @@ export default function ExplainerView(props) {
   const { handleStep } = useWizard();
 
   handleStep(() => {
-    if (!solution.explanation.length) {
+    if (!solution.explanation || solution.explanation.length < step.correct) {
       toggleToast();
       throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page."; // eslint-disable-line no-throw-literal
     } else {
@@ -55,7 +57,7 @@ export default function ExplainerView(props) {
           </Toast.Header>
           <Toast.Body>
             You must answer the original question in plain language before
-            proceding!
+            proceding in a minimum of {step.correct} characters!
           </Toast.Body>
         </Toast>
         <DndProvider backend={isMobile() ? TouchBackend : HTML5Backend}>
