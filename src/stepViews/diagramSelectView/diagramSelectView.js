@@ -45,7 +45,13 @@ function DiagramSelectView(props) {
       <Stimulator text={problem.stimulus} enabled={false}></Stimulator>
 
       <div className="DiagramSelect">
-        <Toast show={showToast} onClose={toggleToast} className="toasty">
+        <Toast
+          show={showToast}
+          onClose={toggleToast}
+          className="toasty"
+          delay={3000}
+          autohide
+        >
           <Toast.Header
             style={{
               background: "red",
