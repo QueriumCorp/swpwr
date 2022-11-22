@@ -9,6 +9,7 @@ import Stimulator from "../../components/stimulator/stimulator";
 import "./explainerView.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
 
 export default function ExplainerView(props) {
   const solution = props.solution;
@@ -50,7 +51,7 @@ export default function ExplainerView(props) {
             proceding!
           </Toast.Body>
         </Toast>
-        <DndProvider backend={HTML5Backend}>
+        <DndProvider backend={isMobile() ? HTML5Backend : TouchBackend}>
           <Explainer solution={solution} onChange={onChange}></Explainer>
         </DndProvider>
       </div>
