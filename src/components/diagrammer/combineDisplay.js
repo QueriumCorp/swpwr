@@ -21,7 +21,7 @@ export default function CombineDisplay(props) {
               maxWidth: "initial"
             }}
           >
-            <div className="diagramCombineBox">
+            <div className="diagramCombineBox" style={{ maxWidth: 300 }}>
               <div className="diagramCombineTop">
                 Total
                 <input

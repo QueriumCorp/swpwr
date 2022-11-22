@@ -21,7 +21,7 @@ export default function EqualGroupsDisplay(props) {
               maxWidth: "initial"
             }}
           >
-            <div className="diagramBox">
+            <div className="diagramBox" style={{ maxWidth: 300 }}>
               <div className="diagramEqualItem diagramMultipleStart">
                 <div className="diagramMultipleIcon">
                   <svg

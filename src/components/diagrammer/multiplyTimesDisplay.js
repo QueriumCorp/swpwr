@@ -21,7 +21,7 @@ export default function MultiplyTimesDisplay(props) {
               maxWidth: "initial"
             }}
           >
-            <div className="diagramBox">
+            <div className="diagramBox" style={{ maxWidth: 300 }}>
               <div className="diagramMultipleItem diagramMultipleStart">
                 <div className="diagramMultipleIcon">
                   <svg

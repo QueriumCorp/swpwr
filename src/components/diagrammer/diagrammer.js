@@ -23,7 +23,7 @@ function Diagrammer(props) {
   const onChange = props.onChange;
 
   return (
-    <DndProvider backend={isMobile() ? HTML5Backend : TouchBackend}>
+    <DndProvider backend={isMobile() ? TouchBackend : HTML5Backend}>
       <div className="Diagrammer">
         {
           {
@@ -54,7 +54,7 @@ function Diagrammer(props) {
                 solution={solution}
                 onChange={onChange}
               ></MultiplyTimes>
-            ),
+            )
           }[solution.selectedDiagram]
         }
       </div>

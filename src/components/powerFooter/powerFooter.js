@@ -9,7 +9,7 @@ import Button from "../button/button";
 export const Actions = () => <div className="Actions"></div>;
 export const Info = () => <div className="Info"></div>;
 
-const PowerFooter = (props) => {
+const PowerFooter = props => {
   const {
     nextStep,
     previousStep,
@@ -17,7 +17,7 @@ const PowerFooter = (props) => {
     activeStep,
     stepCount,
     isLastStep,
-    isFirstStep,
+    isFirstStep
   } = useWizard();
 
   return (
@@ -67,6 +67,11 @@ const PowerFooter = (props) => {
             className="WizButton"
             label="Submit"
             onClick={() => {
+              try {
+                nextStep();
+              } catch (e) {
+                console.info("None Shall Pass", e);
+              }
               props.onSubmit(props.solution);
             }}
             disabled={isLoading}

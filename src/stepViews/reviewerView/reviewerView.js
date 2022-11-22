@@ -10,6 +10,7 @@ import "./reviewerView.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
+import isMobile from "../../utils/deviceInfo";
 
 export default function ReviewerView(props) {
   const solution = props.solution;
@@ -48,7 +49,7 @@ export default function ReviewerView(props) {
           </Toast.Header>
           <Toast.Body>You must explain how your answer makes sense!</Toast.Body>
         </Toast>
-        <DndProvider backend={isMobile() ? HTML5Backend : TouchBackend}>
+        <DndProvider backend={isMobile() ? TouchBackend : HTML5Backend}>
           <Reviewer solution={solution} onChange={onChange}></Reviewer>
         </DndProvider>
       </div>
