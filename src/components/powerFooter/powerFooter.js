@@ -67,11 +67,14 @@ const PowerFooter = props => {
             className="WizButton"
             label="Submit"
             onClick={() => {
-              try {
-                nextStep();
-              } catch (e) {
-                console.info("None Shall Pass", e);
-              }
+              props.onChange({
+                type: "markTime",
+                payload: {
+                  contentType:
+                    props.problem.steps[props.problem.steps.length - 1].type,
+                  timeStamp: Date.now()
+                }
+              });
               props.onSubmit(props.solution);
             }}
             disabled={isLoading}

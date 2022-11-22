@@ -37,7 +37,7 @@ function SWPower(props) {
           <PowerFooter
             problem={work.problem}
             solution={work.solution}
-            dispatcher={workDispatch}
+            onChange={workDispatch}
             onSubmit={onSubmit}
           />
         }
