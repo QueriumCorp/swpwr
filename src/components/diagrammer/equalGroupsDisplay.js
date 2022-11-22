@@ -15,7 +15,11 @@ export default function EqualGroupsDisplay(props) {
         <Card.Body className="diagramScroll" style={{ padding: 0 }}>
           <div
             className="diagramExample"
-            style={{ flexDirection: "row", justifyContent: "center" }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              maxWidth: "initial"
+            }}
           >
             <div className="diagramBox">
               <div className="diagramEqualItem diagramMultipleStart">

@@ -15,7 +15,11 @@ export default function CombineDisplay(props) {
         <Card.Body className="diagramScroll" style={{ padding: 0 }}>
           <div
             className="diagramExample"
-            style={{ flexDirection: "row", justifyContent: "center" }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              maxWidth: "initial"
+            }}
           >
             <div className="diagramCombineBox">
               <div className="diagramCombineTop">

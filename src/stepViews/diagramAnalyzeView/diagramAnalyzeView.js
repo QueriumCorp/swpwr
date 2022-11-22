@@ -9,6 +9,7 @@ import DiagramAnalysis from "../../components/diagramAnalysis/diagramAnalysis";
 
 function DiagramAnalyzeView(props) {
   const problem = props.problem;
+  const step = problem.steps.find(step => step.type === "DIAGRAMANALYZE");
   const solution = props.solution;
   const onChange = props.onChange;
 
@@ -18,7 +19,10 @@ function DiagramAnalyzeView(props) {
   const { handleStep } = useWizard();
 
   handleStep(() => {
-    if (!solution.diagramAnalysis || solution.diagramAnalysis.length < 10) {
+    if (
+      !solution.diagramAnalysis ||
+      solution.diagramAnalysis.length < step.correct
+    ) {
       toggleToast();
       throw "Don't know where to catch this. If I throw an error object, the app crashes.  This causes an error in the console, but allows me to display the toast and prevent going to next page."; // eslint-disable-line no-throw-literal
     } else {
@@ -45,7 +49,8 @@ function DiagramAnalyzeView(props) {
             <strong className="me-auto">Analyze Which Diagram</strong>
           </Toast.Header>
           <Toast.Body>
-            You must provide your analysis of which type of problem this is!
+            You must provide your analysis of which type of problem this is in a
+            minimum of {step.correct} characters!
           </Toast.Body>
         </Toast>
         <DiagramAnalysis
