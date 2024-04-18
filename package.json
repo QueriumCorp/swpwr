@@ -1,6 +1,6 @@
 {
   "name": "swpwr",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@react-md/chip": "^5.1.3",
