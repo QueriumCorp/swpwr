@@ -1,4 +1,3 @@
-import { Button } from "./components/ui/button";
 import { Card, CardContent } from "./components/ui/card";
 import {
   Carousel,
@@ -10,13 +9,13 @@ import {
 
 function SWPower() {
   return (
-    <Carousel className="w-full max-w-xs">
+    <Carousel className="h-full">
       <CarouselContent>
         {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index}>
-            <div className="p-1">
+          <CarouselItem key={index} className="h-full">
+            <div className="p-1 h-full">
               <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
+                <CardContent className="flex items-center justify-center p-6">
                   <span className="text-4xl font-semibold">{index + 1}</span>
                 </CardContent>
               </Card>
