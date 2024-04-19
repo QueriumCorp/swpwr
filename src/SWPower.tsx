@@ -1,6 +1,12 @@
-import { Button } from "./components/ui/button"
-import { Card, CardContent } from "./components/ui/card"
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "./components/ui/carousel"
+import { Button } from "./components/ui/button";
+import { Card, CardContent } from "./components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "./components/ui/carousel";
 
 function SWPower() {
   return (
@@ -21,7 +27,7 @@ function SWPower() {
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
-  )
+  );
 }
 
-export default SWPower
+export default SWPower;

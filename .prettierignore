@@ -1,1 +1,8 @@
 documentation/
+.vscode/
+dist/
+node_modules/
+public/
+src/components
+*.json
+*.js
