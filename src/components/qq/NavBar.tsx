@@ -9,7 +9,7 @@ const NavBar = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "NavBar bg-red-500 min-h-24 w-full border-none",
+      "NavBar min-h-24 w-full border-none",
       className
     )}
     {...props}
