@@ -13,12 +13,15 @@
   "dependencies": {
     "@queriumcorp/animetutor": "file:../@queriumcorp/animetutor/queriumcorp-animetutor-0.0.8.tgz",
     "@radix-ui/react-slot": "^1.0.2",
+    "@wistia/react-embeds": "^0.0.22-snapshot.1",
+    "@wistia/wistia-player": "^0.0.0-alpha.39",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "embla-carousel-react": "^8.0.2",
     "lucide-react": "^0.372.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-player": "^2.16.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },

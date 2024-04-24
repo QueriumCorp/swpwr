@@ -10,11 +10,12 @@ import {
   CarouselPrevious,
 } from "./components/ui/carousel";
 import { ControlPanel } from "./components/qq/ControlPanel";
+import { IntroVideo } from "./components/qq/IntroVideo";
 
 function SWPower() {
   return (
     <AvatarAPIProvider>
-      <div className="SWPower fixed top-[400px] left-0 right-0 bottom-0 flex flex-col ">
+      <div className="SWPower fixed top-[354px] left-0 right-0 bottom-0 flex flex-col ">
         <Carousel className="Carousel flex-grow flex flex-col">
           <CarouselContent
             className="CarouselContent relative flex-grow pr-0 m-0"
@@ -28,6 +29,7 @@ function SWPower() {
                       <span className="text-4xl font-semibold">
                         {index + 1}
                       </span>
+                      {index == 1 ? <IntroVideo /> : null}
                       {index == 2 ? <ControlPanel /> : null}
                     </CardContent>
                   </Card>
