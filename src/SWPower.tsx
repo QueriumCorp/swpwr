@@ -1,5 +1,4 @@
 // General imports
-import { useAvatarAPI } from "@queriumcorp/animetutor";
 
 // ShadCN/UI imports
 import {
@@ -27,7 +26,7 @@ function SWPower() {
             className="CarouselContent relative flex-grow pr-0 m-0"
             style={{ paddingRight: "0px" }}
           >
-            {ybr.map((page, index) => (
+            {ybr.map((page) => (
               <CarouselItem
                 key={page.rank + ":" + page.id}
                 className="CarouselItem h-full p-0 m-0"
