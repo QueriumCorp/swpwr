@@ -1,3 +1,6 @@
+// General imports
+import { useAvatarAPI } from "@queriumcorp/animetutor";
+
 // ShadCN/UI imports
 import {
   Carousel,
@@ -10,25 +13,11 @@ import {
 // SWPWR-specific imports
 import { NavBar } from "./components/qq/NavBar";
 import { AnimeTutor, AvatarAPIProvider } from "@queriumcorp/animetutor";
-import { YBRpage, YellowBrickRoad } from "./components/qq/YellowBrickRoad";
-import NewbMeetTutor from "./components/pages/NewbMeetTutor";
+import { YellowBrickRoad } from "./components/qq/YellowBrickRoad";
+import { renderPage } from "./components/qq/RenderPage";
 
 function SWPower() {
   const ybr = YellowBrickRoad;
-
-  function renderPage(page: YBRpage) {
-    switch (page.rank + ":" + page.id) {
-      case "newb:MeetTutor":
-        return <NewbMeetTutor></NewbMeetTutor>;
-      default:
-        return (
-          <>
-            <h1>NO COMPONENT FOR</h1>
-            <h2>{page.rank + ":" + page.id}</h2>
-          </>
-        );
-    }
-  }
 
   return (
     <AvatarAPIProvider>
@@ -43,27 +32,7 @@ function SWPower() {
                 key={page.rank + ":" + page.id}
                 className="CarouselItem h-full p-0 m-0"
               >
-                {/*                         */}
-                {/* page components go here */}
-                {/*                         */}
-
                 {renderPage(page)}
-
-                {/* <div className="p-1 h-full">
-                  <Card className="Card h-full">
-                    <CardContent className="CardContent flex flex-col items-center justify-center p-6">
-                      <span className="text-4xl font-semibold">
-                        {page.rank + ":" + page.id + 1}
-                      </span>
-                      {index == 1 ? <IntroVideo /> : null}
-                      {index == 2 ? <ControlPanel /> : null}
-                    </CardContent>
-                  </Card>
-                </div> */}
-
-                {/*                         */}
-                {/* page components go here */}
-                {/*                         */}
               </CarouselItem>
             ))}
           </CarouselContent>
