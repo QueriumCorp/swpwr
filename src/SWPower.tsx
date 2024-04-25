@@ -1,5 +1,4 @@
 // ShadCN/UI imports
-import { Card, CardContent } from "./components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -11,12 +10,25 @@ import {
 // SWPWR-specific imports
 import { NavBar } from "./components/qq/NavBar";
 import { AnimeTutor, AvatarAPIProvider } from "@queriumcorp/animetutor";
-import { ControlPanel } from "./components/qq/ControlPanel";
-import { IntroVideo } from "./components/qq/IntroVideo";
-import { YellowBrickRoad } from "./components/qq/YellowBrickRoad";
+import { YBRpage, YellowBrickRoad } from "./components/qq/YellowBrickRoad";
+import NewbMeetTutor from "./components/pages/NewbMeetTutor";
 
 function SWPower() {
   const ybr = YellowBrickRoad;
+
+  function renderPage(page: YBRpage) {
+    switch (page.rank + ":" + page.id) {
+      case "newb:MeetTutor":
+        return <NewbMeetTutor></NewbMeetTutor>;
+      default:
+        return (
+          <>
+            <h1>NO COMPONENT FOR</h1>
+            <h2>{page.rank + ":" + page.id}</h2>
+          </>
+        );
+    }
+  }
 
   return (
     <AvatarAPIProvider>
@@ -34,7 +46,10 @@ function SWPower() {
                 {/*                         */}
                 {/* page components go here */}
                 {/*                         */}
-                <div className="p-1 h-full">
+
+                {renderPage(page)}
+
+                {/* <div className="p-1 h-full">
                   <Card className="Card h-full">
                     <CardContent className="CardContent flex flex-col items-center justify-center p-6">
                       <span className="text-4xl font-semibold">
@@ -44,7 +59,8 @@ function SWPower() {
                       {index == 2 ? <ControlPanel /> : null}
                     </CardContent>
                   </Card>
-                </div>
+                </div> */}
+
                 {/*                         */}
                 {/* page components go here */}
                 {/*                         */}

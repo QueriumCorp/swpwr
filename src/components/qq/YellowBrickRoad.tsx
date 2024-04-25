@@ -1,4 +1,4 @@
-type YBRpage = {
+export type YBRpage = {
   rank: "newb" | "cadet" | "learner" | "ranger";
   id: string;
   title: string;
@@ -206,23 +206,9 @@ export const YellowBrickRoad: YBRpage[] = [
   },
   {
     rank: "ranger",
-    id: "GratzOnOrganize",
-    title: "string",
-    phase: "I",
-    phaseLabel: "",
-  },
-  {
-    rank: "ranger",
     id: "SolveTheEquation",
     title: "Solve the Equation",
     phase: "W",
-    phaseLabel: "Work the Problem",
-  },
-  {
-    rank: "ranger",
-    id: "GratzEquationSolved",
-    title: "Congratulations you solved the equation",
-    phase: "I",
     phaseLabel: "Work the Problem",
   },
   {
@@ -238,26 +224,5 @@ export const YellowBrickRoad: YBRpage[] = [
     title: "Why is this answer correct?",
     phase: "R",
     phaseLabel: "Reflect on the Answer",
-  },
-  {
-    rank: "ranger",
-    id: "GratzOnLearner",
-    title: "",
-    phase: "I",
-    phaseLabel: "",
-  },
-  {
-    rank: "ranger",
-    id: "QuestIntro",
-    title: "",
-    phase: "I",
-    phaseLabel: "",
-  },
-  {
-    rank: "ranger",
-    id: "WhatIsPower",
-    title: "",
-    phase: "I",
-    phaseLabel: "",
   },
 ];
