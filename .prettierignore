@@ -3,6 +3,6 @@ documentation/
 dist/
 node_modules/
 public/
-src/components
+src/components/ui
 *.json
 *.js
