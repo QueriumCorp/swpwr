@@ -76,8 +76,6 @@ export function renderPage(page: YBRpage) {
       return <CadetReflect></CadetReflect>;
     case "cadet:GratzOnLearner":
       return <CadetGratzOnLearner></CadetGratzOnLearner>;
-    case "cadet:FindFacts":
-      return <CadetFindFacts></CadetFindFacts>;
     case "cadet:QuestIntro":
       return <CadetQuestIntro></CadetQuestIntro>;
     case "cadet:WhatIsPower":
