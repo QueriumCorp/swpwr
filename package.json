@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@queriumcorp/animetutor": "file:../@queriumcorp/animetutor/queriumcorp-animetutor-0.0.8.tgz",
+    "@queriumcorp/animetutor": "file:../qqPackages/queriumcorp-animetutor-0.0.10.tgz",
     "@queriumcorp/swreact": "file:../qqPackages/queriumcorp-swreact-0.1.73.tgz",
     "@radix-ui/react-slot": "^1.0.2",
     "@wistia/react-embeds": "^0.0.22-snapshot.1",

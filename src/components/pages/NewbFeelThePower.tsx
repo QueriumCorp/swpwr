@@ -3,6 +3,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { AnimeTutor } from "@queriumcorp/animetutor";
 
 const NewbFeelThePower = React.forwardRef<
   HTMLDivElement,
@@ -18,6 +19,7 @@ const NewbFeelThePower = React.forwardRef<
   >
     <h1>NewbFeelThePower</h1>
     {children}
+    <AnimeTutor closeUp />
   </div>
 ));
 NewbFeelThePower.displayName = "NewbFeelThePower";

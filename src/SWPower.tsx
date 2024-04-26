@@ -7,6 +7,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "./components/ui/carousel";
 
 // SWPWR-specific imports
@@ -14,14 +15,35 @@ import { NavBar } from "./components/qq/NavBar";
 import { AnimeTutor, AvatarAPIProvider } from "@queriumcorp/animetutor";
 import { YellowBrickRoad } from "./components/qq/YellowBrickRoad";
 import { renderPage } from "./components/qq/RenderPage";
+import React, { useEffect } from "react";
 
 function SWPower() {
   const ybr = YellowBrickRoad;
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
+
+  useEffect(() => {
+    console.info(current, count);
+  }, [current, count]);
 
   return (
     <AvatarAPIProvider>
       <div className="SWPower fixed top-[354px] left-0 right-0 bottom-0 flex flex-col ">
-        <Carousel className="Carousel flex-grow flex flex-col">
+        <Carousel setApi={setApi} className="Carousel flex-grow flex flex-col">
           <CarouselContent
             className="CarouselContent relative flex-grow pr-0 m-0"
             style={{ paddingRight: "0px" }}
@@ -37,9 +59,15 @@ function SWPower() {
           </CarouselContent>
 
           <NavBar className="flex justify-end pr-2 space-x-3">
-            <AnimeTutor
-              style={{ bottom: "0px", right: "0px", height: "100px" }}
-            />
+            {ybr[current].phase !== "I" ? (
+              <AnimeTutor
+                style={{ bottom: "0px", right: "0px", height: "100px" }}
+              />
+            ) : (
+              <AnimeTutor
+                style={{ bottom: "-100px", right: "0px", height: "100px" }}
+              />
+            )}
             <CarouselPrevious className="relative left-0">
               Previous
             </CarouselPrevious>
