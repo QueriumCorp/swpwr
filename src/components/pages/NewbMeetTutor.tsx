@@ -24,15 +24,19 @@ const NewbMeetTutor = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col justify-stretch",
+        "p-2 gap-2 rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col justify-stretch",
         className,
       )}
       {...props}
     >
       <h1>NewbMeetTutor</h1>
       {children}
-      <Textarea className="grow" onSelect={textSelected} />
-      <div className="flex grow">
+      <Textarea
+        className="grow"
+        style={{ resize: "none" }}
+        onSelect={textSelected}
+      />
+      <div className="flex grow gap-2">
         <Card className="grow">
           <h3>Knowns</h3>
           <ScrollArea>
