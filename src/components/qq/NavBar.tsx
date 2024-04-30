@@ -22,7 +22,6 @@ const NavBar = React.forwardRef<
   }
   return (
     <div
-      onClick={() => TutorEmote()}
       ref={ref}
       className={cn("NavBar min-h-24 w-full border-none", className)}
       {...props}

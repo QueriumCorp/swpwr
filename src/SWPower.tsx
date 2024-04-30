@@ -21,24 +21,18 @@ function SWPower() {
   const ybr = YellowBrickRoad;
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
-  const [count, setCount] = React.useState(0);
 
   useEffect(() => {
     if (!api) {
       return;
     }
 
-    setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
-
-  useEffect(() => {
-    console.info(current, count);
-  }, [current, count]);
 
   return (
     <AvatarAPIProvider>
@@ -58,16 +52,17 @@ function SWPower() {
             ))}
           </CarouselContent>
 
-          <NavBar className="flex justify-end pr-2 space-x-3">
+          <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
             {ybr[current].phase !== "I" ? (
               <AnimeTutor
-                style={{ bottom: "0px", right: "0px", height: "100px" }}
+                style={{
+                  bottom: "20px",
+                  right: "0px",
+                  height: "100px",
+                  // border: "solid 1px red",
+                }}
               />
-            ) : (
-              <AnimeTutor
-                style={{ bottom: "-100px", right: "0px", height: "100px" }}
-              />
-            )}
+            ) : null}
             <CarouselPrevious className="relative left-0">
               Previous
             </CarouselPrevious>
