@@ -37,7 +37,11 @@ function SWPower() {
   return (
     <AvatarAPIProvider>
       <div className="SWPower fixed top-[354px] left-0 right-0 bottom-0 flex flex-col ">
-        <Carousel setApi={setApi} className="Carousel flex-grow flex flex-col">
+        <Carousel
+          setApi={setApi}
+          opts={{ watchDrag: false }}
+          className="Carousel flex-grow flex flex-col"
+        >
           <CarouselContent
             className="CarouselContent relative flex-grow pr-0 m-0"
             style={{ paddingRight: "0px" }}

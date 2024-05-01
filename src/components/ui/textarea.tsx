@@ -9,7 +9,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, ...props }, ref) => {
 
     function handleKeyDown(evt:React.BaseSyntheticEvent){
-        // evt.stopImmediatePropagation()
         console.log(evt)
     }
 

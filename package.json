@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.1.0",
     "@queriumcorp/animetutor": "file:../qqPackages/queriumcorp-animetutor-0.0.11.tgz",
     "@queriumcorp/swreact": "file:../qqPackages/queriumcorp-swreact-0.1.73.tgz",
     "@radix-ui/react-scroll-area": "^1.0.5",

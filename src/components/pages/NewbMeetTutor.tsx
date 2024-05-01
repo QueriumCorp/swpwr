@@ -2,16 +2,21 @@
 
 import * as React from "react";
 
+import { DndContext } from "@dnd-kit/core";
+
 import { cn } from "@/lib/utils";
 import { Textarea } from "../ui/textarea";
-import { ScrollArea } from "../ui/scrollArea";
-import { Card } from "../ui/card";
+
+// qq Packages
 import { FactChicklet } from "../qq/FactChicklet";
+import UnknownFacts from "../qq/UnknownFacts";
+import KnownFacts from "../qq/KnownFacts";
 
 const NewbMeetTutor = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => {
+  // textSelected event handler
   const textSelected = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const selection = evt.target.value.substring(
       evt.target.selectionStart,
@@ -20,6 +25,7 @@ const NewbMeetTutor = React.forwardRef<
     console.log(`You selected: ${selection}`);
   };
 
+  // JSX
   return (
     <div
       ref={ref}
@@ -31,25 +37,20 @@ const NewbMeetTutor = React.forwardRef<
     >
       <h1>NewbMeetTutor</h1>
       {children}
-      <Textarea
-        className="grow"
-        style={{ resize: "none" }}
-        onSelect={textSelected}
-      />
-      <div className="flex grow gap-2">
-        <Card className="grow">
-          <h3>Knowns</h3>
-          <ScrollArea>
-            <FactChicklet>
-              Fact1<button>x</button>
-            </FactChicklet>
-          </ScrollArea>
-        </Card>
-        <Card className="grow">
-          <h3>Unknowns</h3>
-          <ScrollArea></ScrollArea>
-        </Card>
-      </div>
+      <DndContext>
+        <Textarea
+          className="grow"
+          style={{ resize: "none" }}
+          onSelect={textSelected}
+        />
+        <FactChicklet>
+          Fact1<button>x</button>
+        </FactChicklet>
+        <div className="flex grow gap-2">
+          <KnownFacts>12345</KnownFacts>
+          <UnknownFacts>12345</UnknownFacts>
+        </div>
+      </DndContext>
     </div>
   );
 });
