@@ -37,7 +37,7 @@ const NewbMeetTutor = React.forwardRef<
     >
       <h1>NewbMeetTutor</h1>
       {children}
-      <DndContext>
+      <DndContext onDragEnd={handleDragEnd}>
         <Textarea
           className="grow"
           style={{ resize: "none" }}
@@ -53,6 +53,15 @@ const NewbMeetTutor = React.forwardRef<
       </DndContext>
     </div>
   );
+
+  function handleDragEnd(event) {
+    if (event.over && event.over.id === "UnknownFacts") {
+      console.info("dropped on ", event.over.id);
+    }
+    if (event.over && event.over.id === "KnownFacts") {
+      console.info("dropped on ", event.over.id);
+    }
+  }
 });
 NewbMeetTutor.displayName = "NewbMeetTutor";
 export default NewbMeetTutor;
