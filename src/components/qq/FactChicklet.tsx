@@ -46,7 +46,11 @@ const FactChicklet = React.forwardRef<HTMLDivElement, FactChickletProps>(
         style={dragStyle}
         {...listeners}
         {...attributes}
-        className={cn(factchickletVariants({ variant }), className, "w-72")}
+        className={cn(
+          factchickletVariants({ variant }),
+          className,
+          "h-5 ml-1 mr-1",
+        )}
         {...props}
       />
     );

@@ -11,20 +11,12 @@ import { Textarea } from "../ui/textarea";
 import { FactChicklet } from "../qq/FactChicklet";
 import UnknownFacts from "../qq/UnknownFacts";
 import KnownFacts from "../qq/KnownFacts";
+import { StimulusSelector } from "../qq/StimulusSelector";
 
 const NewbMeetTutor = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => {
-  // textSelected event handler
-  const textSelected = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const selection = evt.target.value.substring(
-      evt.target.selectionStart,
-      evt.target.selectionEnd,
-    );
-    console.log(`You selected: ${selection}`);
-  };
-
   // JSX
   return (
     <div
@@ -38,14 +30,15 @@ const NewbMeetTutor = React.forwardRef<
       <h1>NewbMeetTutor</h1>
       {children}
       <DndContext onDragEnd={handleDragEnd}>
-        <Textarea
-          className="grow"
-          style={{ resize: "none" }}
-          onSelect={textSelected}
-        />
-        <FactChicklet>
-          Fact1<button>x</button>
-        </FactChicklet>
+        <StimulusSelector
+          className={cn(
+            "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            className,
+            "inline",
+          )}
+          stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
+        ></StimulusSelector>
+
         <div className="flex grow gap-2">
           <KnownFacts>12345</KnownFacts>
           <UnknownFacts>12345</UnknownFacts>
