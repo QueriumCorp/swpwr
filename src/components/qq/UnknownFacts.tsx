@@ -17,7 +17,7 @@ const UnknownFacts = (props) => {
     <Card className="grow flex flex-col justify-stretch">
       <CardHeader className="CardHeader flex-row justify-between align-middle">
         <CardTitle className="CardTitle">Unknowns</CardTitle>
-        <CiSquarePlus className="text-lg" />
+        <CiSquarePlus onClick={props.add} className="text-lg" />
       </CardHeader>
       <CardContent className="flex grow">
         <div className="grow border-2 " ref={setNodeRef} style={style}>

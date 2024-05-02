@@ -44,12 +44,12 @@ const NewbMeetTutor = React.forwardRef<
         ></StimulusSelector>
 
         <div className="flex grow gap-2">
-          <KnownFacts>
+          <KnownFacts add={addKnown}>
             {knowns.map((known) => (
               <FactChicklet key={known} fact={known}></FactChicklet>
             ))}
           </KnownFacts>
-          <UnknownFacts>
+          <UnknownFacts add={addUnknown}>
             {unknowns.map((unknown) => (
               <FactChicklet key={unknown} fact={unknown}></FactChicklet>
             ))}
@@ -60,22 +60,26 @@ const NewbMeetTutor = React.forwardRef<
   );
 
   function handleDragEnd(event: DragEndEvent) {
-    if (event.over && event.over.id === "UnknownFacts") {
-      setUnknowns([...unknowns, event.active.id.toString()]);
-    }
     if (event.over && event.over.id === "KnownFacts") {
       setKnowns([...knowns, event.active.id.toString()]);
+    }
+    if (event.over && event.over.id === "UnknownFacts") {
+      setUnknowns([...unknowns, event.active.id.toString()]);
     }
   }
 
   function addKnown() {
-    console.log("addKnown()");
+    if (currentFact.length == 0) return;
+    setKnowns([...knowns, currentFact]);
+    setCurrentFact("");
   }
   function delKnown(fact: string) {
     console.log("delKnown()", fact);
   }
   function addUnknown() {
-    console.log("addUnknown()");
+    if (currentFact.length == 0) return;
+    setUnknowns([...unknowns, currentFact]);
+    setCurrentFact("");
   }
   function delUnknown(fact: string) {
     console.log("delUnknown()", fact);
