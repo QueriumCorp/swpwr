@@ -42,6 +42,7 @@ const StimulusSelector = React.forwardRef<
     const endSel =
       sel.anchorOffset < sel.focusOffset ? sel.focusOffset : sel.anchorOffset;
 
+    // TODO - when selecting after current selection, need to delete and adjust for the inserted HTML
     const preText = stimulusText.substring(0, startSel);
     const theText = stimulusText.substring(startSel, endSel);
     const postText = stimulusText.substring(endSel);
@@ -49,7 +50,9 @@ const StimulusSelector = React.forwardRef<
     console.info("preText", preText);
     console.info("theText", theText);
     console.info("postText", postText);
-    // setInnerHTML()
+    setInnerHTML(
+      `${preText}<span style="color:red">${theText}</span>${postText}`,
+    );
   }
 
   React.useEffect(() => {
