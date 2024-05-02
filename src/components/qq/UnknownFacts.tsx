@@ -1,7 +1,8 @@
 import { useDroppable } from "@dnd-kit/core";
 
-import { Card } from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ScrollArea } from "../ui/scrollArea";
+import { CiSquarePlus } from "react-icons/ci";
 
 const UnknownFacts = (props) => {
   const { isOver, setNodeRef } = useDroppable({
@@ -14,10 +15,15 @@ const UnknownFacts = (props) => {
   // JSX
   return (
     <Card className="grow flex flex-col justify-stretch">
-      <h3>Unknowns</h3>
-      <div className="grow border-2 " ref={setNodeRef} style={style}>
-        <ScrollArea>{props.children}</ScrollArea>
-      </div>
+      <CardHeader className="CardHeader flex-row justify-between align-middle">
+        <CardTitle className="CardTitle">Unknowns</CardTitle>
+        <CiSquarePlus className="text-lg" />
+      </CardHeader>
+      <CardContent className="flex grow">
+        <div className="grow border-2 " ref={setNodeRef} style={style}>
+          <ScrollArea>{props.children}</ScrollArea>
+        </div>
+      </CardContent>
     </Card>
   );
 };

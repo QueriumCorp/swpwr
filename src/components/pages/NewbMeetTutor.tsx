@@ -2,13 +2,11 @@
 
 import * as React from "react";
 
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
 
 import { cn } from "@/lib/utils";
-import { Textarea } from "../ui/textarea";
 
 // qq Packages
-import { FactChicklet } from "../qq/FactChicklet";
 import UnknownFacts from "../qq/UnknownFacts";
 import KnownFacts from "../qq/KnownFacts";
 import { StimulusSelector } from "../qq/StimulusSelector";
@@ -47,7 +45,7 @@ const NewbMeetTutor = React.forwardRef<
     </div>
   );
 
-  function handleDragEnd(event) {
+  function handleDragEnd(event: DragEndEvent) {
     if (event.over && event.over.id === "UnknownFacts") {
       console.info("dropped on ", event.over.id);
     }

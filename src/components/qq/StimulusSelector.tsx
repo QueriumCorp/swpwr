@@ -13,8 +13,6 @@ const StimulusSelector = React.forwardRef<
   StimulusSelectorProps
 >(({ className, stimulusText, ...props }, ref) => {
   const theRef = React.useRef(null);
-  const [anchorOffset, setAnchorOffset] = React.useState(0);
-  const [focusOffset, setFocusOffset] = React.useState(0);
   const [preText, setPreText] = React.useState(stimulusText);
   const [theText, setTheText] = React.useState("");
   const [postText, setPostText] = React.useState("");
@@ -27,11 +25,11 @@ const StimulusSelector = React.forwardRef<
   }
 
   function handleSelectionChange(element: HTMLElement): void {
-    element.onmouseup = () => retrieveSelection(element);
-    element.onkeyup = () => retrieveSelection(element);
+    element.onmouseup = () => retrieveSelection();
+    element.onkeyup = () => retrieveSelection();
   }
 
-  function retrieveSelection(element: HTMLElement): void {
+  function retrieveSelection(): void {
     const sel = document.getSelection();
 
     // Ignore empty selection
