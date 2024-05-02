@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { FactChicklet } from "./FactChicklet";
 
 export interface StimulusSelectorProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -14,7 +15,9 @@ const StimulusSelector = React.forwardRef<
   const theRef = React.useRef(null);
   const [anchorOffset, setAnchorOffset] = React.useState(0);
   const [focusOffset, setFocusOffset] = React.useState(0);
-  const [innerHTML, setInnerHTML] = React.useState(stimulusText);
+  const [preText, setPreText] = React.useState(stimulusText);
+  const [theText, setTheText] = React.useState("");
+  const [postText, setPostText] = React.useState("");
 
   function attachSelectionListener(element: HTMLElement): void {
     if (!element.contentEditable) {
@@ -24,8 +27,8 @@ const StimulusSelector = React.forwardRef<
   }
 
   function handleSelectionChange(element: HTMLElement): void {
-    document.onmouseup = () => retrieveSelection(element);
-    document.onkeyup = () => retrieveSelection(element);
+    element.onmouseup = () => retrieveSelection(element);
+    element.onkeyup = () => retrieveSelection(element);
   }
 
   function retrieveSelection(element: HTMLElement): void {
@@ -33,26 +36,36 @@ const StimulusSelector = React.forwardRef<
 
     // Ignore empty selection
     if (!sel || !sel.toString() || sel.isCollapsed) {
-      setInnerHTML(stimulusText);
+      setPreText(stimulusText);
+      setTheText("");
+      setPostText("");
       return;
     }
 
-    const startSel =
-      sel.anchorOffset < sel.focusOffset ? sel.anchorOffset : sel.focusOffset;
-    const endSel =
-      sel.anchorOffset < sel.focusOffset ? sel.focusOffset : sel.anchorOffset;
+    // Find & Fix indexes
+    // The getSelection() Offsets include the underlying HTML, not just the
+    // text. So we use indexOf the select string (which is correct) to get
+    // the correct offsets
 
-    // TODO - when selecting after current selection, need to delete and adjust for the inserted HTML
-    const preText = stimulusText.substring(0, startSel);
-    const theText = stimulusText.substring(startSel, endSel);
-    const postText = stimulusText.substring(endSel);
+    let startSel, endSel, actualOffset;
+    if (sel.anchorOffset < sel.focusOffset) {
+      startSel = sel.anchorOffset;
+      endSel = sel.focusOffset;
+    } else {
+      startSel = sel.focusOffset;
+      endSel = sel.anchorOffset;
+    }
 
-    console.info("preText", preText);
-    console.info("theText", theText);
-    console.info("postText", postText);
-    setInnerHTML(
-      `${preText}<span style="color:red">${theText}</span>${postText}`,
-    );
+    actualOffset = stimulusText.indexOf(sel.toString(), startSel);
+    if (startSel !== actualOffset) {
+      const htmlOffset = actualOffset - startSel;
+      startSel = actualOffset;
+      endSel = endSel + htmlOffset;
+    }
+
+    setPreText(stimulusText.substring(0, startSel));
+    setTheText(stimulusText.substring(startSel, endSel));
+    setPostText(stimulusText.substring(endSel));
   }
 
   React.useEffect(() => {
@@ -61,11 +74,11 @@ const StimulusSelector = React.forwardRef<
 
   // JSX
   return (
-    <div
-      ref={theRef}
-      className={cn(className, "")}
-      dangerouslySetInnerHTML={{ __html: innerHTML }}
-    ></div>
+    <div ref={theRef} className={cn(className, "")}>
+      {preText}
+      {theText.length ? <FactChicklet>{theText}</FactChicklet> : null}
+      {postText}
+    </div>
   );
 });
 
