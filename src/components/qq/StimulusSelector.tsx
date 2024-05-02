@@ -74,7 +74,7 @@ const StimulusSelector = React.forwardRef<
   return (
     <div ref={theRef} className={cn(className, "")}>
       {preText}
-      {theText.length ? <FactChicklet>{theText}</FactChicklet> : null}
+      {theText.length ? <FactChicklet fact={theText}></FactChicklet> : null}
       {postText}
     </div>
   );

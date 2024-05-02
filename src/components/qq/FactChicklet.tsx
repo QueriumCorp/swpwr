@@ -26,13 +26,15 @@ const factchickletVariants = cva(
 
 export interface FactChickletProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof factchickletVariants> {}
+    VariantProps<typeof factchickletVariants> {
+  fact: string;
+}
 
 const FactChicklet = React.forwardRef<HTMLDivElement, FactChickletProps>(
-  ({ className, variant, ...props }, ref) => {
+  ({ fact, className, variant, ...props }, ref) => {
     // Draggable hooks
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
-      id: "draggable",
+      id: fact,
     });
     const dragStyle = transform
       ? {
@@ -48,7 +50,9 @@ const FactChicklet = React.forwardRef<HTMLDivElement, FactChickletProps>(
         {...attributes}
         className={cn(factchickletVariants({ variant }), className, "h-5")}
         {...props}
-      />
+      >
+        {fact}
+      </div>
     );
   },
 );

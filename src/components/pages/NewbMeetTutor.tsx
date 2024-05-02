@@ -10,11 +10,15 @@ import { cn } from "@/lib/utils";
 import UnknownFacts from "../qq/UnknownFacts";
 import KnownFacts from "../qq/KnownFacts";
 import { StimulusSelector } from "../qq/StimulusSelector";
+import { FactChicklet } from "../qq/FactChicklet";
 
 const NewbMeetTutor = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => {
+  const [knowns, setKnowns] = React.useState<string[]>([]);
+  const [unknowns, setUnknowns] = React.useState<string[]>([]);
+
   // JSX
   return (
     <div
@@ -38,21 +42,32 @@ const NewbMeetTutor = React.forwardRef<
         ></StimulusSelector>
 
         <div className="flex grow gap-2">
-          <KnownFacts>12345</KnownFacts>
-          <UnknownFacts>12345</UnknownFacts>
+          <KnownFacts>
+            {knowns.map((known) => (
+              <FactChicklet id={known}>{known}</FactChicklet>
+            ))}
+          </KnownFacts>
+          <UnknownFacts>
+            {unknowns.map((unknown) => (
+              <FactChicklet id={unknown}>{unknown}</FactChicklet>
+            ))}
+          </UnknownFacts>
         </div>
       </DndContext>
     </div>
   );
 
   function handleDragEnd(event: DragEndEvent) {
+    console.info(event);
     if (event.over && event.over.id === "UnknownFacts") {
       console.info("dropped on ", event.over.id);
     }
     if (event.over && event.over.id === "KnownFacts") {
-      console.info("dropped on ", event.over.id);
+      console.info("dropped on ", event.over.data);
     }
   }
 });
+
 NewbMeetTutor.displayName = "NewbMeetTutor";
+
 export default NewbMeetTutor;
