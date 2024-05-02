@@ -18,6 +18,7 @@ const NewbMeetTutor = React.forwardRef<
 >(({ className, children, ...props }, ref) => {
   const [knowns, setKnowns] = React.useState<string[]>([]);
   const [unknowns, setUnknowns] = React.useState<string[]>([]);
+  const [currentFact, setCurrentFact] = React.useState<string>("");
 
   // JSX
   return (
@@ -33,6 +34,7 @@ const NewbMeetTutor = React.forwardRef<
       {children}
       <DndContext onDragEnd={handleDragEnd}>
         <StimulusSelector
+          onChangeFact={setCurrentFact}
           className={cn(
             "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
             className,
@@ -44,12 +46,12 @@ const NewbMeetTutor = React.forwardRef<
         <div className="flex grow gap-2">
           <KnownFacts>
             {knowns.map((known) => (
-              <FactChicklet id={known}>{known}</FactChicklet>
+              <FactChicklet key={known} fact={known}></FactChicklet>
             ))}
           </KnownFacts>
           <UnknownFacts>
             {unknowns.map((unknown) => (
-              <FactChicklet id={unknown}>{unknown}</FactChicklet>
+              <FactChicklet key={unknown} fact={unknown}></FactChicklet>
             ))}
           </UnknownFacts>
         </div>
@@ -58,13 +60,25 @@ const NewbMeetTutor = React.forwardRef<
   );
 
   function handleDragEnd(event: DragEndEvent) {
-    console.info(event);
     if (event.over && event.over.id === "UnknownFacts") {
-      console.info("dropped on ", event.over.id);
+      setUnknowns([...unknowns, event.active.id.toString()]);
     }
     if (event.over && event.over.id === "KnownFacts") {
-      console.info("dropped on ", event.over.data);
+      setKnowns([...knowns, event.active.id.toString()]);
     }
+  }
+
+  function addKnown() {
+    console.log("addKnown()");
+  }
+  function delKnown(fact: string) {
+    console.log("delKnown()", fact);
+  }
+  function addUnknown() {
+    console.log("addUnknown()");
+  }
+  function delUnknown(fact: string) {
+    console.log("delUnknown()", fact);
   }
 });
 

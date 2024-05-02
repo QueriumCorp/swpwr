@@ -6,12 +6,13 @@ import { FactChicklet } from "./FactChicklet";
 export interface StimulusSelectorProps
   extends React.HTMLAttributes<HTMLDivElement> {
   stimulusText: string;
+  onChangeFact(fact: string): void;
 }
 
 const StimulusSelector = React.forwardRef<
   HTMLDivElement,
   StimulusSelectorProps
->(({ className, stimulusText, ...props }, ref) => {
+>(({ className, stimulusText, onChangeFact, ...props }, ref) => {
   const theRef = React.useRef(null);
   const [preText, setPreText] = React.useState(stimulusText);
   const [theText, setTheText] = React.useState("");
@@ -37,6 +38,7 @@ const StimulusSelector = React.forwardRef<
       setPreText(stimulusText);
       setTheText("");
       setPostText("");
+      onChangeFact("");
       return;
     }
 
@@ -64,6 +66,8 @@ const StimulusSelector = React.forwardRef<
     setPreText(stimulusText.substring(0, startSel));
     setTheText(stimulusText.substring(startSel, endSel));
     setPostText(stimulusText.substring(endSel));
+
+    onChangeFact(sel.toString());
   }
 
   React.useEffect(() => {
