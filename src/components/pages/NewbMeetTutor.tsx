@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import UnknownFacts from "../qq/UnknownFacts";
 import KnownFacts from "../qq/KnownFacts";
 import { StimulusSelector } from "../qq/StimulusSelector";
-import { FactChicklet } from "../qq/FactChicklet";
+import Chip from "../qq/Chip";
 
 const NewbMeetTutor = React.forwardRef<
   HTMLDivElement,
@@ -19,6 +19,14 @@ const NewbMeetTutor = React.forwardRef<
   const [knowns, setKnowns] = React.useState<string[]>([]);
   const [unknowns, setUnknowns] = React.useState<string[]>([]);
   const [currentFact, setCurrentFact] = React.useState<string>("");
+
+  const delKnown = (fact: string) => {
+    setKnowns(knowns.filter((thisFact) => thisFact !== fact));
+  };
+
+  const delUnknown = (fact: string) => {
+    setUnknowns(unknowns.filter((thisFact) => thisFact !== fact));
+  };
 
   // JSX
   return (
@@ -46,12 +54,22 @@ const NewbMeetTutor = React.forwardRef<
         <div className="flex grow gap-2">
           <KnownFacts add={addKnown}>
             {knowns.map((known) => (
-              <FactChicklet key={known} fact={known}></FactChicklet>
+              <Chip
+                id={known}
+                key={known}
+                label={known}
+                onDelete={delKnown}
+              ></Chip>
             ))}
           </KnownFacts>
           <UnknownFacts add={addUnknown}>
             {unknowns.map((unknown) => (
-              <FactChicklet key={unknown} fact={unknown}></FactChicklet>
+              <Chip
+                id={unknown}
+                key={unknown}
+                label={unknown}
+                onDelete={delUnknown}
+              ></Chip>
             ))}
           </UnknownFacts>
         </div>
@@ -60,29 +78,30 @@ const NewbMeetTutor = React.forwardRef<
   );
 
   function handleDragEnd(event: DragEndEvent) {
+    if (currentFact.length == 0 || currentFact.trim().length == 0) return;
+    if (knowns.includes(currentFact)) return;
+
     if (event.over && event.over.id === "KnownFacts") {
-      setKnowns([...knowns, event.active.id.toString()]);
+      setKnowns([...knowns, currentFact]);
     }
     if (event.over && event.over.id === "UnknownFacts") {
-      setUnknowns([...unknowns, event.active.id.toString()]);
+      setUnknowns([...unknowns, currentFact]);
     }
+    setCurrentFact("");
   }
 
   function addKnown() {
-    if (currentFact.length == 0) return;
+    if (currentFact.length == 0 || currentFact.trim().length == 0) return;
+    if (knowns.includes(currentFact)) return;
+
     setKnowns([...knowns, currentFact]);
     setCurrentFact("");
   }
-  function delKnown(fact: string) {
-    console.log("delKnown()", fact);
-  }
   function addUnknown() {
-    if (currentFact.length == 0) return;
+    if (currentFact.length == 0 || currentFact.trim().length == 0) return;
+    if (unknowns.includes(currentFact)) return;
     setUnknowns([...unknowns, currentFact]);
     setCurrentFact("");
-  }
-  function delUnknown(fact: string) {
-    console.log("delUnknown()", fact);
   }
 });
 
