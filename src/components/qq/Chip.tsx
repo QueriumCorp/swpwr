@@ -1,3 +1,5 @@
+// Based on https://github.com/arvind-iyer-2001/zepto-chip
+
 import { ReactNode, useState } from "react";
 import { cn } from "../../lib/utils";
 
