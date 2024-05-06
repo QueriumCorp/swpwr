@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "version-update": "npm version patch",
+    "git-log": "git  --no-pager log --pretty=format:\"%cd, %s\"",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
