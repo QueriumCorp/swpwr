@@ -60,9 +60,9 @@ function SWPower() {
             {ybr[current].phase !== "I" ? (
               <AnimeTutor
                 style={{
-                  bottom: "20px",
+                  bottom: "0px",
                   right: "0px",
-                  height: "100px",
+                  height: "100%",
                   // border: "solid 1px red",
                 }}
               />

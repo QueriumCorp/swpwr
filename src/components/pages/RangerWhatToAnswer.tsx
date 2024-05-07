@@ -3,22 +3,24 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { type YBRpage } from "../qq/YellowBrickRoad";
 
-const RangerWhatToAnswer = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-lg border bg-card text-card-foreground shadow-sm",
-      className,
-    )}
-    {...props}
-  >
-    <h1>RangerWhatToAnswer</h1>
-    {children}
-  </div>
-));
+const RangerWhatToAnswer: React.FC<{
+  className?: string;
+  children?: React.ReactNode;
+  page: YBRpage;
+}> = ({ className, children, page }) => {
+  return (
+    <div
+      className={cn(
+        "rounded-lg border bg-card text-card-foreground shadow-sm",
+        className,
+      )}
+    >
+      <h1>RangerWhatToAnswer</h1>
+      {children}
+    </div>
+  );
+};
 RangerWhatToAnswer.displayName = "RangerWhatToAnswer";
 export default RangerWhatToAnswer;

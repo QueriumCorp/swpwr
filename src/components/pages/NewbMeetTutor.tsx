@@ -11,11 +11,13 @@ import UnknownFacts from "../qq/UnknownFacts";
 import KnownFacts from "../qq/KnownFacts";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import Chip from "../qq/Chip";
+import { YBRpage } from "../qq/YellowBrickRoad";
 
-const NewbMeetTutor = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => {
+const NewbMeetTutor: React.FC<{
+  className?: string;
+  children?: React.ReactNode;
+  page: YBRpage;
+}> = ({ className, children, page }) => {
   const [knowns, setKnowns] = React.useState<string[]>([]);
   const [unknowns, setUnknowns] = React.useState<string[]>([]);
   const [currentFact, setCurrentFact] = React.useState<string>("");
@@ -31,12 +33,10 @@ const NewbMeetTutor = React.forwardRef<
   // JSX
   return (
     <div
-      ref={ref}
       className={cn(
         "p-2 gap-2 rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col justify-stretch",
         className,
       )}
-      {...props}
     >
       <h1>NewbMeetTutor</h1>
       {children}
@@ -103,7 +103,7 @@ const NewbMeetTutor = React.forwardRef<
     setUnknowns([...unknowns, currentFact]);
     setCurrentFact("");
   }
-});
+};
 
 NewbMeetTutor.displayName = "NewbMeetTutor";
 

@@ -3,22 +3,24 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { type YBRpage } from "../qq/YellowBrickRoad";
 
-const CadetSolvedFor = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-lg border bg-card text-card-foreground shadow-sm",
-      className,
-    )}
-    {...props}
-  >
-    <h1>CadetSolvedFor</h1>
-    {children}
-  </div>
-));
+const CadetSolvedFor: React.FC<{
+  className?: string;
+  children?: React.ReactNode;
+  page: YBRpage;
+}> = ({ className, children, page }) => {
+  return (
+    <div
+      className={cn(
+        "rounded-lg border bg-card text-card-foreground shadow-sm",
+        className,
+      )}
+    >
+      <h1>CadetSolvedFor</h1>
+      {children}
+    </div>
+  );
+};
 CadetSolvedFor.displayName = "CadetSolvedFor";
 export default CadetSolvedFor;

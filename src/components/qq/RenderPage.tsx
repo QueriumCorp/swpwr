@@ -35,71 +35,71 @@ export function renderPage(page: YBRpage) {
   switch (page.rank + ":" + page.id) {
     // NEWB
     case "newb:MeetTutor":
-      return <NewbMeetTutor></NewbMeetTutor>;
+      return <NewbMeetTutor page={page}></NewbMeetTutor>;
     case "newb:FeelThePower":
-      return <NewbFeelThePower></NewbFeelThePower>;
+      return <NewbFeelThePower page={page}></NewbFeelThePower>;
     case "newb:GratzWatchedVideo":
-      return <NewbGratzWatchedVideo></NewbGratzWatchedVideo>;
+      return <NewbGratzWatchedVideo page={page}></NewbGratzWatchedVideo>;
     case "newb:FindTutor":
-      return <NewbFindTutor></NewbFindTutor>;
+      return <NewbFindTutor page={page}></NewbFindTutor>;
     case "newb:GratzFoundTutor":
-      return <NewbGratzFoundTutor></NewbGratzFoundTutor>;
+      return <NewbGratzFoundTutor page={page}></NewbGratzFoundTutor>;
     case "newb:ReadProblem":
-      return <NewbReadProblem></NewbReadProblem>;
+      return <NewbReadProblem page={page}></NewbReadProblem>;
     case "newb:KnownFacts":
-      return <NewbKnownFacts></NewbKnownFacts>;
+      return <NewbKnownFacts page={page}></NewbKnownFacts>;
     case "newb:GratzOnPrepare":
-      return <NewbGratzOnPrepare></NewbGratzOnPrepare>;
+      return <NewbGratzOnPrepare page={page}></NewbGratzOnPrepare>;
 
     // CADET
     case "cadet:ReadProblem":
-      return <CadetReadProblem></CadetReadProblem>;
+      return <CadetReadProblem page={page}></CadetReadProblem>;
     case "cadet:WhatToAnswer":
-      return <CadetWhatToAnswer></CadetWhatToAnswer>;
+      return <CadetWhatToAnswer page={page}></CadetWhatToAnswer>;
     case "cadet:FindFacts":
-      return <CadetFindFacts></CadetFindFacts>;
+      return <CadetFindFacts page={page}></CadetFindFacts>;
     case "cadet:SelectDiagram":
-      return <CadetSelectDiagram></CadetSelectDiagram>;
+      return <CadetSelectDiagram page={page}></CadetSelectDiagram>;
     case "cadet:FillDiagram":
-      return <CadetFillDiagram></CadetFillDiagram>;
+      return <CadetFillDiagram page={page}></CadetFillDiagram>;
     case "cadet:FillEquation":
-      return <CadetFillEquation></CadetFillEquation>;
+      return <CadetFillEquation page={page}></CadetFillEquation>;
     case "cadet:GratzOnOrganize":
-      return <CadetGratzOnOrganize></CadetGratzOnOrganize>;
+      return <CadetGratzOnOrganize page={page}></CadetGratzOnOrganize>;
     case "cadet:SolveTheEquation":
-      return <CadetSolveTheEquation></CadetSolveTheEquation>;
+      return <CadetSolveTheEquation page={page}></CadetSolveTheEquation>;
     case "cadet:GratzEquationSolved":
-      return <CadetGratzEquationSolved></CadetGratzEquationSolved>;
+      return <CadetGratzEquationSolved page={page}></CadetGratzEquationSolved>;
     case "cadet:SolvedFor":
-      return <CadetSolvedFor></CadetSolvedFor>;
+      return <CadetSolvedFor page={page}></CadetSolvedFor>;
     case "cadet:Reflect":
-      return <CadetReflect></CadetReflect>;
+      return <CadetReflect page={page}></CadetReflect>;
     case "cadet:GratzOnLearner":
-      return <CadetGratzOnLearner></CadetGratzOnLearner>;
+      return <CadetGratzOnLearner page={page}></CadetGratzOnLearner>;
     case "cadet:QuestIntro":
-      return <CadetQuestIntro></CadetQuestIntro>;
+      return <CadetQuestIntro page={page}></CadetQuestIntro>;
     case "cadet:WhatIsPower":
-      return <CadetWhatIsPower></CadetWhatIsPower>;
+      return <CadetWhatIsPower page={page}></CadetWhatIsPower>;
 
     // RANGER
     case "ranger:ReadProblem":
-      return <RangerReadProblem></RangerReadProblem>;
+      return <RangerReadProblem page={page}></RangerReadProblem>;
     case "ranger:WhatToAnswer":
-      return <RangerWhatToAnswer></RangerWhatToAnswer>;
+      return <RangerWhatToAnswer page={page}></RangerWhatToAnswer>;
     case "ranger:FindFacts":
-      return <RangerFindFacts></RangerFindFacts>;
+      return <RangerFindFacts page={page}></RangerFindFacts>;
     case "ranger:SelectDiagram":
-      return <RangerSelectDiagram></RangerSelectDiagram>;
+      return <RangerSelectDiagram page={page}></RangerSelectDiagram>;
     case "ranger:FillDiagram":
-      return <RangerFillDiagram></RangerFillDiagram>; // DEFAULT
+      return <RangerFillDiagram page={page}></RangerFillDiagram>; // DEFAULT
     case "ranger:FillEquation":
-      return <RangerFillEquation></RangerFillEquation>;
+      return <RangerFillEquation page={page}></RangerFillEquation>;
     case "ranger:SolveTheEquation":
-      return <RangerSolveTheEquation></RangerSolveTheEquation>;
+      return <RangerSolveTheEquation page={page}></RangerSolveTheEquation>;
     case "ranger:SolvedFor":
-      return <RangerSolvedFor></RangerSolvedFor>;
+      return <RangerSolvedFor page={page}></RangerSolvedFor>;
     case "ranger:Reflect":
-      return <RangerReflect></RangerReflect>;
+      return <RangerReflect page={page}></RangerReflect>;
     default:
       return (
         <>

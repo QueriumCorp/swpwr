@@ -4,18 +4,18 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { StepWise } from "@queriumcorp/swreact";
+import { type YBRpage } from "../qq/YellowBrickRoad";
 
-const CadetSolveTheEquation = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => (
+const CadetSolveTheEquation: React.FC<{
+  className?: string;
+  children?: React.ReactNode;
+  page: YBRpage;
+}> = ({ className, children, page }) => (
   <div
-    ref={ref}
     className={cn(
       "rounded-lg border bg-card text-card-foreground shadow-sm",
       className,
     )}
-    {...props}
   >
     <h1>CadetSolveTheEquation</h1>
     <StepWise
@@ -41,6 +41,6 @@ const CadetSolveTheEquation = React.forwardRef<
     />
     {children}
   </div>
-));
+);
 CadetSolveTheEquation.displayName = "CadetSolveTheEquation";
 export default CadetSolveTheEquation;
