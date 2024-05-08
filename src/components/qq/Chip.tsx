@@ -46,7 +46,7 @@ const Chip = ({
       {onDelete && (
         <button
           onClick={() => onDelete(id)}
-          className="hover:border-transparent hover:scale-105 flex align-middle rounded-full p-0 bg-transparent text-lg text-gray-400 hover:text-gray-600"
+          className="hover:border-transparent hover:scale-90 flex align-middle rounded-full p-0 bg-transparent text-lg text-gray-400 hover:text-red-500 hover:bg-white"
         >
           <span className="px-2">×</span>
         </button>
