@@ -3,8 +3,10 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
-import { AnimeTutor } from "@queriumcorp/animetutor";
+import ReactPlayer from "react-player/wistia";
+
+// qq Packages
+import { YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 
 const NewbFeelThePower: React.FC<{
@@ -16,20 +18,22 @@ const NewbFeelThePower: React.FC<{
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
   if (current !== index + 1) return null;
+  const src = "https://querium.wistia.com/medias/oyfe3sqhwb";
 
   // JSX
   return (
     <div
       className={cn(
-        "rounded-lg border bg-card text-card-foreground shadow-sm",
+        "p-2 gap-2 rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col justify-stretch relative",
         className,
       )}
     >
       <h1>NewbFeelThePower</h1>
-      {children}
-      <AnimeTutor closeUp />
+      <ReactPlayer url={src} height={"100%"} style={{ margin: "auto" }} />
     </div>
   );
 };
+
 NewbFeelThePower.displayName = "NewbFeelThePower";
+
 export default NewbFeelThePower;
