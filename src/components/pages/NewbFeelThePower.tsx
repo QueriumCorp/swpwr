@@ -17,6 +17,7 @@ const NewbFeelThePower: React.FC<{
   const { current } = React.useContext(NavContext) as NavContextType;
   if (current !== index + 1) return null;
 
+  // JSX
   return (
     <div
       className={cn(

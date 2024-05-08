@@ -12,12 +12,18 @@ import KnownFacts from "../qq/KnownFacts";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import Chip from "../qq/Chip";
 import { YBRpage } from "../qq/YellowBrickRoad";
+import { NavContext, NavContextType } from "@/NavContext";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
   children?: React.ReactNode;
   page: YBRpage;
-}> = ({ className, children, page }) => {
+  index: number;
+}> = ({ className, children, page, index }) => {
+  // Dont render if page not active
+  const { current } = React.useContext(NavContext) as NavContextType;
+  if (current !== index + 1) return null;
+
   const [knowns, setKnowns] = React.useState<string[]>([]);
   const [unknowns, setUnknowns] = React.useState<string[]>([]);
   const [currentFact, setCurrentFact] = React.useState<string>("");
