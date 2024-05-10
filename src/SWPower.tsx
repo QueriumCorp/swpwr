@@ -57,23 +57,6 @@ function SWPower() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-
-            <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
-              {ybr[current].phase !== "I" ? (
-                <AnimeTutor
-                  style={{
-                    bottom: "0px",
-                    right: "0px",
-                    height: "100%",
-                    // border: "solid 1px red",
-                  }}
-                />
-              ) : null}
-              <CarouselPrevious className="relative left-0">
-                Previous
-              </CarouselPrevious>
-              <CarouselNext className="relative right-0">Next</CarouselNext>
-            </NavBar>
           </Carousel>
         </div>
       </AvatarAPIProvider>

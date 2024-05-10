@@ -13,9 +13,7 @@ const NewbGratzWatchedVideo: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, children, page, index }) => {
-  // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
-  if (current !== index + 1) return null;
 
   const { sayMsg } = useAvatarAPI();
 
@@ -24,6 +22,7 @@ const NewbGratzWatchedVideo: React.FC<{
   }, []);
 
   // JSX
+  if (current !== index + 1) return null; // Dont render if page not active
   return (
     <div
       className={cn(

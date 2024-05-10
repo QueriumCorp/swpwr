@@ -32,7 +32,6 @@ import RangerWhatToAnswer from "../pages/RangerWhatToAnswer";
 import { YBRpage } from "./YellowBrickRoad";
 
 export function renderPage(page: YBRpage, index: number) {
-  console.log(page.rank + ":" + page.id);
   switch (page.rank + ":" + page.id) {
     // NEWB
     case "newb:MeetTutor":

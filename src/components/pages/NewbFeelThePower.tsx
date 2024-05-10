@@ -6,8 +6,11 @@ import { cn } from "@/lib/utils";
 import ReactPlayer from "react-player/wistia";
 
 // qq Packages
-import { YBRpage } from "../qq/YellowBrickRoad";
+import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
+import { AnimeTutor } from "@queriumcorp/animetutor";
+import { NavBar } from "../qq/NavBar";
+import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 
 const NewbFeelThePower: React.FC<{
   className?: string;
@@ -15,12 +18,14 @@ const NewbFeelThePower: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, children, page, index }) => {
-  // Dont render if page not active
-  const { current } = React.useContext(NavContext) as NavContextType;
-  if (current !== index + 1) return null;
+  const ybr = YellowBrickRoad;
   const src = "https://querium.wistia.com/medias/oyfe3sqhwb";
 
+  const { current } = React.useContext(NavContext) as NavContextType;
+
   // JSX
+  // Dont render if page not active
+  if (current !== index + 1) return null;
   return (
     <div
       className={cn(
@@ -30,6 +35,22 @@ const NewbFeelThePower: React.FC<{
     >
       <h1>NewbFeelThePower</h1>
       <ReactPlayer url={src} height={"100%"} style={{ margin: "auto" }} />
+      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
+        {ybr[current].phase !== "I" ? (
+          <AnimeTutor
+            style={{
+              bottom: "0px",
+              right: "0px",
+              height: "100%",
+              // border: "solid 1px red",
+            }}
+          />
+        ) : null}
+        <CarouselPrevious className="relative left-0">
+          Previous
+        </CarouselPrevious>
+        <CarouselNext className="relative right-0">Next</CarouselNext>
+      </NavBar>
     </div>
   );
 };

@@ -14,7 +14,17 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        inter: ["Inter", "sans-serif"],
+        sura: ["Sura", "serif"],
+        irishGrover : ["Irish Grover", "system-ui"]
+      },
       colors: {
+        qqDark: "#00000",
+        qqLight: "#FFFFFF",
+        qqNonCore: "#535353",
+        qqBrand: "#FF5733",
+        qqAccent: "#00BBd6",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
