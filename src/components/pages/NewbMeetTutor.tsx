@@ -4,7 +4,12 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
-import { AnimeTutor, useAvatarAPI } from "@queriumcorp/animetutor";
+import {
+  AnimeTutor,
+  AvatarAPIType,
+  Chat,
+  useAvatarAPI,
+} from "@queriumcorp/animetutor";
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
@@ -19,7 +24,7 @@ const NewbMeetTutor: React.FC<{
   const { current } = React.useContext(NavContext) as NavContextType;
   const ybr = YellowBrickRoad;
 
-  const { sayMsg } = useAvatarAPI();
+  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   React.useEffect(() => {
     setTimeout(() => sayMsg("Hi! I'm FoxyFuka!", "idle:01"), 1000);
@@ -41,18 +46,10 @@ const NewbMeetTutor: React.FC<{
           closeUp
           style={{ position: "absolute", height: "100%", right: "0px" }}
         />
+        <Chat />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
-        <div
-          className={cn(
-            "font-irishGrover rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl rounded-br-none bg-amber-400 text-cyan-700 relative block  w-[fit-content] px-4 py-[.5rem] max-w-[90%] max-h-[28px] min-h-[2.75rem] min-w-[2.75rem]",
-            "before:start-[99.9%]",
-            "before:[mask-image:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMycgaGVpZ2h0PSczJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxwYXRoIGZpbGw9J2JsYWNrJyBkPSdtIDAgMyBMIDEgMyBMIDMgMyBDIDIgMyAwIDEgMCAwJy8+PC9zdmc+)]",
-            "before:absolute before:bottom-[0] before:h-[.75rem] before:w-[.75rem] before:[background-color:inherit] before:content-[''] before:[mask-size:contain] before:[mask-repeat:no-repeat] before:[mask-position:center]",
-          )}
-        >
-          Chatty Bubbles
-        </div>
+        {/* Tiny Avatar */}
         {ybr[current].phase !== "I" ? (
           <AnimeTutor
             style={{

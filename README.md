@@ -4,3 +4,5 @@ We don't have a functional NPMJS.org Querium account and so the Github Actions p
 
 Example...
 `npm install ../qqPackages/queriumcorp-swreact-0.1.73.tgz --legacy-peer-deps`
+
+For some unknown reason, the generated tailwind classes from animeTutor and swReact aren't getting packaged. To work around it, run `npm run tw` in swReact or animeTutor; whichever you've modified. That will scan all the source and generate a `tailwind.css` file. Copy that to swPower `/src/swReact.css` or `/src/animeTutor.css`.

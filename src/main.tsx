@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import SWPower from "./SWPower.tsx";
 import "./index.css";
 import "./swReact.css";
+import "./animeTutor.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

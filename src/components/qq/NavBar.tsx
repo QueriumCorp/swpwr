@@ -1,13 +1,13 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { useAvatarAPI } from "@queriumcorp/animetutor";
+import { AvatarAPIType, useAvatarAPI } from "@queriumcorp/animetutor";
 
 const NavBar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  const { emotes, setEmote } = useAvatarAPI();
+  const { emotes, setEmote } = useAvatarAPI() as AvatarAPIType;
   function TutorEmote() {
     const randomEmoteIndex = Math.floor(Math.random() * emotes.length);
 

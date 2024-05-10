@@ -5,7 +5,11 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
-import { useAvatarAPI, AnimeTutor } from "@queriumcorp/animetutor";
+import {
+  useAvatarAPI,
+  AnimeTutor,
+  AvatarAPIType,
+} from "@queriumcorp/animetutor";
 
 const NewbGratzFoundTutor: React.FC<{
   className?: string;
@@ -17,7 +21,7 @@ const NewbGratzFoundTutor: React.FC<{
   const { current } = React.useContext(NavContext) as NavContextType;
   if (current !== index + 1) return null;
 
-  const { sayMsg } = useAvatarAPI();
+  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   React.useEffect(() => {
     sayMsg("You are doing GREAT! Give this next exercise a try!", "idle:02");
