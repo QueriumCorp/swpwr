@@ -27,7 +27,7 @@ const NewbMeetTutor: React.FC<{
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   React.useEffect(() => {
-    setTimeout(() => sayMsg("Hi! I'm FoxyFuka!", "idle:01"), 1000);
+    sayMsg("Hi! I'm FoxyFuka!", "idle:01");
   }, []);
 
   // JSX
@@ -46,7 +46,7 @@ const NewbMeetTutor: React.FC<{
           closeUp
           style={{ position: "absolute", height: "100%", right: "0px" }}
         />
-        <Chat />
+        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
         {/* Tiny Avatar */}
