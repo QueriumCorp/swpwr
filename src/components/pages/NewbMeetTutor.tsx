@@ -22,7 +22,6 @@ const NewbMeetTutor: React.FC<{
 }> = ({ className, children, page, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
-  const ybr = YellowBrickRoad;
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
@@ -48,18 +47,7 @@ const NewbMeetTutor: React.FC<{
         />
         <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" />
       </div>
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
-        {/* Tiny Avatar */}
-        {ybr[current].phase !== "I" ? (
-          <AnimeTutor
-            style={{
-              bottom: "0px",
-              right: "0px",
-              height: "100%",
-              // border: "solid 1px red",
-            }}
-          />
-        ) : null}
+      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

@@ -3,13 +3,16 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
+import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import {
   AnimeTutor,
   AvatarAPIType,
+  Chat,
   useAvatarAPI,
 } from "@queriumcorp/animetutor";
+import { NavBar } from "../qq/NavBar";
+import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 
 const NewbGratzWatchedVideo: React.FC<{
   className?: string;
@@ -30,21 +33,36 @@ const NewbGratzWatchedVideo: React.FC<{
   return (
     <div
       className={cn(
-        "NewbGratzWatchedVideo rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 relative",
+        "NewbGratzWatchedVideo rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
         className,
       )}
     >
       <h1>NewbGratzWatchedVideo</h1>
       {children}
-      <AnimeTutor
-        closeUp
-        style={{
-          position: "absolute",
-          height: "100%",
-          width: "90%",
-          right: "0px",
-        }}
-      />
+      <div className="grow bg-qqAccent relative">
+        <AnimeTutor
+          closeUp
+          style={{ position: "absolute", height: "100%", right: "0px" }}
+        />
+        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" />
+      </div>
+      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
+        {/* Tiny Avatar */}
+        {YellowBrickRoad[current].phase !== "I" ? (
+          <AnimeTutor
+            style={{
+              bottom: "0px",
+              right: "0px",
+              height: "100%",
+              // border: "solid 1px red",
+            }}
+          />
+        ) : null}
+        <CarouselPrevious className="relative left-0">
+          Previous
+        </CarouselPrevious>
+        <CarouselNext className="relative right-0">Next</CarouselNext>
+      </NavBar>
     </div>
   );
 };

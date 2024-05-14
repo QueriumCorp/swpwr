@@ -9,7 +9,10 @@ import {
   useAvatarAPI,
   AnimeTutor,
   AvatarAPIType,
+  Chat,
 } from "@queriumcorp/animetutor";
+import { NavBar } from "../qq/NavBar";
+import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 
 const NewbGratzFoundTutor: React.FC<{
   className?: string;
@@ -19,28 +22,39 @@ const NewbGratzFoundTutor: React.FC<{
 }> = ({ className, children, page, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
-  if (current !== index + 1) return null;
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   React.useEffect(() => {
-    sayMsg("You are doing GREAT! Give this next exercise a try!", "idle:02");
+    sayMsg(
+      "Great Job!  I knew you could do it!  When you click on me, I'll give you options to do things like watch videos, get a hint, or other specialized help.",
+      "idle:02",
+    );
   }, []);
 
   // JSX
+  if (current !== index + 1) return null;
   return (
     <div
       className={cn(
-        "rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 relative",
+        "NewbGratzFoundTutor rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
         className,
       )}
     >
       <h1>NewbGratzFoundTutor</h1>
-      {children}
-      <AnimeTutor
-        closeUp
-        style={{ position: "absolute", height: "100%", right: "0px" }}
-      />
+      <div className="grow bg-qqAccent relative">
+        <AnimeTutor
+          closeUp
+          style={{ position: "absolute", height: "100%", right: "0px" }}
+        />
+        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%] ml-3 min-h-24" />
+      </div>
+      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
+        <CarouselPrevious className="relative left-0">
+          Previous
+        </CarouselPrevious>
+        <CarouselNext className="relative right-0">Next</CarouselNext>
+      </NavBar>
     </div>
   );
 };
