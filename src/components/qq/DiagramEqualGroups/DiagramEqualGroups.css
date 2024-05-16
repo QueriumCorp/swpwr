@@ -1,0 +1,53 @@
+.diagramEqualBox {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.diagramEqualItem {
+  position: relative;
+  min-height: 80px;
+  width: 80px;
+  margin: 3px;
+  background: lightgray;
+  user-select: none;
+}
+.diagramEqualArrowBox {
+  position: relative;
+  height: 20px;
+}
+.diagramEqualArrow {
+  position: absolute;
+  height: 40px;
+  width: 100%;
+}
+.diagramEqualStart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+}
+.diagramEqualEqual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px black;
+}
+.diagramEqualEnd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+}
+.diagramEqualIcon {
+  position: absolute;
+  min-height: 80px;
+  width: 80px;
+  margin: 3px;
+}
+.diagramEqualLabel {
+  position: absolute;
+}

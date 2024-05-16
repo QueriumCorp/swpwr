@@ -28,8 +28,8 @@ const NewbGratzOnPrepare: React.FC<{
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
   React.useEffect(() => {
     sayMsg(
-      "You can proceed to the next page by clicking the right arrow once the video is done playing.",
-      "idle:01",
+      "Nice work on identifying the facts! Now, let's learn about the first group of problem types that could use information similiar to what you just saw.",
+      "idle:02",
     );
   }, []);
 

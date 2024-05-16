@@ -19,6 +19,7 @@ import NewbGratzOnPrepare from "../pages/NewbGratzOnPrepare";
 import NewbGratzWatchedVideo from "../pages/NewbGratzWatchedVideo";
 import NewbKnownFacts from "../pages/NewbKnownFacts";
 import NewbMeetTutor from "../pages/NewbMeetTutor";
+import NewbProblemType from "../pages/NewbProblemType";
 import NewbReadProblem from "../pages/NewbReadProblem";
 import RangerFillDiagram from "../pages/RangerFillDiagram";
 import RangerFillEquation from "../pages/RangerFillEquation";
@@ -59,6 +60,8 @@ export function renderPage(page: YBRpage, index: number) {
       return (
         <NewbGratzOnPrepare page={page} index={index}></NewbGratzOnPrepare>
       );
+    case "newb:NewbProblemType":
+      return <NewbProblemType page={page} index={index}></NewbProblemType>;
 
     // CADET
     case "cadet:ReadProblem":

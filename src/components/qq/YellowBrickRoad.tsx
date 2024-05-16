@@ -64,6 +64,13 @@ export const YellowBrickRoad: YBRpage[] = [
     phaseLabel: "str",
   },
   {
+    rank: "newb",
+    id: "NewbProblemType",
+    title: "string",
+    phase: "P",
+    phaseLabel: "str",
+  },
+  {
     rank: "cadet",
     id: "ReadProblem",
     title: "string",
