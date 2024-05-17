@@ -1,5 +1,3 @@
-import React from "react";
-
 import { TextArea } from "@react-md/form";
 
 import "./DiagramAnalysis.css";
@@ -12,7 +10,7 @@ function DiagramAnalysis(props) {
     const analysis = event.target.value;
     onChange({
       type: "updateAnalysis",
-      payload: analysis
+      payload: analysis,
     });
   }
   return (

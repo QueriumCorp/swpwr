@@ -13,6 +13,7 @@ import {
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import DiagramChange from "../qq/DiagramChange/DiagramChange";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
@@ -41,11 +42,12 @@ const NewbMeetTutor: React.FC<{
       <h1>NewbMeetTutor</h1>
       {children}
       <div className="grow bg-qqAccent relative">
-        <AnimeTutor
+        <DiagramChange />
+        {/* <AnimeTutor
           closeUp
           style={{ position: "absolute", height: "100%", right: "0px" }}
         />
-        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" />
+        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" /> */}
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         <CarouselPrevious className="relative left-0">

@@ -3,34 +3,30 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import "./DiagramChange.css";
-import DiagramChangeWidget from "./DiagramChangeWidget";
+import "./DiagramMultiplyTimes.css";
+import DiagramMultiplyTimesWidget from "./diagramMultiplyTimesWidget";
 
-function DiagramChange(props) {
+function DiagramMultiplyTimes(props) {
   const selected = props.selected;
   const onChange = props.onChange;
 
   function clickHandler() {
     onChange({
       type: "diagramSelected",
-      payload: "CHANGE",
+      payload: "MULTIPLYTIMES",
     });
   }
-
   return (
     <div className="diagramSample">
       <Card onClick={clickHandler}>
         <Card.Body className={`diagramCard ${selected ? "selected" : ""}`}>
           <div className="diagramTitle">
-            <h3>CHANGE</h3>
-            <p>
-              Is there a start amount that increases or decreases to a new
-              amount?
-            </p>
+            <h3>MULTIPLE TIMES</h3>
+            <p>Are amounts/sets compared a number of times?</p>
           </div>
           <div className="diagramExample">
-            <DiagramChangeWidget />
-            <div className="diagramEquation">S +/- C = E</div>
+            <DiagramMultiplyTimesWidget />
+            <div className="diagramEquation">S X M = P</div>
           </div>
         </Card.Body>
       </Card>
@@ -38,4 +34,4 @@ function DiagramChange(props) {
   );
 }
 
-export default DiagramChange;
+export default DiagramMultiplyTimes;
