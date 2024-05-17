@@ -1,12 +1,26 @@
-import React from "react";
+import { cn } from "@/lib/utils";
 
-import "./diagramMultiplyTimes.css";
-
-export default function DiagramMultiplyTimesWidget(props) {
+export default function DiagramMultiplyTimesWidget() {
   return (
-    <div className="diagramMultipleBox">
-      <div className="diagramMultipleItem diagramMultipleStart">
-        <div className="diagramMultipleIcon">
+    <div
+      className={cn(
+        "diagramMultipleBox",
+        "flex flex-row flex-grow items-center justify-center",
+      )}
+    >
+      <div
+        className={cn(
+          "diagramMultipleItem diagramMultipleStart",
+          "relative min-h-[80px] w-[80px] m-[3px] bg-[lightgray] select-none",
+          "flex items-center justify-center border-[none] bg-transparent",
+        )}
+      >
+        <div
+          className={cn(
+            "diagramMultipleIcon",
+            "absolute min-h-[80px] w-[80px] m-[3px]",
+          )}
+        >
           <svg
             version="1.1"
             viewBox="0 0 100 100"
@@ -22,15 +36,32 @@ export default function DiagramMultiplyTimesWidget(props) {
             />
           </svg>
         </div>
-        <div className="diagramMultipleLabel">Sets</div>
+        <div className={cn("diagramMultipleLabel", "absolute")}>Sets</div>
       </div>
       <div>X</div>
-      <div className="diagramMultipleItem diagramMultipleMultiple">
+      <div
+        className={cn(
+          "diagramMultipleItem diagramMultipleMultiple",
+          "relative min-h-[80px] w-[80px] m-[3px] bg-[lightgray] select-none",
+          "flex items-center justify-center border-[solid] border-[1px] border-[black]",
+        )}
+      >
         Multiplier
       </div>
       <div> = </div>
-      <div className="diagramMultipleItem diagramMultipleEnd">
-        <div className="diagramMultipleIcon">
+      <div
+        className={cn(
+          "diagramMultipleItem diagramMultipleEnd",
+          "relative min-h-[80px] w-[80px] m-[3px] bg-[lightgray] select-none",
+          "flex items-center justify-center border-[none] bg-transparent",
+        )}
+      >
+        <div
+          className={cn(
+            "diagramMultipleIcon",
+            "absolute min-h-[80px] w-[80px] m-[3px]",
+          )}
+        >
           <svg
             version="1.1"
             viewBox="0 0 100 100"
@@ -45,7 +76,7 @@ export default function DiagramMultiplyTimesWidget(props) {
             />
           </svg>
         </div>
-        <div className="diagramMultipleLabel">Product</div>
+        <div className={cn("diagramMultipleLabel", "absolute")}>Product</div>
       </div>
     </div>
   );
