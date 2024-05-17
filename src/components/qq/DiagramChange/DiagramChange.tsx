@@ -38,6 +38,7 @@ const DiagramChange: React.FC<DiagramChangeProps> = ({
             Is there a start amount that increases or decreases to a new amount?
           </CardDescription>
         </CardHeader>
+
         <CardContent className={`diagramCard ${selected ? "selected" : ""}`}>
           <div className="flex min-h-[100px] min-w-[400px] max-w-[400px] grow p-2 flex-col">
             <DiagramChangeWidget />
