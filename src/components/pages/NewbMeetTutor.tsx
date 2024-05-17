@@ -42,12 +42,11 @@ const NewbMeetTutor: React.FC<{
       <h1>NewbMeetTutor</h1>
       {children}
       <div className="grow bg-qqAccent relative">
-        <DiagramMultiplyTimes />
-        {/* <AnimeTutor
+        <AnimeTutor
           closeUp
           style={{ position: "absolute", height: "100%", right: "0px" }}
         />
-        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" /> */}
+        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         <CarouselPrevious className="relative left-0">
