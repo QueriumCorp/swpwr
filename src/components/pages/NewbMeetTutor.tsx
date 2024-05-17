@@ -15,6 +15,7 @@ import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import DiagramChange from "../qq/DiagramChange/DiagramChange";
 import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
+import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
@@ -43,7 +44,7 @@ const NewbMeetTutor: React.FC<{
       <h1>NewbMeetTutor</h1>
       {children}
       <div className="grow bg-qqAccent relative">
-        <DiagramCombine />
+        <DiagramEqualGroups />
         {/* <AnimeTutor
           closeUp
           style={{ position: "absolute", height: "100%", right: "0px" }}

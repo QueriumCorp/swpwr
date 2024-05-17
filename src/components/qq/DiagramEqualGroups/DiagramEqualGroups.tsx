@@ -1,39 +1,53 @@
-import React from "react";
-
-import Card from "react-bootstrap/Card";
-import "bootstrap/dist/css/bootstrap.min.css";
-
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import DiagramEqualGroupsWidget from "./DiagramEqualGroupsWidget.js";
+import { HTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
 
-import "./DiagramEqualGroups.css";
+interface DiagramEqualGroupsProps extends HTMLAttributes<HTMLDivElement> {
+  selected?: boolean;
+  onChange?: () => void;
+}
 
-function DiagramEqualGroups(props) {
-  const selected = props.selected;
-  const onChange = props.onChange;
-
+const DiagramEqualGroups: React.FC<DiagramEqualGroupsProps> = ({
+  selected = false,
+  onChange = () => {
+    alert("DiagramEqualGroups onChange not defined");
+  },
+  className,
+}) => {
   function clickHandler() {
-    onChange({
-      type: "diagramSelected",
-      payload: "EQUALGROUPS",
-    });
+    onChange();
+    //   {
+    //   type: "diagramSelected",
+    //   payload: "EQUALGROUPS",
+    // }
   }
 
   return (
-    <div className="diagramSample">
+    <div className={cn("DiagramEqualGroups p-1", className)}>
       <Card onClick={clickHandler}>
-        <Card.Body className={`diagramCard ${selected ? "selected" : ""}`}>
-          <div className="diagramTitle">
-            <h3>EQUAL GROUPS</h3>
-            <p>Are there groups that are all the same size?</p>
-          </div>
-          <div className="diagramExample">
+        <CardHeader>
+          <CardTitle>EQUAL GROUPS</CardTitle>
+          <CardDescription>
+            Are there groups that are all the same size?
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className={`diagramCard ${selected ? "selected" : ""}`}>
+          <div className="flex min-h-[100px] min-w-[400px] max-w-[400px] grow p-2 flex-col">
             <DiagramEqualGroupsWidget />
-            <div className="diagramEquation">G X N = P</div>
+            <div className="diagramEquation text-center">G 𝗫 N = P</div>
           </div>
-        </Card.Body>
+        </CardContent>
       </Card>
     </div>
   );
-}
+};
 
 export default DiagramEqualGroups;

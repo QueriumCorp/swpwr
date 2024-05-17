@@ -1,12 +1,26 @@
-import React from "react";
+import { cn } from "@/lib/utils";
 
-import "./DiagramEqualGroups.css";
-
-export default function DiagramEqualGroupsWidget(props) {
+export default function DiagramEqualGroupsWidget() {
   return (
-    <div className="diagramEqualBox">
-      <div className="diagramEqualItem diagramEqualStart">
-        <div className="diagramEqualIcon">
+    <div
+      className={cn(
+        "diagramEqualGroupsWidget",
+        "flex flex-row flex-grow items-center justify-center",
+      )}
+    >
+      <div
+        className={cn(
+          "diagramEqualItem diagramEqualStart",
+          "relative min-h-[80px] w-[80px] m-[3px]  select-none",
+          "flex items-center justify-center border-[none] bg-none",
+        )}
+      >
+        <div
+          className={cn(
+            "diagramEqualIcon",
+            "absolute min-h-[80px] w-[80px] m-[3px]",
+          )}
+        >
           <svg
             version="1.1"
             viewBox="0 0 100 100"
@@ -22,13 +36,32 @@ export default function DiagramEqualGroupsWidget(props) {
             />
           </svg>
         </div>
-        <div className="diagramEqualLabel">Groups</div>
+        <div className={cn("diagramEqualLabel", "absolute")}>Groups</div>
       </div>
-      <div>X</div>
-      <div className="diagramEqualItem diagramEqualEqual">Number</div>
-      <div> = </div>
-      <div className="diagramEqualItem diagramEqualEnd">
-        <div className="diagramEqualIcon">
+      <div className="m-2">𝗫</div>
+      <div
+        className={cn(
+          "diagramEqualItem diagramEqualEqual",
+          "relative min-h-[80px] w-[80px] m-[3px] bg-[lightgray] select-none",
+          "flex items-center justify-center border-[solid] border-[1px] border-[black]",
+        )}
+      >
+        Number
+      </div>
+      <div className="m-2 font-bold">=</div>
+      <div
+        className={cn(
+          "diagramEqualItem diagramEqualEnd",
+          "relative min-h-[80px] w-[80px] m-[3px] select-none",
+          "flex items-center justify-center border-[none] bg-none",
+        )}
+      >
+        <div
+          className={cn(
+            "diagramEqualIcon",
+            "absolute min-h-[80px] w-[80px] m-[3px]",
+          )}
+        >
           <svg
             version="1.1"
             viewBox="0 0 100 100"
@@ -43,7 +76,7 @@ export default function DiagramEqualGroupsWidget(props) {
             />
           </svg>
         </div>
-        <div className="diagramEqualLabel">Product</div>
+        <div className={cn("diagramEqualLabel", "absolute")}>Product</div>
       </div>
     </div>
   );
