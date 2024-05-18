@@ -14,6 +14,12 @@ import {
   Chat,
   useAvatarAPI,
 } from "@queriumcorp/animetutor";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
+import DiagramChange from "../qq/DiagramChange/DiagramChange";
+import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
+import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
+import { ScrollArea } from "../ui/scrollArea";
 
 const NewbProblemType: React.FC<{
   className?: string;
@@ -21,38 +27,76 @@ const NewbProblemType: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, children, page, index }) => {
-  // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
   React.useEffect(() => {
     sayMsg(
-      "Read this statement carefully and then click the right arrow to continue.",
-      "idle:01",
+      "Check this out! There are different types of problems, Let’s have you select the only one you know about yet, “TotaL",
+      "idle:03",
     );
   }, []);
+
+  const fakeKnowns = ["49 miles", "100 miles", "1000 miles"];
+  const fakeUnknowns = ["Time to lunch", "Time to go to the store"];
 
   // JSX
   if (current !== index + 1) return null;
   return (
     <div
       className={cn(
-        "NewbProblemType rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        "NewbProblemType rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 p-0 flex flex-col justify-stretch border-dashed border-4 border-red-500",
         className,
       )}
     >
-      <h1>NewbProblemType</h1>
-      <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
-        <StimulusSelector
-          className={cn(
-            "flex min-h-[80px] w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-            className,
-            "inline",
-          )}
-          stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
-        ></StimulusSelector>
+      <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative bg-blue-700  mb-2">
+        <div className="absolute top-0 left-0 bottom-0 right-0 bg-orange-400 overflow-y-scroll">
+          <h1>NewbProblemType</h1>
+          <div>
+            <h1>Stimulus</h1>
+          </div>
+          <StimulusSelector
+            className={cn(
+              "flex min-h-[80px] w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+              className,
+              "inline",
+            )}
+            stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
+          ></StimulusSelector>
 
-        <div className="flex grow gap-2"></div>
+          <div className="grow grid grid-cols-2 gap-2 bg-yellow-400">
+            <Card>
+              <CardHeader>
+                <CardTitle>Knowns</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul>
+                  {fakeKnowns.map((known) => (
+                    <li key={known}>{known}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Unknowns</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul>
+                  {fakeUnknowns.map((unknown) => (
+                    <li key={unknown}>{unknown}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="grow grid grid-cols-2 gap-2 bg-purple-400">
+            <DiagramCombine />
+            <DiagramChange />
+            <DiagramMultiplyTimes />
+            <DiagramEqualGroups />
+          </div>
+        </div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         {/* Tiny Avatar */}

@@ -27,7 +27,6 @@ const NewbKnownFacts: React.FC<{
 }> = ({ className, children, page, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
-  if (current !== index + 1) return null;
 
   const [knowns, setKnowns] = React.useState<string[]>([]);
   const [unknowns, setUnknowns] = React.useState<string[]>([]);
@@ -50,6 +49,7 @@ const NewbKnownFacts: React.FC<{
   }, []);
 
   // JSX
+  if (current !== index + 1) return null;
   return (
     <div
       className={cn(
