@@ -31,7 +31,7 @@ const DiagramCombine: React.FC<DiagramCombineProps> = ({
     // }
   }
   return (
-    <div className={cn("DiagramCombine p-1", className)}>
+    <div className={cn("DiagramCombine p-0 flex", className)}>
       <Card onClick={clickHandler}>
         <CardHeader>
           <CardTitle>COMBINE</CardTitle>

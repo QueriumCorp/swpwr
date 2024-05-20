@@ -30,7 +30,7 @@ const DiagramEqualGroups: React.FC<DiagramEqualGroupsProps> = ({
   }
 
   return (
-    <div className={cn("DiagramEqualGroups p-1", className)}>
+    <div className={cn("DiagramEqualGroups p-0 flex", className)}>
       <Card onClick={clickHandler}>
         <CardHeader>
           <CardTitle>EQUAL GROUPS</CardTitle>

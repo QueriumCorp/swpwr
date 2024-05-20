@@ -45,26 +45,25 @@ const NewbProblemType: React.FC<{
   return (
     <div
       className={cn(
-        "NewbProblemType rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 p-0 flex flex-col justify-stretch border-dashed border-4 border-red-500",
+        "NewbProblemType rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch ",
         className,
       )}
     >
-      <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative bg-blue-700  mb-2">
-        <div className="absolute top-0 left-0 bottom-0 right-0 bg-orange-400 overflow-y-scroll">
+      <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative  mb-2">
+        <div className="absolute top-0 left-0 bottom-0 right-0  overflow-y-scroll">
           <h1>NewbProblemType</h1>
           <div>
             <h1>Stimulus</h1>
           </div>
           <StimulusSelector
             className={cn(
-              "flex min-h-[80px] w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+              "flex min-h-[80px] w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
               className,
-              "inline",
             )}
             stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
           ></StimulusSelector>
 
-          <div className="grow grid grid-cols-2 gap-2 bg-yellow-400">
+          <div className="grow grid grid-cols-2 gap-2">
             <Card>
               <CardHeader>
                 <CardTitle>Knowns</CardTitle>
@@ -90,7 +89,10 @@ const NewbProblemType: React.FC<{
               </CardContent>
             </Card>
           </div>
-          <div className="grow grid grid-cols-2 gap-2 bg-purple-400">
+          <h2 className="mt-3 ml-1 mr-1">
+            Click on the type of problem you think this is
+          </h2>
+          <div className="grow grid grid-cols-2 gap-2">
             <DiagramCombine />
             <DiagramChange />
             <DiagramMultiplyTimes />

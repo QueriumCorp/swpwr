@@ -30,7 +30,7 @@ const DiagramMultiplyTimes: React.FC<DiagramMultiplyTimesProps> = ({
     // }
   }
   return (
-    <div className={cn("DiagramMultiplyTimes p-1", className)}>
+    <div className={cn("DiagramMultiplyTimes p-0 flex", className)}>
       <Card onClick={clickHandler}>
         <CardHeader>
           <CardTitle>MULTIPLE TIMES</CardTitle>
