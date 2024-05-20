@@ -46,7 +46,8 @@ const CadetFillDiagram: React.FC<{
   return (
     <div
       className={cn(
-        "CadetFillDiagram rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch ",
+        "CadetFillDiagram",
+        "rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch ",
         className,
       )}
     >
