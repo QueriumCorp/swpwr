@@ -3,8 +3,11 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { YBRpage } from "../qq/YellowBrickRoad";
+import { YBRpage, YellowBrickRoad } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
+import { AnimeTutor } from "@queriumcorp/animetutor";
+import { NavBar } from "../qq/NavBar";
+import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 
 const CadetFillEquation: React.FC<{
   className?: string;
@@ -23,7 +26,25 @@ const CadetFillEquation: React.FC<{
       )}
     >
       <h1>CadetFillEquation</h1>
-      {children}
+      <h1>KILL ME UNLESS APRIL OBJECTS.</h1>
+      <h2>Dupe of CadetFillDiagram</h2>
+      {children}{" "}
+      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
+        {/* Tiny Avatar */}
+        {YellowBrickRoad[current].phase !== "I" ? (
+          <AnimeTutor
+            style={{
+              bottom: "0px",
+              right: "0px",
+              height: "100%",
+            }}
+          />
+        ) : null}
+        <CarouselPrevious className="relative left-0">
+          Previous
+        </CarouselPrevious>
+        <CarouselNext className="relative right-0">Next</CarouselNext>
+      </NavBar>
     </div>
   );
 };

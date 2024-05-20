@@ -3,8 +3,16 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
+import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
+import {
+  AnimeTutor,
+  AvatarAPIType,
+  Chat,
+  useAvatarAPI,
+} from "@queriumcorp/animetutor";
+import { NavBar } from "../qq/NavBar";
+import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 
 const CadetGratzOnOrganize: React.FC<{
   className?: string;
@@ -12,19 +20,48 @@ const CadetGratzOnOrganize: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, children, page, index }) => {
-  // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
-  if (current !== index + 1) return null;
 
+  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
+
+  React.useEffect(() => {
+    sayMsg("You've prepared and organized...'!", "idle:02");
+  }, []);
+
+  // JSX
+  if (current !== index + 1) return null; // Dont render if page not active
   return (
     <div
       className={cn(
-        "rounded-lg border bg-card text-card-foreground shadow-sm",
+        "CadetGratzOnOrganize rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
         className,
       )}
     >
       <h1>CadetGratzOnOrganize</h1>
       {children}
+      <div className="grow bg-qqAccent relative">
+        <AnimeTutor
+          closeUp
+          style={{ position: "absolute", height: "100%", right: "0px" }}
+        />
+        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" />
+      </div>
+      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
+        {/* Tiny Avatar */}
+        {YellowBrickRoad[current].phase !== "I" ? (
+          <AnimeTutor
+            style={{
+              bottom: "0px",
+              right: "0px",
+              height: "100%",
+            }}
+          />
+        ) : null}
+        <CarouselPrevious className="relative left-0">
+          Previous
+        </CarouselPrevious>
+        <CarouselNext className="relative right-0">Next</CarouselNext>
+      </NavBar>
     </div>
   );
 };
