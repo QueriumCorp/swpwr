@@ -19,7 +19,7 @@ import {
   useAvatarAPI,
 } from "@queriumcorp/animetutor";
 
-const NewbKnownFacts: React.FC<{
+const NewbFindFacts: React.FC<{
   className?: string;
   children?: React.ReactNode;
   page: YBRpage;
@@ -53,11 +53,11 @@ const NewbKnownFacts: React.FC<{
   return (
     <div
       className={cn(
-        "NewbKnownFacts rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        "NewbFindFacts rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
         className,
       )}
     >
-      <h1>NewbKnownFacts</h1>
+      <h1>NewbFindFacts</h1>
       <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
         <DndContext onDragEnd={handleDragEnd}>
           <StimulusSelector
@@ -140,5 +140,5 @@ const NewbKnownFacts: React.FC<{
   }
 };
 
-NewbKnownFacts.displayName = "NewbKnownFacts";
-export default NewbKnownFacts;
+NewbFindFacts.displayName = "NewbFindFacts";
+export default NewbFindFacts;

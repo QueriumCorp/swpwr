@@ -21,7 +21,6 @@ const NewbReadProblem: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, children, page, index }) => {
-  // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;

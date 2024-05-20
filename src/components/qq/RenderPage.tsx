@@ -17,7 +17,7 @@ import NewbFindTutor from "../pages/NewbFindTutor";
 import NewbGratzFoundTutor from "../pages/NewbGratzFoundTutor";
 import NewbGratzOnPrepare from "../pages/NewbGratzOnPrepare";
 import NewbGratzWatchedVideo from "../pages/NewbGratzWatchedVideo";
-import NewbKnownFacts from "../pages/NewbKnownFacts";
+import NewbFindFacts from "../pages/NewbFindFacts";
 import NewbMeetTutor from "../pages/NewbMeetTutor";
 import NewbProblemType from "../pages/NewbProblemType";
 import NewbReadProblem from "../pages/NewbReadProblem";
@@ -55,7 +55,7 @@ export function renderPage(page: YBRpage, index: number) {
     case "newb:ReadProblem":
       return <NewbReadProblem page={page} index={index}></NewbReadProblem>;
     case "newb:KnownFacts":
-      return <NewbKnownFacts page={page} index={index}></NewbKnownFacts>;
+      return <NewbFindFacts page={page} index={index}></NewbFindFacts>;
     case "newb:GratzOnPrepare":
       return (
         <NewbGratzOnPrepare page={page} index={index}></NewbGratzOnPrepare>
