@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
+import { type YBRpage } from "../qq/YellowBrickRoad";
 import {
   AnimeTutor,
   AvatarAPIType,
@@ -13,7 +13,6 @@ import {
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
