@@ -89,13 +89,13 @@ export function renderPage(page: YBRpage, index: number) {
           index={index}
         ></CadetSolveTheEquation>
       );
-    case "cadet:GratzEquationSolved":
-      return (
-        <CadetGratzEquationSolved
-          page={page}
-          index={index}
-        ></CadetGratzEquationSolved>
-      );
+    // case "cadet:GratzEquationSolved":
+    //   return (
+    //     <CadetGratzEquationSolved
+    //       page={page}
+    //       index={index}
+    //     ></CadetGratzEquationSolved>
+    //   );
     case "cadet:SolvedFor":
       return <CadetSolvedFor page={page} index={index}></CadetSolvedFor>;
     case "cadet:Reflect":
