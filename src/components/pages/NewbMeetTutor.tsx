@@ -13,7 +13,7 @@ import {
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { useStore } from "@/lib/store";
+import { useProblemStore } from "@/lib/store";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
@@ -22,12 +22,10 @@ const NewbMeetTutor: React.FC<{
   index: number;
 }> = ({ className, children, page, index }) => {
   // NavContext
-  const { current, setCurrent, api } = React.useContext(
-    NavContext,
-  ) as NavContextType;
+  const { current, api } = React.useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction } = useStore();
+  const { logAction } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
@@ -60,7 +58,7 @@ const NewbMeetTutor: React.FC<{
         <CarouselNext
           className="relative right-0"
           onClick={() => {
-            logAction("Leaving NewbMeetTutor");
+            logAction("Start Problem");
             api?.scrollNext();
           }}
         >

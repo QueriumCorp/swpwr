@@ -27,8 +27,8 @@ function SWPower() {
 
     setCurrent(api.selectedScrollSnap() + 1);
 
+    // This fires when the user selects a new page
     api.on("select", () => {
-      console.log("select", api.selectedScrollSnap());
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);

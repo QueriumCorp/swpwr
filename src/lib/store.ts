@@ -9,7 +9,7 @@ interface State {
   logAction: (action: string) => void;
 }
 
-export const useStore = create<State>((set) => ({
+export const useProblemStore = create<State>((set) => ({
   studentLog: [],
   logAction: (action: string) => {
     const actionLog: LogItem = {
