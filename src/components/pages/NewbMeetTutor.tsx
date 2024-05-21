@@ -31,6 +31,7 @@ const NewbMeetTutor: React.FC<{
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   React.useEffect(() => {
+    console.log("NewbMeetTutor: ", current, index);
     sayMsg("Hi! I'm FoxyFuka!", "idle:01");
   }, []);
 
@@ -43,11 +44,15 @@ const NewbMeetTutor: React.FC<{
         className,
       )}
     >
-      <HdrBar />
       <div className="grow bg-qqAccent relative">
         <AnimeTutor
           closeUp
-          style={{ position: "absolute", height: "100%", right: "0px" }}
+          style={{
+            position: "absolute",
+            height: "100%",
+            right: "-500px",
+            width: "200%",
+          }}
         />
         <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" />
       </div>

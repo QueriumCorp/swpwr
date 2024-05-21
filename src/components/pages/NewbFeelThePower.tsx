@@ -11,6 +11,7 @@ import { NavContext, NavContextType } from "@/NavContext";
 import { AnimeTutor } from "@queriumcorp/animetutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { HdrBar } from "../qq/HdrBar";
 
 const NewbFeelThePower: React.FC<{
   className?: string;
@@ -24,16 +25,14 @@ const NewbFeelThePower: React.FC<{
   const { current } = React.useContext(NavContext) as NavContextType;
 
   // JSX
-  // Dont render if page not active
   if (current !== index + 1) return null;
   return (
     <div
       className={cn(
-        "p-2 gap-2 rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col justify-stretch relative",
+        "NewbFeelThePower rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
         className,
       )}
     >
-      <h1>NewbFeelThePower</h1>
       <ReactPlayer url={src} height={"100%"} style={{ margin: "auto" }} />
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
         {ybr[current].phase !== "I" ? (

@@ -45,7 +45,7 @@ const StepWisePower = forwardRef<HTMLDivElement, StepWisePowerProps>(
         <AvatarAPIProvider>
           <div
             className={cn(
-              "StepWisePower bg-yellow-300 min-h-24 w-full border-none relative",
+              "StepWisePower min-h-24 w-full border-none relative",
               className,
             )}
           >

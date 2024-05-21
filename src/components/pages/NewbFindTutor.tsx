@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
+import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import {
   AnimeTutor,
@@ -43,7 +43,6 @@ const NewbFindTutor: React.FC<{
 
   // JSX
   if (current !== index + 1) return null;
-
   return (
     <div
       className={cn(
@@ -51,7 +50,6 @@ const NewbFindTutor: React.FC<{
         className,
       )}
     >
-      <h1>NewbFindTutor</h1>
       <div className="grow relative"></div>
       {children}
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
