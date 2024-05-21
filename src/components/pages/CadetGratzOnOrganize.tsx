@@ -47,16 +47,6 @@ const CadetGratzOnOrganize: React.FC<{
         <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
-        {/* Tiny Avatar */}
-        {YellowBrickRoad[current].phase !== "I" ? (
-          <AnimeTutor
-            style={{
-              bottom: "0px",
-              right: "0px",
-              height: "100%",
-            }}
-          />
-        ) : null}
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

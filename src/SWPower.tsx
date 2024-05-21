@@ -6,14 +6,11 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "./components/ui/carousel";
 
 // SWPWR-specific imports
-import { NavBar } from "./components/qq/NavBar";
-import { AnimeTutor, AvatarAPIProvider } from "@queriumcorp/animetutor";
+import { AvatarAPIProvider } from "@queriumcorp/animetutor";
 import { YellowBrickRoad } from "./components/qq/YellowBrickRoad";
 import { renderPage } from "./components/qq/RenderPage";
 import { NavContext } from "./NavContext";
@@ -31,12 +28,13 @@ function SWPower() {
     setCurrent(api.selectedScrollSnap() + 1);
 
     api.on("select", () => {
+      console.log("select", api.selectedScrollSnap());
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
 
   return (
-    <NavContext.Provider value={{ current, setCurrent }}>
+    <NavContext.Provider value={{ current, setCurrent, api }}>
       <AvatarAPIProvider>
         <div className="SWPower fixed top-[354px] left-0 right-0 bottom-0 flex flex-col ">
           <Carousel

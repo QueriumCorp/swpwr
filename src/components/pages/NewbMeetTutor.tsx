@@ -13,6 +13,7 @@ import {
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { useStore } from "@/lib/store";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
@@ -20,8 +21,13 @@ const NewbMeetTutor: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, children, page, index }) => {
-  // Dont render if page not active
-  const { current } = React.useContext(NavContext) as NavContextType;
+  // NavContext
+  const { current, setCurrent, api } = React.useContext(
+    NavContext,
+  ) as NavContextType;
+
+  // Store
+  const { logAction } = useStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
@@ -51,7 +57,15 @@ const NewbMeetTutor: React.FC<{
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
-        <CarouselNext className="relative right-0">Next</CarouselNext>
+        <CarouselNext
+          className="relative right-0"
+          onClick={() => {
+            logAction("Leaving NewbMeetTutor");
+            api?.scrollNext();
+          }}
+        >
+          Next
+        </CarouselNext>
       </NavBar>
     </div>
   );

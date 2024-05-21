@@ -65,6 +65,9 @@ const CadetFillDiagram: React.FC<{
             stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
           ></StimulusSelector>
 
+          <h2 className="mt-3 ml-1 mr-1">
+            Drag the items to fill in the relevant fields in the equation
+          </h2>
           <div className="grow grid grid-cols-2 gap-2">
             <Card>
               <CardHeader>
@@ -91,9 +94,7 @@ const CadetFillDiagram: React.FC<{
               </CardContent>
             </Card>
           </div>
-          <h2 className="mt-3 ml-1 mr-1">
-            Click on the type of problem you think this is
-          </h2>
+
           <div className="grow grid grid-cols-2 gap-2">
             {fakeDiagramType === "DiagramCombine" ? <DiagramCombine /> : null}
             {fakeDiagramType === "DiagramChange" ? <DiagramChange /> : null}
