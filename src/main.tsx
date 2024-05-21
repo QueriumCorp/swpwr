@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import SWPower from "./SWPower.tsx";
+import StepWisePower from "./SWPower.tsx";
 import "./index.css";
 import "./swReact.css";
 import "./animeTutor.css";
@@ -8,7 +8,7 @@ import "./animeTutor.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <div className="w-dvw h-dvh overflow-hidden relative">
-      <div className="h-[354px] max-h-[354px] bg-slate-300 overflow-hidden ">
+      {/* <div className="h-[354px] max-h-[354px] bg-slate-300 overflow-hidden ">
         <svg x="0px" y="0px" height="354" viewBox="0 0 1012 685.4">
           <g id="g40">
             <g id="g46">
@@ -78,8 +78,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           </g>
         </svg>
         <h3 className="absolute top-[335px] right-0 z-10">354px</h3>
-      </div>
-      <SWPower />
+      </div> */}
+      <StepWisePower className="absolute top-0 left-0 right-0 bottom-0 flex flex-col" />
     </div>
   </React.StrictMode>,
 );

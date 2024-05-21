@@ -1,5 +1,5 @@
 // General imports
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 
 // ShadCN/UI imports
 import {
@@ -14,52 +14,65 @@ import { AvatarAPIProvider } from "@queriumcorp/animetutor";
 import { YellowBrickRoad } from "./components/qq/YellowBrickRoad";
 import { renderPage } from "./components/qq/RenderPage";
 import { NavContext } from "./NavContext";
+import { cn } from "./lib/utils";
 
-function SWPower() {
-  const ybr = YellowBrickRoad;
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setCurrent(api.selectedScrollSnap() + 1);
-
-    // This fires when the user selects a new page
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
-
-  return (
-    <NavContext.Provider value={{ current, setCurrent, api }}>
-      <AvatarAPIProvider>
-        <div className="SWPower fixed top-[354px] left-0 right-0 bottom-0 flex flex-col ">
-          <Carousel
-            setApi={setApi}
-            opts={{ watchDrag: false }}
-            className="Carousel flex-grow flex flex-col"
-          >
-            <CarouselContent
-              className="CarouselContent relative flex-grow pr-0 m-0"
-              style={{ paddingRight: "0px" }}
-            >
-              {ybr.map((page, index) => (
-                <CarouselItem
-                  key={page.rank + ":" + page.id}
-                  className="CarouselItem h-full p-0 m-0"
-                >
-                  {renderPage(page, index)}
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
-      </AvatarAPIProvider>
-    </NavContext.Provider>
-  );
+export interface StepWisePowerProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  studentName?: string;
 }
 
-export default SWPower;
+const StepWisePower = forwardRef<HTMLDivElement, StepWisePowerProps>(
+  ({ className, ...props }, ref) => {
+    const ybr = YellowBrickRoad;
+    const [api, setApi] = useState<CarouselApi>();
+    const [current, setCurrent] = useState(0);
+
+    useEffect(() => {
+      if (!api) {
+        return;
+      }
+
+      setCurrent(api.selectedScrollSnap() + 1);
+
+      // This fires when the user selects a new page
+      api.on("select", () => {
+        setCurrent(api.selectedScrollSnap() + 1);
+      });
+    }, [api]);
+
+    return (
+      <NavContext.Provider value={{ current, setCurrent, api }}>
+        <AvatarAPIProvider>
+          <div
+            className={cn(
+              "StepWisePower bg-yellow-300 min-h-24 w-full border-none relative",
+              className,
+            )}
+          >
+            <Carousel
+              setApi={setApi}
+              opts={{ watchDrag: false }}
+              className="Carousel flex-grow flex flex-col"
+            >
+              <CarouselContent
+                className="CarouselContent relative flex-grow pr-0 m-0"
+                style={{ paddingRight: "0px" }}
+              >
+                {ybr.map((page, index) => (
+                  <CarouselItem
+                    key={page.rank + ":" + page.id}
+                    className="CarouselItem h-full p-0 m-0"
+                  >
+                    {renderPage(page, index)}
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+        </AvatarAPIProvider>
+      </NavContext.Provider>
+    );
+  },
+);
+
+export default StepWisePower;
