@@ -14,14 +14,13 @@ import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/lib/store";
-import { HdrBar } from "../qq/HdrBar";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
   children?: React.ReactNode;
   page: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   // NavContext
   const { current, api } = React.useContext(NavContext) as NavContextType;
 

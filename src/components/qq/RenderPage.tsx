@@ -1,7 +1,7 @@
 import CadetFillDiagram from "../pages/CadetFillDiagram";
 import CadetFillEquation from "../pages/CadetFillEquation";
 import CadetFindFacts from "../pages/CadetFindFacts";
-import CadetGratzEquationSolved from "../pages/CadetGratzEquationSolved";
+// import CadetGratzEquationSolved from "../pages/CadetGratzEquationSolved";
 import CadetGratzOnLearner from "../pages/CadetGratzOnLearner";
 import CadetGratzOnOrganize from "../pages/CadetGratzOnOrganize";
 import CadetQuestIntro from "../pages/CadetQuestIntro";

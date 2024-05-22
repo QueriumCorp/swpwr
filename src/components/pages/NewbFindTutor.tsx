@@ -19,7 +19,7 @@ const NewbFindTutor: React.FC<{
   children?: React.ReactNode;
   page: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, children, index }) => {
   const [navDisabled, setNavDisabled] = React.useState(true);
 
   // Dont render if page not active
