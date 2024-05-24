@@ -6,20 +6,21 @@ import { FactChicklet } from "./FactChicklet";
 export interface StimulusSelectorProps
   extends React.HTMLAttributes<HTMLDivElement> {
   stimulusText: string;
+  interactive?: boolean;
   onChangeFact(fact: string): void;
 }
 
 const StimulusSelector = React.forwardRef<
   HTMLDivElement,
   StimulusSelectorProps
->(({ className, stimulusText, onChangeFact }) => {
+>(({ className, stimulusText, interactive, onChangeFact }) => {
   const theRef = React.useRef(null);
   const [preText, setPreText] = React.useState(stimulusText);
   const [theText, setTheText] = React.useState("");
   const [postText, setPostText] = React.useState("");
 
   function attachSelectionListener(element: HTMLElement): void {
-    if (!element.contentEditable) {
+    if (!element.contentEditable || !interactive) {
       return;
     }
     element.onselectstart = () => handleSelectionChange(element);

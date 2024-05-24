@@ -61,6 +61,7 @@ const NewbFindFacts: React.FC<{
       <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
         <DndContext onDragEnd={handleDragEnd}>
           <StimulusSelector
+            interactive={true}
             onChangeFact={setCurrentFact}
             className={cn(
               "flex min-h-[80px] w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
