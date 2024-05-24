@@ -7,7 +7,7 @@ export interface StimulusSelectorProps
   extends React.HTMLAttributes<HTMLDivElement> {
   stimulusText: string;
   interactive?: boolean;
-  onChangeFact(fact: string): void;
+  onChangeFact?(fact: string): void;
 }
 
 const StimulusSelector = React.forwardRef<
@@ -39,7 +39,7 @@ const StimulusSelector = React.forwardRef<
       setPreText(stimulusText);
       setTheText("");
       setPostText("");
-      onChangeFact("");
+      if (onChangeFact) onChangeFact("");
       return;
     }
 
@@ -68,7 +68,7 @@ const StimulusSelector = React.forwardRef<
     setTheText(stimulusText.substring(startSel, endSel));
     setPostText(stimulusText.substring(endSel));
 
-    onChangeFact(sel.toString());
+    if (onChangeFact) onChangeFact(sel.toString());
   }
 
   React.useEffect(() => {

@@ -11,7 +11,6 @@ import { NavContext, NavContextType } from "@/NavContext";
 import { AnimeTutor } from "@queriumcorp/animetutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { HdrBar } from "../qq/HdrBar";
 
 const NewbFeelThePower: React.FC<{
   className?: string;

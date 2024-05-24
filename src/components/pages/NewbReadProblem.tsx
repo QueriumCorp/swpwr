@@ -14,6 +14,7 @@ import {
   Chat,
   useAvatarAPI,
 } from "@queriumcorp/animetutor";
+import { HdrBar } from "../qq/HdrBar";
 
 const NewbReadProblem: React.FC<{
   className?: string;
@@ -40,7 +41,11 @@ const NewbReadProblem: React.FC<{
         className,
       )}
     >
-      <h1>NewbReadProblem</h1>
+      <HdrBar
+        highlightLetter="P"
+        subTitle="Prepare"
+        instructions="Read the Statement"
+      ></HdrBar>
       <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
         <StimulusSelector
           className={cn(
