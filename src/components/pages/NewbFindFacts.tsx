@@ -18,6 +18,7 @@ import {
   Chat,
   useAvatarAPI,
 } from "@queriumcorp/animetutor";
+import { HdrBar } from "../qq/HdrBar";
 
 const NewbFindFacts: React.FC<{
   className?: string;
@@ -57,7 +58,11 @@ const NewbFindFacts: React.FC<{
         className,
       )}
     >
-      <h1>NewbFindFacts</h1>
+      <HdrBar
+        highlightLetter="P"
+        subTitle="Prepare"
+        instructions="Pull Apart the Statement"
+      ></HdrBar>
       <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
         <DndContext onDragEnd={handleDragEnd}>
           <StimulusSelector

@@ -20,6 +20,7 @@ import DiagramChange from "../qq/DiagramChange/DiagramChange";
 import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
 import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
 import { ScrollArea } from "../ui/scrollArea";
+import { HdrBar } from "../qq/HdrBar";
 
 const NewbProblemType: React.FC<{
   className?: string;
@@ -51,7 +52,11 @@ const NewbProblemType: React.FC<{
     >
       <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative  mb-2">
         <div className="absolute top-0 left-0 bottom-0 right-0  overflow-y-scroll">
-          <h1>NewbProblemType</h1>
+          <HdrBar
+            highlightLetter="P"
+            subTitle="Prepare"
+            instructions="Read the Statement"
+          ></HdrBar>
           <div>
             <h1>Stimulus</h1>
           </div>
@@ -62,7 +67,6 @@ const NewbProblemType: React.FC<{
             )}
             stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
           ></StimulusSelector>
-
           <div className="grow grid grid-cols-2 gap-2">
             <Card>
               <CardHeader>

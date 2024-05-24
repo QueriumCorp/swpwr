@@ -14,6 +14,7 @@ import {
 import { NavBar } from "../qq/NavBar";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { HdrBar } from "../qq/HdrBar";
 
 const CadetReadProblem: React.FC<{
   className?: string;
@@ -40,7 +41,11 @@ const CadetReadProblem: React.FC<{
         className,
       )}
     >
-      <h1>CadetReadProblem</h1>
+      <HdrBar
+        highlightLetter="P"
+        subTitle="Prepare"
+        instructions="Read the Problem"
+      ></HdrBar>
       <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
         <StimulusSelector
           className={cn(
