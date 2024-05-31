@@ -30,6 +30,7 @@ const NewbMeetTutor: React.FC<{
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   React.useEffect(() => {
+    logAction("NewbMeetTutor : Entered Application");
     sayMsg("Hi! I'm FoxyFuka!", "idle:01");
     heartbeat();
   }, []);
@@ -62,7 +63,7 @@ const NewbMeetTutor: React.FC<{
         <CarouselNext
           className="relative right-0"
           onClick={() => {
-            logAction("Start Problem");
+            logAction("NewbMeetTutor : Clicked Next");
             api?.scrollNext();
           }}
         >

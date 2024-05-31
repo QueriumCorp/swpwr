@@ -11,17 +11,22 @@ import { NavContext, NavContextType } from "@/NavContext";
 import { AnimeTutor } from "@queriumcorp/animetutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { useProblemStore } from "@/store/_store";
 
 const NewbFeelThePower: React.FC<{
   className?: string;
   children?: React.ReactNode;
   page: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   const ybr = YellowBrickRoad;
   const src = "https://querium.wistia.com/medias/oyfe3sqhwb";
 
-  const { current } = React.useContext(NavContext) as NavContextType;
+  // NavContext
+  const { current, api } = React.useContext(NavContext) as NavContextType;
+
+  // Store
+  const { logAction } = useProblemStore();
 
   // JSX
   if (current !== index + 1) return null;
@@ -47,7 +52,15 @@ const NewbFeelThePower: React.FC<{
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
-        <CarouselNext className="relative right-0">Next</CarouselNext>
+        <CarouselNext
+          className="relative right-0"
+          onClick={() => {
+            logAction("NewbFeelThePower : Clicked Next");
+            api?.scrollNext();
+          }}
+        >
+          Next
+        </CarouselNext>
       </NavBar>
     </div>
   );

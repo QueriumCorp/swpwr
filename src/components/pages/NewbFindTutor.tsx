@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
@@ -13,6 +13,7 @@ import {
 } from "@queriumcorp/animetutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { useProblemStore } from "@/store/_store";
 
 const NewbFindTutor: React.FC<{
   className?: string;
@@ -20,13 +21,16 @@ const NewbFindTutor: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, children, index }) => {
-  const [navDisabled, setNavDisabled] = React.useState(true);
+  const [navDisabled, setNavDisabled] = useState(true);
 
-  // Dont render if page not active
-  const { current } = React.useContext(NavContext) as NavContextType;
+  // NavContext
+  const { current, api } = useContext(NavContext) as NavContextType;
+
+  // Store
+  const { logAction } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-  React.useEffect(() => {
+  useEffect(() => {
     sayMsg(
       `I’m right here if you need me, just click my cute self to get my attention 😊. Try it now.`,
       "idle:01",
@@ -34,6 +38,7 @@ const NewbFindTutor: React.FC<{
   }, []);
 
   function foundMe() {
+    logAction("NewbFindTutor : Found Tutor");
     sayMsg(
       "You found me! Click the right arrow next to me to continue.",
       "dance:01",
@@ -72,7 +77,14 @@ const NewbFindTutor: React.FC<{
         <CarouselPrevious disabled={navDisabled} className="relative left-0">
           Previous
         </CarouselPrevious>
-        <CarouselNext disabled={navDisabled} className="relative right-0">
+        <CarouselNext
+          disabled={navDisabled}
+          className="relative right-0"
+          onClick={() => {
+            logAction("NewbFindTutor : Clicked Next");
+            api?.scrollNext();
+          }}
+        >
           Next
         </CarouselNext>
       </NavBar>

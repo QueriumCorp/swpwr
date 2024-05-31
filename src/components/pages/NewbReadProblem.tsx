@@ -23,39 +23,19 @@ const NewbReadProblem: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, index }) => {
-  const { current } = useContext(NavContext) as NavContextType;
+  // NavContext
+  const { api, current } = useContext(NavContext) as NavContextType;
+
+  // Store
+  const { logAction } = useProblemStore();
+
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-  const { initSession } = useProblemStore();
 
   useEffect(() => {
     sayMsg(
       "Read this statement carefully and then click the right arrow to continue.",
       "idle:01",
     );
-
-    // Init session
-    const problem = {
-      appKey: "JiraTestPage",
-      id: "QUES6018",
-      title: "Solve compound linear inequalities in 1 variable",
-      stimulus:
-        "Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book.",
-      cmd: "",
-      session: "",
-      class: "gradeBasicAlgebra",
-      question:
-        'SolveWordProblemAns[{"Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book."}]',
-      policies: "$A1$",
-      qs1: "",
-      qs2: "",
-      qs3: "",
-    };
-
-    const student = {
-      studentId: "PokeyLoki",
-      studentName: "Loki Van Riper",
-    };
-    initSession(problem, student);
   }, []);
 
   // JSX
@@ -97,7 +77,15 @@ const NewbReadProblem: React.FC<{
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
-        <CarouselNext className="relative right-0">Next</CarouselNext>
+        <CarouselNext
+          className="relative right-0"
+          onClick={() => {
+            logAction("NewbReadProblem : Clicked Next");
+            api?.scrollNext();
+          }}
+        >
+          Next
+        </CarouselNext>
       </NavBar>
     </div>
   );

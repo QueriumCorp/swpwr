@@ -13,14 +13,19 @@ import {
 } from "@queriumcorp/animetutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { useProblemStore } from "@/store/_store";
 
 const NewbGratzWatchedVideo: React.FC<{
   className?: string;
   children?: React.ReactNode;
   page: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
-  const { current } = React.useContext(NavContext) as NavContextType;
+}> = ({ className, index }) => {
+  // NavContext
+  const { current, api } = React.useContext(NavContext) as NavContextType;
+
+  // Store
+  const { logAction } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
@@ -53,10 +58,19 @@ const NewbGratzWatchedVideo: React.FC<{
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
-        <CarouselNext className="relative right-0">Next</CarouselNext>
+        <CarouselNext
+          className="relative right-0"
+          onClick={() => {
+            logAction("NewbGratzWatchedVideo : Clicked Next");
+            api?.scrollNext();
+          }}
+        >
+          Next
+        </CarouselNext>
       </NavBar>
     </div>
   );
 };
 NewbGratzWatchedVideo.displayName = "NewbGratzWatchedVideo";
+
 export default NewbGratzWatchedVideo;

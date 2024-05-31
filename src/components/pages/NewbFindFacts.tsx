@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { FC, ReactNode, useContext, useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
@@ -19,19 +19,23 @@ import {
   useAvatarAPI,
 } from "@queriumcorp/animetutor";
 import { HdrBar } from "../qq/HdrBar";
+import { useProblemStore } from "@/store/_store";
 
-const NewbFindFacts: React.FC<{
+const NewbFindFacts: FC<{
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   page: YBRpage;
   index: number;
 }> = ({ className, children, page, index }) => {
-  // Dont render if page not active
-  const { current } = React.useContext(NavContext) as NavContextType;
+  // NavContext
+  const { api, current } = useContext(NavContext) as NavContextType;
 
-  const [knowns, setKnowns] = React.useState<string[]>([]);
-  const [unknowns, setUnknowns] = React.useState<string[]>([]);
-  const [currentFact, setCurrentFact] = React.useState<string>("");
+  // Store
+  const { logAction } = useProblemStore();
+
+  const [knowns, setKnowns] = useState<string[]>([]);
+  const [unknowns, setUnknowns] = useState<string[]>([]);
+  const [currentFact, setCurrentFact] = useState<string>("");
 
   const delKnown = (fact: string) => {
     setKnowns(knowns.filter((thisFact) => thisFact !== fact));
@@ -42,7 +46,7 @@ const NewbFindFacts: React.FC<{
   };
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-  React.useEffect(() => {
+  useEffect(() => {
     sayMsg(
       "I know a few things about you, but I’m sure you’ll find more!",
       "idle:01",
@@ -113,7 +117,15 @@ const NewbFindFacts: React.FC<{
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
-        <CarouselNext className="relative right-0">Next</CarouselNext>
+        <CarouselNext
+          className="relative right-0"
+          onClick={() => {
+            logAction("NewbFindFacts : Clicked Next");
+            api?.scrollNext();
+          }}
+        >
+          Next
+        </CarouselNext>
       </NavBar>
     </div>
   );
@@ -124,9 +136,11 @@ const NewbFindFacts: React.FC<{
 
     if (event.over && event.over.id === "KnownFacts") {
       setKnowns([...knowns, currentFact]);
+      logAction(`NewbFindFacts : Dropped '${currentFact}' on KnownFacts`);
     }
     if (event.over && event.over.id === "UnknownFacts") {
       setUnknowns([...unknowns, currentFact]);
+      logAction(`NewbFindFacts : Dropped '${currentFact}' on UnknownFacts`);
     }
     setCurrentFact("");
   }
@@ -135,12 +149,14 @@ const NewbFindFacts: React.FC<{
     if (currentFact.length == 0 || currentFact.trim().length == 0) return;
     if (knowns.includes(currentFact)) return;
 
+    logAction(`NewbFindFacts : Added '${currentFact}' to KnownFacts`);
     setKnowns([...knowns, currentFact]);
     setCurrentFact("");
   }
   function addUnknown() {
     if (currentFact.length == 0 || currentFact.trim().length == 0) return;
     if (unknowns.includes(currentFact)) return;
+    logAction(`NewbFindFacts : Added '${currentFact}' to UnknownFacts`);
     setUnknowns([...unknowns, currentFact]);
     setCurrentFact("");
   }
