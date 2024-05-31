@@ -8,8 +8,7 @@ const heartbeat = async (set: SetFn, get: GetFn) => {
     },
   });
   const data = await response.json();
-  console.info(response.status, data);
-  get().logAction(`heartbeat: ${response.status} ${data}`);
+  get().logAction(`heartbeat: ${response.status} ${JSON.stringify(data)}`);
 };
 
 export default heartbeat;

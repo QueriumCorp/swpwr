@@ -30,7 +30,6 @@ const NewbMeetTutor: React.FC<{
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   React.useEffect(() => {
-    console.log("NewbMeetTutor: ", current, index);
     sayMsg("Hi! I'm FoxyFuka!", "idle:01");
 
     // Init session

@@ -13,7 +13,7 @@ export interface StimulusSelectorProps
 const StimulusSelector = React.forwardRef<
   HTMLDivElement,
   StimulusSelectorProps
->(({ className, stimulusText, interactive, onChangeFact }) => {
+>(({ className, stimulusText, interactive, onChangeFact }, _ref) => {
   const theRef = React.useRef(null);
   const [preText, setPreText] = React.useState(stimulusText);
   const [theText, setTheText] = React.useState("");
