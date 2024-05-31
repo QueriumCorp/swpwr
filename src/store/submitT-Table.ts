@@ -26,6 +26,7 @@ const submitTTable = async (
   const data = await response.json();
 
   get().logAction(`submitTTable: ${response.status} ${JSON.stringify(data)}`);
+  return data;
 };
 
 export default submitTTable;

@@ -50,13 +50,13 @@ const NewbFindFacts: FC<{
   const delUnknown = (fact: string) => {
     setUnknowns(unknowns.filter((thisFact) => thisFact !== fact));
   };
-  function HandleCheckFacts() {
+  async function HandleCheckFacts() {
+    sayMsg("Give me a sec to review your knowns and unknowns", "idle:02");
     logAction("NewbFindFacts : Clicked Next");
 
     logAction("NewbFindFacts : Checking Facts");
-    submitTTable(knowns, unknowns);
-    // api?.scrollNext();
-    sayMsg("Checked submitTTable.", "idle:01");
+    const result = await submitTTable(knowns, unknowns);
+    sayMsg(result.message, "idle:01");
   }
   async function HandleGetHint() {
     sayMsg("Hmmm...  Let me see", "idle:02");

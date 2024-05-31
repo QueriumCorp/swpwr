@@ -44,7 +44,7 @@ export const useProblemStore = create<State>((set, get) => ({
   },
 
   submitTTable: async (knowns: string[], unknowns: string[]) => {
-    submitTTable(set, get, knowns, unknowns);
+    return await submitTTable(set, get, knowns, unknowns);
   },
 
   getHint: async () => {
