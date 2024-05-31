@@ -13,6 +13,7 @@ import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
 import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
 import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
 import { StimulusSelector } from "../qq/StimulusSelector";
+import { HdrBar } from "../qq/HdrBar";
 
 const CadetFillEquation: React.FC<{
   className?: string;
@@ -37,7 +38,11 @@ const CadetFillEquation: React.FC<{
     >
       <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative  mb-2">
         <div className="absolute top-0 left-0 bottom-0 right-0  overflow-y-scroll">
-          <h1>CadetFillEquation</h1>
+          <HdrBar
+            highlightLetter="O"
+            subTitle="Organize"
+            instructions="Fill in the Equation"
+          ></HdrBar>
           <StimulusSelector
             className={cn(
               "flex min-h-[80px] w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
@@ -69,6 +74,7 @@ const CadetFillEquation: React.FC<{
       </div>
 
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
+        <h3 className="absolute bottom-0 text-slate-400">CadetFillDiagram</h3>
         {/* Tiny Avatar */}
         <AnimeTutor
           style={{

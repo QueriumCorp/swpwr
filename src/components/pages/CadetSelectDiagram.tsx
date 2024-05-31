@@ -19,7 +19,6 @@ import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
 import DiagramChange from "../qq/DiagramChange/DiagramChange";
 import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
 import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
-import { ScrollArea } from "../ui/scrollArea";
 import { HdrBar } from "../qq/HdrBar";
 
 const CadetSelectDiagram: React.FC<{
@@ -46,7 +45,8 @@ const CadetSelectDiagram: React.FC<{
   return (
     <div
       className={cn(
-        "CadetSelectDiagram rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch ",
+        "CadetSelectDiagram",
+        "rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch ",
         className,
       )}
     >
@@ -105,6 +105,7 @@ const CadetSelectDiagram: React.FC<{
         </div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
+        <h3 className="absolute bottom-0 text-slate-400">CadetSelectDiagram</h3>
         {/* Tiny Avatar */}
         <AnimeTutor
           style={{
