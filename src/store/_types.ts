@@ -5,6 +5,8 @@ export interface State {
   studentLog: LogItem[];
   heartbeat: () => Promise<void>;
   initSession: (problem: Problem, student: Student) => void;
+  submitTTable: (knowns: string[], unknowns: string[]) => void;
+  getHint: () => Promise<string>;
   logAction: (action: string) => void;
 }
 

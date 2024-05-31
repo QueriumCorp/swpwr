@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { Problem, Student, Session, LogItem, State } from "./_types";
 import heartbeat from "./heartbeat";
 import initSession from "./initSession";
+import submitTTable from "./submitT-Table";
+import getHint from "./getHint";
 
 export const useProblemStore = create<State>((set, get) => ({
   problem: {
@@ -39,6 +41,14 @@ export const useProblemStore = create<State>((set, get) => ({
       student: student,
     }));
     initSession(set, get);
+  },
+
+  submitTTable: async (knowns: string[], unknowns: string[]) => {
+    submitTTable(set, get, knowns, unknowns);
+  },
+
+  getHint: async () => {
+    return await getHint(set, get);
   },
 
   logAction: (action: string) => {

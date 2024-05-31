@@ -3,7 +3,7 @@
 import { FC, ReactNode, useContext, useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
+import { type YBRpage, YellowBrickRoad } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import Chip from "../qq/Chip";
@@ -29,22 +29,43 @@ const NewbFindFacts: FC<{
 }> = ({ className, children, page, index }) => {
   // NavContext
   const { api, current } = useContext(NavContext) as NavContextType;
+  useEffect(() => {
+    // console.info("NewbFindFacts");
+    // console.info("current", YellowBrickRoad[current - 1]);
+    // console.info("page", page);
+  }, [current]);
 
   // Store
-  const { logAction } = useProblemStore();
+  const { logAction, submitTTable, getHint } = useProblemStore();
 
+  // State
   const [knowns, setKnowns] = useState<string[]>([]);
   const [unknowns, setUnknowns] = useState<string[]>([]);
   const [currentFact, setCurrentFact] = useState<string>("");
 
+  // Event Handlers
   const delKnown = (fact: string) => {
     setKnowns(knowns.filter((thisFact) => thisFact !== fact));
   };
-
   const delUnknown = (fact: string) => {
     setUnknowns(unknowns.filter((thisFact) => thisFact !== fact));
   };
+  function HandleCheckFacts() {
+    logAction("NewbFindFacts : Clicked Next");
 
+    logAction("NewbFindFacts : Checking Facts");
+    submitTTable(knowns, unknowns);
+    // api?.scrollNext();
+    sayMsg("Checked submitTTable.", "idle:01");
+  }
+  async function HandleGetHint() {
+    sayMsg("Hmmm...  Let me see", "idle:02");
+    logAction("NewbFindFacts : GetHint");
+    const hint = await getHint();
+    sayMsg(hint, "idle:03");
+  }
+
+  // Avatar Stuff
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
   useEffect(() => {
     sayMsg(
@@ -113,16 +134,19 @@ const NewbFindFacts: FC<{
             height: "100%",
           }}
         />
+        <div
+          className="h-full bottom-0 right-0 w-[100px] border-solid border-red-500 z-10 cursor-pointer"
+          onClick={() => {
+            HandleGetHint();
+          }}
+        ></div>
         <Chat className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]" />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
         <CarouselNext
           className="relative right-0"
-          onClick={() => {
-            logAction("NewbFindFacts : Clicked Next");
-            api?.scrollNext();
-          }}
+          onClick={() => HandleCheckFacts()}
         >
           Next
         </CarouselNext>
