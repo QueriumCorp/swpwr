@@ -25,8 +25,6 @@ const initSession = async (set: SetFn, get: GetFn) => {
     topic: problem.class,
     hints: theHints,
   };
-  console.log(theProblem);
-  console.info(JSON.stringify(theProblem));
 
   const response = await fetch("http://localhost:3002/start/", {
     method: "POST",
@@ -36,7 +34,6 @@ const initSession = async (set: SetFn, get: GetFn) => {
     body: JSON.stringify(theProblem),
   });
   const data = await response.json();
-  console.info(data);
   set((_state) => ({
     session: {
       sessionToken: data.sessionToken,
