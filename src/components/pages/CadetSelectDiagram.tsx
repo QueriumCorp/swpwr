@@ -20,6 +20,7 @@ import DiagramChange from "../qq/DiagramChange/DiagramChange";
 import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
 import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
 import { HdrBar } from "../qq/HdrBar";
+import { useProblemStore } from "@/store/_store";
 
 const CadetSelectDiagram: React.FC<{
   className?: string;
@@ -28,6 +29,9 @@ const CadetSelectDiagram: React.FC<{
   index: number;
 }> = ({ className, children, page, index }) => {
   const { current } = React.useContext(NavContext) as NavContextType;
+
+  // Store
+  const { logAction, submitTTable, getHint, problem } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
   React.useEffect(() => {
@@ -65,7 +69,7 @@ const CadetSelectDiagram: React.FC<{
               "flex min-h-[80px] w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
               className,
             )}
-            stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
+            stimulusText={problem.stimulus}
           ></StimulusSelector>
           <div className="grow grid grid-cols-2 gap-2">
             <Card>

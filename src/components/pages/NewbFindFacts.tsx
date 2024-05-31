@@ -36,7 +36,7 @@ const NewbFindFacts: FC<{
   }, [current]);
 
   // Store
-  const { logAction, submitTTable, getHint } = useProblemStore();
+  const { logAction, submitTTable, getHint, problem } = useProblemStore();
 
   // State
   const [knowns, setKnowns] = useState<string[]>([]);
@@ -98,7 +98,7 @@ const NewbFindFacts: FC<{
               className,
               "inline",
             )}
-            stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
+            stimulusText={problem.stimulus}
           ></StimulusSelector>
 
           <div className="flex grow gap-2">

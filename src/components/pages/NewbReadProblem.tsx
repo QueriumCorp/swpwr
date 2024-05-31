@@ -27,7 +27,7 @@ const NewbReadProblem: React.FC<{
   const { api, current } = useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction } = useProblemStore();
+  const { logAction, problem } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
@@ -59,7 +59,7 @@ const NewbReadProblem: React.FC<{
             className,
             "inline",
           )}
-          stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
+          stimulusText={problem.stimulus}
         ></StimulusSelector>
 
         <div className="flex grow gap-2"></div>

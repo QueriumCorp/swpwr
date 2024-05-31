@@ -14,6 +14,7 @@ import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
 import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { HdrBar } from "../qq/HdrBar";
+import { useProblemStore } from "@/store/_store";
 
 const CadetFillEquation: React.FC<{
   className?: string;
@@ -23,6 +24,9 @@ const CadetFillEquation: React.FC<{
 }> = ({ className, children, page, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
+
+  // Store
+  const { logAction, submitTTable, getHint, problem } = useProblemStore();
 
   const fakeDiagramType = "DiagramCombine";
 
@@ -48,8 +52,8 @@ const CadetFillEquation: React.FC<{
               "flex min-h-[80px] w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
               className,
             )}
-            stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
-          ></StimulusSelector>{" "}
+            stimulusText={problem.stimulus}
+          ></StimulusSelector>
           <h2 className="mt-3 ml-1 mr-1">
             Drag the items to fill in the relevant fields in the equation
           </h2>

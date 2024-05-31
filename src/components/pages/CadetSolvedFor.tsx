@@ -15,6 +15,7 @@ import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { Textarea } from "../ui/textarea";
+import { useProblemStore } from "@/store/_store";
 
 const CadetSolvedFor: React.FC<{
   className?: string;
@@ -23,6 +24,9 @@ const CadetSolvedFor: React.FC<{
   index: number;
 }> = ({ className, children, page, index }) => {
   const { current } = React.useContext(NavContext) as NavContextType;
+
+  // Store
+  const { logAction, submitTTable, getHint, problem } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
@@ -51,7 +55,7 @@ const CadetSolvedFor: React.FC<{
               "flex min-h-[80px] w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
               className,
             )}
-            stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
+            stimulusText={problem.stimulus}
           ></StimulusSelector>
           <h1>The value you found was EVIL!</h1>
           <Textarea placeholder="your answer" />

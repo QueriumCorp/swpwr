@@ -16,6 +16,7 @@ import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { Textarea } from "../ui/textarea";
 import { RadioGroup, RadioGroupItem } from "../ui/radio";
 import { Label } from "../ui/label";
+import { useProblemStore } from "@/store/_store";
 
 const CadetReflect: React.FC<{
   className?: string;
@@ -24,6 +25,10 @@ const CadetReflect: React.FC<{
   index: number;
 }> = ({ className, children, page, index }) => {
   const { current } = React.useContext(NavContext) as NavContextType;
+
+  // Store
+  const { logAction, submitTTable, getHint, problem } = useProblemStore();
+
   const [answer, setAnswer] = React.useState<string>("");
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
@@ -55,7 +60,7 @@ const CadetReflect: React.FC<{
               "flex min-h-[80px] w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
               className,
             )}
-            stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
+            stimulusText={problem.stimulus}
           ></StimulusSelector>
           <h1>
             What is the best answer for why does "{fakeAnswer}" make sense as

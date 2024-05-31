@@ -19,6 +19,7 @@ import {
   useAvatarAPI,
 } from "@queriumcorp/animetutor";
 import { HdrBar } from "../qq/HdrBar";
+import { useProblemStore } from "@/store/_store";
 
 const CadetFindFacts: React.FC<{
   className?: string;
@@ -28,6 +29,9 @@ const CadetFindFacts: React.FC<{
 }> = ({ className, children, page, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
+
+  // Store
+  const { logAction, submitTTable, getHint, problem } = useProblemStore();
 
   const [knowns, setKnowns] = React.useState<string[]>([]);
   const [unknowns, setUnknowns] = React.useState<string[]>([]);
@@ -72,7 +76,7 @@ const CadetFindFacts: React.FC<{
               className,
               "inline",
             )}
-            stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
+            stimulusText={problem.stimulus}
           ></StimulusSelector>
 
           <div className="flex grow gap-2">

@@ -15,6 +15,7 @@ import { NavBar } from "../qq/NavBar";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { HdrBar } from "../qq/HdrBar";
+import { useProblemStore } from "@/store/_store";
 
 const CadetReadProblem: React.FC<{
   className?: string;
@@ -23,6 +24,9 @@ const CadetReadProblem: React.FC<{
   index: number;
 }> = ({ className, children, page, index }) => {
   const { current } = React.useContext(NavContext) as NavContextType;
+
+  // Store
+  const { logAction, submitTTable, getHint, problem } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
   React.useEffect(() => {
@@ -53,7 +57,7 @@ const CadetReadProblem: React.FC<{
             className,
             "inline",
           )}
-          stimulusText="Four friends went out to lunch and the bill was $53.75.  They decided to add enough tip to make the total of $64, so that they could easily split the bill evenly among themselves.  How much did they leave for a tip?"
+          stimulusText={problem.stimulus}
         ></StimulusSelector>
 
         <div className="flex grow gap-2"></div>
