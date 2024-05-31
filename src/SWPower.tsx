@@ -26,6 +26,7 @@ import {
 } from "./components/ui/drawer";
 
 import { useProblemStore } from "./store/_store";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
 
 export interface StepWisePowerProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -51,7 +52,7 @@ const StepWisePower = forwardRef<HTMLDivElement, StepWisePowerProps>(
       });
     }, [api]);
 
-    const { studentLog } = useProblemStore();
+    const { studentLog, problem, student, session } = useProblemStore();
 
     return (
       <NavContext.Provider value={{ current, setCurrent, api }}>
@@ -69,38 +70,66 @@ const StepWisePower = forwardRef<HTMLDivElement, StepWisePowerProps>(
                 </button>
               </DrawerTrigger>
               <DrawerContent>
-                <div className="mx-auto w-full">
-                  <DrawerHeader>
-                    <DrawerTitle>Log</DrawerTitle>
-                    <DrawerDescription>
-                      log of student activities and server communications
-                    </DrawerDescription>
-                  </DrawerHeader>
-                  <div className="p-4 pb-0">
-                    <div className="p-2overflow-y-scroll overflow-x-auto">
-                      <div className="table w-full">
-                        <div className="table-row w-full p-2">
-                          {studentLog.map((item, index) => {
-                            return (
-                              <div
-                                key={index}
-                                className="table-row w-full p-2  border-b-2 border-b-slate-600"
-                              >
-                                <div className="table-cell min-w-[100px]">
-                                  {item.timestamp.toLocaleString("en-us", {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    second: "2-digit",
-                                  })}
-                                </div>
-                                <div className="table-cell">{item.action}</div>
-                              </div>
-                            );
-                          })}
+                <div className="mx-auto w-full h-[400px] relative">
+                  <Tabs defaultValue="log" className="w-full h-full">
+                    <TabsList className="w-full ">
+                      <TabsTrigger value="log">Log</TabsTrigger>
+                      <TabsTrigger value="store">Store</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="log" className="w-full h-[90%]">
+                      <div className="p-4 pb-0 w-full h-full">
+                        <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
+                          <div className="table w-full">
+                            <div className="table-row w-full p-2">
+                              {studentLog.map((item, index) => {
+                                return (
+                                  <div
+                                    key={index}
+                                    className="table-row w-full p-2  border-b-2 border-b-slate-600"
+                                  >
+                                    <div className="table-cell min-w-[100px]">
+                                      {item.timestamp.toLocaleString("en-us", {
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                        second: "2-digit",
+                                      })}
+                                    </div>
+                                    <div className="table-cell">
+                                      <p>{item.action}</p>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    </TabsContent>
+                    <TabsContent value="store" className="w-full h-[90%]">
+                      <div className="p-4 pb-0 w-full h-full">
+                        <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
+                          <h3 className="bg-qqAccent font-sans font-black">
+                            Student
+                          </h3>
+                          <pre className="font-mono text-xs">
+                            {JSON.stringify(student, null, 2)}
+                          </pre>
+                          <h3 className="bg-qqAccent font-sans font-black">
+                            Problem
+                          </h3>
+                          <pre className="font-mono text-xs">
+                            {JSON.stringify(problem, null, 2)}
+                          </pre>
+                          <h3 className="bg-qqAccent font-sans font-black">
+                            Session
+                          </h3>
+                          <pre className="font-mono text-xs">
+                            {JSON.stringify(session, null, 2)}
+                          </pre>
+                        </div>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
                 </div>
               </DrawerContent>
             </Drawer>

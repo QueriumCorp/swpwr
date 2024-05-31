@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useContext, useEffect } from "react";
 
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
@@ -15,21 +15,47 @@ import {
   useAvatarAPI,
 } from "@queriumcorp/animetutor";
 import { HdrBar } from "../qq/HdrBar";
+import { useProblemStore } from "@/store/_store";
 
 const NewbReadProblem: React.FC<{
   className?: string;
   children?: React.ReactNode;
   page: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
-  const { current } = React.useContext(NavContext) as NavContextType;
-
+}> = ({ className, index }) => {
+  const { current } = useContext(NavContext) as NavContextType;
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-  React.useEffect(() => {
+  const { initSession } = useProblemStore();
+
+  useEffect(() => {
     sayMsg(
       "Read this statement carefully and then click the right arrow to continue.",
       "idle:01",
     );
+
+    // Init session
+    const problem = {
+      appKey: "JiraTestPage",
+      id: "QUES6018",
+      title: "Solve compound linear inequalities in 1 variable",
+      stimulus:
+        "Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book.",
+      cmd: "",
+      session: "",
+      class: "gradeBasicAlgebra",
+      question:
+        'SolveWordProblemAns[{"Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book."}]',
+      policies: "$A1$",
+      qs1: "",
+      qs2: "",
+      qs3: "",
+    };
+
+    const student = {
+      studentId: "PokeyLoki",
+      studentName: "Loki Van Riper",
+    };
+    initSession(problem, student);
   }, []);
 
   // JSX

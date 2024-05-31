@@ -31,30 +31,6 @@ const NewbMeetTutor: React.FC<{
 
   React.useEffect(() => {
     sayMsg("Hi! I'm FoxyFuka!", "idle:01");
-
-    // Init session
-    const problem = {
-      appKey: "JiraTestPage",
-      id: "QUES6018",
-      title: "Solve compound linear inequalities in 1 variable",
-      stimulus:
-        "Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book.",
-      cmd: "",
-      session: "",
-      class: "gradeBasicAlgebra",
-      question:
-        'SolveWordProblemAns[{"Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book."}]',
-      policies: "$A1$",
-      qs1: "",
-      qs2: "",
-      qs3: "",
-    };
-
-    const student = {
-      studentId: "PokeyLoki",
-      studentName: "Loki Van Riper",
-    };
-    // initSession(problem, student);
     heartbeat();
   }, []);
 

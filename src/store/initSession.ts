@@ -1,12 +1,21 @@
-import type { Problem, State, Student, SetFn } from "./_types";
+import type { SetFn, GetFn } from "./_types";
 
-const initSession = async (set: SetFn, problem: Problem, student: Student) => {
-  set((state: State) => ({
-    problem: problem,
-    student: student,
-  }));
+const initSession = async (set: SetFn, get: GetFn) => {
+  const problem = get().problem;
+  const student = get().student;
 
-  const theProblem: = {
+  const theHints = [];
+  if (problem.qs1) {
+    theHints.push(problem.qs1);
+  }
+  if (problem.qs2) {
+    theHints.push(problem.qs2);
+  }
+  if (problem.qs3) {
+    theHints.push(problem.qs3);
+  }
+
+  const theProblem = {
     appKey: problem.appKey,
     studentId: student.studentId,
     id: problem.id,
@@ -14,18 +23,28 @@ const initSession = async (set: SetFn, problem: Problem, student: Student) => {
     definition: problem.question,
     stimulus: problem.stimulus,
     topic: problem.class,
-    hints: [],
+    hints: theHints,
   };
+  console.log(theProblem);
+  console.info(JSON.stringify(theProblem));
 
-  const response = await fetch("http://localhost:3002/", {
-    method: "GET",
+  const response = await fetch("http://localhost:3002/start/", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    // body: JSON.stringify(theProblem),
+    body: JSON.stringify(theProblem),
   });
   const data = await response.json();
-  console.info(response.status, data);
+  console.info(data);
+  set((_state) => ({
+    session: {
+      sessionToken: data.sessionToken,
+      identifiers: data.identifiers,
+      operators: data.operators,
+    },
+  }));
+  get().logAction(`initSession: ${response.status} ${JSON.stringify(data)}`);
 };
 
 export default initSession;
