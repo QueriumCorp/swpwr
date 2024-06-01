@@ -4,8 +4,13 @@ import heartbeat from "./heartbeat";
 import initSession from "./initSession";
 import submitTTable from "./submitT-Table";
 import getHint from "./getHint";
+import submitPickSchema from "./submitPickSchema";
 
 export const useProblemStore = create<State>((set, get) => ({
+  ///////////////////////////////////////////////////////////////////
+  // DATA
+  ///////////////////////////////////////////////////////////////////
+
   problem: {
     appKey: "",
     id: "",
@@ -28,8 +33,16 @@ export const useProblemStore = create<State>((set, get) => ({
     sessionToken: "",
     identifiers: [],
     operators: [],
+    knowns: [],
+    unknowns: [],
+    schema: "",
+    finalAnswer: "",
   },
   studentLog: [],
+
+  ///////////////////////////////////////////////////////////////////
+  // METHODS
+  ///////////////////////////////////////////////////////////////////
 
   heartbeat: async () => {
     heartbeat(set, get);
@@ -44,7 +57,24 @@ export const useProblemStore = create<State>((set, get) => ({
   },
 
   submitTTable: async (knowns: string[], unknowns: string[]) => {
+    set((state) => ({
+      session: {
+        ...state.session,
+        knowns: knowns,
+        unknowns: unknowns,
+      },
+    }));
     return await submitTTable(set, get, knowns, unknowns);
+  },
+
+  submitPickSchema: async (schema: string) => {
+    set((state) => ({
+      session: {
+        ...state.session,
+        schema: schema,
+      },
+    }));
+    return await submitPickSchema(set, get, schema);
   },
 
   getHint: async () => {

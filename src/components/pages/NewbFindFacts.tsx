@@ -62,6 +62,9 @@ const NewbFindFacts: FC<{
       logAction("NewbFindFacts : Checking Facts");
       const result = await submitTTable(knowns, unknowns);
       sayMsg(result.message, "idle:01");
+      if (result.stepStatus == "VALID") {
+        api?.scrollNext();
+      }
     }
   }
   async function HandleGetHint() {

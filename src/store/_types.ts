@@ -6,6 +6,7 @@ export interface State {
   heartbeat: () => Promise<void>;
   initSession: (problem: Problem, student: Student) => void;
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>;
+  submitPickSchema: (schema: string) => Promise<any>;
   getHint: () => Promise<string>;
   logAction: (action: string) => void;
 }
@@ -34,12 +35,23 @@ export type Session = {
   sessionToken: string;
   identifiers: string[];
   operators: string[];
+  knowns: string[];
+  unknowns: string[];
+  schema: string;
+  finalAnswer: string;
 };
 
 export type LogItem = {
   timestamp: Date;
   action: string;
 };
+
+export type SchemaType =
+  | "multiplicativeEqualGroupsSchema"
+  | "combineAdditiveSchema"
+  | "changeAdditiveSchema"
+  | "fakeThreeSchema"
+  | "";
 
 export type SetFn = (
   partial: State | Partial<State> | ((state: State) => State | Partial<State>),

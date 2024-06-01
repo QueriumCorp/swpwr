@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { FC, ReactNode, useContext, useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
@@ -19,31 +19,65 @@ import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
 import DiagramChange from "../qq/DiagramChange/DiagramChange";
 import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
 import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
-import { ScrollArea } from "../ui/scrollArea";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
+import { SchemaType } from "@/store/_types";
 
-const NewbProblemType: React.FC<{
+const NewbProblemType: FC<{
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   page: YBRpage;
   index: number;
 }> = ({ className, children, page, index }) => {
-  const { current } = React.useContext(NavContext) as NavContextType;
+  // Nav Context
+  const { api, current } = useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction, submitTTable, getHint, problem } = useProblemStore();
+  const { logAction, submitPickSchema, getHint, problem, session } =
+    useProblemStore();
 
+  // State
+  const [schema, setSchema] = useState<SchemaType>("");
+
+  // Side Effects
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-  React.useEffect(() => {
+  useEffect(() => {
     sayMsg(
       "Check this out! There are different types of problems, Let’s have you select the only one you know about yet, “TotaL",
       "idle:03",
     );
   }, []);
 
-  const fakeKnowns = ["49 miles", "100 miles", "1000 miles"];
-  const fakeUnknowns = ["Time to lunch", "Time to go to the store"];
+  // Event Handlers
+  async function handleSelectSchema(schema: SchemaType) {
+    logAction("NewbProblemType : Selected Schema : " + schema);
+    setSchema(schema);
+  }
+  async function handleCheckSchema(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    console.log("handleCheckSchema");
+    if (evt.metaKey) {
+      api?.scrollNext();
+    } else {
+      sayMsg("Just a moment while I verify your choice", "idle:02");
+      logAction("NewbProblemType : Clicked Next");
+
+      logAction("NewbProblemType : Checking Schema : " + schema);
+      const result = await submitPickSchema(schema);
+      logAction("NewbProblemType : Checked Schema : " + JSON.stringify(result));
+      sayMsg(result.message, "idle:01");
+      if (result.stepStatus == "VALID") {
+        api?.scrollNext();
+      }
+    }
+  }
+  async function HandleGetHint() {
+    sayMsg("Hmmm...  Let me see", "idle:02");
+    logAction("NewbProblemType : GetHint");
+    const hint = await getHint();
+    sayMsg(hint, "idle:03");
+  }
 
   // JSX
   if (current !== index + 1) return null;
@@ -77,11 +111,13 @@ const NewbProblemType: React.FC<{
                 <CardTitle>Knowns</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul>
-                  {fakeKnowns.map((known) => (
-                    <li key={known}>{known}</li>
-                  ))}
-                </ul>
+                {session.knowns ? (
+                  <ul>
+                    {session.knowns.map((known) => (
+                      <li key={known}>{known}</li>
+                    ))}
+                  </ul>
+                ) : null}
               </CardContent>
             </Card>
             <Card>
@@ -89,11 +125,13 @@ const NewbProblemType: React.FC<{
                 <CardTitle>Unknowns</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul>
-                  {fakeUnknowns.map((unknown) => (
-                    <li key={unknown}>{unknown}</li>
-                  ))}
-                </ul>
+                {session.unknowns ? (
+                  <ul>
+                    {session.unknowns.map((unknown) => (
+                      <li key={unknown}>{unknown}</li>
+                    ))}
+                  </ul>
+                ) : null}
               </CardContent>
             </Card>
           </div>
@@ -101,10 +139,54 @@ const NewbProblemType: React.FC<{
             Click on the type of problem you think this is
           </h2>
           <div className="grow grid grid-cols-2 gap-2">
-            <DiagramCombine />
-            <DiagramChange />
-            <DiagramMultiplyTimes />
-            <DiagramEqualGroups />
+            <Card
+              className={cn("DiagramCombine", "p-1", {
+                "border-2 border-qqBrand": schema === "combineAdditiveSchema",
+              })}
+              onClick={() => {
+                handleSelectSchema("combineAdditiveSchema");
+                logAction("Schema selected - combineAdditiveSchema");
+              }}
+            >
+              <DiagramCombine />
+            </Card>
+
+            <Card
+              className={cn("DiagramChange", "p-1", {
+                "border-2 border-qqBrand": schema === "changeAdditiveSchema",
+              })}
+              onClick={() => {
+                handleSelectSchema("changeAdditiveSchema");
+                logAction("Schema selected - changeAdditiveSchema");
+              }}
+            >
+              <DiagramChange />
+            </Card>
+
+            <Card
+              className={cn("DiagramMultiplyTimes", "p-1", {
+                "border-2 border-qqBrand": schema === "fakeThreeSchema",
+              })}
+              onClick={() => {
+                handleSelectSchema("fakeThreeSchema");
+                logAction("Schema selected - fakeThreeSchema");
+              }}
+            >
+              <DiagramMultiplyTimes />
+            </Card>
+
+            <Card
+              className={cn("DiagramEqualGroups", "p-1", {
+                "border-2 border-qqBrand":
+                  schema === "multiplicativeEqualGroupsSchema",
+              })}
+              onClick={() => {
+                handleSelectSchema("multiplicativeEqualGroupsSchema");
+                logAction("Schema selected - multiplicativeEqualGroupsSchema");
+              }}
+            >
+              <DiagramEqualGroups />
+            </Card>
           </div>
         </div>
       </div>
@@ -117,11 +199,24 @@ const NewbProblemType: React.FC<{
             height: "100%",
           }}
         />
+        <div
+          className="h-full bottom-0 right-0 w-[100px] border-solid border-red-500 z-10 cursor-pointer"
+          onClick={() => {
+            HandleGetHint();
+          }}
+        ></div>
         <Chat className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]" />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
-        <CarouselNext className="relative right-0">Next</CarouselNext>
+        <CarouselNext
+          className="relative right-0"
+          onClick={(evt) => {
+            handleCheckSchema(evt);
+          }}
+        >
+          Next
+        </CarouselNext>
       </NavBar>
     </div>
   );

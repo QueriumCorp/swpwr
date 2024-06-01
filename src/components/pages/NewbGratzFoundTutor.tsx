@@ -71,11 +71,15 @@ const NewbGratzFoundTutor: React.FC<{
         className,
       )}
     >
-      <h1>NewbGratzFoundTutor</h1>
       <div className="grow bg-qqAccent relative">
         <AnimeTutor
           closeUp
-          style={{ position: "absolute", height: "100%", right: "0px" }}
+          style={{
+            position: "absolute",
+            height: "100%",
+            right: "-500px",
+            width: "200%",
+          }}
         />
         <Chat className="font-irishGrover absolute right-[300px] bottom-[50%] ml-3 min-h-24" />
       </div>

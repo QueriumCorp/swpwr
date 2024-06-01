@@ -43,7 +43,6 @@ const NewbGratzOnPrepare: React.FC<{
         className,
       )}
     >
-      <h1>NewbGratzOnPrepare</h1>
       <ReactPlayer url={src} height={"100%"} style={{ margin: "auto" }} />
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
         {/* Tiny Avatar */}

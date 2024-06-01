@@ -16,6 +16,7 @@ import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { Textarea } from "../ui/textarea";
 import { useProblemStore } from "@/store/_store";
+import { HdrBar } from "../qq/HdrBar";
 
 const CadetSolvedFor: React.FC<{
   className?: string;
@@ -26,7 +27,7 @@ const CadetSolvedFor: React.FC<{
   const { current } = React.useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction, submitTTable, getHint, problem } = useProblemStore();
+  const { logAction, problem, session } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 
@@ -46,10 +47,11 @@ const CadetSolvedFor: React.FC<{
     >
       <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative  mb-2">
         <div className="absolute top-0 left-0 bottom-0 right-0  overflow-y-scroll">
-          <h1>CadetSolvedFor</h1>
-          <div>
-            <h1>Stimulus</h1>
-          </div>
+          <HdrBar
+            highlightLetter="E"
+            subTitle="Explain Your Answer"
+            instructions="Answer the question in your own words"
+          ></HdrBar>
           <StimulusSelector
             className={cn(
               "flex min-h-[80px] w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
@@ -57,7 +59,7 @@ const CadetSolvedFor: React.FC<{
             )}
             stimulusText={problem.stimulus}
           ></StimulusSelector>
-          <h1>The value you found was EVIL!</h1>
+          <h1>The value you found was {session.finalAnswer}</h1>
           <Textarea placeholder="your answer" />
         </div>
       </div>
