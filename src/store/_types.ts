@@ -59,3 +59,4 @@ export type SetFn = (
 ) => void;
 
 export type GetFn = () => State;
+// the end
