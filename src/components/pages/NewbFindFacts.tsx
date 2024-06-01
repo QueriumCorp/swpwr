@@ -50,13 +50,19 @@ const NewbFindFacts: FC<{
   const delUnknown = (fact: string) => {
     setUnknowns(unknowns.filter((thisFact) => thisFact !== fact));
   };
-  async function HandleCheckFacts() {
-    sayMsg("Give me a sec to review your knowns and unknowns", "idle:02");
-    logAction("NewbFindFacts : Clicked Next");
+  async function HandleCheckFacts(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    if (evt.metaKey) {
+      api?.scrollNext();
+    } else {
+      sayMsg("Give me a sec to review your knowns and unknowns", "idle:02");
+      logAction("NewbFindFacts : Clicked Next");
 
-    logAction("NewbFindFacts : Checking Facts");
-    const result = await submitTTable(knowns, unknowns);
-    sayMsg(result.message, "idle:01");
+      logAction("NewbFindFacts : Checking Facts");
+      const result = await submitTTable(knowns, unknowns);
+      sayMsg(result.message, "idle:01");
+    }
   }
   async function HandleGetHint() {
     sayMsg("Hmmm...  Let me see", "idle:02");
@@ -146,7 +152,7 @@ const NewbFindFacts: FC<{
         </CarouselPrevious>
         <CarouselNext
           className="relative right-0"
-          onClick={() => HandleCheckFacts()}
+          onClick={(evt) => HandleCheckFacts(evt)}
         >
           Next
         </CarouselNext>
