@@ -26,11 +26,11 @@ const CadetFillDiagram: React.FC<{
   children?: React.ReactNode;
   page: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   const { current } = React.useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction, submitTTable, getHint, problem } = useProblemStore();
+  const { problem } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
   React.useEffect(() => {
@@ -42,7 +42,7 @@ const CadetFillDiagram: React.FC<{
 
   const fakeKnowns = ["49 miles", "100 miles", "1000 miles"];
   const fakeUnknowns = ["Time to lunch", "Time to go to the store"];
-  const fakeDiagramType = "DiagramCombine";
+  let fakeDiagramType = "DiagramCombine";
 
   // JSX
   if (current !== index + 1) return null;

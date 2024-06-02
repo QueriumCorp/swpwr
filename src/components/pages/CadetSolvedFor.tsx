@@ -9,7 +9,6 @@ import {
   useAvatarAPI,
   AvatarAPIType,
   AnimeTutor,
-  Chat,
 } from "@queriumcorp/animetutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
@@ -21,13 +20,13 @@ import { HdrBar } from "../qq/HdrBar";
 const CadetSolvedFor: React.FC<{
   className?: string;
   children?: React.ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   const { current } = React.useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction, problem, session } = useProblemStore();
+  const { problem, session } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
 

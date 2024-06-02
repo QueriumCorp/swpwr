@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
+import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import {
   AnimeTutor,
@@ -18,9 +18,9 @@ import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 const NewbGratzOnPrepare: React.FC<{
   className?: string;
   children?: React.ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   const src = "https://querium.wistia.com/medias/oyfe3sqhwb";
 
   const { current } = React.useContext(NavContext) as NavContextType;

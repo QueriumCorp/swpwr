@@ -24,14 +24,14 @@ import { useProblemStore } from "@/store/_store";
 const CadetFindFacts: React.FC<{
   className?: string;
   children?: React.ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction, submitTTable, getHint, problem } = useProblemStore();
+  const { problem } = useProblemStore();
 
   const [knowns, setKnowns] = React.useState<string[]>([]);
   const [unknowns, setUnknowns] = React.useState<string[]>([]);

@@ -26,9 +26,9 @@ import { SchemaType } from "@/store/_types";
 const NewbProblemType: FC<{
   className?: string;
   children?: ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   // Nav Context
   const { api, current } = useContext(NavContext) as NavContextType;
 

@@ -31,7 +31,7 @@ export interface FactChickletProps
 }
 
 const FactChicklet = React.forwardRef<HTMLDivElement, FactChickletProps>(
-  ({ fact, className, variant, ...props }, ref) => {
+  ({ fact, className, variant, ...props }, _ref) => {
     // Draggable hooks
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
       id: fact,

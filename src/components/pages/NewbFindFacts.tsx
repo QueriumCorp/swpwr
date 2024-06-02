@@ -3,7 +3,7 @@
 import { FC, ReactNode, useContext, useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { type YBRpage, YellowBrickRoad } from "../qq/YellowBrickRoad";
+import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import Chip from "../qq/Chip";
@@ -24,9 +24,9 @@ import { useProblemStore } from "@/store/_store";
 const NewbFindFacts: FC<{
   className?: string;
   children?: ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   // NavContext
   const { api, current } = useContext(NavContext) as NavContextType;
   useEffect(() => {

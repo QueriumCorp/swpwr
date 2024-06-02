@@ -1,6 +1,6 @@
 import type { SetFn, GetFn } from "./_types";
 
-const submitPickSchema = async (set: SetFn, get: GetFn, schema: string) => {
+const submitPickSchema = async (_set: SetFn, get: GetFn, schema: string) => {
   const problem = get().problem;
   const session = get().session;
 

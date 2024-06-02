@@ -18,9 +18,9 @@ import { useProblemStore } from "@/store/_store";
 const NewbGratzFoundTutor: React.FC<{
   className?: string;
   children?: React.ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   // NavContext
   const { current, api } = useContext(NavContext) as NavContextType;
 

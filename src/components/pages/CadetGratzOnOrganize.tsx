@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
+import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import {
   AnimeTutor,
@@ -17,9 +17,9 @@ import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 const CadetGratzOnOrganize: React.FC<{
   className?: string;
   children?: React.ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, children, index }) => {
   const { current } = React.useContext(NavContext) as NavContextType;
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;

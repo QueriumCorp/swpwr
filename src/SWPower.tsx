@@ -16,14 +16,7 @@ import { renderPage } from "./components/qq/RenderPage";
 import { NavContext } from "./NavContext";
 import { cn } from "./lib/utils";
 
-import {
-  Drawer,
-  DrawerTrigger,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerDescription,
-} from "./components/ui/drawer";
+import { Drawer, DrawerTrigger, DrawerContent } from "./components/ui/drawer";
 
 import { useProblemStore } from "./store/_store";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";

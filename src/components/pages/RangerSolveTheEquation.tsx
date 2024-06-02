@@ -11,7 +11,7 @@ const RangerSolveTheEquation: React.FC<{
   children?: React.ReactNode;
   page: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, children, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
   if (current !== index + 1) return null;

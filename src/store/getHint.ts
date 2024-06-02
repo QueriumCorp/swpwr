@@ -1,6 +1,6 @@
 import type { SetFn, GetFn } from "./_types";
 
-const getHint = async (set: SetFn, get: GetFn) => {
+const getHint = async (_set: SetFn, get: GetFn) => {
   const problem = get().problem;
   const session = get().session;
 

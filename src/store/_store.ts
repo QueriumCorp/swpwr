@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Problem, Student, Session, LogItem, State } from "./_types";
+import { Problem, Student, LogItem, State } from "./_types";
 import heartbeat from "./heartbeat";
 import initSession from "./initSession";
 import submitTTable from "./submitT-Table";

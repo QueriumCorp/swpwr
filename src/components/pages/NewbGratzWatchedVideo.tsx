@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
+import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import {
   AnimeTutor,
@@ -18,7 +18,7 @@ import { useProblemStore } from "@/store/_store";
 const NewbGratzWatchedVideo: React.FC<{
   className?: string;
   children?: React.ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
 }> = ({ className, index }) => {
   // NavContext

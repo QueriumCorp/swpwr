@@ -1,10 +1,12 @@
+import { FC, ReactNode } from "react";
+
 import { useDroppable } from "@dnd-kit/core";
 
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ScrollArea } from "../ui/scrollArea";
 import { BsPlusCircleFill } from "react-icons/bs";
 
-const KnownFacts = (props) => {
+const KnownFacts: FC<{ children?: ReactNode; add: () => void }> = (props) => {
   const { isOver, setNodeRef } = useDroppable({
     id: "KnownFacts",
   });

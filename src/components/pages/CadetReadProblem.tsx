@@ -20,13 +20,13 @@ import { useProblemStore } from "@/store/_store";
 const CadetReadProblem: React.FC<{
   className?: string;
   children?: React.ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   const { current } = React.useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction, submitTTable, getHint, problem } = useProblemStore();
+  const { problem } = useProblemStore();
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType;
   React.useEffect(() => {

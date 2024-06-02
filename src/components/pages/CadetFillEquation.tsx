@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { YBRpage, YellowBrickRoad } from "../qq/YellowBrickRoad";
+import { YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import { AnimeTutor, Chat } from "@queriumcorp/animetutor";
 import { NavBar } from "../qq/NavBar";
@@ -19,16 +19,16 @@ import { useProblemStore } from "@/store/_store";
 const CadetFillEquation: React.FC<{
   className?: string;
   children?: React.ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction, submitTTable, getHint, problem } = useProblemStore();
+  const { problem } = useProblemStore();
 
-  const fakeDiagramType = "DiagramCombine";
+  let fakeDiagramType = "DiagramCombine";
 
   // JSX
   if (current !== index + 1) return null;

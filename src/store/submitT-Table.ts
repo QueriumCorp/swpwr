@@ -1,7 +1,7 @@
 import type { SetFn, GetFn } from "./_types";
 
 const submitTTable = async (
-  set: SetFn,
+  _set: SetFn,
   get: GetFn,
   knowns: string[],
   unknowns: string[],

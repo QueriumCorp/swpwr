@@ -13,7 +13,6 @@ import {
 import { NavBar } from "../qq/NavBar";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { Textarea } from "../ui/textarea";
 import { RadioGroup, RadioGroupItem } from "../ui/radio";
 import { Label } from "../ui/label";
 import { useProblemStore } from "@/store/_store";
@@ -21,13 +20,13 @@ import { useProblemStore } from "@/store/_store";
 const CadetReflect: React.FC<{
   className?: string;
   children?: React.ReactNode;
-  page: YBRpage;
+  page?: YBRpage;
   index: number;
-}> = ({ className, children, page, index }) => {
+}> = ({ className, index }) => {
   const { current } = React.useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction, submitTTable, getHint, problem } = useProblemStore();
+  const { problem } = useProblemStore();
 
   const [answer, setAnswer] = React.useState<string>("");
 
