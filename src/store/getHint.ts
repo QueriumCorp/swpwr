@@ -9,7 +9,7 @@ const getHint = async (_set: SetFn, get: GetFn) => {
     sessionToken: session.sessionToken,
   };
 
-  const response = await fetch("http://localhost:3002/getHint/", {
+  const response = await fetch("https://swapi2.onrender.com/getHint/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

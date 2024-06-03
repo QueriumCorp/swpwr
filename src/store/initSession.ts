@@ -26,7 +26,7 @@ const initSession = async (set: SetFn, get: GetFn) => {
     hints: theHints,
   };
 
-  const response = await fetch("http://localhost:3002/start/", {
+  const response = await fetch("https://swapi2.onrender.com/start/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

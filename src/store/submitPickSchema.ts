@@ -10,13 +10,16 @@ const submitPickSchema = async (_set: SetFn, get: GetFn, schema: string) => {
     schema: schema,
   };
 
-  const response = await fetch("http://localhost:3002/submitPickSchema/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await fetch(
+    "https://swapi2.onrender.com/submitPickSchema/",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
     },
-    body: JSON.stringify(body),
-  });
+  );
   const data = await response.json();
 
   get().logAction(
