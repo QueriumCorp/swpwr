@@ -16,4 +16,5 @@ export default defineConfig({
   server: {
     port: 5183,
   },
+  base: "/swpwr/",
 });
