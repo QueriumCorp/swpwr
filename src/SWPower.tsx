@@ -73,7 +73,7 @@ const StepWisePower = forwardRef<HTMLDivElement, StepWisePowerProps>(
                       <div className="p-4 pb-0 w-full h-full">
                         <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
                           <div className="table w-full">
-                            <div className="table-row w-full p-2">
+                            <div className="table-row w-full p-2 select-text">
                               {studentLog.map((item, index) => {
                                 return (
                                   <div
