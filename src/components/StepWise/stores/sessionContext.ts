@@ -54,7 +54,7 @@ export const createSessionStore = (
   student: Student,
   problem: Problem,
   server?: Server,
-  assistant?: (msg: string) => void
+  assistant?: (msg: string) => void,
 ) => {
   console.info("CREATE SESSION STORE");
   console.info("Initial state:", initialState);
@@ -90,7 +90,7 @@ export const createSessionStore = (
 
         // START SESSION
         startSession: async () => {
-          set((state) => ({
+          set((_state) => ({
             sessionToken: "starting",
           }));
 
@@ -146,7 +146,7 @@ export const createSessionStore = (
                   definition: definition,
                   hints: hints,
                 }),
-              }
+              },
             );
           } catch (error) {
             logEntry.response = extractErrorMsg(error);
@@ -222,7 +222,7 @@ export const createSessionStore = (
                   appKey: appKey,
                   sessionToken: existingSessionToken,
                 }),
-              }
+              },
             );
           } catch (error) {
             logEntry.response = extractErrorMsg(error);
@@ -304,7 +304,7 @@ export const createSessionStore = (
                   appKey: appKey,
                   sessionToken: existingSessionToken,
                 }),
-              }
+              },
             );
           } catch (error) {
             logEntry.response = extractErrorMsg(error);
@@ -330,7 +330,7 @@ export const createSessionStore = (
                     "\\(" + MathMLToLaTeX.convert(step.suggestedStep) + "\\)",
                   instruction: getHintMessage(step.instruction),
                 };
-              }
+              },
             );
 
             set((state) => ({
@@ -394,7 +394,7 @@ export const createSessionStore = (
                   appKey: appKey,
                   sessionToken: existingSessionToken,
                 }),
-              }
+              },
             );
           } catch (error) {
             logEntry.response = error as string;
@@ -453,10 +453,10 @@ export const createSessionStore = (
                   sessionToken: existingSessionToken,
                   step: `\\begin{{equation}}${step.replace(
                     "=",
-                    "&#63449;"
+                    "&#63449;",
                   )}\\end{{equation}}`,
                 }),
-              }
+              },
             );
           } catch (error) {
             logEntry.response = extractErrorMsg(error);
@@ -517,7 +517,7 @@ export const createSessionStore = (
 
           try {
             response = await fetch(
-              "https://qq-stepwise-api.querium.com/getGrade"
+              "https://qq-stepwise-api.querium.com/getGrade",
             );
           } catch (error) {
             logEntry.response = error as string;
@@ -557,7 +557,7 @@ export const createSessionStore = (
                   appKey: appKey,
                   sessionToken: existingSessionToken,
                 }),
-              }
+              },
             );
           } catch (error) {
             logEntry.response = error as string;
@@ -589,7 +589,7 @@ export const createSessionStore = (
 
           try {
             response = await fetch(
-              "https://qq-stepwise-api.querium.com/saveTrace"
+              "https://qq-stepwise-api.querium.com/saveTrace",
             );
           } catch (error) {
             logEntry.response = error as string;
@@ -635,7 +635,7 @@ export const createSessionStore = (
                   sessionToken: existingSessionToken,
                   comment: comment,
                 }),
-              }
+              },
             );
           } catch (error) {
             logEntry.response = error as string;
@@ -666,7 +666,7 @@ export const createSessionStore = (
 
           try {
             response = await fetch(
-              "https://qq-stepwise-api.querium.com//assessSolution/"
+              "https://qq-stepwise-api.querium.com//assessSolution/",
             );
           } catch (error) {
             logEntry.response = error as string;
@@ -684,8 +684,8 @@ export const createSessionStore = (
           }));
         },
       }), // end of state
-      { name: "session" }
-    )
+      { name: "session" },
+    ),
   );
 };
 

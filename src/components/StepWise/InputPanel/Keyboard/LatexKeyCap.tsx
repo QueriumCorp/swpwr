@@ -9,7 +9,7 @@ type LatexKeyCapProps = {
 export const LatexKeyCap = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & LatexKeyCapProps
->(({ className, operator, ...props }, ref) => {
+>(({ operator }, _ref) => {
   const mf = useRef<MathViewRef>(null);
 
   useEffect(() => {

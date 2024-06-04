@@ -8,7 +8,7 @@ type SubmitProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 export const Submit = React.forwardRef<HTMLDivElement, SubmitProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, ...props }, _ref) => {
     const session = React.useContext(SessionContext);
     if (!session) throw new Error("No SessionContext.Provider in the tree");
 
@@ -17,12 +17,12 @@ export const Submit = React.forwardRef<HTMLDivElement, SubmitProps>(
       <div
         className={cn(
           "flex items-center justify-center text-xl max-h-8 min-h-8 max-w-8 min-w-8  hover:cursor-pointer",
-          className
+          className,
         )}
         onClick={() => submitStep(props.value)}
       >
         ✓
       </div>
     );
-  }
+  },
 );

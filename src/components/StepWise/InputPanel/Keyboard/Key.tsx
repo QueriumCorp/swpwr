@@ -14,7 +14,7 @@ export type KeyProps = {
 export const Key = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & KeyProps
->(({ operator, keyPress, className, ...props }, ref) => {
+>(({ operator, keyPress, className }, _ref) => {
   const wide =
     operator.symbol_utf8 && operator.symbol_utf8.length > 3 ? true : false;
   return (
@@ -23,7 +23,7 @@ export const Key = React.forwardRef<
         `tile overflow-hidden border shadow px-1 py-0.5 flex items-center justify-center min-w-6 ${
           wide ? "col-span-2" : "col-span-1"
         }`,
-        className
+        className,
       )}
       onClick={() => keyPress(operator)}
     >

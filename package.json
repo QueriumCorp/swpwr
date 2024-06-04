@@ -23,6 +23,8 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@react-md/form": "^5.1.6",
+    "@redux-devtools/extension": "^3.3.0",
+    "@storybook/react": "^8.1.5",
     "@wistia/react-embeds": "^0.0.22-snapshot.1",
     "@wistia/wistia-player": "^0.0.0-alpha.39",
     "class-variance-authority": "^0.7.0",

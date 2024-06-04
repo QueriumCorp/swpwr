@@ -37,18 +37,8 @@ export const StepWise = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement> & StepWiseProps
 >(
   (
-    {
-      student,
-      problem,
-      assistant,
-      server,
-      className,
-      ready,
-      set,
-      go,
-      ...props
-    },
-    ref
+    { student, problem, assistant, server, className, ready, set, go },
+    _ref,
   ) => {
     console.log("RENDERING StepWise @ ", new Date().toLocaleTimeString());
 
@@ -66,7 +56,7 @@ export const StepWise = React.forwardRef<
         student,
         problem,
         server,
-        assistant
+        assistant,
       );
     }
 
@@ -76,7 +66,7 @@ export const StepWise = React.forwardRef<
         <ActiveSession className={className} />
       </SessionContext.Provider>
     );
-  }
+  },
 );
 
 export default StepWise;

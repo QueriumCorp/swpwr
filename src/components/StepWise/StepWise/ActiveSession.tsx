@@ -15,10 +15,10 @@ import { SetIndicator } from "./SetIndicator";
 export const ActiveSession = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => {
+>(({ className, children }, _ref) => {
   console.log(
     "Winry! RENDERING ActiveSession @ ",
-    new Date().toLocaleTimeString()
+    new Date().toLocaleTimeString(),
   );
   const session = React.useContext(SessionContext);
   if (!session) throw new Error("No SessionContext.Provider in the tree");
@@ -106,7 +106,7 @@ export const ActiveSession = React.forwardRef<
         id="ActiveSession"
         className={cn(
           "bg-white dark:bg-slate-800 rounded-lg p-1 ring-1 ring-slate-900/5 shadow-xl flex flex-col",
-          className
+          className,
         )}
       >
         <CardHeader className="px-2 pt-4 pb-2">

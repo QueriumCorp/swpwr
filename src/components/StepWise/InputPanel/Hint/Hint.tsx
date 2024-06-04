@@ -6,7 +6,7 @@ import { cn } from "../../utils";
 export const Hint = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+>(({ className }, _ref) => {
   const session = React.useContext(SessionContext);
   if (!session) throw new Error("No SessionContext.Provider in the tree");
 
@@ -15,7 +15,7 @@ export const Hint = React.forwardRef<
     <div
       className={cn(
         "flex items-center justify-center text-xl max-h-8 min-h-8 max-w-8 min-w-8 hover:cursor-pointer",
-        className
+        className,
       )}
       onClick={() => getHint()}
     >

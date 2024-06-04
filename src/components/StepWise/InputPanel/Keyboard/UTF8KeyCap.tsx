@@ -8,7 +8,7 @@ type UTF8KeyCapProps = {
 export const UTF8KeyCap = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & UTF8KeyCapProps
->(({ className, operator, ...props }, ref) => {
+>(({ operator }, _ref) => {
   return (
     <div
       className="truncate"

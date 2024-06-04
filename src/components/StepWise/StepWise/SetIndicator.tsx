@@ -8,7 +8,7 @@ type SetIndicatorProps = {
 export const SetIndicator = React.forwardRef<
   HTMLButtonElement,
   SetIndicatorProps
->(({ ...props }, ref) => {
+>(({ ...props }, _ref) => {
   return (
     <div className="flex">
       {props.latex ? (

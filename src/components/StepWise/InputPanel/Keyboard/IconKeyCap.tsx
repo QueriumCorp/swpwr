@@ -15,7 +15,7 @@ type IconKeyCapProps = {
 export const IconKeyCap = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & IconKeyCapProps
->(({ className, operator, ...props }, ref) => {
+>(({ operator }, _ref) => {
   return (
     <div style={{ userSelect: "none", ...operator.symbol_style }}>
       {renderIcon(operator.symbol_icon)}

@@ -72,7 +72,7 @@ type KeyboardNavigatorsProps = {
 const KeyboardNavigators = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & KeyboardNavigatorsProps
->(({ className, keyPress, ...props }, ref) => {
+>(({ className, keyPress }, ref) => {
   const left = {
     method: "nav",
     cursorShift: "",
@@ -124,7 +124,7 @@ type IdentifierKeyProps = {
 const IdentifierKey = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & IdentifierKeyProps
->(({ identifier, className, keyPress, ...props }, ref) => {
+>(({ identifier, keyPress }, _ref) => {
   const identifierBase = {
     method: "identifier",
     cursorShift: "",
