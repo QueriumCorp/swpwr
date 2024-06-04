@@ -23,15 +23,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
 
 export interface StepWisePowerProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  studentName?: string;
+  swapiUrl?: string;
 }
 
 const StepWisePower = forwardRef<HTMLDivElement, StepWisePowerProps>(
-  ({ className }, _ref) => {
+  ({ className, swapiUrl }, _ref) => {
     const ybr = YellowBrickRoad;
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
+    const { setSwapiUrl, studentLog, problem, student, session } =
+      useProblemStore();
 
+    // Not sure why I did this
     useEffect(() => {
       if (!api) {
         return;
@@ -45,7 +48,12 @@ const StepWisePower = forwardRef<HTMLDivElement, StepWisePowerProps>(
       });
     }, [api]);
 
-    const { studentLog, problem, student, session } = useProblemStore();
+    // set the swapiUrl in the store
+    useEffect(() => {
+      if (swapiUrl) {
+        setSwapiUrl(swapiUrl);
+      }
+    }, [swapiUrl]);
 
     return (
       <NavContext.Provider value={{ current, setCurrent, api }}>

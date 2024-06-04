@@ -16,7 +16,7 @@ const submitTTable = async (
     unknown: unknowns,
   };
 
-  const response = await fetch("https://swapi2.onrender.com/submitTTable/", {
+  const response = await fetch(get().swapiUrl + "/submitTTable/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

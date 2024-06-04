@@ -1,8 +1,10 @@
 export interface State {
+  swapiUrl: string;
   problem: Problem;
   student: Student;
   session: Session;
   studentLog: LogItem[];
+  setSwapiUrl: (url: string) => void;
   heartbeat: () => Promise<void>;
   initSession: (problem: Problem, student: Student) => void;
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>;

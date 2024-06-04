@@ -1,7 +1,7 @@
 import { GetFn, SetFn } from "./_types";
 
 const heartbeat = async (_set: SetFn, get: GetFn) => {
-  const response = await fetch("https://swapi2.onrender.com/", {
+  const response = await fetch(get().swapiUrl, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

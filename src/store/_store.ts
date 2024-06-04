@@ -11,6 +11,7 @@ export const useProblemStore = create<State>((set, get) => ({
   // DATA
   ///////////////////////////////////////////////////////////////////
 
+  swapiUrl: "https://swapi2.onrender.com",
   problem: {
     appKey: "",
     id: "",
@@ -43,6 +44,12 @@ export const useProblemStore = create<State>((set, get) => ({
   ///////////////////////////////////////////////////////////////////
   // METHODS
   ///////////////////////////////////////////////////////////////////
+
+  setSwapiUrl: (url: string) => {
+    set((_state) => ({
+      swapiUrl: url,
+    }));
+  },
 
   heartbeat: async () => {
     heartbeat(set, get);
