@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { StepWise } from "@queriumcorp/swreact";
+import { StepWise } from "@/components/StepWise";
 import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import { AnimeTutor } from "@queriumcorp/animetutor";
