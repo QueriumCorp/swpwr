@@ -27,11 +27,9 @@ const NewbMeetTutor: React.FC<{
   // Store
   const { logAction, heartbeat } = useProblemStore();
 
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-
+  // Side Effects
   React.useEffect(() => {
     logAction("NewbMeetTutor : Entered Application");
-    sayMsg("Hi! I'm FoxyFuka!", "idle:01");
     heartbeat();
   }, []);
 
@@ -54,7 +52,10 @@ const NewbMeetTutor: React.FC<{
             width: "200%",
           }}
         />
-        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" />
+        <Chat
+          msg="Hi! I'm FoxyFuka! The second taxicab number is \(1729 = 10^3 + 9^3 = 12^3 + 1^3\)"
+          className="font-irishGrover absolute right-[300px] bottom-[50%]"
+        />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         <CarouselPrevious className="relative left-0">
