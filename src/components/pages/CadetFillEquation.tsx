@@ -5,7 +5,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
-import { AnimeTutor, Chat } from "@queriumcorp/animetutor";
+import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import DiagramChange from "../qq/DiagramChange/DiagramChange";

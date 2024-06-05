@@ -10,7 +10,7 @@ import {
   AvatarAPIType,
   Chat,
   useAvatarAPI,
-} from "@queriumcorp/animetutor";
+} from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";

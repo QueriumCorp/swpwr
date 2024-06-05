@@ -10,7 +10,7 @@ import {
 } from "./components/ui/carousel";
 
 // SWPWR-specific imports
-import { AvatarAPIProvider } from "@queriumcorp/animetutor";
+import { AvatarAPIProvider } from "@/components/AnimeTutor";
 import { YellowBrickRoad } from "./components/qq/YellowBrickRoad";
 import { renderPage } from "./components/qq/RenderPage";
 import { NavContext } from "./NavContext";

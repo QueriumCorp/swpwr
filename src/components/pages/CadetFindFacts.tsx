@@ -17,7 +17,7 @@ import {
   AvatarAPIType,
   Chat,
   useAvatarAPI,
-} from "@queriumcorp/animetutor";
+} from "@/components/AnimeTutor";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
 

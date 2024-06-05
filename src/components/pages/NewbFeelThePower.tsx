@@ -8,7 +8,7 @@ import ReactPlayer from "react-player/wistia";
 // qq Packages
 import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
-import { AnimeTutor } from "@queriumcorp/animetutor";
+import { AnimeTutor } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";

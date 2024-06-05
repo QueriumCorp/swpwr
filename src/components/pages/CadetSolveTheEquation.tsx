@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { StepWise } from "@/components/StepWise";
 import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
-import { AnimeTutor } from "@queriumcorp/animetutor";
+import { AnimeTutor } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 

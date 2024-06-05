@@ -13,7 +13,7 @@ import {
   AvatarAPIType,
   Chat,
   useAvatarAPI,
-} from "@queriumcorp/animetutor";
+} from "@/components/AnimeTutor";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
 import DiagramChange from "../qq/DiagramChange/DiagramChange";

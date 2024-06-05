@@ -1,4 +1,4 @@
-import { useAvatarAPI, AvatarAPIType } from "@queriumcorp/animetutor";
+import { useAvatarAPI, AvatarAPIType } from "@/components/AnimeTutor";
 
 export const ControlPanel = () => {
   const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType;

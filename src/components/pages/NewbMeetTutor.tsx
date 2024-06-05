@@ -9,7 +9,7 @@ import {
   AvatarAPIType,
   Chat,
   useAvatarAPI,
-} from "@queriumcorp/animetutor";
+} from "@/components/AnimeTutor";
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";

@@ -9,7 +9,7 @@ import {
   useAvatarAPI,
   AvatarAPIType,
   AnimeTutor,
-} from "@queriumcorp/animetutor";
+} from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { StimulusSelector } from "../qq/StimulusSelector";
