@@ -28,7 +28,6 @@ const AnimeTutor = ({ style, closeUp }: AnimeTutorProps) => {
   };
 
   useEffect(() => {
-    console.info("emote", emote);
     if (emote && avatarRef && avatarRef.current && avatarRef.current.emote)
       avatarRef.current?.emote(emote as ActionName);
   }, [emote]);
