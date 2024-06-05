@@ -5,12 +5,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
-import {
-  AnimeTutor,
-  AvatarAPIType,
-  Chat,
-  useAvatarAPI,
-} from "@/components/AnimeTutor";
+import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
@@ -26,12 +21,6 @@ const NewbGratzWatchedVideo: React.FC<{
 
   // Store
   const { logAction } = useProblemStore();
-
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-
-  React.useEffect(() => {
-    sayMsg("You are doing GREAT! Give this next exercise a try!", "idle:02");
-  }, []);
 
   // JSX
   if (current !== index + 1) return null; // Dont render if page not active
@@ -52,7 +41,10 @@ const NewbGratzWatchedVideo: React.FC<{
             width: "200%",
           }}
         />
-        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%]" />
+        <Chat
+          msg="You are doing GREAT! Give this next exercise a try!"
+          className="font-irishGrover absolute right-[300px] bottom-[50%]"
+        />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
         <CarouselPrevious className="relative left-0">

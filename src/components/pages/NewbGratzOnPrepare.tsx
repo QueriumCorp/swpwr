@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState, useContext } from "react";
 
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
@@ -23,15 +23,15 @@ const NewbGratzOnPrepare: React.FC<{
 }> = ({ className, index }) => {
   const src = "https://querium.wistia.com/medias/oyfe3sqhwb";
 
-  const { current } = React.useContext(NavContext) as NavContextType;
+  // Context
+  const { current } = useContext(NavContext) as NavContextType;
 
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-  React.useEffect(() => {
-    sayMsg(
-      "Nice work on identifying the facts! Now, let's learn about the first group of problem types that could use information similiar to what you just saw.",
-      "idle:02",
-    );
-  }, []);
+  // State
+  const [msg, setMsg] = useState([
+    "Nice work on identifying the facts!",
+    "Now, let's learn about the first group of problem types that could use information similiar to what you just saw.",
+    "Press the Play ▶️ button to start the video.",
+  ]);
 
   // JSX
   // Dont render if page not active
@@ -53,7 +53,11 @@ const NewbGratzOnPrepare: React.FC<{
             height: "100%",
           }}
         />
-        <Chat className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]" />
+
+        <Chat
+          msg={msg}
+          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
+        />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

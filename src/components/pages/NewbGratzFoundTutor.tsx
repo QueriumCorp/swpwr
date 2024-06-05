@@ -55,13 +55,6 @@ const NewbGratzFoundTutor: React.FC<{
     initSession(problem, student);
   }
 
-  useEffect(() => {
-    sayMsg(
-      "Great Job!  I knew you could do it!  When you click on me, I'll give you options to do things like watch videos, get a hint, or other specialized help.",
-      "idle:02",
-    );
-  }, []);
-
   // JSX
   if (current !== index + 1) return null;
   return (
@@ -81,7 +74,14 @@ const NewbGratzFoundTutor: React.FC<{
             width: "200%",
           }}
         />
-        <Chat className="font-irishGrover absolute right-[300px] bottom-[50%] ml-3 min-h-24" />
+        <Chat
+          msg={[
+            "Great Job!",
+            "I knew you could do it!  When you click on me, I'll do my best to give you a hand.",
+            "Click Next → to continue.",
+          ]}
+          className="font-irishGrover absolute right-[300px] bottom-[50%] ml-3 min-h-24"
+        />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         <CarouselPrevious className="relative left-0">

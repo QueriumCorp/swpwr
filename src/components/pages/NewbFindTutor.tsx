@@ -5,12 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
-import {
-  AnimeTutor,
-  AvatarAPIType,
-  Chat,
-  useAvatarAPI,
-} from "@/components/AnimeTutor";
+import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
@@ -29,20 +24,13 @@ const NewbFindTutor: React.FC<{
   // Store
   const { logAction } = useProblemStore();
 
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-  useEffect(() => {
-    sayMsg(
-      `I’m right here if you need me, just click my cute self to get my attention 😊. Try it now.`,
-      "idle:01",
-    );
-  }, []);
+  const [msg, setMsg] = useState(
+    "I’m right here if you need me, just click my cute self to get my attention 😊. Try it now.",
+  );
 
   function foundMe() {
     logAction("NewbFindTutor : Found Tutor");
-    sayMsg(
-      "You found me! Click the right arrow next to me to continue.",
-      "dance:01",
-    );
+    setMsg("You found me! Click the right arrow next to me to continue.");
     setNavDisabled(false);
   }
 
@@ -73,7 +61,10 @@ const NewbFindTutor: React.FC<{
             foundMe();
           }}
         ></div>
-        <Chat className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]" />
+        <Chat
+          msg={msg}
+          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
+        />
         <CarouselPrevious disabled={navDisabled} className="relative left-0">
           Previous
         </CarouselPrevious>

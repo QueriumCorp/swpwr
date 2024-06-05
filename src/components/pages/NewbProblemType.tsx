@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useContext, useEffect, useState } from "react";
+import { FC, ReactNode, useContext, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
@@ -8,12 +8,7 @@ import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { StimulusSelector } from "../qq/StimulusSelector";
-import {
-  AnimeTutor,
-  AvatarAPIType,
-  Chat,
-  useAvatarAPI,
-} from "@/components/AnimeTutor";
+import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
 import DiagramChange from "../qq/DiagramChange/DiagramChange";
@@ -38,15 +33,9 @@ const NewbProblemType: FC<{
 
   // State
   const [schema, setSchema] = useState<SchemaType>("");
-
-  // Side Effects
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-  useEffect(() => {
-    sayMsg(
-      "Check this out! There are different types of problems, Let’s have you select the only one you know about yet, “TotaL",
-      "idle:03",
-    );
-  }, []);
+  const [msg, setMsg] = useState<string>(
+    "Check this out! There are different types of problems, Let’s have you select the only one you know about yet, “Total",
+  );
 
   // Event Handlers
   async function handleSelectSchema(schema: SchemaType) {
@@ -60,23 +49,23 @@ const NewbProblemType: FC<{
     if (evt.metaKey) {
       api?.scrollNext();
     } else {
-      sayMsg("Just a moment while I verify your choice", "idle:02");
+      setMsg("Just a moment while I verify your choice");
       logAction("NewbProblemType : Clicked Next");
 
       logAction("NewbProblemType : Checking Schema : " + schema);
       const result = await submitPickSchema(schema);
       logAction("NewbProblemType : Checked Schema : " + JSON.stringify(result));
-      sayMsg(result.message, "idle:01");
+      setMsg(result.message);
       if (result.stepStatus == "VALID") {
         api?.scrollNext();
       }
     }
   }
   async function HandleGetHint() {
-    sayMsg("Hmmm...  Let me see", "idle:02");
+    setMsg("Hmmm...  Let me see");
     logAction("NewbProblemType : GetHint");
     const hint = await getHint();
-    sayMsg(hint, "idle:03");
+    setMsg(hint);
   }
 
   // JSX
@@ -205,7 +194,10 @@ const NewbProblemType: FC<{
             HandleGetHint();
           }}
         ></div>
-        <Chat className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]" />
+        <Chat
+          msg={msg}
+          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
+        />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

@@ -12,12 +12,7 @@ import { StimulusSelector } from "../qq/StimulusSelector";
 import UnknownFacts from "../qq/UnknownFacts";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import {
-  AnimeTutor,
-  AvatarAPIType,
-  Chat,
-  useAvatarAPI,
-} from "@/components/AnimeTutor";
+import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
 
@@ -42,6 +37,9 @@ const NewbFindFacts: FC<{
   const [knowns, setKnowns] = useState<string[]>([]);
   const [unknowns, setUnknowns] = useState<string[]>([]);
   const [currentFact, setCurrentFact] = useState<string>("");
+  const [msg, setMsg] = useState<string>(
+    "I know a few things about you, but I’m sure you’ll find more!",
+  );
 
   // Event Handlers
   const delKnown = (fact: string) => {
@@ -56,32 +54,23 @@ const NewbFindFacts: FC<{
     if (evt.metaKey) {
       api?.scrollNext();
     } else {
-      sayMsg("Give me a sec to review your knowns and unknowns", "idle:02");
+      setMsg("Give me a sec to review your knowns and unknowns");
       logAction("NewbFindFacts : Clicked Next");
 
       logAction("NewbFindFacts : Checking Facts");
       const result = await submitTTable(knowns, unknowns);
-      sayMsg(result.message, "idle:01");
+      setMsg(result.message);
       if (result.stepStatus == "VALID") {
         api?.scrollNext();
       }
     }
   }
   async function HandleGetHint() {
-    sayMsg("Hmmm...  Let me see", "idle:02");
+    setMsg("Hmmm...  Let me see");
     logAction("NewbFindFacts : GetHint");
     const hint = await getHint();
-    sayMsg(hint, "idle:03");
+    setMsg(hint);
   }
-
-  // Avatar Stuff
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-  useEffect(() => {
-    sayMsg(
-      "I know a few things about you, but I’m sure you’ll find more!",
-      "idle:01",
-    );
-  }, []);
 
   // JSX
   if (current !== index + 1) return null;
@@ -149,7 +138,10 @@ const NewbFindFacts: FC<{
             HandleGetHint();
           }}
         ></div>
-        <Chat className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]" />
+        <Chat
+          msg={msg}
+          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
+        />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

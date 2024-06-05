@@ -8,12 +8,7 @@ import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { StimulusSelector } from "../qq/StimulusSelector";
-import {
-  AnimeTutor,
-  AvatarAPIType,
-  Chat,
-  useAvatarAPI,
-} from "@/components/AnimeTutor";
+import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
 
@@ -28,15 +23,6 @@ const NewbReadProblem: React.FC<{
 
   // Store
   const { logAction, problem } = useProblemStore();
-
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-
-  useEffect(() => {
-    sayMsg(
-      "Read this statement carefully and then click the right arrow to continue.",
-      "idle:01",
-    );
-  }, []);
 
   // JSX
   if (current !== index + 1) return null;
@@ -73,7 +59,10 @@ const NewbReadProblem: React.FC<{
             height: "100%",
           }}
         />
-        <Chat className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]" />
+        <Chat
+          msg="Read this statement carefully and then click the right arrow to continue."
+          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
+        />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
