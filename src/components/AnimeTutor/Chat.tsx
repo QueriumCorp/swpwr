@@ -16,7 +16,6 @@ export const Chat = ({
 
   // on initial render, tell MathLive to render the latex
   useEffect(() => {
-    console.info("renderMathInElement");
     if (latexRef.current) {
       renderMathInElement(latexRef.current);
     }

@@ -33,14 +33,6 @@ const CadetSelectDiagram: React.FC<{
   // Store
   const { problem } = useProblemStore();
 
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-  React.useEffect(() => {
-    sayMsg(
-      "Check this out! There are different types of problems, Let’s have you select the only one you know about.",
-      "idle:03",
-    );
-  }, []);
-
   const fakeKnowns = ["49 miles", "100 miles", "1000 miles"];
   const fakeUnknowns = ["Time to lunch", "Time to go to the store"];
 
