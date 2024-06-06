@@ -119,7 +119,10 @@ const CadetFillDiagram: React.FC<{
             height: "100%",
           }}
         />
-        <Chat className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]" />
+        <Chat
+          msg="RATATATA"
+          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
+        />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
