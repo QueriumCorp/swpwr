@@ -9,7 +9,6 @@ import React, {
   useRef,
   forwardRef,
   useImperativeHandle,
-  useState,
 } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import type { GLTF } from "three-stdlib";

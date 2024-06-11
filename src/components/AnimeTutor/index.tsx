@@ -36,7 +36,7 @@ const AnimeTutor = ({ style, closeUp }: AnimeTutorProps) => {
     <div style={theStyle}>
       <Canvas shadows>
         <axesHelper></axesHelper>
-        {/* <OrbitControls enableRotate={false} /> */}
+        <OrbitControls enableRotate={false} />
         <ambientLight intensity={0.4} />
         <Stage closeUp={closeUp} ref={avatarRef} />
       </Canvas>

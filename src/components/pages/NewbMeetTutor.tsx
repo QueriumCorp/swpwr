@@ -14,6 +14,7 @@ import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
+import { Button } from "../ui/button";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
@@ -21,8 +22,9 @@ const NewbMeetTutor: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, index }) => {
-  // NavContext
+  // Context
   const { current, api } = React.useContext(NavContext) as NavContextType;
+  const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   // Store
   const { logAction, heartbeat } = useProblemStore();
@@ -32,6 +34,11 @@ const NewbMeetTutor: React.FC<{
     logAction("NewbMeetTutor : Entered Application");
     heartbeat();
   }, []);
+
+  // Handlers
+  function handleDance() {
+    sayMsg("Dance Dance Revolution", "gratz");
+  }
 
   // JSX
   if (current !== index + 1) return null;
@@ -58,6 +65,13 @@ const NewbMeetTutor: React.FC<{
         />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
+        <div className="flex flex-col grow m-1 gap-1">
+          {emotes.map((emote) => (
+            <Button key={emote.name} onClick={handleDance} className="w-full">
+              {emote.name}
+            </Button>
+          ))}
+        </div>
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
