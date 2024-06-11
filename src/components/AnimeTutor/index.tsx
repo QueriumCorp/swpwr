@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { useEffect, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import Stage from "./Stage";
 import { Chat } from "./Chat";
 import {
@@ -8,7 +8,7 @@ import {
   AvatarAPIType,
   useAvatarAPI,
 } from "./contexts/AvatarAPI";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, View } from "@react-three/drei";
 import type { ActionName, AvatarImperativeHandle } from "./avatars/FoxyFuka";
 
 type AnimeTutorProps = {

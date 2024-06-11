@@ -15,6 +15,8 @@ import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
 import { Button } from "../ui/button";
+import { View } from "@react-three/drei";
+import { Model } from "../AnimeTutor/avatars/foxy/model";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
@@ -72,6 +74,7 @@ const NewbMeetTutor: React.FC<{
             </Button>
           ))}
         </div>
+
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
