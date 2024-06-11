@@ -15,8 +15,6 @@ import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
 import { Button } from "../ui/button";
-import { View } from "@react-three/drei";
-import { Model } from "../AnimeTutor/avatars/foxy/model";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
@@ -53,17 +51,19 @@ const NewbMeetTutor: React.FC<{
     >
       <div className="grow bg-qqAccent relative">
         <AnimeTutor
+          emote={"celebrate:01"}
           closeUp
           style={{
             position: "absolute",
             height: "100%",
-            right: "-500px",
-            width: "200%",
+            right: "-150px",
+            width: "100%",
+            // border: "1px solid #000000",
           }}
         />
         <Chat
           msg="Hi! I'm FoxyFuka! The second taxicab number is \(1729 = 10^3 + 9^3 = 12^3 + 1^3\)"
-          className="font-irishGrover absolute right-[300px] bottom-[50%]"
+          className="font-irishGrover absolute right-[50%] bottom-[50%]"
         />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">

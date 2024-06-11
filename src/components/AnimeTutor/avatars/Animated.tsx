@@ -92,7 +92,7 @@ const FoxyFuka = forwardRef(function Model(
   props: JSX.IntrinsicElements["group"],
   ref,
 ) {
-  const group = useRef<THREE.Group>();
+  const group = useRef<THREE.Group>(null);
   const { nodes, materials, animations } = useGLTF(
     "./models/animated-transformed.glb",
   ) as GLTFResult;

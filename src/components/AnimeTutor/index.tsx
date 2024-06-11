@@ -12,13 +12,14 @@ import { OrbitControls, View } from "@react-three/drei";
 import type { ActionName, AvatarImperativeHandle } from "./avatars/FoxyFuka";
 
 type AnimeTutorProps = {
-  style?: CSSProperties;
+  emote?: string;
   closeUp?: boolean;
+  style?: CSSProperties;
+  className?: string;
 };
 
-const AnimeTutor = ({ style, closeUp }: AnimeTutorProps) => {
+const AnimeTutor = ({ emote, closeUp, className, style }: AnimeTutorProps) => {
   const avatarRef = useRef<AvatarImperativeHandle>(null);
-  const { emote, setEmote } = useAvatarAPI() as AvatarAPIType;
 
   const theStyle: CSSProperties = {
     position: "absolute",
@@ -27,18 +28,15 @@ const AnimeTutor = ({ style, closeUp }: AnimeTutorProps) => {
     ...style,
   };
 
-  useEffect(() => {
-    if (emote && avatarRef && avatarRef.current && avatarRef.current.emote)
-      avatarRef.current?.emote(emote as ActionName);
-  }, [emote]);
+  console.info("AnimeTutor : Rendering", emote);
 
   return (
-    <div style={theStyle}>
+    <div className={className} style={theStyle}>
       <Canvas shadows>
-        <axesHelper></axesHelper>
+        {/* <axesHelper></axesHelper> */}
         <OrbitControls enableRotate={false} />
         <ambientLight intensity={0.4} />
-        <Stage closeUp={closeUp} ref={avatarRef} />
+        <Stage closeUp={closeUp} emote={emote || "idle:01"} />
       </Canvas>
     </div>
   );

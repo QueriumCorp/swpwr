@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.18 animated-0608-withIdles-1.glb --types -s
 */
 
 import * as THREE from "three";
-import React, { useEffect, useRef } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
@@ -158,27 +158,43 @@ type ContextType = Record<
 >;
 
 export type ModelProps = {
-  emote: ActionName;
+  emote: ActionName | string;
 };
 
-export function Model({ emote }: ModelProps) {
+const Model = forwardRef(function Model({ emote = "idle:00" }: ModelProps) {
   const group = useRef<THREE.Group>(null);
   const previousAction = usePrevious(emote);
   const { nodes, materials, animations } = useGLTF(
     "/swpwr/models/foxy.glb",
   ) as GLTFResult;
-  const { actions } = useAnimations(animations, group);
+  const { actions, names } = useAnimations(animations, group);
+
+  console.log(emote);
 
   // Side Effects
   useEffect(() => {
+    console.log("useEffect:", emote);
+
     if (!emote) return;
 
+    // end last emote
     if (previousAction) {
-      actions[previousAction].fadeOut(0.2);
-      actions[emote]!.stop();
+      const action = actions[previousAction as keyof typeof actions];
+      if (action) {
+        action.fadeOut(0.2);
+      }
+      const currentAction = actions[emote as keyof typeof actions];
+      if (currentAction) {
+        currentAction.stop();
+      }
     }
-    actions[emote]!.play();
-    actions[emote]!.fadeIn(0.2);
+
+    // start new emote
+    const newAction = actions[emote as keyof typeof actions];
+    if (newAction) {
+      newAction.play();
+      newAction.fadeIn(0.2);
+    }
   }, [actions, emote, previousAction]);
 
   // JSX
@@ -432,14 +448,16 @@ export function Model({ emote }: ModelProps) {
       </group>
     </group>
   );
-}
+});
+
+export default Model;
 
 useGLTF.preload("/models/foxy.glb");
 
-function usePrevious(value: any) {
+function usePrevious(value: string) {
   // The ref object is a generic container whose current property is mutable ...
   // ... and can hold any value, similar to an instance property on a class
-  const ref = useRef();
+  const ref = useRef("");
   // Store current value in ref
   useEffect(() => {
     ref.current = value;
