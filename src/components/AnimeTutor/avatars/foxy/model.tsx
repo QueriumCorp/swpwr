@@ -167,11 +167,21 @@ const Model = forwardRef(function Model({ emote = "idle:00" }: ModelProps) {
   const { nodes, materials, animations } = useGLTF(
     "/swpwr/models/foxy.glb",
   ) as GLTFResult;
-  const { actions, names } = useAnimations(animations, group);
+  const { actions, mixer } = useAnimations(animations, group);
 
   console.log(emote);
 
   // Side Effects
+  // https://www.reddit.com/r/threejs/comments/zdy9kt/how_can_i_listen_for_animation_end_in_three/
+  useEffect(() => {
+    console.log("finisher");
+    const fn = (e: THREE.Event) => console.log(e, "finished");
+    mixer.addEventListener("finished", fn);
+    return () => {
+      mixer.removeEventListener("finished", fn);
+    };
+  }, [mixer]);
+
   useEffect(() => {
     console.log("useEffect:", emote);
 

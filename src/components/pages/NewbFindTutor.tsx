@@ -48,6 +48,7 @@ const NewbFindTutor: React.FC<{
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
         {/* Tiny Avatar */}
         <AnimeTutor
+          emote={"wave:01"}
           style={{
             bottom: "0px",
             right: "0px",

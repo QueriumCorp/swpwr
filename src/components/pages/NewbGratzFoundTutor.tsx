@@ -66,12 +66,14 @@ const NewbGratzFoundTutor: React.FC<{
     >
       <div className="grow bg-qqAccent relative">
         <AnimeTutor
+          emote={"celebrate:03"}
           closeUp
           style={{
             position: "absolute",
             height: "100%",
-            right: "-500px",
-            width: "200%",
+            right: "-150px",
+            width: "100%",
+            // border: "1px solid #000000",
           }}
         />
         <Chat
@@ -80,7 +82,7 @@ const NewbGratzFoundTutor: React.FC<{
             "I knew you could do it!  When you click on me, I'll do my best to give you a hand.",
             "Click Next → to continue.",
           ]}
-          className="font-irishGrover absolute right-[300px] bottom-[50%] ml-3 min-h-24"
+          className="font-irishGrover absolute right-[50%] bottom-[50%] ml-3 min-h-24"
         />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">

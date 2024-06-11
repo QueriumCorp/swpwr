@@ -33,17 +33,19 @@ const NewbGratzWatchedVideo: React.FC<{
     >
       <div className="grow bg-qqAccent relative">
         <AnimeTutor
+          emote={"gratz:03"}
           closeUp
           style={{
             position: "absolute",
             height: "100%",
-            right: "-500px",
-            width: "200%",
+            right: "-150px",
+            width: "100%",
+            // border: "1px solid #000000",
           }}
         />
         <Chat
           msg="You are doing GREAT! Give this next exercise a try!"
-          className="font-irishGrover absolute right-[300px] bottom-[50%]"
+          className="font-irishGrover absolute right-[50%] bottom-[50%]"
         />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">

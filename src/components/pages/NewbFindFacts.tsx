@@ -40,6 +40,7 @@ const NewbFindFacts: FC<{
   const [msg, setMsg] = useState<string>(
     "I know a few things about you, but I’m sure you’ll find more!",
   );
+  const [emote, setEmote] = useState<string>("gratz:02");
 
   // Event Handlers
   const delKnown = (fact: string) => {
@@ -55,11 +56,13 @@ const NewbFindFacts: FC<{
       api?.scrollNext();
     } else {
       setMsg("Give me a sec to review your knowns and unknowns");
+      setEmote("direct:02");
       logAction("NewbFindFacts : Clicked Next");
 
       logAction("NewbFindFacts : Checking Facts");
       const result = await submitTTable(knowns, unknowns);
       setMsg(result.message);
+      setEmote("pout:04");
       if (result.stepStatus == "VALID") {
         api?.scrollNext();
       }
@@ -67,6 +70,7 @@ const NewbFindFacts: FC<{
   }
   async function HandleGetHint() {
     setMsg("Hmmm...  Let me see");
+    setEmote("direct:03");
     logAction("NewbFindFacts : GetHint");
     const hint = await getHint();
     setMsg(hint);
@@ -126,10 +130,12 @@ const NewbFindFacts: FC<{
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         {/* Tiny Avatar */}
         <AnimeTutor
+          emote={emote}
           style={{
             bottom: "0px",
             right: "0px",
             height: "100%",
+            // border: "solid 1px red",
           }}
         />
         <div
