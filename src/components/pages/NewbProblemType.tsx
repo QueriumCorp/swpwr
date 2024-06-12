@@ -105,7 +105,7 @@ const NewbProblemType: FC<{
           ></StimulusSelector>
           <div className="grow grid grid-cols-2 gap-2">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>
                   <CardTitle>Knowns</CardTitle>
                 </CardTitle>
@@ -121,7 +121,7 @@ const NewbProblemType: FC<{
               </CardContent>
             </Card>
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>
                   <CardTitle>Unknowns</CardTitle>
                 </CardTitle>
@@ -140,7 +140,7 @@ const NewbProblemType: FC<{
           <h2 className="mt-3 ml-1 mr-1">
             Click on the type of problem you think this is
           </h2>
-          <div className="grow grid grid-cols-2 gap-2 mb-4">
+          <div className="grow flex flex-wrap gap-2 mb-4">
             <Card
               className={cn(
                 "sm:w-[250px] w-[400px]",
@@ -148,7 +148,7 @@ const NewbProblemType: FC<{
               )}
               onClick={() => handleSelectSchema("TOTAL")}
             >
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Total</CardTitle>
               </CardHeader>
               <CardContent>
@@ -163,7 +163,7 @@ const NewbProblemType: FC<{
               )}
               onClick={() => handleSelectSchema("DIFFERENCE")}
             >
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Difference</CardTitle>
               </CardHeader>
               <CardContent>
@@ -178,7 +178,7 @@ const NewbProblemType: FC<{
               )}
               onClick={() => handleSelectSchema("CHANGEINCREASE")}
             >
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Change Increase</CardTitle>
               </CardHeader>
               <CardContent>
@@ -193,7 +193,7 @@ const NewbProblemType: FC<{
               )}
               onClick={() => handleSelectSchema("CHANGEDECREASE")}
             >
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Change Decrease</CardTitle>
               </CardHeader>
               <CardContent>
@@ -208,7 +208,7 @@ const NewbProblemType: FC<{
               )}
               onClick={() => handleSelectSchema("EQUALGROUPS")}
             >
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Equal Groups</CardTitle>
               </CardHeader>
               <CardContent>
@@ -222,7 +222,7 @@ const NewbProblemType: FC<{
               )}
               onClick={() => handleSelectSchema("COMPARE")}
             >
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Compare</CardTitle>
               </CardHeader>
               <CardContent>
