@@ -36,6 +36,7 @@ export const OptionsSchema = z.object({
   swapiUrl: z.string().optional(),
   gltfUrl: z.string().optional(),
   rank: z.string().optional(),
+  disabledSchemas: z.array(z.string()).optional(),
 }) satisfies z.ZodType<Options>;
 
 const StepWisePowerProps = z.object({
