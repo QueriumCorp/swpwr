@@ -47,6 +47,7 @@ const NewbGratzOnPrepare: React.FC<{
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
         {/* Tiny Avatar */}
         <AnimeTutor
+          emote={"direct:04"}
           style={{
             bottom: "0px",
             right: "0px",

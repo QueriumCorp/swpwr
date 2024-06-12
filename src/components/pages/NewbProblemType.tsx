@@ -10,13 +10,18 @@ import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
-import DiagramChange from "../qq/DiagramChange/DiagramChange";
-import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
-import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
-import { SchemaType } from "@/store/_types";
+import { TotalSchemaGraphic } from "../schemas/total/graphic";
+import { TotalEquationGraphic } from "../schemas/total/equation";
+import { ChangeIncreaseSchemaGraphic } from "../schemas/changeIncrease/graphic";
+import { ChangeIncreaseEquationGraphic } from "../schemas/changeIncrease/equation";
+import { ChangeDecreaseEquationGraphic } from "../schemas/changeDecrease/equation";
+import { ChangeDecreaseSchemaGraphic } from "../schemas/changeDecrease/graphic";
+import { DifferenceEquationGraphic } from "../schemas/difference/equation";
+import { DifferenceSchemaGraphic } from "../schemas/difference/graphic";
+import { EqualGroupsEquationGraphic } from "../schemas/equalGroups/equation";
+import { CompareEquationGraphic } from "../schemas/compare/equation";
 
 const NewbProblemType: FC<{
   className?: string;
@@ -32,16 +37,17 @@ const NewbProblemType: FC<{
     useProblemStore();
 
   // State
-  const [schema, setSchema] = useState<SchemaType>("");
+  const [schema, setSchema] = useState("TOTAL");
   const [msg, setMsg] = useState<string>(
     "Check this out! There are different types of problems, Let’s have you select the only one you know about yet, “Total",
   );
 
   // Event Handlers
-  async function handleSelectSchema(schema: SchemaType) {
+  async function handleSelectSchema(schema: string) {
     logAction("NewbProblemType : Selected Schema : " + schema);
     setSchema(schema);
   }
+
   async function handleCheckSchema(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
@@ -61,6 +67,7 @@ const NewbProblemType: FC<{
       }
     }
   }
+
   async function HandleGetHint() {
     setMsg("Hmmm...  Let me see");
     logAction("NewbProblemType : GetHint");
@@ -68,7 +75,9 @@ const NewbProblemType: FC<{
     setMsg(hint);
   }
 
+  //
   // JSX
+  //
   if (current !== index + 1) return null;
   return (
     <div
@@ -97,7 +106,9 @@ const NewbProblemType: FC<{
           <div className="grow grid grid-cols-2 gap-2">
             <Card>
               <CardHeader>
-                <CardTitle>Knowns</CardTitle>
+                <CardTitle>
+                  <CardTitle>Knowns</CardTitle>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 {session.knowns ? (
@@ -111,7 +122,9 @@ const NewbProblemType: FC<{
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Unknowns</CardTitle>
+                <CardTitle>
+                  <CardTitle>Unknowns</CardTitle>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 {session.unknowns ? (
@@ -127,54 +140,94 @@ const NewbProblemType: FC<{
           <h2 className="mt-3 ml-1 mr-1">
             Click on the type of problem you think this is
           </h2>
-          <div className="grow grid grid-cols-2 gap-2">
+          <div className="grow grid grid-cols-2 gap-2 mb-4">
             <Card
-              className={cn("DiagramCombine", "p-1", {
-                "border-2 border-qqBrand": schema === "combineAdditiveSchema",
-              })}
-              onClick={() => {
-                handleSelectSchema("combineAdditiveSchema");
-                logAction("Schema selected - combineAdditiveSchema");
-              }}
+              className={cn(
+                "sm:w-[250px] w-[400px]",
+                schema === "TOTAL" ? "bg-qqAccent" : "bg-white",
+              )}
+              onClick={() => handleSelectSchema("TOTAL")}
             >
-              <DiagramCombine />
+              <CardHeader>
+                <CardTitle>Total</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <TotalSchemaGraphic className="mb-4" />
+                <TotalEquationGraphic />
+              </CardContent>
             </Card>
-
             <Card
-              className={cn("DiagramChange", "p-1", {
-                "border-2 border-qqBrand": schema === "changeAdditiveSchema",
-              })}
-              onClick={() => {
-                handleSelectSchema("changeAdditiveSchema");
-                logAction("Schema selected - changeAdditiveSchema");
-              }}
+              className={cn(
+                "sm:w-[250px] w-[400px]",
+                schema === "DIFFERENCE" ? "bg-qqAccent" : "bg-white",
+              )}
+              onClick={() => handleSelectSchema("DIFFERENCE")}
             >
-              <DiagramChange />
+              <CardHeader>
+                <CardTitle>Difference</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <DifferenceSchemaGraphic className="mb-4" />
+                <DifferenceEquationGraphic />
+              </CardContent>
             </Card>
-
             <Card
-              className={cn("DiagramMultiplyTimes", "p-1", {
-                "border-2 border-qqBrand": schema === "fakeThreeSchema",
-              })}
-              onClick={() => {
-                handleSelectSchema("fakeThreeSchema");
-                logAction("Schema selected - fakeThreeSchema");
-              }}
+              className={cn(
+                "sm:w-[250px] w-[400px]",
+                schema === "CHANGEINCREASE" ? "bg-qqAccent" : "bg-white",
+              )}
+              onClick={() => handleSelectSchema("CHANGEINCREASE")}
             >
-              <DiagramMultiplyTimes />
+              <CardHeader>
+                <CardTitle>Change Increase</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ChangeIncreaseSchemaGraphic className="mb-4" />
+                <ChangeIncreaseEquationGraphic />
+              </CardContent>
             </Card>
-
             <Card
-              className={cn("DiagramEqualGroups", "p-1", {
-                "border-2 border-qqBrand":
-                  schema === "multiplicativeEqualGroupsSchema",
-              })}
-              onClick={() => {
-                handleSelectSchema("multiplicativeEqualGroupsSchema");
-                logAction("Schema selected - multiplicativeEqualGroupsSchema");
-              }}
+              className={cn(
+                "sm:w-[250px] w-[400px]",
+                schema === "CHANGEDECREASE" ? "bg-qqAccent" : "bg-white",
+              )}
+              onClick={() => handleSelectSchema("CHANGEDECREASE")}
             >
-              <DiagramEqualGroups />
+              <CardHeader>
+                <CardTitle>Change Decrease</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ChangeDecreaseSchemaGraphic className="mb-4" />
+                <ChangeDecreaseEquationGraphic />
+              </CardContent>
+            </Card>
+            <Card
+              className={cn(
+                "sm:w-[250px] w-[400px]",
+                schema === "EQUALGROUPS" ? "bg-qqAccent" : "bg-white",
+              )}
+              onClick={() => handleSelectSchema("EQUALGROUPS")}
+            >
+              <CardHeader>
+                <CardTitle>Equal Groups</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <EqualGroupsEquationGraphic />
+              </CardContent>
+            </Card>
+            <Card
+              className={cn(
+                "sm:w-[250px] w-[400px]",
+                schema === "COMPARE" ? "bg-qqAccent" : "bg-white",
+              )}
+              onClick={() => handleSelectSchema("COMPARE")}
+            >
+              <CardHeader>
+                <CardTitle>Compare</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CompareEquationGraphic />
+              </CardContent>
             </Card>
           </div>
         </div>
@@ -182,6 +235,7 @@ const NewbProblemType: FC<{
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         {/* Tiny Avatar */}
         <AnimeTutor
+          emote={"wave:01"}
           style={{
             bottom: "0px",
             right: "0px",
@@ -196,7 +250,7 @@ const NewbProblemType: FC<{
         ></div>
         <Chat
           msg={msg}
-          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
+          className="font-irishGrover absolute right-[200px] bottom-[30%] h-fit w-fit min-h-[64px]"
         />
         <CarouselPrevious className="relative left-0">
           Previous

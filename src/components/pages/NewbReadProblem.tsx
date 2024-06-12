@@ -53,6 +53,7 @@ const NewbReadProblem: React.FC<{
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         {/* Tiny Avatar */}
         <AnimeTutor
+          emote={"wave:02"}
           style={{
             bottom: "0px",
             right: "0px",

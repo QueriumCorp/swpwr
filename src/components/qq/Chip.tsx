@@ -10,7 +10,7 @@ const Chip = ({
   label,
   onDelete,
   hoveredCardContent,
-  classname,
+  className,
 }: {
   id: string;
   selected?: boolean;
@@ -18,7 +18,7 @@ const Chip = ({
   label: string;
   onDelete?: (id: string) => Promise<void> | void;
   hoveredCardContent?: ReactNode;
-  classname?: string;
+  className?: string;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -27,7 +27,7 @@ const Chip = ({
       className={cn(
         selected ? "bg-gray-500" : "bg-gray-300",
         "w-auto inline-flex min-h-8 items-center rounded-full shadow relative cursor-pointer align-middle mx-1 my-1",
-        classname,
+        className,
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

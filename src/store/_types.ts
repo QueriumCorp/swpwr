@@ -49,11 +49,11 @@ export type LogItem = {
 };
 
 export type SchemaType =
-  | "multiplicativeEqualGroupsSchema"
-  | "combineAdditiveSchema"
-  | "changeAdditiveSchema"
-  | "fakeThreeSchema"
-  | "";
+  | "additiveChangeSchema"
+  | "additiveDifferenceSchema"
+  | "additiveTotalSchema"
+  | "multiplicativeCompareSchema"
+  | "multiplicativeEqualGroupsSchema";
 
 export type SetFn = (
   partial: State | Partial<State> | ((state: State) => State | Partial<State>),
