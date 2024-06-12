@@ -32,6 +32,9 @@ export type StepWiseProps =
   | (z.infer<typeof StepWiseProps> & AssistantType)
   | undefined;
 
+//
+// StepWise COMPONENT
+//
 export const StepWise = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & StepWiseProps
