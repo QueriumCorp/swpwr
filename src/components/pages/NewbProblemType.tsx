@@ -22,6 +22,7 @@ import { DifferenceEquationGraphic } from "../schemas/difference/equation";
 import { DifferenceSchemaGraphic } from "../schemas/difference/graphic";
 import { EqualGroupsEquationGraphic } from "../schemas/equalGroups/equation";
 import { CompareEquationGraphic } from "../schemas/compare/equation";
+import { SchemaType } from "@/store/_types";
 
 const NewbProblemType: FC<{
   className?: string;
@@ -58,8 +59,30 @@ const NewbProblemType: FC<{
       setMsg("Just a moment while I verify your choice");
       logAction("NewbProblemType : Clicked Next");
 
-      logAction("NewbProblemType : Checking Schema : " + schema);
-      const result = await submitPickSchema(schema);
+      let selectedSchema: SchemaType = "additiveChangeSchema";
+      switch (schema) {
+        case "TOTAL":
+          selectedSchema = "additiveTotalSchema";
+          break;
+        case "DIFFERENCE":
+          selectedSchema = "additiveDifferenceSchema";
+          break;
+        case "CHANGEINCREASE":
+          selectedSchema = "additiveChangeSchema";
+          break;
+        case "CHANGEDECREASE":
+          selectedSchema = "additiveChangeSchema";
+          break;
+        case "EQUALGROUPS":
+          selectedSchema = "multiplicativeEqualGroupsSchema";
+          break;
+        case "COMPARE":
+          selectedSchema = "multiplicativeCompareSchema";
+          break;
+      }
+
+      logAction("NewbProblemType : Checking Schema : " + selectedSchema);
+      const result = await submitPickSchema(selectedSchema);
       logAction("NewbProblemType : Checked Schema : " + JSON.stringify(result));
       setMsg(result.message);
       if (result.stepStatus == "VALID") {
