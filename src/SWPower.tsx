@@ -30,6 +30,7 @@ export type Options = {
   swapiUrl?: string;
   gltfUrl?: string;
   rank?: string;
+  disabledSchemas?: string[];
 };
 
 export const OptionsSchema = z.object({

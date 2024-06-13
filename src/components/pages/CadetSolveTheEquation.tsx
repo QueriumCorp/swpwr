@@ -9,6 +9,7 @@ import { NavContext, NavContextType } from "@/NavContext";
 import { AnimeTutor } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { HdrBar } from "../qq/HdrBar";
 
 const CadetSolveTheEquation: React.FC<{
   className?: string;
@@ -30,12 +31,14 @@ const CadetSolveTheEquation: React.FC<{
       )}
     >
       <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative  mb-2">
-        <div className="absolute top-0 left-0 bottom-0 right-0  overflow-y-scroll">
-          <h1>CadetSolveTheEquation</h1>
-          <div>
+        <div className="absolute top-0 left-0 bottom-0 right-0 flex flex-col overflow-y-scroll">
+          <HdrBar
+            highlightLetter="P"
+            subTitle="Prepare"
+            instructions="Read the Statement"
+          ></HdrBar>
+          <div className="grow">
             <StepWise
-              // h-full and w-full will cause the component to fill its parent
-              set
               className="h-full w-full"
               problem={{
                 appKey: "StepWiseAPI",
