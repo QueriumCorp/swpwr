@@ -1,6 +1,7 @@
 // General imports
 import { forwardRef, useEffect, useState } from "react";
 import z from "zod";
+import { useHotkeys } from "react-hotkeys-hook";
 
 // ShadCN/UI imports
 import {
@@ -76,6 +77,7 @@ const StepWisePower = forwardRef<
   const [closeMsg, setCloseMsg] = useState("");
   const [traceComment, setTraceComment] = useState("");
   const [traceMsg, setTraceMsg] = useState("");
+  const [enableDebugger, setEnableDebugger] = useState(false);
 
   // Not sure why I did this
   useEffect(() => {
@@ -105,8 +107,11 @@ const StepWisePower = forwardRef<
   };
   const handleSaveTrace = async () => {
     const msg = await saveTrace(traceComment);
-    setCloseMsg(msg);
+    setTraceMsg(msg);
   };
+  useHotkeys("shift+ctrl+d", () => {
+    setEnableDebugger(!!!enableDebugger);
+  });
 
   // JSX
   return (
@@ -120,9 +125,11 @@ const StepWisePower = forwardRef<
         >
           <Drawer>
             <DrawerTrigger asChild>
-              <button className="fixed z-10 right-0 bottom-0 rounded-full m-1 text-xs bg-transparent cursor-pointer">
-                🧐
-              </button>
+              {enableDebugger && (
+                <button className="fixed z-10 right-0 bottom-0 rounded-full m-1 text-xs bg-transparent cursor-pointer">
+                  🧐
+                </button>
+              )}
             </DrawerTrigger>
             <DrawerContent>
               <div className="mx-auto w-full h-[400px] relative">
@@ -211,7 +218,7 @@ const StepWisePower = forwardRef<
                             onChange={(e) => setTraceComment(e.target.value)}
                             placeholder="Enter your Comment"
                           />
-                          <p className="text-xs">{closeMsg}</p>
+                          <p className="text-xs">{traceMsg}</p>
                         </div>
                       </div>
                     </div>
