@@ -10,6 +10,8 @@ export interface State {
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>;
   submitPickSchema: (schema: string) => Promise<any>;
   getHint: () => Promise<string>;
+  closeSession: () => Promise<string>;
+  saveTrace: (comment: string) => Promise<string>;
   logAction: (action: string) => void;
 }
 

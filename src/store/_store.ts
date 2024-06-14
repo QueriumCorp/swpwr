@@ -5,6 +5,8 @@ import initSession from "./initSession";
 import submitTTable from "./submitT-Table";
 import getHint from "./getHint";
 import submitPickSchema from "./submitPickSchema";
+import closeSession from "./closeSession";
+import saveTrace from "./saveTrace";
 
 export const useProblemStore = create<State>((set, get) => ({
   ///////////////////////////////////////////////////////////////////
@@ -86,6 +88,14 @@ export const useProblemStore = create<State>((set, get) => ({
 
   getHint: async () => {
     return await getHint(set, get);
+  },
+
+  closeSession: async () => {
+    return await closeSession(set, get);
+  },
+
+  saveTrace: async (comment: string) => {
+    return await saveTrace(set, get, comment);
   },
 
   logAction: (action: string) => {

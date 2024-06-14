@@ -22,6 +22,8 @@ import { cn } from "./lib/utils";
 import { useProblemStore } from "./store/_store";
 import { ProblemSchema } from "./components/StepWise/stores/problem";
 import { StudentSchema } from "./components/StepWise/stores/student";
+import { Button } from "./components/ui/button";
+import { Input } from "./components/ui/input";
 
 //
 // Schemas & Types
@@ -58,12 +60,22 @@ const StepWisePower = forwardRef<
   const ybr = YellowBrickRoad;
 
   // Store
-  const { setSwapiUrl, studentLog, problem, student, session } =
-    useProblemStore();
+  const {
+    setSwapiUrl,
+    studentLog,
+    problem,
+    student,
+    session,
+    closeSession,
+    saveTrace,
+  } = useProblemStore();
 
   // State
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [closeMsg, setCloseMsg] = useState("");
+  const [traceComment, setTraceComment] = useState("");
+  const [traceMsg, setTraceMsg] = useState("");
 
   // Not sure why I did this
   useEffect(() => {
@@ -86,6 +98,17 @@ const StepWisePower = forwardRef<
     }
   }, [props.options?.swapiUrl]);
 
+  // Event Handlers
+  const handleCloseSession = async () => {
+    const msg = await closeSession();
+    setCloseMsg(msg);
+  };
+  const handleSaveTrace = async () => {
+    const msg = await saveTrace(traceComment);
+    setCloseMsg(msg);
+  };
+
+  // JSX
   return (
     <NavContext.Provider value={{ current, setCurrent, api }}>
       <AvatarAPIProvider>
@@ -107,6 +130,7 @@ const StepWisePower = forwardRef<
                   <TabsList className="w-full ">
                     <TabsTrigger value="log">Log</TabsTrigger>
                     <TabsTrigger value="store">Store</TabsTrigger>
+                    <TabsTrigger value="cmds">Commands</TabsTrigger>
                   </TabsList>
                   <TabsContent value="log" className="w-full h-[90%]">
                     <div className="p-4 pb-0 w-full h-full">
@@ -161,10 +185,42 @@ const StepWisePower = forwardRef<
                       </div>
                     </div>
                   </TabsContent>
+                  <TabsContent value="cmds" className="w-full h-[90%]">
+                    <div className="p-4 pb-0 w-full h-full">
+                      <div className="flex items-center justify-start w-full border-b-2 border-b-slate-600">
+                        <Button
+                          className="w-48 mr-2"
+                          onClick={() => handleCloseSession()}
+                        >
+                          Close Session
+                        </Button>
+                        <p className="text-xs">{closeMsg}</p>
+                      </div>
+                      <div className="flex items-center justify-start w-full border-b-2 border-b-slate-600 mt-4">
+                        <Button
+                          className="w-48 mr-2"
+                          onClick={() => handleSaveTrace()}
+                        >
+                          Save Trace
+                        </Button>
+                        <div className="flex flex-col">
+                          <Input
+                            type="text"
+                            className="w-full"
+                            value={traceComment}
+                            onChange={(e) => setTraceComment(e.target.value)}
+                            placeholder="Enter your Comment"
+                          />
+                          <p className="text-xs">{closeMsg}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </TabsContent>
                 </Tabs>
               </div>
             </DrawerContent>
           </Drawer>
+
           <Carousel
             setApi={setApi}
             opts={{ watchDrag: false }}
