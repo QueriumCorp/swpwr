@@ -2,6 +2,7 @@
 import { forwardRef, useEffect, useState } from "react";
 import z from "zod";
 import { useHotkeys } from "react-hotkeys-hook";
+import { BsBugFill } from "react-icons/bs";
 
 // ShadCN/UI imports
 import {
@@ -126,8 +127,8 @@ const StepWisePower = forwardRef<
           <Drawer>
             <DrawerTrigger asChild>
               {enableDebugger && (
-                <button className="fixed z-10 right-0 bottom-0 rounded-full m-1 text-xs bg-transparent cursor-pointer">
-                  🧐
+                <button className="fixed z-10 right-[50%] bottom-0 rounded-full m-1 text-xs bg-transparent cursor-pointer">
+                  <BsBugFill className="text-red-500 text-lg" />
                 </button>
               )}
             </DrawerTrigger>
@@ -158,7 +159,7 @@ const StepWisePower = forwardRef<
                                     })}
                                   </div>
                                   <div className="table-cell">
-                                    <p>{item.action}</p>
+                                    <p className="select-text">{item.action}</p>
                                   </div>
                                 </div>
                               );
@@ -174,19 +175,19 @@ const StepWisePower = forwardRef<
                         <h3 className="bg-qqAccent font-sans font-black">
                           Student
                         </h3>
-                        <pre className="font-mono text-xs">
+                        <pre className="font-mono text-xs select-text">
                           {JSON.stringify(student, null, 2)}
                         </pre>
                         <h3 className="bg-qqAccent font-sans font-black">
                           Problem
                         </h3>
-                        <pre className="font-mono text-xs">
+                        <pre className="font-mono text-xs select-text">
                           {JSON.stringify(problem, null, 2)}
                         </pre>
                         <h3 className="bg-qqAccent font-sans font-black">
                           Session
                         </h3>
-                        <pre className="font-mono text-xs">
+                        <pre className="font-mono text-xs select-text">
                           {JSON.stringify(session, null, 2)}
                         </pre>
                       </div>
@@ -201,7 +202,7 @@ const StepWisePower = forwardRef<
                         >
                           Close Session
                         </Button>
-                        <p className="text-xs">{closeMsg}</p>
+                        <p className="text-xs select-text">{closeMsg}</p>
                       </div>
                       <div className="flex items-center justify-start w-full border-b-2 border-b-slate-600 mt-4">
                         <Button
@@ -218,7 +219,7 @@ const StepWisePower = forwardRef<
                             onChange={(e) => setTraceComment(e.target.value)}
                             placeholder="Enter your Comment"
                           />
-                          <p className="text-xs">{traceMsg}</p>
+                          <p className="text-xs select-text">{traceMsg}</p>
                         </div>
                       </div>
                     </div>
