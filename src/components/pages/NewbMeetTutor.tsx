@@ -64,7 +64,24 @@ const NewbMeetTutor: React.FC<{
           }}
         />
         <Chat
-          msg="Hi! I'm FoxyFuka! The second taxicab number is \(1729 = 10^3 + 9^3 = 12^3 + 1^3\)"
+          msg={`A paragraph with *emphasis* and **strong importance**.
+
+> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
+
+* Lists
+* [x] todo
+* [ ] done
+
+Math:
+\\(1729 = 10^3 + 9^3 = 12^3 + 1^3\\)
+
+A table:
+
+| a | b |
+| - | - |
+
+The second taxicab number is $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$
+`}
           className="font-irishGrover absolute right-[50%] bottom-[50%]"
         />
       </div>

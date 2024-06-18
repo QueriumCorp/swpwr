@@ -1,6 +1,8 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useLayoutEffect } from "react";
 
 import { renderMathInElement } from "mathlive";
+import Markdown from "react-markdown";
+import remarkMath from "remark-math";
 
 import { cn } from "./utils";
 
@@ -15,7 +17,8 @@ export const Chat = ({
   const latexRef = useRef(null);
 
   // on initial render, tell MathLive to render the latex
-  useEffect(() => {
+  useLayoutEffect(() => {
+    console.log(latexRef.current);
     if (latexRef.current) {
       renderMathInElement(latexRef.current);
     }
@@ -33,7 +36,7 @@ export const Chat = ({
           className,
         )}
       >
-        {msg}
+        <Markdown>{msg}</Markdown>
       </div>
     );
   }
