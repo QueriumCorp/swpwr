@@ -163,10 +163,10 @@ const NewbProblemType: FC<{
           <h2 className="mt-3 ml-1 mr-1">
             Click on the type of problem you think this is
           </h2>
-          <div className="grow flex flex-wrap gap-2 mb-4">
+          <div className="grow flex flex-wrap gap-2 mb-4 justify-center">
             <Card
               className={cn(
-                "sm:w-[250px] w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
                 schema === "TOTAL" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("TOTAL")}
@@ -179,9 +179,10 @@ const NewbProblemType: FC<{
                 <TotalEquationGraphic />
               </CardContent>
             </Card>
+
             <Card
               className={cn(
-                "sm:w-[250px] w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
                 schema === "DIFFERENCE" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("DIFFERENCE")}
@@ -194,9 +195,10 @@ const NewbProblemType: FC<{
                 <DifferenceEquationGraphic />
               </CardContent>
             </Card>
+
             <Card
               className={cn(
-                "sm:w-[250px] w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
                 schema === "CHANGEINCREASE" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("CHANGEINCREASE")}
@@ -211,7 +213,7 @@ const NewbProblemType: FC<{
             </Card>
             <Card
               className={cn(
-                "sm:w-[250px] w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
                 schema === "CHANGEDECREASE" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("CHANGEDECREASE")}
@@ -224,9 +226,10 @@ const NewbProblemType: FC<{
                 <ChangeDecreaseEquationGraphic />
               </CardContent>
             </Card>
+            <div className="h-0 basis-full"></div>
             <Card
               className={cn(
-                "sm:w-[250px] w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
                 schema === "EQUALGROUPS" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("EQUALGROUPS")}
@@ -240,7 +243,7 @@ const NewbProblemType: FC<{
             </Card>
             <Card
               className={cn(
-                "sm:w-[250px] w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
                 schema === "COMPARE" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("COMPARE")}
