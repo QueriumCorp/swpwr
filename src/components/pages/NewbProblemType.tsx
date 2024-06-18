@@ -166,7 +166,7 @@ const NewbProblemType: FC<{
           <div className="grow flex flex-wrap gap-2 mb-4 justify-center">
             <Card
               className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "TOTAL" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("TOTAL")}
@@ -182,7 +182,7 @@ const NewbProblemType: FC<{
 
             <Card
               className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "DIFFERENCE" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("DIFFERENCE")}
@@ -198,7 +198,7 @@ const NewbProblemType: FC<{
 
             <Card
               className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "CHANGEINCREASE" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("CHANGEINCREASE")}
@@ -213,7 +213,7 @@ const NewbProblemType: FC<{
             </Card>
             <Card
               className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "CHANGEDECREASE" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("CHANGEDECREASE")}
@@ -229,7 +229,7 @@ const NewbProblemType: FC<{
             <div className="h-0 basis-full"></div>
             <Card
               className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "EQUALGROUPS" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("EQUALGROUPS")}
@@ -243,7 +243,7 @@ const NewbProblemType: FC<{
             </Card>
             <Card
               className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[400px]",
+                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "COMPARE" ? "bg-qqAccent" : "bg-white",
               )}
               onClick={() => handleSelectSchema("COMPARE")}
