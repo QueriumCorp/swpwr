@@ -44,9 +44,11 @@ const NewbFindFacts: FC<{
 
   // Event Handlers
   const delKnown = (fact: string) => {
+    logAction(`NewbFindFacts : Deleted '${fact}' from KnownFacts`);
     setKnowns(knowns.filter((thisFact) => thisFact !== fact));
   };
   const delUnknown = (fact: string) => {
+    logAction(`NewbFindFacts : Deleted '${fact}' from UnknownFacts`);
     setUnknowns(unknowns.filter((thisFact) => thisFact !== fact));
   };
   async function HandleCheckFacts(
