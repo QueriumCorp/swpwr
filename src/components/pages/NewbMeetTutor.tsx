@@ -73,7 +73,7 @@ const NewbMeetTutor: React.FC<{
 * [ ] done
 
 Math:
-\\(1729 = 10^3 + 9^3 = 12^3 + 1^3\\)
+\\\\($1729 = 10^3 + 9^3 = 12^3 + 1^3\\\\)
 
 A table:
 

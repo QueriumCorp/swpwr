@@ -2,7 +2,7 @@ import { useRef, useEffect, useLayoutEffect } from "react";
 
 import { renderMathInElement } from "mathlive";
 import Markdown from "react-markdown";
-import remarkMath from "remark-math";
+import remarkGfm from "remark-gfm";
 
 import { cn } from "./utils";
 
@@ -20,7 +20,16 @@ export const Chat = ({
   useLayoutEffect(() => {
     console.log(latexRef.current);
     if (latexRef.current) {
-      renderMathInElement(latexRef.current);
+      renderMathInElement(latexRef.current, {
+        TeX: {
+          delimiters: {
+            // Allow math formulas surrounded by $...$ or \(...\)
+            // to be rendered as inline (textstyle) content.
+            inline: [["\\(", "\\)"]],
+            display: [["$$", "$$"]],
+          },
+        },
+      });
     }
   }, []);
 
@@ -36,7 +45,7 @@ export const Chat = ({
           className,
         )}
       >
-        <Markdown>{msg}</Markdown>
+        <Markdown remarkPlugins={[remarkGfm]}>{msg}</Markdown>
       </div>
     );
   }
