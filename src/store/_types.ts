@@ -12,7 +12,7 @@ export interface State {
   setStudent: (student: Student) => void;
   setSession: (session: Session) => void;
   heartbeat: () => Promise<void>;
-  initSession: (problem: Problem, student: Student) => void;
+  initSession: () => void;
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>;
   submitPickSchema: (schema: string) => Promise<any>;
   getHint: () => Promise<string>;
@@ -24,7 +24,7 @@ export interface State {
 // PROBLEM
 export type Problem = {
   appKey: string;
-  id?: string;
+  problemId?: string;
   title?: string;
   stimulus?: string;
   cmd?: string;

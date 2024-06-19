@@ -71,23 +71,19 @@ export const useProblemStore = create<State>((set, get) => ({
     // TODO: Do we need to add a check for the problem changing?
 
     if (problemValidation.success) {
+      set((_state) => ({
+        problem: problem,
+      }));
       return {
         problemValid: true,
         problemStatusMsg: "Problem Loaded",
       };
-    } else {
-      console.error("Problem Validation Errors in: ", problem);
-      return {
-        problemValid: false,
-        problemStatusMsg: generateErrorMessage(problemValidation.error.issues),
-      };
     }
-    set((_state) => ({
-      problem: problem,
-    }));
+
+    console.error("Problem Validation Errors in: ", problem);
     return {
-      problemValid: true,
-      problemStatusMsg: "Problem Loaded",
+      problemValid: false,
+      problemStatusMsg: generateErrorMessage(problemValidation.error.issues),
     };
   },
 
@@ -107,11 +103,7 @@ export const useProblemStore = create<State>((set, get) => ({
     heartbeat(set, get);
   },
 
-  initSession: async (problem: Problem, student: Student) => {
-    set((_state) => ({
-      problem: problem,
-      student: student,
-    }));
+  initSession: async () => {
     initSession(set, get);
   },
 

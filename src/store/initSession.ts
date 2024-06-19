@@ -18,7 +18,7 @@ const initSession = async (set: SetFn, get: GetFn) => {
   const theProblem = {
     appKey: problem.appKey,
     studentId: student.studentId,
-    id: problem.id,
+    id: problem.problemId,
     title: problem.title,
     definition: problem.question,
     stimulus: problem.stimulus,

@@ -52,7 +52,7 @@ const NewbGratzFoundTutor: React.FC<{
       studentId: "PokeyLoki",
       studentName: "Loki Van Riper",
     };
-    initSession(problem, student);
+    initSession();
   }
 
   // JSX
