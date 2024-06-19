@@ -18,8 +18,8 @@ const problem = {
   title: "Solve compound linear inequalities in 1 variable",
   stimulus:
     "Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book.",
-  topic: "gradeBasicAlgebra",
-  definition:
+  class: "gradeBasicAlgebra",
+  question:
     'SolveWordProblemAns[{"Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book."}]',
   hints: [],
 };

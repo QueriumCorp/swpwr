@@ -52,7 +52,7 @@ const StepWisePower = forwardRef<
   const [traceComment, setTraceComment] = useState("");
   const [traceMsg, setTraceMsg] = useState("");
   const [enableDebugger, setEnableDebugger] = useState(false);
-  const [error, setError] = useState("");
+  const [propError, setPropError] = useState("");
 
   // Store
   const {
@@ -72,9 +72,10 @@ const StepWisePower = forwardRef<
   useEffect(() => {
     if (props.problem) {
       const probResult = setProblem(props.problem);
-      console.info(probResult);
       if (probResult && !probResult.problemValid) {
-        setError(probResult.problemStatusMsg);
+        setPropError(probResult.problemStatusMsg);
+      } else {
+        setPropError("");
       }
     }
   }, [props.problem]);
@@ -139,6 +140,7 @@ const StepWisePower = forwardRef<
                     <TabsTrigger value="log">Log</TabsTrigger>
                     <TabsTrigger value="store">Store</TabsTrigger>
                     <TabsTrigger value="cmds">Commands</TabsTrigger>
+                    <TabsTrigger value="errors">Errors</TabsTrigger>
                   </TabsList>
                   <TabsContent value="log" className="w-full h-[90%]">
                     <div className="p-4 pb-0 w-full h-full">
@@ -222,6 +224,12 @@ const StepWisePower = forwardRef<
                           <p className="text-xs select-text">{traceMsg}</p>
                         </div>
                       </div>
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="errors" className="w-full h-[90%]">
+                    <div className="p-4 pb-0 w-full h-full">
+                      <h1>Errors</h1>
+                      <div>{propError}</div>
                     </div>
                   </TabsContent>
                 </Tabs>
