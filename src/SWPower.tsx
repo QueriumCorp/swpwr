@@ -20,36 +20,20 @@ import { YellowBrickRoad } from "./components/qq/YellowBrickRoad";
 import { renderPage } from "./components/qq/RenderPage";
 import { NavContext } from "./NavContext";
 import { cn } from "./lib/utils";
+import { OptionsSchema, ProblemSchema, StudentSchema } from "./store/_types";
 
 import { useProblemStore } from "./store/_store";
-import { ProblemSchema } from "./components/StepWise/stores/problem";
-import { StudentSchema } from "./components/StepWise/stores/student";
+
+// ShadCN/UI Components
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 
-//
-// Schemas & Types
-//
-export type Options = {
-  swapiUrl?: string;
-  gltfUrl?: string;
-  rank?: string;
-  disabledSchemas?: string[];
-};
-
-export const OptionsSchema = z.object({
-  swapiUrl: z.string().optional(),
-  gltfUrl: z.string().optional(),
-  rank: z.string().optional(),
-  disabledSchemas: z.array(z.string()).optional(),
-}) satisfies z.ZodType<Options>;
-
+// Props
 const StepWisePowerProps = z.object({
   problem: ProblemSchema,
   student: StudentSchema,
   options: OptionsSchema.optional(),
 });
-
 export type StepWisePowerProps = z.infer<typeof StepWisePowerProps> | undefined;
 
 //
@@ -61,9 +45,21 @@ const StepWisePower = forwardRef<
 >((props, _ref) => {
   const ybr = YellowBrickRoad;
 
+  // State
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [closeMsg, setCloseMsg] = useState("");
+  const [traceComment, setTraceComment] = useState("");
+  const [traceMsg, setTraceMsg] = useState("");
+  const [enableDebugger, setEnableDebugger] = useState(false);
+  const [error, setError] = useState("");
+
   // Store
   const {
     setSwapiUrl,
+    setProblem,
+    setStudent,
+    setSession,
     studentLog,
     problem,
     student,
@@ -72,34 +68,38 @@ const StepWisePower = forwardRef<
     saveTrace,
   } = useProblemStore();
 
-  // State
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [closeMsg, setCloseMsg] = useState("");
-  const [traceComment, setTraceComment] = useState("");
-  const [traceMsg, setTraceMsg] = useState("");
-  const [enableDebugger, setEnableDebugger] = useState(false);
+  // Manage Props and Changes to Props
+  useEffect(() => {
+    if (props.problem) {
+      const probResult = setProblem(props.problem);
+      console.info(probResult);
+      if (probResult && !probResult.problemValid) {
+        setError(probResult.problemStatusMsg);
+      }
+    }
+  }, [props.problem]);
+  useEffect(() => {
+    if (props.student) {
+      setStudent(props.student);
+    }
+  }, [props.student]);
+  useEffect(() => {
+    if (props.options?.swapiUrl) {
+      setSwapiUrl(props.options.swapiUrl);
+    }
+  }, [props.options?.swapiUrl]);
 
   // Not sure why I did this
   useEffect(() => {
     if (!api) {
       return;
     }
-
     setCurrent(api.selectedScrollSnap() + 1);
-
     // This fires when the user selects a new page
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
-
-  // set the swapiUrl in the store
-  useEffect(() => {
-    if (props.options?.swapiUrl) {
-      setSwapiUrl(props.options.swapiUrl);
-    }
-  }, [props.options?.swapiUrl]);
 
   // Event Handlers
   const handleCloseSession = async () => {
