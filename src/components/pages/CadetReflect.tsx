@@ -59,7 +59,7 @@ const CadetReflect: React.FC<{
               "flex w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
               className,
             )}
-            stimulusText={problem.stimulus}
+            stimulusText={problem.stimulus || ""}
           ></StimulusSelector>
           <h1>
             What is the best answer for why does "{fakeAnswer}" make sense as

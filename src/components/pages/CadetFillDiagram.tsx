@@ -65,7 +65,7 @@ const CadetFillDiagram: React.FC<{
               "flex w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
               className,
             )}
-            stimulusText={problem.stimulus}
+            stimulusText={problem.stimulus || ""}
           ></StimulusSelector>
 
           <h2 className="mt-3 ml-1 mr-1">

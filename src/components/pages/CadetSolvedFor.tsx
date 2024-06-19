@@ -56,7 +56,7 @@ const CadetSolvedFor: React.FC<{
               "flex w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
               className,
             )}
-            stimulusText={problem.stimulus}
+            stimulusText={problem.stimulus || ""}
           ></StimulusSelector>
           <h1>The value you found was {session.finalAnswer}</h1>
           <Textarea placeholder="your answer" />

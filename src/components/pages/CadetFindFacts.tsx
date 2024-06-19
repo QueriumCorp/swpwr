@@ -76,7 +76,7 @@ const CadetFindFacts: React.FC<{
               className,
               "inline",
             )}
-            stimulusText={problem.stimulus}
+            stimulusText={problem.stimulus || ""}
           ></StimulusSelector>
 
           <div className="flex grow gap-2">

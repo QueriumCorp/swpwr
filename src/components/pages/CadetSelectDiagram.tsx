@@ -61,7 +61,7 @@ const CadetSelectDiagram: React.FC<{
               "flex w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
               className,
             )}
-            stimulusText={problem.stimulus}
+            stimulusText={problem.stimulus || ""}
           ></StimulusSelector>
           <div className="grow grid grid-cols-2 gap-2">
             <Card>

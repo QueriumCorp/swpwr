@@ -5,7 +5,7 @@ import { FactChicklet } from "./FactChicklet";
 
 export interface StimulusSelectorProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  stimulusText: string;
+  stimulusText?: string;
   interactive?: boolean;
   onChangeFact?(fact: string): void;
 }
@@ -13,7 +13,7 @@ export interface StimulusSelectorProps
 const StimulusSelector = React.forwardRef<
   HTMLDivElement,
   StimulusSelectorProps
->(({ className, stimulusText, interactive, onChangeFact }, _ref) => {
+>(({ className, stimulusText = "", interactive, onChangeFact }, _ref) => {
   const theRef = React.useRef(null);
   const [preText, setPreText] = React.useState(stimulusText);
   const [theText, setTheText] = React.useState("");
