@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import Stage from "./Stage";
 import { Chat } from "./Chat";
@@ -9,7 +9,7 @@ import {
   useAvatarAPI,
 } from "./contexts/AvatarAPI";
 import { OrbitControls, View } from "@react-three/drei";
-import type { ActionName, AvatarImperativeHandle } from "./avatars/FoxyFuka";
+import type { AvatarImperativeHandle } from "./avatars/FoxyFuka";
 
 type AnimeTutorProps = {
   emote?: string;
@@ -27,8 +27,6 @@ const AnimeTutor = ({ emote, closeUp, className, style }: AnimeTutorProps) => {
     width: "300px",
     ...style,
   };
-
-  console.info("AnimeTutor : Rendering", emote);
 
   return (
     <div className={className} style={theStyle}>

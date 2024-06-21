@@ -7,8 +7,6 @@ export const ChangeIncreaseSchemaGraphic = ({
   interactive?: boolean;
   className?: string;
 }) => {
-  console.info(interactive);
-
   // JSX
   return (
     <div

@@ -48,7 +48,6 @@ export const ActiveSession = React.forwardRef<
   const handleCloseClick = () => {
     close();
   };
-
   // STARTING
   if (sessionToken === "starting") {
     return (

@@ -10,6 +10,10 @@ import { AnimeTutor } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { HdrBar } from "../qq/HdrBar";
+import { useProblemStore } from "@/store/_store";
+import { type ProblemSchema } from "../StepWise/stores/problem";
+import { StepWiseHandle } from "../StepWise/StepWise/StepWise";
+import { Button } from "../ui/button";
 
 const CadetSolveTheEquation: React.FC<{
   className?: string;
@@ -19,9 +23,35 @@ const CadetSolveTheEquation: React.FC<{
 }> = ({ className, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
-  if (current !== index + 1) return null;
+  const stepwiseRef = React.useRef<StepWiseHandle>(null);
 
-  // JSX
+  // Store
+  const { problem, student, session } = useProblemStore();
+
+  // Prepare problem data to work with StepWise
+  let swProblem = {
+    appKey: problem.appKey,
+    problemId: problem.problemId ? problem.problemId : "",
+    title: problem.title,
+    stimulus: problem.stimulus,
+    topic: problem.class,
+    definition: problem.question,
+    policyId: problem.policies,
+    hints: [],
+  };
+  if (problem.qs1) {
+    swProblem.hints.push(problem.qs1);
+  }
+  if (problem.qs2) {
+    swProblem.hints.push(problem.qs2);
+  }
+  if (problem.qs3) {
+    swProblem.hints.push(problem.qs3);
+  }
+
+  if (current !== index + 1)
+    // JSX
+    return null;
   return (
     <div
       className={cn(
@@ -39,24 +69,32 @@ const CadetSolveTheEquation: React.FC<{
           ></HdrBar>
           <div className="grow">
             <StepWise
+              ref={stepwiseRef}
               className="h-full w-full"
-              problem={{
-                appKey: "StepWiseAPI",
-                problemId: "QUES18374",
-                title: "An amazing question title",
-                stimulus:
-                  "Four score and seven years ago our fathers brought forth, upon this continent, a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal.",
-                latex: "x = \\frac {-b \\pm \\sqrt{b^2 -4ac}} {2a}",
-                topic: "gradeBasicAlgebra",
-                definition: "SolveFor[5*z/9=-25, z]",
-                hints: [],
-              }}
-              student={{
-                studentId: "8675309",
-                fullName: "Joe Sixpack",
-                familiarName: "Joe",
-              }}
+              /*
+              appKey: "JiraTestPage"
+              class: "gradeBasicAlgebra"
+              hints: []
+              policyId: "$A1$"
+              problemId: "QUES6018"
+              question: "SolveWordProblemAns[{\"Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book.\"}]"
+              stimulus: "Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book."
+              title: "Solve compound linear inequalities in 1 variable"
+              */
+              problem={swProblem}
+              student={student}
             />
+            <Button
+              onClick={() =>
+                stepwiseRef.current?.start(
+                  session.sessionToken,
+                  session.identifiers,
+                  session.operators,
+                )
+              }
+            >
+              Start
+            </Button>
           </div>
         </div>
       </div>

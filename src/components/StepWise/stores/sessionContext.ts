@@ -90,6 +90,14 @@ export const createSessionStore = (
 
         // START SESSION
         startSession: async () => {
+          if (
+            problemStatus.problemValid === false ||
+            studentStatus.studentValid === false
+          ) {
+            console.error("Invalid problem or student");
+            return;
+          }
+
           set((_state) => ({
             sessionToken: "starting",
           }));

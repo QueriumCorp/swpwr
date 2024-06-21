@@ -8,8 +8,6 @@ export const EqualGroupsEquationGraphic = ({
   interactive?: boolean;
   className?: string;
 }) => {
-  console.info(interactive);
-
   // JSX
   return (
     <div

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { Ref, forwardRef, useImperativeHandle, useRef } from "react";
 import z from "zod";
 // Note: putting the lint recommended '?inline' in the fonts.css import will break it
 // import mathliveStyle from "mathlive/fonts.css";
@@ -28,25 +28,59 @@ const StepWiseProps = z.object({
 
 type AssistantType = { assistant?: (msg: string) => void };
 
+type ReactTypes = {
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+  className?: string;
+};
+
+export type StepWiseHandle = {
+  start: (
+    sessionToken?: string,
+    identifiers?: string[],
+    operators?: string[],
+  ) => void;
+};
+
 export type StepWiseProps =
-  | (z.infer<typeof StepWiseProps> & AssistantType)
+  | (z.infer<typeof StepWiseProps> & AssistantType & ReactTypes)
   | undefined;
 
 //
 // StepWise COMPONENT
 //
-export const StepWise = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & StepWiseProps
->(
-  (
-    { student, problem, assistant, server, className, ready, set, go },
-    _ref,
-  ) => {
+export const StepWise = forwardRef(
+  (props: StepWiseProps, ref: Ref<StepWiseHandle>) => {
     console.log("RENDERING StepWise @ ", new Date().toLocaleTimeString());
 
+    const { student, problem, server, assistant } = props;
+
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          start(sessionToken, identifiers, operators) {
+            console.log(
+              "STARTING StepWise @ ",
+              new Date().toLocaleTimeString(),
+            );
+            console.info(sessionToken);
+            console.info(identifiers);
+            console.info(operators);
+          },
+        };
+      },
+      [],
+    );
+
     // ready/set/go lets the developer start swReact in icon, preview or started state
-    const initialState = ready ? "READY" : set ? "SET" : go ? "GO" : "GO";
+    const initialState = props?.ready
+      ? "GO"
+      : props?.set
+        ? "SET"
+        : props?.go
+          ? "READY"
+          : "READY";
 
     // This forces the font import to execute in dev mode. May be unnecessary in prod
     // const fonts = mathliveStyle;
@@ -63,10 +97,10 @@ export const StepWise = React.forwardRef<
       );
     }
 
-    // Active Session
+    // JSX
     return (
       <SessionContext.Provider value={storeRef.current}>
-        <ActiveSession className={className} />
+        <ActiveSession className={props.className} />
       </SessionContext.Provider>
     );
   },

@@ -50,6 +50,13 @@ export const YellowBrickRoad: YBRpage[] = [
     phaseLabel: "str",
   },
   {
+    rank: "cadet",
+    id: "SolveTheEquation",
+    title: "Solve the Equation",
+    phase: "W",
+    phaseLabel: "Work the Problem",
+  },
+  {
     rank: "newb",
     id: "KnownFacts",
     title: "string",
@@ -119,13 +126,13 @@ export const YellowBrickRoad: YBRpage[] = [
     phase: "I",
     phaseLabel: "",
   },
-  {
-    rank: "cadet",
-    id: "SolveTheEquation",
-    title: "Solve the Equation",
-    phase: "W",
-    phaseLabel: "Work the Problem",
-  },
+  // {
+  //   rank: "cadet",
+  //   id: "SolveTheEquation",
+  //   title: "Solve the Equation",
+  //   phase: "W",
+  //   phaseLabel: "Work the Problem",
+  // },
   // {
   //   rank: "cadet",
   //   id: "GratzEquationSolved",

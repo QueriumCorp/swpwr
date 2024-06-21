@@ -42,7 +42,6 @@ export function parseEmotes(emotes: string[]) {
     });
   });
 
-  console.info("Parsed Emotes:", listOfParsedEmotes);
   return listOfParsedEmotes;
 }
 
@@ -67,8 +66,6 @@ export const AvatarAPIProvider = (props: AvatarAPIProviderProps) => {
   const [emotes, setEmotes] = useState<Emote[]>([]);
 
   function sayMsg(message: string, emote: string, variant?: string) {
-    console.log("sayMsg:", message, emote, variant);
-
     setMsg(message);
     if (typeof variant === "string" && variant.length === 2) {
       setEmote(`${emote}:${variant}`);
@@ -85,7 +82,6 @@ export const AvatarAPIProvider = (props: AvatarAPIProviderProps) => {
         Math.random() * targetEmote.variants.length,
       );
       const newEmote = `${emote}:${targetEmote.variants[randomVariantIndex]}`;
-      console.info("New Emote:", newEmote);
       setEmote(newEmote);
     }
   }

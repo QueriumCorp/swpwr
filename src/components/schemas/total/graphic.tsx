@@ -7,8 +7,6 @@ export const TotalSchemaGraphic = ({
   interactive?: boolean;
   className?: string;
 }) => {
-  console.info(interactive);
-
   // JSX
   return (
     <div

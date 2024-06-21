@@ -169,8 +169,6 @@ const Model = forwardRef(function Model({ emote = "idle:00" }: ModelProps) {
   ) as GLTFResult;
   const { actions, mixer } = useAnimations(animations, group);
 
-  console.log(emote);
-
   // Side Effects
   // https://www.reddit.com/r/threejs/comments/zdy9kt/how_can_i_listen_for_animation_end_in_three/
   useEffect(() => {
@@ -183,8 +181,6 @@ const Model = forwardRef(function Model({ emote = "idle:00" }: ModelProps) {
   }, [mixer]);
 
   useEffect(() => {
-    console.log("useEffect:", emote);
-
     if (!emote) return;
 
     // end last emote
