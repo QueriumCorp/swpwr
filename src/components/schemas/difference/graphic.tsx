@@ -7,6 +7,10 @@ export const DifferenceSchemaGraphic = ({
   interactive?: boolean;
   className?: string;
 }) => {
+  if (interactive) {
+    console.log("interactive");
+  }
+
   // JSX
   return (
     <div
