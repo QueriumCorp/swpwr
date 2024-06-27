@@ -1,5 +1,7 @@
 import React, { Ref, forwardRef, useImperativeHandle, useRef } from "react";
 import z from "zod";
+import { useStore } from "zustand";
+
 // Note: putting the lint recommended '?inline' in the fonts.css import will break it
 // import mathliveStyle from "mathlive/fonts.css";
 import "mathlive/fonts.css";
@@ -55,24 +57,6 @@ export const StepWise = forwardRef(
 
     const { student, problem, server, assistant } = props;
 
-    useImperativeHandle(
-      ref,
-      () => {
-        return {
-          start(sessionToken, identifiers, operators) {
-            console.log(
-              "STARTING StepWise @ ",
-              new Date().toLocaleTimeString(),
-            );
-            console.info(sessionToken);
-            console.info(identifiers);
-            console.info(operators);
-          },
-        };
-      },
-      [],
-    );
-
     // ready/set/go lets the developer start swReact in icon, preview or started state
     const initialState = props?.ready
       ? "GO"
@@ -81,9 +65,6 @@ export const StepWise = forwardRef(
         : props?.go
           ? "READY"
           : "READY";
-
-    // This forces the font import to execute in dev mode. May be unnecessary in prod
-    // const fonts = mathliveStyle;
 
     // Setup Session Store
     const storeRef = useRef<SessionStore | null>(null);
@@ -96,11 +77,30 @@ export const StepWise = forwardRef(
         assistant,
       );
     }
+    const session = React.useContext(SessionContext);
+    if (!session) throw new Error("No SessionContext.Provider in the tree");
+
+    const startSession = useStore(session, (s) => s.startSession);
+
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          start(sessionToken, identifiers, operators) {
+            startSession();
+          },
+        };
+      },
+      [],
+    );
+
+    // This forces the font import to execute in dev mode. May be unnecessary in prod
+    // const fonts = mathliveStyle;
 
     // JSX
     return (
       <SessionContext.Provider value={storeRef.current}>
-        <ActiveSession className={props.className} />
+        <ActiveSession className={props?.className} />
       </SessionContext.Provider>
     );
   },

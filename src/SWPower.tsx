@@ -43,7 +43,15 @@ const StepWisePower = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & StepWisePowerProps
 >((props, _ref) => {
-  const ybr = YellowBrickRoad;
+  let ybr;
+
+  if (props.options?.rank) {
+    ybr = YellowBrickRoad.filter((page) => {
+      return page.rank == props.options!.rank;
+    });
+  } else {
+    ybr = YellowBrickRoad;
+  }
 
   // State
   const [api, setApi] = useState<CarouselApi>();

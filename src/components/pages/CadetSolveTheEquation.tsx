@@ -11,7 +11,6 @@ import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
-import { type ProblemSchema } from "../StepWise/stores/problem";
 import { StepWiseHandle } from "../StepWise/StepWise/StepWise";
 import { Button } from "../ui/button";
 
@@ -26,10 +25,20 @@ const CadetSolveTheEquation: React.FC<{
   const stepwiseRef = React.useRef<StepWiseHandle>(null);
 
   // Store
-  const { problem, student, session } = useProblemStore();
+  const { problem, student, session, swapiUrl } = useProblemStore();
 
   // Prepare problem data to work with StepWise
-  let swProblem = {
+  type swProblemType = {
+    appKey: string;
+    problemId: string;
+    title?: string;
+    stimulus?: string;
+    topic: string;
+    definition: string;
+    policyId?: string;
+    hints: string[];
+  };
+  let swProblem: swProblemType = {
     appKey: problem.appKey,
     problemId: problem.problemId ? problem.problemId : "",
     title: problem.title,
@@ -81,6 +90,7 @@ const CadetSolveTheEquation: React.FC<{
               stimulus: "Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book."
               title: "Solve compound linear inequalities in 1 variable"
               */
+              server={{ serverURL: swapiUrl }}
               problem={swProblem}
               student={student}
             />

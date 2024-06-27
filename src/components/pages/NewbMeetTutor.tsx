@@ -34,7 +34,7 @@ const NewbMeetTutor: React.FC<{
   // Side Effects
   React.useEffect(() => {
     logAction("NewbMeetTutor : Entered Application");
-    heartbeat();
+    setTimeout(() => heartbeat(), 1000);
   }, []);
 
   // Handlers

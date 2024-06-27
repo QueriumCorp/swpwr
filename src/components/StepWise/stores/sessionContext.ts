@@ -136,26 +136,23 @@ export const createSessionStore = (
           const hints = get().hints;
 
           try {
-            response = await fetch(
-              "https://qq-stepwise-api.querium.com/start",
-              {
-                method: "POST",
-                headers: {
-                  "content-type": "application/json;charset=UTF-8",
-                },
-                body: JSON.stringify({
-                  appKey: appKey,
-                  studentId: studentId,
-                  policyId: policyId,
-                  id: id,
-                  title: title,
-                  stimulus: stimulus,
-                  topic: topic,
-                  definition: definition,
-                  hints: hints,
-                }),
+            response = await fetch(`${server.serverURL}/start`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json;charset=UTF-8",
               },
-            );
+              body: JSON.stringify({
+                appKey: appKey,
+                studentId: studentId,
+                policyId: policyId,
+                id: id,
+                title: title,
+                stimulus: stimulus,
+                topic: topic,
+                definition: definition,
+                hints: hints,
+              }),
+            });
           } catch (error) {
             logEntry.response = extractErrorMsg(error);
           }
@@ -219,19 +216,16 @@ export const createSessionStore = (
           }
 
           try {
-            response = await fetch(
-              "https://qq-stepwise-api.querium.com/getHint",
-              {
-                method: "POST",
-                headers: {
-                  "content-type": "application/json;charset=UTF-8",
-                },
-                body: JSON.stringify({
-                  appKey: appKey,
-                  sessionToken: existingSessionToken,
-                }),
+            response = await fetch(`${server.serverURL}/getHint`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json;charset=UTF-8",
               },
-            );
+              body: JSON.stringify({
+                appKey: appKey,
+                sessionToken: existingSessionToken,
+              }),
+            });
           } catch (error) {
             logEntry.response = extractErrorMsg(error);
           }
@@ -301,19 +295,16 @@ export const createSessionStore = (
           }
 
           try {
-            response = await fetch(
-              "https://qq-stepwise-api.querium.com/showMe",
-              {
-                method: "POST",
-                headers: {
-                  "content-type": "application/json;charset=UTF-8",
-                },
-                body: JSON.stringify({
-                  appKey: appKey,
-                  sessionToken: existingSessionToken,
-                }),
+            response = await fetch(`${server.serverURL}/showMe`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json;charset=UTF-8",
               },
-            );
+              body: JSON.stringify({
+                appKey: appKey,
+                sessionToken: existingSessionToken,
+              }),
+            });
           } catch (error) {
             logEntry.response = extractErrorMsg(error);
           }
@@ -391,19 +382,16 @@ export const createSessionStore = (
           }
 
           try {
-            response = await fetch(
-              "https://qq-stepwise-api.querium.com/close",
-              {
-                method: "POST",
-                headers: {
-                  "content-type": "application/json;charset=UTF-8",
-                },
-                body: JSON.stringify({
-                  appKey: appKey,
-                  sessionToken: existingSessionToken,
-                }),
+            response = await fetch(`${server.serverURL}/close`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json;charset=UTF-8",
               },
-            );
+              body: JSON.stringify({
+                appKey: appKey,
+                sessionToken: existingSessionToken,
+              }),
+            });
           } catch (error) {
             logEntry.response = error as string;
           }
@@ -449,23 +437,20 @@ export const createSessionStore = (
           }
 
           try {
-            response = await fetch(
-              "https://qq-stepwise-api.querium.com/submitStep",
-              {
-                method: "POST",
-                headers: {
-                  "content-type": "application/json;charset=UTF-8",
-                },
-                body: JSON.stringify({
-                  appKey: appKey,
-                  sessionToken: existingSessionToken,
-                  step: `\\begin{{equation}}${step.replace(
-                    "=",
-                    "&#63449;",
-                  )}\\end{{equation}}`,
-                }),
+            response = await fetch(`${server.serverURL}/submitStep`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json;charset=UTF-8",
               },
-            );
+              body: JSON.stringify({
+                appKey: appKey,
+                sessionToken: existingSessionToken,
+                step: `\\begin{{equation}}${step.replace(
+                  "=",
+                  "&#63449;",
+                )}\\end{{equation}}`,
+              }),
+            });
           } catch (error) {
             logEntry.response = extractErrorMsg(error);
           }
@@ -524,9 +509,7 @@ export const createSessionStore = (
           };
 
           try {
-            response = await fetch(
-              "https://qq-stepwise-api.querium.com/getGrade",
-            );
+            response = await fetch(`${server.serverURL}/getGrade`);
           } catch (error) {
             logEntry.response = error as string;
           }
@@ -554,19 +537,16 @@ export const createSessionStore = (
           };
 
           try {
-            response = await fetch(
-              "https://qq-stepwise-api.querium.com/precomputeHints",
-              {
-                method: "POST",
-                headers: {
-                  "content-type": "application/json;charset=UTF-8",
-                },
-                body: JSON.stringify({
-                  appKey: appKey,
-                  sessionToken: existingSessionToken,
-                }),
+            response = await fetch(`${server.serverURL}/precomputeHints`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json;charset=UTF-8",
               },
-            );
+              body: JSON.stringify({
+                appKey: appKey,
+                sessionToken: existingSessionToken,
+              }),
+            });
           } catch (error) {
             logEntry.response = error as string;
           }
@@ -596,9 +576,7 @@ export const createSessionStore = (
           };
 
           try {
-            response = await fetch(
-              "https://qq-stepwise-api.querium.com/saveTrace",
-            );
+            response = await fetch(`${server.serverURL}/saveTrace`);
           } catch (error) {
             logEntry.response = error as string;
           }
@@ -631,20 +609,17 @@ export const createSessionStore = (
           };
 
           try {
-            response = await fetch(
-              "https://qq-stepwise-api.querium.com/submitComment",
-              {
-                method: "POST",
-                headers: {
-                  "content-type": "application/json;charset=UTF-8",
-                },
-                body: JSON.stringify({
-                  appKey: appKey,
-                  sessionToken: existingSessionToken,
-                  comment: comment,
-                }),
+            response = await fetch(`${server.serverURL}/submitComment`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json;charset=UTF-8",
               },
-            );
+              body: JSON.stringify({
+                appKey: appKey,
+                sessionToken: existingSessionToken,
+                comment: comment,
+              }),
+            });
           } catch (error) {
             logEntry.response = error as string;
           }
@@ -673,9 +648,7 @@ export const createSessionStore = (
           };
 
           try {
-            response = await fetch(
-              "https://qq-stepwise-api.querium.com//assessSolution/",
-            );
+            response = await fetch(`${server.serverURL}/assessSolution/`);
           } catch (error) {
             logEntry.response = error as string;
           }

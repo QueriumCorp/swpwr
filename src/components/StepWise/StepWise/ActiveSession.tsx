@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Ref, forwardRef, useContext, useImperativeHandle } from "react";
 import { SessionContext } from "../stores/sessionContext";
 import { useStore } from "zustand";
 
@@ -12,15 +12,31 @@ import { Slab } from "react-loading-indicators";
 import { ReadyIndicator } from "./ReadyIndicator";
 import { SetIndicator } from "./SetIndicator";
 
-export const ActiveSession = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, children }, _ref) => {
-  console.log(
-    "Winry! RENDERING ActiveSession @ ",
-    new Date().toLocaleTimeString(),
+export type ActiveSessionProps = {
+  className?: string;
+  children?: React.ReactNode;
+};
+export type ActiveSessionHandle = {
+  start: () => void;
+};
+
+export const ActiveSession = forwardRef<
+  ActiveSessionHandle,
+  ActiveSessionProps
+>(({ className, children }, ref) => {
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        start() {
+          console.info("start() called on ActiveSession");
+        },
+      };
+    },
+    [],
   );
-  const session = React.useContext(SessionContext);
+
+  const session = useContext(SessionContext);
   if (!session) throw new Error("No SessionContext.Provider in the tree");
 
   const sessionInitialState = useStore(session, (s) => s.initialState);
