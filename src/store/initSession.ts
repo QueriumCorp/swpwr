@@ -42,7 +42,9 @@ const initSession = async (set: SetFn, get: GetFn) => {
       operators: data.operators,
     },
   }));
-  get().logAction(`initSession: ${response.status} ${JSON.stringify(data)}`);
+  get().logAction(
+    `initSession: ${response.status} ${JSON.stringify(data, null, 2)}`,
+  );
 };
 
 export default initSession;

@@ -1,5 +1,5 @@
 export type YBRpage = {
-  rank: "newb" | "cadet" | "learner" | "ranger";
+  rank: "dev" | "newb" | "cadet" | "learner" | "ranger";
   id: string;
   title: string;
   phase: "I" | "P" | "O" | "W" | "E" | "R";
@@ -7,6 +7,28 @@ export type YBRpage = {
 };
 
 export const YellowBrickRoad: YBRpage[] = [
+  {
+    rank: "dev",
+    id: "GratzFoundTutor",
+    title: "string",
+    phase: "I",
+    phaseLabel: "str",
+  },
+  {
+    rank: "dev",
+    id: "MeetTutor",
+    title: "string",
+    phase: "I",
+    phaseLabel: "str",
+  },
+  {
+    rank: "dev",
+    id: "SolveTheEquation",
+    title: "Solve the Equation",
+    phase: "W",
+    phaseLabel: "Work the Problem",
+  },
+
   {
     rank: "newb",
     id: "MeetTutor",
@@ -49,13 +71,6 @@ export const YellowBrickRoad: YBRpage[] = [
     phase: "P",
     phaseLabel: "str",
   },
-  // {
-  //   rank: "cadet",
-  //   id: "SolveTheEquation",
-  //   title: "Solve the Equation",
-  //   phase: "W",
-  //   phaseLabel: "Work the Problem",
-  // },
   {
     rank: "newb",
     id: "KnownFacts",

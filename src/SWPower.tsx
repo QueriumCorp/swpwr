@@ -143,7 +143,7 @@ const StepWisePower = forwardRef<
             </DrawerTrigger>
             <DrawerContent>
               <div className="mx-auto w-full h-[400px] relative">
-                <Tabs defaultValue="log" className="w-full h-full">
+                <Tabs defaultValue="log" className="w-full h-[95%]">
                   <TabsList className="w-full ">
                     <TabsTrigger value="log">Log</TabsTrigger>
                     <TabsTrigger value="store">Store</TabsTrigger>
@@ -161,15 +161,17 @@ const StepWisePower = forwardRef<
                                   key={index}
                                   className="table-row w-full p-2  border-b-2 border-b-slate-600"
                                 >
-                                  <div className="table-cell min-w-[100px]">
+                                  <div className="table-cell min-w-[100px] text-xs">
                                     {item.timestamp.toLocaleString("en-us", {
-                                      hour: "2-digit",
+                                      hour: "numeric",
                                       minute: "2-digit",
                                       second: "2-digit",
                                     })}
                                   </div>
                                   <div className="table-cell">
-                                    <p className="select-text">{item.action}</p>
+                                    <pre className="select-text text-xs">
+                                      {item.action}
+                                    </pre>
                                   </div>
                                 </div>
                               );
