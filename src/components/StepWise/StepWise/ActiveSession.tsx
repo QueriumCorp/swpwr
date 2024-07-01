@@ -11,6 +11,7 @@ import { cn } from "../utils";
 import { Slab } from "react-loading-indicators";
 import { ReadyIndicator } from "./ReadyIndicator";
 import { SetIndicator } from "./SetIndicator";
+import { Session } from "../stores/session";
 
 export type ActiveSessionProps = {
   className?: string;
@@ -18,22 +19,11 @@ export type ActiveSessionProps = {
 };
 export type ActiveSessionAPI = {
   start: () => void;
+  resume?: (session: Session) => void;
 };
 
 export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
   ({ className, children }, ref) => {
-    useImperativeHandle(
-      ref,
-      () => {
-        return {
-          start() {
-            console.info("start() called on ActiveSession");
-          },
-        };
-      },
-      [],
-    );
-
     const session = useContext(SessionContext);
     if (!session) throw new Error("No SessionContext.Provider in the tree");
 
@@ -62,6 +52,26 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
     const handleCloseClick = () => {
       close();
     };
+
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          start() {
+            console.info("start() called on ActiveSession");
+          },
+          resume(session: Session) {
+            console.info("resume() called on ActiveSession", session);
+          },
+        };
+      },
+      [],
+    );
+
+    //=============================================
+    // JSX
+    //=============================================
+
     // STARTING
     if (sessionToken === "starting") {
       return (

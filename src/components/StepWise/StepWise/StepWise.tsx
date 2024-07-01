@@ -9,6 +9,7 @@ import type { SessionStore } from "../stores/sessionContext";
 import { SessionContext, createSessionStore } from "../stores/sessionContext";
 import { Student } from "../stores/student";
 import { Problem } from "../stores/problem";
+import { Session } from "../stores/session";
 
 // Imports of Components
 import { ActiveSession, type ActiveSessionAPI } from "./ActiveSession";
@@ -27,6 +28,7 @@ export interface StepWiseProps {
 }
 export interface StepWiseAPI {
   start?: () => void;
+  resume?: (session: Session) => void;
 }
 
 //
@@ -41,6 +43,10 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
       return {
         start: () => {
           ActiveSessionRef.current?.start();
+        },
+        resume: (session: Session) => {
+          // @ts-ignore: TS seems to think the ✓ above doesnt exist
+          ActiveSessionRef.current!.resume(session);
         },
       };
     });

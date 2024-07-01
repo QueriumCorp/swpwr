@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useContext, useEffect } from "react";
+import { FC, ReactNode, useContext, useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
@@ -27,7 +27,10 @@ const DevMeetTutor: FC<{
   const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   // Store
-  const { logAction, heartbeat, initSession } = useProblemStore();
+  const { logAction, heartbeat, initSession, session } = useProblemStore();
+
+  // State
+  const [navDisabled, setNavDisabled] = useState(true);
 
   // Side Effects
   useEffect(() => {
@@ -35,6 +38,11 @@ const DevMeetTutor: FC<{
     initSession();
     setTimeout(() => heartbeat(), 1000);
   }, []);
+  useEffect(() => {
+    if (session.sessionToken.length > 0) {
+      setNavDisabled(false);
+    }
+  }, [session]);
 
   // Handlers
   function handleDance() {
@@ -98,6 +106,7 @@ The second taxicab number is $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$
         </CarouselPrevious>
         <CarouselNext
           className="relative right-0"
+          disabled={navDisabled}
           onClick={() => {
             logAction("DevMeetTutor : Clicked Next");
             api?.scrollNext();

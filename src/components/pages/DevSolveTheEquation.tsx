@@ -88,9 +88,9 @@ const DevSolveTheEquation: FC<{
             <Button
               onClick={() => {
                 if (stepwiseRef.current) {
-                  console.info("Starting StepWise");
+                  console.info("Starting StepWise", session);
                   // @ts-ignore: TS seems to think the ✓ above doesnt exist
-                  stepwiseRef.current.start();
+                  stepwiseRef.current.resume(session);
                 }
               }}
             >
