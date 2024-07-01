@@ -11,7 +11,7 @@ import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
-import { StepWiseHandle } from "../StepWise/StepWise/StepWise";
+import { StepWiseAPI } from "../StepWise/StepWise/StepWise";
 import { Button } from "../ui/button";
 
 const CadetSolveTheEquation: React.FC<{
@@ -22,7 +22,7 @@ const CadetSolveTheEquation: React.FC<{
 }> = ({ className, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
-  const stepwiseRef = React.useRef<StepWiseHandle>(null);
+  const stepwiseRef = React.useRef<StepWiseAPI>(null);
 
   // Store
   const { problem, student, session, swapiUrl } = useProblemStore();
@@ -95,13 +95,13 @@ const CadetSolveTheEquation: React.FC<{
               student={student}
             />
             <Button
-              onClick={() =>
-                stepwiseRef.current?.start(
-                  session.sessionToken,
-                  session.identifiers,
-                  session.operators,
-                )
-              }
+              onClick={() => {
+                if (stepwiseRef.current) {
+                  console.info("Starting StepWise");
+                  // @ts-ignore: TS seems to think the ✓ above doesnt exist
+                  stepwiseRef.current.start();
+                }
+              }}
             >
               Start
             </Button>
