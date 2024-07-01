@@ -11,7 +11,7 @@ import { Student } from "../stores/student";
 import { Problem } from "../stores/problem";
 
 // Imports of Components
-import { ActiveSession } from "./ActiveSession";
+import { ActiveSession, type ActiveSessionAPI } from "./ActiveSession";
 import { Server } from "../stores/server";
 
 // Definition of Types and Interfaces
@@ -36,16 +36,20 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
   ({ student, problem, assistant, server, className, ready, go }, ref) => {
     console.log("RENDERING StepWise @ ", new Date().toLocaleTimeString());
 
+    // Define component's API
     useImperativeHandle(ref, () => {
       return {
         start: () => {
-          console.info("StepWise.start() called");
+          ActiveSessionRef.current?.start();
         },
       };
     });
 
     // ready/set/go lets the developer start swReact in icon, preview or started state
     const initialState = ready ? "READY" : go ? "GO" : "GO";
+
+    // Refs
+    const ActiveSessionRef = useRef<ActiveSessionAPI>(null);
 
     // This forces the font import to execute in dev mode. May be unnecessary in prod
     // const fonts = mathliveStyle;
@@ -65,7 +69,7 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
     // Active Session
     return (
       <SessionContext.Provider value={storeRef.current}>
-        <ActiveSession className={className} />
+        <ActiveSession ref={ActiveSessionRef} className={className} />
       </SessionContext.Provider>
     );
   },
