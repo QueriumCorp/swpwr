@@ -81,16 +81,6 @@ const DevSolveTheEquation: FC<{
               ready
               ref={stepwiseRef}
               className="h-full w-full"
-              /*
-              appKey: "JiraTestPage"
-              class: "gradeBasicAlgebra"
-              hints: []
-              policyId: "$A1$"
-              problemId: "QUES6018"
-              question: "SolveWordProblemAns[{\"Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book.\"}]"
-              stimulus: "Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book."
-              title: "Solve compound linear inequalities in 1 variable"
-              */
               server={{ serverURL: swapiUrl }}
               problem={swProblem}
               student={student}
@@ -99,6 +89,7 @@ const DevSolveTheEquation: FC<{
               onClick={() => {
                 if (stepwiseRef.current) {
                   console.info("Starting StepWise");
+                  // @ts-ignore: TS seems to think the ✓ above doesnt exist
                   stepwiseRef.current.start();
                 }
               }}
