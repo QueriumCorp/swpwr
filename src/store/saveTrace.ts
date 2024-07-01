@@ -9,7 +9,7 @@ const saveTrace = async (_set: SetFn, get: GetFn, comment: string) => {
     sessionToken: session.sessionToken,
     comment: comment,
   };
-  const response = await fetch(get().swapiUrl + "/close/", {
+  const response = await fetch(get().swapiUrl + "/saveTrace/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

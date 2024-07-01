@@ -26,6 +26,18 @@ const initSession = async (set: SetFn, get: GetFn) => {
     hints: theHints,
   };
 
+  // Abort if Hot Module Reload (HMR) wipes the store
+  if (
+    !theProblem.appKey ||
+    !theProblem.studentId ||
+    !theProblem.id ||
+    !theProblem.definition ||
+    !theProblem.topic
+  ) {
+    console.error("Missing required fields in problem: ", theProblem);
+    return;
+  }
+
   const response = await fetch(get().swapiUrl + "/start/", {
     method: "POST",
     headers: {

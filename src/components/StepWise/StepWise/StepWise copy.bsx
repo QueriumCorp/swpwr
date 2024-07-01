@@ -1,0 +1,105 @@
+import React, { Ref, forwardRef, useImperativeHandle, useRef } from "react";
+import { useStore } from "zustand";
+
+// Note: putting the lint recommended '?inline' in the fonts.css import will break it
+// import mathliveStyle from "mathlive/fonts.css";
+import "mathlive/fonts.css";
+
+// Imports for SessionContext
+import type { SessionStore } from "../stores/sessionContext";
+import { SessionContext, createSessionStore } from "../stores/sessionContext";
+import { Problem } from "../stores/problem";
+import { Student } from "../stores/student";
+import { Server } from "../stores/server";
+
+// Imports of Components
+// import { ErrorDisplay } from "./ErrorDisplay";
+import { ActiveSession } from "./ActiveSession";
+
+export type SessionType = {
+  sessionToken?: string;
+  identifiers?: string[];
+  operators?: string[];
+};
+
+type StepWiseProps = {
+  problem?: Problem;
+  student?: Student;
+  session?: SessionType;
+  serverUrl?: string;
+  ready?: boolean;
+  set?: boolean;
+  go?: boolean;
+  assistant?: (msg: string) => void;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+  className?: string;
+};
+
+export type StepWiseHandle = {
+  start: (session: SessionType) => void;
+};
+
+export const StepWise = forwardRef<StepWiseHandle, StepWiseProps>(
+  (props: StepWiseProps, ref: Ref<StepWiseHandle>) => {
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          start(
+            sessionToken: string,
+            identifiers: string[],
+            operators: string[],
+          ) {
+            console.info("startSession", sessionToken, identifiers, operators);
+            // startSession(sessionToken, identifiers, operators);
+          },
+        };
+      },
+      [],
+    );
+
+    const { student, problem, serverUrl, assistant } = props;
+
+    const server: Server = {
+      serverURL: serverUrl,
+    };
+
+    // ready/set/go lets the developer start swReact in icon, preview or started state
+    const initialState = props?.ready
+      ? "GO"
+      : props?.set
+        ? "SET"
+        : props?.go
+          ? "READY"
+          : "READY";
+
+    // Setup Session Store
+    const storeRef = useRef<SessionStore | null>(null);
+    if (!storeRef.current) {
+      storeRef.current = createSessionStore(
+        initialState,
+        student,
+        problem,
+        server,
+        assistant,
+      );
+    }
+    const session = React.useContext(SessionContext);
+    if (!session) throw new Error("No SessionContext.Provider in the tree");
+
+    const startSession = useStore(session, (s) => s.startSession);
+
+    // This forces the font import to execute in dev mode. May be unnecessary in prod
+    // const fonts = mathliveStyle;
+
+    // JSX
+    return (
+      <SessionContext.Provider value={storeRef.current}>
+        <ActiveSession className={props?.className} />
+      </SessionContext.Provider>
+    );
+  },
+);
+
+export default StepWise;

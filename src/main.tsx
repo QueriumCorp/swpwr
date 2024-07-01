@@ -13,9 +13,9 @@ console.info("SWAPI URL", swapiUrl);
 
 const problem = {
   appKey: "JiraTestPage",
-  policyId: "$A1$",
+  policyId: "$A9$",
   problemId: "QUES6018",
-  title: "Solve compound linear inequalities in 1 variable",
+  title: "Sticker Book Cost",
   stimulus:
     "Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book.",
   class: "gradeBasicAlgebra",

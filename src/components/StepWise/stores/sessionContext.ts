@@ -50,17 +50,24 @@ import { prepareOperators } from "../utils/prepareOperators";
 export type SessionStore = ReturnType<typeof createSessionStore>;
 
 export const createSessionStore = (
-  initialState: "READY" | "SET" | "GO",
-  student: Student,
-  problem: Problem,
+  initialState?: "READY" | "SET" | "GO",
+  student?: Student,
+  problem?: Problem,
   server?: Server,
   assistant?: (msg: string) => void,
 ) => {
   console.info("CREATE SESSION STORE");
   console.info("Initial state:", initialState);
+
+  initialState = initialState || "GO";
+
   // Validate incoming props
-  const problemStatus: ProblemStatus = validateProblem(problem);
-  const studentStatus: StudentStatus = validateStudent(student);
+  const problemStatus: ProblemStatus = problem
+    ? validateProblem(problem)
+    : { problemValid: false, problemStatusMsg: "problem is undefined" };
+  const studentStatus: StudentStatus = student
+    ? validateStudent(student)
+    : { studentValid: false, studentStatusMsg: "student is undefined" };
   server = validateServer(server);
 
   type State = Student & Problem & Server & SolutionState & SolutionActions;

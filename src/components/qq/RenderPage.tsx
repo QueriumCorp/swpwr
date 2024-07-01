@@ -31,9 +31,20 @@ import RangerSolveTheEquation from "../pages/RangerSolveTheEquation";
 import RangerSolvedFor from "../pages/RangerSolvedFor";
 import RangerWhatToAnswer from "../pages/RangerWhatToAnswer";
 import { YBRpage } from "./YellowBrickRoad";
+import NewbSolveTheEquation from "../pages/NewbSolveTheEquation";
+import DevMeetTutor from "../pages/DevMeetTutor";
+import DevSolveTheEquation from "../pages/DevSolveTheEquation";
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ":" + page.id) {
+    // DEV
+    case "dev:MeetTutor":
+      return <DevMeetTutor page={page} index={index}></DevMeetTutor>;
+    case "dev:SolveTheEquation":
+      return (
+        <DevSolveTheEquation page={page} index={index}></DevSolveTheEquation>
+      );
+
     // NEWB
     case "newb:MeetTutor":
       return <NewbMeetTutor page={page} index={index}></NewbMeetTutor>;
@@ -62,6 +73,10 @@ export function renderPage(page: YBRpage, index: number) {
       );
     case "newb:NewbProblemType":
       return <NewbProblemType page={page} index={index}></NewbProblemType>;
+    case "newb:SolveTheEquation":
+      return (
+        <NewbSolveTheEquation page={page} index={index}></NewbSolveTheEquation>
+      );
 
     // CADET
     case "cadet:ReadProblem":
