@@ -145,11 +145,22 @@ const StepWisePower = forwardRef<
               <div className="mx-auto w-full h-[400px] relative">
                 <Tabs defaultValue="log" className="w-full h-[95%]">
                   <TabsList className="w-full ">
+                    <TabsTrigger value="props">Props</TabsTrigger>
                     <TabsTrigger value="log">Log</TabsTrigger>
                     <TabsTrigger value="store">Store</TabsTrigger>
+                    <TabsTrigger value="ybr">YBR</TabsTrigger>
                     <TabsTrigger value="cmds">Commands</TabsTrigger>
                     <TabsTrigger value="errors">Errors</TabsTrigger>
                   </TabsList>
+                  {/* Props */}
+                  <TabsContent value="props" className="w-full h-[90%]">
+                    <div className="p-4 pb-0 w-full h-full">
+                      <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
+                        <pre>{JSON.stringify(props, null, 2)}</pre>
+                      </div>
+                    </div>
+                  </TabsContent>
+                  {/* Log */}
                   <TabsContent value="log" className="w-full h-[90%]">
                     <div className="p-4 pb-0 w-full h-full">
                       <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
@@ -202,6 +213,14 @@ const StepWisePower = forwardRef<
                         <pre className="font-mono text-xs select-text">
                           {JSON.stringify(session, null, 2)}
                         </pre>
+                      </div>
+                    </div>
+                  </TabsContent>
+                  {/* YellowBrickRoad */}
+                  <TabsContent value="ybr" className="w-full h-[90%]">
+                    <div className="p-4 pb-0 w-full h-full">
+                      <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
+                        <pre>{JSON.stringify(ybr, null, 2)}</pre>
                       </div>
                     </div>
                   </TabsContent>
