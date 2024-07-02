@@ -42,6 +42,7 @@ import {
 import { heartbeatAction } from "./solutionActions/heartbeat";
 import { MathMLToLaTeX } from "mathml-to-latex";
 import { prepareOperators } from "../utils/prepareOperators";
+import { Session } from "./session";
 
 // ============================================================================
 // STORE DEFINITION
@@ -87,7 +88,9 @@ export const createSessionStore = (
         ...studentStatus,
         initialState,
 
+        //=====================================================
         // HEARTBEAT
+        //=====================================================
         heartbeat: async () => {
           const newLogEntry = await heartbeatAction();
           set((state) => ({
@@ -95,7 +98,9 @@ export const createSessionStore = (
           }));
         },
 
+        //=====================================================
         // START SESSION
+        //=====================================================
         startSession: async () => {
           if (
             problemStatus.problemValid === false ||
@@ -196,7 +201,56 @@ export const createSessionStore = (
           }));
         },
 
+        //=====================================================
+        // RESUME SESSION
+        //=====================================================
+        resumeSession: async (session: Session) => {
+          let logEntry: Log = {
+            timestamp: Date.now(),
+            action: "resumeSession",
+            response: "",
+          };
+
+          if (
+            problemStatus.problemValid === false ||
+            studentStatus.studentValid === false
+          ) {
+            console.error("Invalid problem or student");
+            logEntry.response = `Trying to resume Session but problem or student is invalid.`;
+            set((state) => ({
+              log: [...state.log, logEntry],
+            }));
+            return;
+          }
+          if (
+            !session ||
+            !session.sessionToken ||
+            session.sessionToken.length < 20
+          ) {
+            console.error("Invalid problem or student");
+            logEntry.response = `Provided sessionToken is invalid ${session?.sessionToken}`;
+            set((state) => ({
+              log: [...state.log, logEntry],
+            }));
+            return;
+          }
+
+          logEntry.response = `Session resumed for sessionToken: ${session?.sessionToken}`;
+
+          const preppedOperators = prepareOperators(session.operators);
+          set((state) => ({
+            sessionToken: session.sessionToken,
+            identifiers: session.identifiers,
+            operators: preppedOperators,
+            log: [...state.log, logEntry],
+            steps: [],
+          }));
+          return;
+        },
+
+        //=====================================================
         // GET HINT
+        //=====================================================
         getHint: async () => {
           const appKey = get().appKey;
 
@@ -274,7 +328,9 @@ export const createSessionStore = (
           }));
         },
 
+        //=====================================================
         // SHOW ME
+        //=====================================================
         showMe: async () => {
           const now = Date.now();
           const appKey = get().appKey;
@@ -363,7 +419,9 @@ export const createSessionStore = (
           }));
         },
 
+        //=====================================================
         // CLOSE SESSION
+        //=====================================================
         close: async () => {
           console.error("closeSessionAction has not been tested");
           const appKey = get().appKey;
@@ -415,7 +473,9 @@ export const createSessionStore = (
           }));
         },
 
+        //=====================================================
         // SUBMIT STEP
+        //=====================================================
         submitStep: async (step: string) => {
           console.info("Submitting step:", step);
           const appKey = get().appKey;
@@ -506,7 +566,9 @@ export const createSessionStore = (
           }
         },
 
+        //=====================================================
         // GET GRADE
+        //=====================================================
         getGrade: async () => {
           let response;
           const logEntry: Log = {
@@ -570,7 +632,9 @@ export const createSessionStore = (
           }));
         },
 
+        //=====================================================
         // SAVE TRACE
+        //=====================================================
         saveTrace: async () => {
           // TODO: Need to add the comment payload
           console.error("saveTraceAction needs work");
@@ -600,7 +664,9 @@ export const createSessionStore = (
           }));
         },
 
+        //=====================================================
         // ADD COMMENT
+        //=====================================================
         addComment: async (comment: string) => {
           // TODO: Fix add comment
           console.error("addCommentAction needs work");
@@ -643,7 +709,9 @@ export const createSessionStore = (
           }));
         },
 
+        //=====================================================
         // ASSESS SOLUTION
+        //=====================================================
         assessSolution: async () => {
           // TODO: Need to add the proposed solution payload
           console.error("assessSolutionAction needs work");

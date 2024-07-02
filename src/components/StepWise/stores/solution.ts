@@ -1,7 +1,6 @@
 import { z } from "zod";
-// import { useStudentStore } from "./student";
-// import { useProblemStore } from "./problem";
 import { MathMLToLaTeX } from "mathml-to-latex";
+import { Session } from "./session";
 
 export type Hint = {
   type: "advisory" | "genhint" | "writedown";
@@ -157,6 +156,7 @@ export const SolutionSchema = z.object({
 export type SolutionActions = {
   heartbeat: () => Promise<void>;
   startSession: () => Promise<void>;
+  resumeSession: (session: Session) => Promise<void>;
   getHint: () => Promise<void>;
   showMe: () => Promise<void>;
   submitStep: (step: string) => Promise<void>;
@@ -214,7 +214,7 @@ export function getHintMessage(text: string): string {
 
   const endIndex = text.indexOf(
     endDelimiter,
-    startIndex + startDelimiter.length
+    startIndex + startDelimiter.length,
   );
   if (endIndex === -1) {
     return "";
@@ -234,7 +234,7 @@ export function getIncorrectStepMessage(text: string): string {
 
   const endIndex = text.indexOf(
     endDelimiter,
-    startIndex + startDelimiter.length
+    startIndex + startDelimiter.length,
   );
   if (endIndex === -1) {
     return "";

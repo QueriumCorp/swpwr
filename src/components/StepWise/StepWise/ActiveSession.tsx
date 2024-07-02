@@ -31,6 +31,9 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
     const problemLatex = useStore(session, (s) => s.latex);
     const sessionToken = useStore(session, (s) => s.sessionToken);
 
+    // State
+    const resumeSession = useStore(session, (s) => s.resumeSession);
+
     // Solution Commands for TESTING
     const startSession = useStore(session, (s) => s.startSession);
     const handleStartSessionClick = () => {
@@ -62,6 +65,7 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
           },
           resume(session: Session) {
             console.info("resume() called on ActiveSession", session);
+            resumeSession(session);
           },
         };
       },
