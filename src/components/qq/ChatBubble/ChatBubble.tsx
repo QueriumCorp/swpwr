@@ -55,15 +55,12 @@ export const ChatBubble = ({
   }, []);
 
   function handleShowMeMore() {
-    console.info("Show me more clicked");
     api?.scrollNext();
   }
   function handleStartOver() {
-    console.info("Show me more clicked");
     api?.scrollTo(0);
   }
   function NavButton() {
-    console.info("Show me more clicked", current, count);
     if (current === count) {
       return (
         <button className="border-none text-xs" onClick={handleStartOver}>
