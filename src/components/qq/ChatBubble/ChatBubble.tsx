@@ -64,7 +64,7 @@ export const ChatBubble = ({
     if (current === count) {
       return (
         <button className="border-none text-xs" onClick={handleStartOver}>
-          Start over
+          Say again
         </button>
       );
     }
