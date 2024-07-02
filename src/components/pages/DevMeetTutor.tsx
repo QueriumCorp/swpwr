@@ -7,7 +7,6 @@ import { type YBRpage } from "../qq/YellowBrickRoad";
 import {
   AnimeTutor,
   AvatarAPIType,
-  Chat,
   useAvatarAPI,
 } from "@/components/AnimeTutor";
 import { NavContext, NavContextType } from "@/NavContext";
@@ -15,6 +14,7 @@ import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
 import { Button } from "../ui/button";
+import { ChatBubble } from "../qq/ChatBubble/ChatBubble";
 
 const DevMeetTutor: FC<{
   className?: string;
@@ -70,25 +70,11 @@ const DevMeetTutor: FC<{
             // border: "1px solid #000000",
           }}
         />
-        <Chat
-          msg={`A paragraph with *emphasis* and **strong importance**.
-
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
-
-* Lists
-* [x] todo
-* [ ] done
-
-Math:
-\\\\($1729 = 10^3 + 9^3 = 12^3 + 1^3\\\\)
-
-A table:
-
-| a | b |
-| - | - |
-
-The second taxicab number is $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$
-`}
+        <ChatBubble
+          msg={[
+            "Howdy Ho! I'm Klatu, and I'm here to help you solve your math problems.",
+            "I'm here to help you solve your math problems.",
+          ]}
           className="font-irishGrover absolute right-[50%] bottom-[50%]"
         />
       </div>
