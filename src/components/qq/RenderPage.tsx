@@ -34,6 +34,7 @@ import { YBRpage } from "./YellowBrickRoad";
 import NewbSolveTheEquation from "../pages/NewbSolveTheEquation";
 import DevMeetTutor from "../pages/DevMeetTutor";
 import DevSolveTheEquation from "../pages/DevSolveTheEquation";
+import NewbVictory from "../pages/NewbVictory";
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ":" + page.id) {
@@ -73,10 +74,8 @@ export function renderPage(page: YBRpage, index: number) {
       );
     case "newb:NewbProblemType":
       return <NewbProblemType page={page} index={index}></NewbProblemType>;
-    case "newb:SolveTheEquation":
-      return (
-        <NewbSolveTheEquation page={page} index={index}></NewbSolveTheEquation>
-      );
+    case "newb:NewbVictory":
+      return <NewbVictory page={page} index={index}></NewbVictory>;
 
     // CADET
     case "cadet:ReadProblem":
