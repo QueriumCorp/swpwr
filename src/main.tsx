@@ -31,7 +31,7 @@ const student = {
 
 const options = {
   swapiUrl,
-  rank: import.meta.env.VITE_RANK,
+  rank: import.meta.env.VITE_RANK || "newb",
 };
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
