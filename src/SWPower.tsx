@@ -275,6 +275,13 @@ const StepWisePower = forwardRef<
               className="CarouselContent relative flex-grow pr-0 m-0"
               style={{ paddingRight: "0px" }}
             >
+              {ybr.length === 0 && (
+                <div className="flex items-center justify-center w-full h-full">
+                  <h1 className="text-2xl font-bold">
+                    Invalid Rank therefore No Data
+                  </h1>
+                </div>
+              )}
               {ybr.map((page, index) => (
                 <CarouselItem
                   key={page.rank + ":" + page.id}

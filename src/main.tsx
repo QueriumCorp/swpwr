@@ -29,9 +29,13 @@ const student = {
   studentName: "Loki Van Riper",
 };
 
+// get rank from url
+let params = new URLSearchParams(window.location.search);
+let urlRank = params.get("rank");
+
 const options = {
   swapiUrl,
-  rank: import.meta.env.VITE_RANK || "newb",
+  rank: urlRank || import.meta.env.VITE_RANK || "newb",
 };
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
