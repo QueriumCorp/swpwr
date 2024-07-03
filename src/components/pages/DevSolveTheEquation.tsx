@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useContext, useRef } from "react";
+import { FC, ReactNode, useContext, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { StepWise } from "@/components/StepWise";
@@ -26,6 +26,9 @@ const DevSolveTheEquation: FC<{
 
   // Store
   const { problem, student, session, swapiUrl } = useProblemStore();
+
+  // State
+  const [working, setWorking] = useState(false);
 
   // Prepare problem data to work with StepWise
   type swProblemType = {
@@ -74,27 +77,36 @@ const DevSolveTheEquation: FC<{
           <HdrBar
             highlightLetter="W"
             subTitle="Work"
-            instructions="Test StepWise"
+            instructions="Solve the Equation"
           ></HdrBar>
-          <div className="grow">
-            <StepWise
-              ready
-              ref={stepwiseRef}
-              className="h-full w-full"
-              server={{ serverURL: swapiUrl }}
-              problem={swProblem}
-              student={student}
-            />
+          <div className="grow flex flex-col justify-center items-center">
+            <div
+              className={cn(
+                "h-full w-full",
+                working ? "inline-block" : "hidden",
+              )}
+            >
+              <StepWise
+                ready
+                ref={stepwiseRef}
+                className={"h-full w-full"}
+                server={{ serverURL: swapiUrl }}
+                problem={swProblem}
+                student={student}
+              />
+            </div>
             <Button
+              className={cn("w-full", working ? "hidden" : "bg-orange-500")}
               onClick={() => {
                 if (stepwiseRef.current) {
                   console.info("Starting StepWise", session);
+                  setWorking(true);
                   // @ts-ignore: TS seems to think the ✓ above doesnt exist
                   stepwiseRef.current.resume(session);
                 }
               }}
             >
-              Start
+              Let's Do This!
             </Button>
           </div>
         </div>
