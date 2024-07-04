@@ -25,7 +25,10 @@ export const Key = React.forwardRef<
         }`,
         className,
       )}
-      onClick={() => keyPress(operator)}
+      onClick={(e) => {
+        e.preventDefault();
+        keyPress(operator);
+      }}
     >
       {renderKeyCap(operator)}
     </Button>

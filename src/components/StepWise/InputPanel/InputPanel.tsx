@@ -61,29 +61,29 @@ const InputPanel = () => {
   // setup event handlers
   const handleKeyPress = (operator: Operator) => {
     console.info("handleKeyPress", operator);
-    // mf.current?.executeCommand(["insert", key]);
-    setSelectedOperator(operator);
+    let cmd;
+    switch (operator.method) {
+      case "char":
+        mf.current?.executeCommand(["insert", operator.latex]);
+        break;
+      case "identifier":
+        cmd = operator.operator;
+        break;
+      case "cmd":
+        mf.current?.executeCommand(operator.operator);
+        break;
+      case "enter":
+        if (mf.current) {
+          submitStep(mf.current.value);
+        }
+        break;
+      default:
+        break;
+    }
+    mf.current?.focus();
   };
 
-  const [selectedOperator, setSelectedOperator] = useState<Operator>({
-    method: "neuter",
-    cursorShift: "",
-    atomic: false,
-    enabled: false,
-    latex: "",
-    mma: "",
-    operator: ".",
-    string: "",
-    symbol_latex: "",
-    symbol_style: {},
-    symbol_html: "",
-    symbol_icon: "",
-    symbol_img: "",
-    symbol_svg: "",
-    symbol_utf8: ".",
-    tooltip: "",
-  });
-
+  // JSX
   return (
     <>
       <div className="w-full flex items-center rounded-full bg-slate-300 py-2">

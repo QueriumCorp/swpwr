@@ -6,7 +6,7 @@ export const operators = [
     enabled: false,
     latex: "(",
     mma: "",
-    operator: "Parens",
+    operator: ["insert", "(#0)"],
     string: "(a)",
     symbol_latex: "\\left(\\placeholder[foo]{}\\right)",
     symbol_style: { background: "none", fontSize: ".6rem" },
