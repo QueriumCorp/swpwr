@@ -74,13 +74,13 @@ const KeyboardNavigators = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement> & KeyboardNavigatorsProps
 >(({ className, keyPress }, ref) => {
   const left = {
-    method: "nav",
+    method: "cmd",
     cursorShift: "",
     atomic: false,
     enabled: false,
     latex: "",
     mma: "",
-    operator: "Left",
+    operator: "moveToPreviousChar",
     string: "",
     symbol_latex: "",
     symbol_style: { background: "none", fontSize: "1.5rem" },
@@ -92,13 +92,13 @@ const KeyboardNavigators = React.forwardRef<
     tooltip: "Cursor Left",
   };
   const right = {
-    method: "nav",
+    method: "cmd",
     cursorShift: "",
     atomic: false,
     enabled: false,
     latex: "",
     mma: "",
-    operator: "Right",
+    operator: "moveToNextChar",
     string: "",
     symbol_latex: "",
     symbol_style: { background: "none", fontSize: "1.5rem" },

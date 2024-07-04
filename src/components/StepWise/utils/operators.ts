@@ -162,7 +162,7 @@ export const operators = [
     tooltip: "Decimal",
   },
   {
-    method: "cmd",
+    method: "latex",
     cursorShift: "",
     atomic: false,
     enabled: false,
@@ -217,11 +217,11 @@ export const operators = [
     tooltip: "Square Root",
   },
   {
-    method: "cmd",
+    method: "latex",
     cursorShift: "",
     atomic: false,
     enabled: false,
-    latex: "^",
+    latex: "{}^{}",
     mma: "",
     operator: "SuperScript",
     string: "^",

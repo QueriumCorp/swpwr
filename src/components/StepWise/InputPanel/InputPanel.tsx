@@ -66,8 +66,15 @@ const InputPanel = () => {
       case "char":
         mf.current?.executeCommand(["insert", operator.latex]);
         break;
+      case "latex":
+        mf.current?.executeCommand([
+          "insert",
+          operator.latex,
+          { focus: true, selectionMode: "placeholder" },
+        ]);
+        break;
       case "identifier":
-        cmd = operator.operator;
+        mf.current?.executeCommand(["insert", operator.operator]);
         break;
       case "cmd":
         mf.current?.executeCommand(operator.operator);
