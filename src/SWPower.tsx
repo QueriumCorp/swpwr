@@ -27,6 +27,7 @@ import { useProblemStore } from "./store/_store";
 // ShadCN/UI Components
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
+import VoiceTester from "./components/qq/ChatBubble/VoiceTester";
 
 // Props
 const StepWisePowerProps = z.object({
@@ -59,7 +60,7 @@ const StepWisePower = forwardRef<
   const [closeMsg, setCloseMsg] = useState("");
   const [traceComment, setTraceComment] = useState("");
   const [traceMsg, setTraceMsg] = useState("");
-  const [enableDebugger, setEnableDebugger] = useState(false);
+  const [enableDebugger, setEnableDebugger] = useState(true);
   const [propError, setPropError] = useState("");
 
   // Store
@@ -143,7 +144,7 @@ const StepWisePower = forwardRef<
             </DrawerTrigger>
             <DrawerContent>
               <div className="mx-auto w-full h-[400px] relative">
-                <Tabs defaultValue="log" className="w-full h-[95%]">
+                <Tabs defaultValue="speech" className="w-full h-[95%]">
                   <TabsList className="w-full ">
                     <TabsTrigger value="props">Props</TabsTrigger>
                     <TabsTrigger value="log">Log</TabsTrigger>
@@ -151,6 +152,7 @@ const StepWisePower = forwardRef<
                     <TabsTrigger value="ybr">YBR</TabsTrigger>
                     <TabsTrigger value="cmds">Commands</TabsTrigger>
                     <TabsTrigger value="errors">Errors</TabsTrigger>
+                    <TabsTrigger value="speech">Speech</TabsTrigger>
                   </TabsList>
                   {/* Props */}
                   <TabsContent value="props" className="w-full h-[90%]">
@@ -260,6 +262,9 @@ const StepWisePower = forwardRef<
                       <h1>Errors</h1>
                       <div>{propError}</div>
                     </div>
+                  </TabsContent>
+                  <TabsContent value="speech" className="w-full h-[90%]">
+                    <VoiceTester />
                   </TabsContent>
                 </Tabs>
               </div>
