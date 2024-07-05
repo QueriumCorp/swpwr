@@ -1,12 +1,12 @@
 export const operators = [
   {
-    method: "cmd",
+    method: "latex",
     cursorShift: "",
     atomic: false,
     enabled: false,
-    latex: "(",
+    latex: "(#0)",
     mma: "",
-    operator: ["insert", "(#0)"],
+    operator: "Parens",
     string: "(a)",
     symbol_latex: "\\left(\\placeholder[foo]{}\\right)",
     symbol_style: { background: "none", fontSize: ".6rem" },

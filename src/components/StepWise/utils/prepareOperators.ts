@@ -34,6 +34,5 @@ export function prepareOperators(incomingOperators: string[]) {
     return errorOp;
   });
 
-  console.log(problemOperators);
   return problemOperators;
 }
