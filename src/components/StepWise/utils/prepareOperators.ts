@@ -31,6 +31,8 @@ export function prepareOperators(incomingOperators: string[]) {
       foundOp.operator = foundOp.operator.trim();
       return foundOp;
     }
+
+    errorOp.tooltip = JSON.stringify(op);
     return errorOp;
   });
 
