@@ -12,7 +12,7 @@ import Keyboard from "./Keyboard/Keyboard";
 
 import "./MathEditor.css";
 
-import type { MathfieldElement } from "mathlive";
+import type { MathfieldElement, Selector } from "mathlive";
 import { MathViewRef } from "../types/mathlive";
 import { Operator } from "../stores/solution";
 /* eslint-disable */
@@ -77,7 +77,7 @@ const InputPanel = () => {
         mf.current?.executeCommand(["insert", operator.operator]);
         break;
       case "cmd":
-        mf.current?.executeCommand(operator.operator);
+        mf.current?.executeCommand(operator.operator as Selector);
         break;
       case "enter":
         if (mf.current) {
