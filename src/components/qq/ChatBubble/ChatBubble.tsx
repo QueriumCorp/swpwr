@@ -90,19 +90,15 @@ export const ChatBubble = ({
 
   // Speak Button
   function handleSpeak() {
-    console.log(
-      "handleSpeak:",
-      makeVocalizable(typeof msg === "string" ? msg : msg[0]),
+    const msg2Vocalize = typeof msg === "string" ? msg : msg[0];
+    const utterance = new SpeechSynthesisUtterance(
+      makeVocalizable(msg2Vocalize),
     );
-    // const msg2Vocalize = typeof msg === "string" ? msg : msg[0];
-    // const utterance = new SpeechSynthesisUtterance(
-    //   makeVocalizable(msg2Vocalize),
-    // );
-    // utterance.lang = "en-US";
-    // utterance.rate = 1.2;
-    // utterance.pitch = 1;
-    // utterance.volume = 1;
-    // speechSynthesis.speak(utterance);
+    utterance.lang = "en-US";
+    utterance.rate = 1.2;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    speechSynthesis.speak(utterance);
   }
   function SpeakButton() {
     return (

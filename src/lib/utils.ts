@@ -27,7 +27,9 @@ export function makeVocalizable(text: string) {
       // LaTeX chunk
       let latexChunk = text.slice(start + 1, end);
       let firstChar = latexChunk.indexOf("(");
-      chunks.push(latexChunk.slice(firstChar + 1, end));
+      chunks.push(
+        convertLatexToSpeakableText(latexChunk.slice(firstChar + 1, end)),
+      );
       index = text.indexOf(")", end) + 1;
     } else {
       // trailing non-LaTeX chunk
@@ -48,7 +50,7 @@ export function makeVocalizable(text: string) {
       // non-LaTeX chunk
       chunks.push(inlined.slice(index, start));
       // LaTeX chunk
-      chunks.push(inlined.slice(start + 2, end));
+      chunks.push(convertLatexToSpeakableText(inlined.slice(start + 2, end)));
       index = end + 2;
     } else {
       // trailing non-LaTeX chunk
@@ -56,42 +58,8 @@ export function makeVocalizable(text: string) {
       break;
     }
   }
-  console.info(text);
-  console.table(chunks);
-  return text;
 
-  //   if (start !== -1 && end !== -1) {
-  //     chunks.push(text.slice(index, start));
-  //     chunks.push(text.slice(start + 1, end));
-  //     index = end + 1;
-  //   } else {
-  //     break;
-  //   }
-
-  // }
-
-  // let firstStart = text.indexOf("$$");
-  // let firstEnd = text.indexOf("$$", firstStart + 1);
-  // let firstPart = text.slice(0, firstStart);
-  // let firstMath = text.slice(firstStart + 1, firstEnd);
-  // let secondStart = text.indexOf("$$", firstEnd + 1);
-  // let secondEnd = text.indexOf("$$", secondStart + 1);
-  // let secondPart = text.slice(firstEnd + 1, secondStart);
-  // console.log("makeVocalizable", text);
-  // console.log("makeVocalizable", text, firstStart, firstEnd);
-  // console.log(
-  //   "firstPart",
-
-  //   firstPart,
-  // );
-  // console.log("firstMath", firstMath);
-  // console.log(
-  //   "secondPart",
-
-  //   secondStart,
-  // );
-  // console.log(firstPart + convertLatexToSpeakableText(firstMath) + secondPart);
-  // return firstPart + convertLatexToSpeakableText(firstMath) + secondPart;
+  return chunks.join("");
 }
 
 function regexIndexOf(string: string, regex: RegExp, startpos: number) {
