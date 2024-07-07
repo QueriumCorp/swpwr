@@ -11,23 +11,53 @@ export function makeVocalizable(text: string) {
   // inline LaTeX delimiters "\\(", "\\)"
   // display LaTeX delimiters "$$", "$$"
   console.info("makeVocalizable");
-  // split into plain and latex chunks
   let chunks = [];
   let index = 0;
+  const inlineStartRegEx = /\\+\(/;
+  const inlineEndRegEx = /\\+\)/;
+
+  // INLINE - split into plain and latex chunks
   while (index !== -1) {
-    let start = text.indexOf("\\(", index);
-    let end = text.indexOf("\\)", index);
+    let start = regexIndexOf(text, inlineStartRegEx, index);
+    let end = regexIndexOf(text, inlineEndRegEx, index);
 
     if (start !== -1 && end !== -1) {
+      // non-LaTeX chunk
       chunks.push(text.slice(index, start));
-      chunks.push(text.slice(start + 1, end));
-      index = end + 1;
+      // LaTeX chunk
+      let latexChunk = text.slice(start + 1, end);
+      let firstChar = latexChunk.indexOf("(");
+      chunks.push(latexChunk.slice(firstChar + 1, end));
+      index = text.indexOf(")", end) + 1;
     } else {
+      // trailing non-LaTeX chunk
+      chunks.push(text.slice(index));
       break;
     }
   }
-  console.info("chunks:", chunks);
+  let inlined = chunks.join("");
 
+  // DISPLAY - split into plain and latex chunks
+  chunks = [];
+  index = 0;
+  while (index !== -1) {
+    let start = inlined.indexOf("$$", index);
+    let end = inlined.indexOf("$$", start + 1);
+
+    if (start !== -1 && end !== -1) {
+      // non-LaTeX chunk
+      chunks.push(inlined.slice(index, start));
+      // LaTeX chunk
+      chunks.push(inlined.slice(start + 2, end));
+      index = end + 2;
+    } else {
+      // trailing non-LaTeX chunk
+      chunks.push(inlined.slice(index));
+      break;
+    }
+  }
+  console.info(text);
+  console.table(chunks);
   return text;
 
   //   if (start !== -1 && end !== -1) {
