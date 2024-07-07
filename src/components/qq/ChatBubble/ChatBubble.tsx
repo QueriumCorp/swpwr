@@ -90,7 +90,10 @@ export const ChatBubble = ({
 
   // Speak Button
   function handleSpeak() {
-    console.log("handleSpeak:", makeVocalizable(msg));
+    console.log(
+      "handleSpeak:",
+      makeVocalizable(typeof msg === "string" ? msg : msg[0]),
+    );
     // const msg2Vocalize = typeof msg === "string" ? msg : msg[0];
     // const utterance = new SpeechSynthesisUtterance(
     //   makeVocalizable(msg2Vocalize),
