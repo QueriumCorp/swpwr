@@ -15,8 +15,6 @@ import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
 import { Button } from "../ui/button";
-import { ChangeIncreaseEquationGraphic } from "../schemas/changeIncrease/equation";
-import { DifferenceEquationGraphic } from "../schemas/difference/equation";
 
 const NewbMeetTutor: React.FC<{
   className?: string;

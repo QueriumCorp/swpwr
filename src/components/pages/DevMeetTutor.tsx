@@ -49,6 +49,13 @@ const DevMeetTutor: FC<{
     sayMsg("Dance Dance Revolution", "gratz");
   }
 
+  /*
+            msg={`A paragraph with *emphasis* and **strong importance**.
+Math:
+\\\\($1729 = 10^3 + 9^3 = 12^3 + 1^3\\\\)
+The second taxicab number is $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$
+`}
+  */
   // JSX
   if (current !== index + 1) return null;
   return (
@@ -71,10 +78,7 @@ const DevMeetTutor: FC<{
           }}
         />
         <ChatBubble
-          msg={[
-            "Howdy Ho! I'm Klatu, and I'm here to help you solve your math problems.",
-            "I'm here to help you solve your math problems.",
-          ]}
+          msg={`A paragraph with $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$ and \\\\($1729 = 10^3 + 9^3 = 12^3 + 1^3\\\\)`}
           className="font-irishGrover absolute right-[50%] bottom-[50%]"
         />
       </div>

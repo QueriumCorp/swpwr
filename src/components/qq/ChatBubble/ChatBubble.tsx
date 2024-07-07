@@ -3,7 +3,9 @@ import { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { renderMathInElement } from "mathlive";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { cn } from "@/lib/utils";
+import { HiMiniSpeakerWave, HiMiniSpeakerXMark } from "react-icons/hi2";
+
+import { cn, makeVocalizable } from "@/lib/utils";
 import {
   Carousel,
   CarouselContent,
@@ -25,6 +27,16 @@ export const ChatBubble = ({
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
+  // let vocalizable;
+  // if (Array.isArray(msg)) {
+  //   console.error(
+  //     "ChatBubble: msg is an array so need to code to vocalizable it",
+  //   );
+  //   vocalizable = msg.map((msg) => makeVocalizable(msg));
+  // } else {
+  //   const vocalizable = makeVocalizable(msg);
+  // }
+
   useEffect(() => {
     if (!api) {
       return;
@@ -40,12 +52,12 @@ export const ChatBubble = ({
 
   // on initial render, tell MathLive to render the latex
   useLayoutEffect(() => {
+    console.log("render");
     if (latexRef.current) {
       renderMathInElement(latexRef.current, {
         TeX: {
           delimiters: {
-            // Allow math formulas surrounded by $...$ or \(...\)
-            // to be rendered as inline (textstyle) content.
+            // Allow math formulas surrounded by $$...$$ for display or \(...\) for inline
             inline: [["\\(", "\\)"]],
             display: [["$$", "$$"]],
           },
@@ -54,6 +66,7 @@ export const ChatBubble = ({
     }
   }, []);
 
+  // Chat Paging Button
   function handleShowMeMore() {
     api?.scrollNext();
   }
@@ -64,13 +77,34 @@ export const ChatBubble = ({
     if (current === count) {
       return (
         <button className="border-none text-xs" onClick={handleStartOver}>
-          Say again
+          Tell me again
         </button>
       );
     }
     return (
       <button className="border-none text-xs" onClick={handleShowMeMore}>
         Show me more
+      </button>
+    );
+  }
+
+  // Speak Button
+  function handleSpeak() {
+    console.log("handleSpeak:", makeVocalizable(msg));
+    // const msg2Vocalize = typeof msg === "string" ? msg : msg[0];
+    // const utterance = new SpeechSynthesisUtterance(
+    //   makeVocalizable(msg2Vocalize),
+    // );
+    // utterance.lang = "en-US";
+    // utterance.rate = 1.2;
+    // utterance.pitch = 1;
+    // utterance.volume = 1;
+    // speechSynthesis.speak(utterance);
+  }
+  function SpeakButton() {
+    return (
+      <button className="border-none text-xs" onClick={handleSpeak}>
+        <HiMiniSpeakerWave className="text-cyan-900" />
       </button>
     );
   }
@@ -87,7 +121,10 @@ export const ChatBubble = ({
           className,
         )}
       >
-        <Markdown remarkPlugins={[remarkGfm]}>{msg}</Markdown>
+        <Markdown remarkPlugins={[remarkGfm]}>{msg}</Markdown>{" "}
+        <div className="text-right text-black italic mt-2 flex justify-between items-center">
+          <SpeakButton></SpeakButton>
+        </div>
       </div>
     );
   }
@@ -114,7 +151,8 @@ export const ChatBubble = ({
             ))}
           </CarouselContent>
         </Carousel>
-        <div className="text-right text-black italic mt-2 flex justify-end items-center">
+        <div className="text-right text-black italic mt-2 flex justify-between items-center">
+          <SpeakButton></SpeakButton>
           <NavButton></NavButton>
         </div>
       </div>

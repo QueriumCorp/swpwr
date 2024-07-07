@@ -22,8 +22,7 @@ export const Chat = ({
       renderMathInElement(latexRef.current, {
         TeX: {
           delimiters: {
-            // Allow math formulas surrounded by $...$ or \(...\)
-            // to be rendered as inline (textstyle) content.
+            // Allow math formulas surrounded by $$...$$ or \(...\)
             inline: [["\\(", "\\)"]],
             display: [["$$", "$$"]],
           },
