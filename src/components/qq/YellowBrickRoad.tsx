@@ -4,22 +4,31 @@ export type YBRpage = {
   title: string;
   phase: "I" | "P" | "O" | "W" | "E" | "R";
   phaseLabel: string;
+  intro?: string; // Not used on I pages as they have the giant avatar
+  psHints?: string[]; // Not used on I pages as they have the giant avatar
+  aiHints?: boolean;
 };
 
 export const YellowBrickRoad: YBRpage[] = [
-  {
-    rank: "dev",
-    id: "MeetTutor",
-    title: "string",
-    phase: "I",
-    phaseLabel: "str",
-  },
+  // {
+  //   rank: "dev",
+  //   id: "MeetTutor",
+  //   title: "string",
+  //   phase: "I",
+  //   phaseLabel: "str",
+  // },
   {
     rank: "dev",
     id: "SolveTheEquation",
     title: "Solve the Equation",
     phase: "W",
     phaseLabel: "Work the Problem",
+    intro: "Solve the equation above. Click the button to begin!",
+    psHints: [
+      "Use the + and - buttons to add and subtract numbers",
+      "Use the = button to solve the equation",
+    ],
+    aiHints: false,
   },
 
   {

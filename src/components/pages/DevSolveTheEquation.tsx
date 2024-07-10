@@ -1,25 +1,27 @@
 "use client";
 
-import { FC, ReactNode, useContext, useRef, useState } from "react";
+import { FC, ReactNode, useContext, useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { StepWise } from "@/components/StepWise";
 import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
-import { AnimeTutor } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
 import { Button } from "../ui/button";
 import { StepWiseAPI } from "../StepWise/StepWise/StepWise";
+import { TinyTutor } from "../qq/TinyTutor";
 
 const DevSolveTheEquation: FC<{
   className?: string;
   children?: ReactNode;
   page?: YBRpage;
   index: number;
-}> = ({ className, index }) => {
+}> = ({ className, index, page }) => {
+  console.log("DevSolveTheEquation", page);
+
   // Dont render if page not active
   const { current } = useContext(NavContext) as NavContextType;
   const stepwiseRef = useRef<StepWiseAPI>(null);
@@ -29,6 +31,8 @@ const DevSolveTheEquation: FC<{
 
   // State
   const [working, setWorking] = useState(false);
+
+  const pageSpecificHints = page?.psHints || [];
 
   // Prepare problem data to work with StepWise
   type swProblemType = {
@@ -108,20 +112,13 @@ const DevSolveTheEquation: FC<{
             >
               Let's Do This!
             </Button>
+            <pre>{JSON.stringify(pageSpecificHints, null, 2)}</pre>
+            <pre>{JSON.stringify(page?.intro, null, 2)}</pre>
           </div>
         </div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
-        {/* Tiny Avatar */}
-        {YellowBrickRoad[current].phase !== "I" ? (
-          <AnimeTutor
-            style={{
-              bottom: "0px",
-              right: "0px",
-              height: "100%",
-            }}
-          />
-        ) : null}
+        <TinyTutor intro={page?.intro} psHints={pageSpecificHints} />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
