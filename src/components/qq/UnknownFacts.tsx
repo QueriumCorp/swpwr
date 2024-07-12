@@ -17,7 +17,7 @@ const UnknownFacts: FC<{ children?: ReactNode; add: () => void }> = (props) => {
   return (
     <Card className="grow flex flex-col justify-stretch">
       <CardHeader className="CardHeader flex-row justify-between align-middle p-2">
-        <CardTitle className="CardTitle">Unknowns</CardTitle>
+        <CardTitle className="CardTitle">Unknown</CardTitle>
         <BsPlusCircleFill
           onClick={props.add}
           className="text-lg  hover:text-green-500"
