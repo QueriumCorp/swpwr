@@ -78,7 +78,9 @@ The second taxicab number is $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$
           }}
         />
         <ChatBubble
-          msg={`A paragraph with $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$ and \\\\($1729 = 10^3 + 9^3 = 12^3 + 1^3\\\\) and \\($1492 = 10^3 + 9^3 = 12^3 + 1^2\\) plus some more text $$c^2=a^2 + b^s$$`}
+          msgs={[
+            "A paragraph with $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$ and \\\\($1729 = 10^3 + 9^3 = 12^3 + 1^3\\\\) and \\($1492 = 10^3 + 9^3 = 12^3 + 1^2\\) plus some more text $$c^2=a^2 + b^s$$",
+          ]}
           className="font-irishGrover absolute right-[50%] bottom-[50%]"
         />
       </div>

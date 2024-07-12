@@ -1,38 +1,65 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimeTutor } from "../AnimeTutor";
 import { ChatBubble } from "../qq/ChatBubble/ChatBubble";
+import { useProblemStore } from "@/store/_store";
 
 type HintStage = "intro" | "psHints" | "aiHints" | "none";
 
 export const TinyTutor = ({
   intro,
   psHints,
+  aiHints,
   className,
-  getHint,
 }: {
   intro?: string | string[];
   psHints?: string[];
+  aiHints?: boolean;
   className?: string;
-  getHint?: () => string;
 }) => {
+  // TODO: If we have problemSpecificHints, we'll show those instead of the psHints
+  // TODO: Once the student clicked Next, we only provide aiHints
+  // TODO: aiHints will be ondemand
   //
   console.info("TinyTutor", { intro, psHints });
   // Prepare messages
   let introMsgs = normalizeIntro(intro);
   let psHintsMsgs = normalizePsHints(psHints);
-  let aiHintsMsgs: string[] = [];
-  let thinkingMsgs: string[] = ["Thinking..."];
+
+  // Store
+  const { getHint, logAction } = useProblemStore();
 
   // State
-  const [currentHintIndex, setCurrentHintIndex] = useState(-1);
+  const [aiHintMsgs, setAiHintMsgs] = useState<string[]>([]);
   const [hintStage, setHintStage] = useState<HintStage>(
-    intro ? "intro" : psHints ? "psHints" : getHint ? "aiHints" : "none",
+    intro ? "intro" : psHints ? "psHints" : aiHints ? "aiHints" : "none",
   );
   const [bubbleShown, setBubbleShow] = useState(
     introMsgs.length ? true : false,
   );
+  const [thinking, setThinking] = useState<string>("");
 
   // Effects
+  useEffect(() => {
+    const fetchAiHints = async () => {
+      const aiHints: string[] = ["an aiHint1", "an aiHint2", "an aiHint3"];
+      let i = 0;
+      while (i < 3) {
+        const hint = await getHint();
+        if (!hint) {
+          break;
+        }
+        aiHints.push(hint);
+        i++;
+      }
+      setAiHintMsgs(aiHints);
+    };
+    if (aiHints) {
+      fetchAiHints().catch((err) => {
+        console.error("Error fetching ai hints", err);
+        setAiHintMsgs([]);
+      });
+    }
+  }, []);
 
   // Handlers
   function closeChatBubble() {
@@ -44,9 +71,8 @@ export const TinyTutor = ({
       setHintStage("psHints");
       setBubbleShow(true);
     } else if (hintStage === "psHints") {
-      if (getHint) {
-        //   getHint().then;
-        aiHintsMsgs = ["Pretend this comes from qEval"];
+      if (aiHints) {
+        setHintStage("aiHints");
         setBubbleShow(true);
       } else {
         setHintStage("none");
@@ -57,14 +83,23 @@ export const TinyTutor = ({
       setBubbleShow(false);
     } else if (hintStage === "none") {
       setHintStage(
-        intro ? "intro" : psHints ? "psHints" : getHint ? "aiHints" : "none",
+        intro ? "intro" : psHints ? "psHints" : aiHints ? "aiHints" : "none",
       );
       setBubbleShow(false);
     }
   }
 
+  // Event Handlers
+  async function HandleGetHint() {
+    setThinking("Hmmm...  Let me see");
+    logAction("Getting aiHints");
+    const aiHints = await getHint();
+    setThinking("");
+    setAiHintMsgs(aiHintMsgs.concat(aiHints));
+  }
+
   //
-  // JSX
+  // JSX Support Components
   //
 
   function StagedChatBubble() {
@@ -89,13 +124,18 @@ export const TinyTutor = ({
         return (
           <ChatBubble
             className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
-            msgs={bubbleShown ? aiHintsMsgs : null}
+            msgs={bubbleShown ? aiHintMsgs : null}
             closeClicked={closeChatBubble}
           />
         );
+      case "none":
+        return null;
     }
   }
 
+  //
+  // JSX
+  //
   return (
     <div className={className}>
       <AnimeTutor
@@ -114,6 +154,13 @@ export const TinyTutor = ({
           nextHintStage();
         }}
       ></div>
+      {thinking.length ? (
+        <ChatBubble
+          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
+          msgs={[thinking]}
+          closeClicked={closeChatBubble}
+        />
+      ) : null}
       <StagedChatBubble />
     </div>
   );

@@ -85,7 +85,7 @@ const NewbSolveTheEquation: React.FC<{
               class: "gradeBasicAlgebra"
               hints: []
               policyId: "$A1$"
-              problemId: "QUES6018"
+              problemId: "QUES-30533"
               question: "SolveWordProblemAns[{\"Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book.\"}]"
               stimulus: "Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book."
               title: "Solve compound linear inequalities in 1 variable"

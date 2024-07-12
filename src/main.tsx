@@ -14,7 +14,7 @@ console.info("SWAPI URL", swapiUrl);
 const problem = {
   appKey: "JiraTestPage",
   policyId: "$A9$",
-  problemId: "QUES6018",
+  problemId: "QUES-30533",
   title: "Sticker Book Cost",
   stimulus:
     "Minh spent $6.25 on 5 sticker books to give his nephews. Find the cost of each sticker book.",
