@@ -105,27 +105,29 @@ const NewbFindFacts: FC<{
             stimulusText={problem.stimulus}
           ></StimulusSelector>
 
-          <div className="flex grow gap-2">
-            <KnownFacts add={addKnown}>
-              {knowns.map((known) => (
-                <Chip
-                  id={known}
-                  key={known}
-                  label={known}
-                  onDelete={delKnown}
-                ></Chip>
-              ))}
-            </KnownFacts>
-            <UnknownFacts add={addUnknown}>
-              {unknowns.map((unknown) => (
-                <Chip
-                  id={unknown}
-                  key={unknown}
-                  label={unknown}
-                  onDelete={delUnknown}
-                ></Chip>
-              ))}
-            </UnknownFacts>
+          <div className=" grow ">
+            <div className="grid gap-1 grid-cols-2 h-full">
+              <KnownFacts add={addKnown}>
+                {knowns.map((known) => (
+                  <Chip
+                    id={known}
+                    key={known}
+                    label={known}
+                    onDelete={delKnown}
+                  ></Chip>
+                ))}
+              </KnownFacts>
+              <UnknownFacts add={addUnknown}>
+                {unknowns.map((unknown) => (
+                  <Chip
+                    id={unknown}
+                    key={unknown}
+                    label={unknown}
+                    onDelete={delUnknown}
+                  ></Chip>
+                ))}
+              </UnknownFacts>
+            </div>
           </div>
         </DndContext>
       </div>

@@ -8,6 +8,8 @@ import "./animeTutor.css";
 const swapiUrl = import.meta.env.DEV
   ? "http://0.0.0.0:4000"
   : "https://swapi2.onrender.com";
+
+var gltfUrl;
 console.info("ENVIRONMENT", import.meta.env);
 console.info("SWAPI URL", swapiUrl);
 
@@ -35,7 +37,9 @@ let urlRank = params.get("rank");
 
 const options = {
   swapiUrl,
+  gltfUrl,
   rank: urlRank || import.meta.env.VITE_RANK || "newb",
+  disabledSchemas: [],
 };
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
