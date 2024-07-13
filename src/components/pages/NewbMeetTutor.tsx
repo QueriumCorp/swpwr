@@ -91,7 +91,6 @@ The second taxicab number is $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$
             </Button>
           ))}
         </div>
-
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
@@ -103,7 +102,10 @@ The second taxicab number is $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$
           }}
         >
           Next
-        </CarouselNext>
+        </CarouselNext>{" "}
+        <h1 className="absolute bottom-0 left-0 text-slate-500">
+          NewbMeetTutor
+        </h1>
       </NavBar>
     </div>
   );

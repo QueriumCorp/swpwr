@@ -79,6 +79,9 @@ const NewbFindTutor: React.FC<{
         >
           Next
         </CarouselNext>
+        <h1 className="absolute bottom-0 left-0 text-slate-500">
+          NewbFindTutor
+        </h1>
       </NavBar>
     </div>
   );

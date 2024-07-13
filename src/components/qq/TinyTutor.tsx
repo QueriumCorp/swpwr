@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimeTutor } from "../AnimeTutor";
 import { ChatBubble } from "../qq/ChatBubble/ChatBubble";
 import { useProblemStore } from "@/store/_store";
@@ -6,29 +6,35 @@ import { useProblemStore } from "@/store/_store";
 type HintStage = "intro" | "psHints" | "aiHints" | "none";
 
 export const TinyTutor = ({
+  msg,
   intro,
   psHints,
   aiHints,
   className,
 }: {
+  msg?: string;
   intro?: string | string[];
   psHints?: string[];
   aiHints?: boolean;
   className?: string;
 }) => {
-  // TODO: If we have problemSpecificHints, we'll show those instead of the psHints
-  // TODO: Once the student clicked Next, we only provide aiHints
-  // TODO: aiHints will be ondemand
-  //
-  console.info("TinyTutor", { intro, psHints });
+  // Last value of msg
+  const prevMsg = useRef(msg);
+
   // Prepare messages
   let introMsgs = normalizeIntro(intro);
   let psHintsMsgs = normalizePsHints(psHints);
 
+  ///////////////////////////////////////////////////////////////////
   // Store
+  ///////////////////////////////////////////////////////////////////
+
   const { getHint, logAction } = useProblemStore();
 
+  ///////////////////////////////////////////////////////////////////
   // State
+  ///////////////////////////////////////////////////////////////////
+
   const [aiHintMsgs, setAiHintMsgs] = useState<string[]>([]);
   const [hintStage, setHintStage] = useState<HintStage>(
     intro ? "intro" : psHints ? "psHints" : aiHints ? "aiHints" : "none",
@@ -38,19 +44,29 @@ export const TinyTutor = ({
   );
   const [thinking, setThinking] = useState<string>("");
 
+  ///////////////////////////////////////////////////////////////////
   // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  // Monitor changes to props
+  useEffect(() => {
+    console.info(`TinyTutor - msg changed from ${prevMsg.current} to ${msg}`);
+    prevMsg.current = msg;
+  }, [msg]);
+
+  // Fetch AI hints
   useEffect(() => {
     const fetchAiHints = async () => {
       const aiHints: string[] = ["an aiHint1", "an aiHint2", "an aiHint3"];
       let i = 0;
-      while (i < 3) {
-        const hint = await getHint();
-        if (!hint) {
-          break;
-        }
-        aiHints.push(hint);
-        i++;
-      }
+      // while (i < 3) {
+      //   const hint = await getHint();
+      //   if (!hint) {
+      //     break;
+      //   }
+      //   aiHints.push(hint);
+      //   i++;
+      // }
       setAiHintMsgs(aiHints);
     };
     if (aiHints) {
@@ -61,7 +77,10 @@ export const TinyTutor = ({
     }
   }, []);
 
+  ///////////////////////////////////////////////////////////////////
   // Handlers
+  ///////////////////////////////////////////////////////////////////
+
   function closeChatBubble() {
     setBubbleShow(false);
   }
@@ -98,9 +117,9 @@ export const TinyTutor = ({
     setAiHintMsgs(aiHintMsgs.concat(aiHints));
   }
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // JSX Support Components
-  //
+  ///////////////////////////////////////////////////////////////////
 
   function StagedChatBubble() {
     switch (hintStage) {
@@ -133,9 +152,10 @@ export const TinyTutor = ({
     }
   }
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  //
+  ///////////////////////////////////////////////////////////////////
+
   return (
     <div className={className}>
       <AnimeTutor
@@ -154,10 +174,10 @@ export const TinyTutor = ({
           nextHintStage();
         }}
       ></div>
-      {thinking.length ? (
+      {msg?.length ? (
         <ChatBubble
           className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
-          msgs={[thinking]}
+          msgs={[msg]}
           closeClicked={closeChatBubble}
         />
       ) : null}
@@ -165,6 +185,10 @@ export const TinyTutor = ({
     </div>
   );
 };
+
+///////////////////////////////////////////////////////////////////
+// Support Functions
+///////////////////////////////////////////////////////////////////
 
 function normalizeIntro(intro: string | string[] | undefined): string[] {
   if (typeof intro === "string") {

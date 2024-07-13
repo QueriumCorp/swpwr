@@ -11,13 +11,14 @@ import { StimulusSelector } from "../qq/StimulusSelector";
 import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
+import { TinyTutor } from "../qq/TinyTutor";
 
 const NewbReadProblem: React.FC<{
   className?: string;
   children?: React.ReactNode;
   page: YBRpage;
   index: number;
-}> = ({ className, index }) => {
+}> = ({ className, page, index }) => {
   // NavContext
   const { api, current } = useContext(NavContext) as NavContextType;
 
@@ -51,19 +52,7 @@ const NewbReadProblem: React.FC<{
         <div className="flex grow gap-2"></div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
-        {/* Tiny Avatar */}
-        <AnimeTutor
-          emote={"wave:02"}
-          style={{
-            bottom: "0px",
-            right: "0px",
-            height: "100%",
-          }}
-        />
-        <Chat
-          msg="Read this statement carefully and then click the right arrow to continue."
-          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
-        />
+        <TinyTutor intro={page?.intro} psHints={page?.psHints} aiHints={true} />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
@@ -76,6 +65,9 @@ const NewbReadProblem: React.FC<{
         >
           Next
         </CarouselNext>
+        <h1 className="absolute bottom-0 left-0 text-slate-500">
+          NewbReadProblem
+        </h1>
       </NavBar>
     </div>
   );

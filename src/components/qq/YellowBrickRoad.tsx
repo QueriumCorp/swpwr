@@ -72,6 +72,8 @@ export const YellowBrickRoad: YBRpage[] = [
     title: "string",
     phase: "P",
     phaseLabel: "str",
+    intro:
+      "Read this statement carefully and then click the right arrow to continue.",
   },
   {
     rank: "newb",

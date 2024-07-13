@@ -60,7 +60,10 @@ const NewbFeelThePower: React.FC<{
           }}
         >
           Next
-        </CarouselNext>
+        </CarouselNext>{" "}
+        <h1 className="absolute bottom-0 left-0 text-slate-500">
+          NewbFeelThePower
+        </h1>
       </NavBar>
     </div>
   );

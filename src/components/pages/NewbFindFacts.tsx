@@ -15,34 +15,36 @@ import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
+import { TinyTutor } from "../qq/TinyTutor";
 
 const NewbFindFacts: FC<{
   className?: string;
   children?: ReactNode;
   page?: YBRpage;
   index: number;
-}> = ({ className, index }) => {
-  // NavContext
+}> = ({ className, page, index }) => {
+  //
+  // Context
+  //
   const { api, current } = useContext(NavContext) as NavContextType;
-  useEffect(() => {
-    // console.info("NewbFindFacts");
-    // console.info("current", YellowBrickRoad[current - 1]);
-    // console.info("page", page);
-  }, [current]);
 
+  //
   // Store
+  //
   const { logAction, submitTTable, getHint, problem } = useProblemStore();
 
+  //
   // State
+  //
   const [knowns, setKnowns] = useState<string[]>([]);
   const [unknowns, setUnknowns] = useState<string[]>([]);
   const [currentFact, setCurrentFact] = useState<string>("");
-  const [msg, setMsg] = useState<string>(
-    "I know a few things about you, but I’m sure you’ll find more!",
-  );
   const [emote, setEmote] = useState<string>("gratz:02");
+  const [msg, setMsg] = useState<string>("");
 
+  //
   // Event Handlers
+  //
   const delKnown = (fact: string) => {
     logAction(`NewbFindFacts : Deleted '${fact}' from KnownFacts`);
     setKnowns(knowns.filter((thisFact) => thisFact !== fact));
@@ -55,6 +57,7 @@ const NewbFindFacts: FC<{
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     if (evt.metaKey) {
+      //If Cmd+Enter just scroll to next page
       api?.scrollNext();
     } else {
       setMsg("Give me a sec to review your knowns and unknowns");
@@ -132,25 +135,11 @@ const NewbFindFacts: FC<{
         </DndContext>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
-        {/* Tiny Avatar */}
-        <AnimeTutor
-          emote={emote}
-          style={{
-            bottom: "0px",
-            right: "0px",
-            height: "100%",
-            // border: "solid 1px red",
-          }}
-        />
-        <div
-          className="h-full bottom-0 right-0 w-[100px] border-solid border-red-500 z-10 cursor-pointer"
-          onClick={() => {
-            HandleGetHint();
-          }}
-        ></div>
-        <Chat
+        <TinyTutor
           msg={msg}
-          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
+          intro={page?.intro}
+          psHints={page?.psHints || []}
+          aiHints={true}
         />
         <CarouselPrevious className="relative left-0">
           Previous
@@ -161,6 +150,9 @@ const NewbFindFacts: FC<{
         >
           Next
         </CarouselNext>
+        <h1 className="absolute bottom-0 left-0 text-slate-500">
+          NewbFindFacts
+        </h1>
       </NavBar>
     </div>
   );

@@ -79,6 +79,8 @@ export const ChatBubble = ({
     api?.scrollTo(0);
   }
   function NavButton() {
+    if (count === 1) return null;
+
     if (current === count) {
       return (
         <button className="border-none text-xs" onClick={handleStartOver}>
