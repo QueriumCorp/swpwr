@@ -32,7 +32,11 @@ const AnimeTutor = ({ emote, closeUp, className, style }: AnimeTutorProps) => {
     <div className={className} style={theStyle}>
       <Canvas shadows>
         {/* <axesHelper></axesHelper> */}
-        <OrbitControls enableRotate={false} />
+        <OrbitControls
+          enableRotate={false}
+          enablePan={false}
+          enableZoom={false}
+        />
         <ambientLight intensity={0.4} />
         <Stage closeUp={closeUp} emote={emote || "idle:01"} />
       </Canvas>
