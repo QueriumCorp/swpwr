@@ -29,7 +29,7 @@ const VoiceSelector = ({ selected = 0, setSelected }: VoiceSelectorProps) => {
     >
       {voices.map((voice, index) => (
         <option key={index} value={index}>
-          {voice.name} ({voice.lang}) {voice.default && " [Default]"}
+          {voice.name} ({voice.lang}) #{index} {voice.default && " [Default]"}
         </option>
       ))}
     </select>

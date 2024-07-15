@@ -19,29 +19,28 @@ import { BsThreeDots } from "react-icons/bs";
 export const ChatBubble = ({
   msgs,
   className,
+  closeable,
   closeClicked,
+  introFinished,
 }: {
-  msgs: string[] | null;
+  msgs: string | string[] | null;
   className?: string;
+  closeable?: boolean;
   closeClicked?: () => void;
+  introFinished?: () => void;
 }) => {
   // create a reference to the DOM element containing the mixed LaTeX
   const latexRef = useRef(null);
 
+  const messages = typeof msgs === "string" ? [msgs] : msgs;
+  console.log("messages", messages);
+
+  // State
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
-  // let vocalizable;
-  // if (Array.isArray(msgs)) {
-  //   console.error(
-  //     "ChatBubble: msg is an array so need to code to vocalizable it",
-  //   );
-  //   vocalizable = msgs.map((msg) => makeVocalizable(msg));
-  // } else {
-  //   const vocalizable = makeVocalizable(msg);
-  // }
-
+  // Side Effects
   useEffect(() => {
     if (!api) {
       return;
@@ -71,8 +70,13 @@ export const ChatBubble = ({
     }
   }, []);
 
+  //
+  // HANDLERS
+  //
+
   // Chat Paging Button
   function handleShowMeMore() {
+    if (current === count - 1) introFinished?.();
     api?.scrollNext();
   }
   function handleStartOver() {
@@ -97,15 +101,16 @@ export const ChatBubble = ({
 
   // Speak Button
   function handleSpeak() {
-    if (!msgs) {
+    if (!messages) {
       return;
     }
 
-    const msg2Vocalize = msgs[api!.selectedScrollSnap()];
+    const msg2Vocalize = messages[api!.selectedScrollSnap()];
     const utterance = new SpeechSynthesisUtterance(
       makeVocalizable(msg2Vocalize),
     );
     utterance.lang = "en-US";
+    utterance.voice = speechSynthesis.getVoices()[159];
     utterance.rate = 1;
     utterance.pitch = 1;
     utterance.volume = 1;
@@ -122,7 +127,7 @@ export const ChatBubble = ({
   //
   // JSX
   //
-  if (!msgs) {
+  if (!msgs || !messages) {
     // no messages so no chat bubble
     return null;
   }
@@ -138,12 +143,14 @@ export const ChatBubble = ({
         className,
       )}
     >
-      <div onClick={closeClicked} className="flex justify-end cursor-pointer">
-        <IoCloseSharp />
-      </div>
+      {closeable ? (
+        <div onClick={closeClicked} className="flex justify-end cursor-pointer">
+          <IoCloseSharp />
+        </div>
+      ) : null}
       <Carousel setApi={setApi} className="w-full max-w-xs">
         <CarouselContent>
-          {msgs.map((m, i) => (
+          {messages.map((m, i) => (
             <CarouselItem key={i}>
               <div key={i} className="flex flex-col gap-1">
                 <Markdown remarkPlugins={[remarkGfm]}>{m}</Markdown>

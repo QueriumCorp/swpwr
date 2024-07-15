@@ -15,32 +15,52 @@ import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
 import { Button } from "../ui/button";
+import { ChatBubble } from "../qq/ChatBubble/ChatBubble";
 
 const NewbMeetTutor: React.FC<{
   className?: string;
   children?: React.ReactNode;
   page: YBRpage;
   index: number;
-}> = ({ className, index }) => {
+}> = ({ className, page, index }) => {
+  //
   // Context
+  //
   const { current, api } = React.useContext(NavContext) as NavContextType;
   const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType;
 
+  //
   // Store
+  //
   const { logAction, heartbeat } = useProblemStore();
 
+  //
+  // State
+  //
+  const [nextDisabled, setNextDisabled] = React.useState(true);
+
+  //
   // Side Effects
+  //
   React.useEffect(() => {
     logAction("NewbMeetTutor : Entered Application");
     setTimeout(() => heartbeat(), 1000);
   }, []);
 
+  //
   // Handlers
+  //
   function handleDance() {
     sayMsg("Dance Dance Revolution", "gratz");
   }
+  function finishedIntro() {
+    logAction("NewbMeetTutor : Intro Finished");
+    setNextDisabled(false);
+  }
 
+  //
   // JSX
+  //
   if (current !== index + 1) return null;
   return (
     <div
@@ -61,26 +81,10 @@ const NewbMeetTutor: React.FC<{
             // border: "1px solid #000000",
           }}
         />
-        <Chat
-          msg={`A paragraph with *emphasis* and **strong importance**.
-
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
-
-* Lists
-* [x] todo
-* [ ] done
-
-Math:
-\\\\($1729 = 10^3 + 9^3 = 12^3 + 1^3\\\\)
-
-A table:
-
-| a | b |
-| - | - |
-
-The second taxicab number is $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$
-`}
+        <ChatBubble
+          msgs={page.intro!}
           className="font-irishGrover absolute right-[50%] bottom-[50%]"
+          introFinished={finishedIntro}
         />
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
@@ -95,6 +99,7 @@ The second taxicab number is $$1729 = 10^3 + 9^3 = 12^3 + 1^3$$
           Previous
         </CarouselPrevious>
         <CarouselNext
+          disabled={nextDisabled}
           className="relative right-0"
           onClick={() => {
             logAction("NewbMeetTutor : Clicked Next");

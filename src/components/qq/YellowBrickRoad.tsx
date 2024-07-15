@@ -4,7 +4,7 @@ export type YBRpage = {
   title: string;
   phase: "I" | "P" | "O" | "W" | "E" | "R";
   phaseLabel: string;
-  intro?: string; // Not used on I pages as they have the giant avatar
+  intro?: string | string[];
   psHints?: string[]; // Not used on I pages as they have the giant avatar
   aiHints?: boolean;
 };
@@ -37,6 +37,16 @@ export const YellowBrickRoad: YBRpage[] = [
     title: "string",
     phase: "I",
     phaseLabel: "str",
+    intro: [
+      "Hi! My name is Kettu.",
+      "Together, we’re going to get the POWER to solve math word problems!",
+      "Each letter in POWER is a problem‐solving step that I will teach you.",
+      "Some word problems are easy. But others are harder. When you have POWER, you can use it to solve any word problem.",
+      "When we work together, we’ll always use POWER, even for easy problems. That’s so you can practice your skills and keep your POWER strong.",
+      `Let’s learn the first POWER step!
+The first step is P. P stands for Prepare.
+Ready? Click → and I’ll show you how to Prepare.`,
+    ],
   },
   {
     rank: "newb",

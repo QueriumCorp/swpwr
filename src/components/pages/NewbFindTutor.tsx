@@ -16,26 +16,38 @@ const NewbFindTutor: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, children, index }) => {
+  //
+  // State
+  //
   const [navDisabled, setNavDisabled] = useState(true);
-
-  // NavContext
-  const { current, api } = useContext(NavContext) as NavContextType;
-
-  // Store
-  const { logAction } = useProblemStore();
-
   const [msg, setMsg] = useState(
     "I’m right here if you need me, just click my cute self to get my attention 😊. Try it now.",
   );
 
+  //
+  // Context
+  //
+  const { current, api } = useContext(NavContext) as NavContextType;
+
+  //
+  // Store
+  //
+  const { logAction } = useProblemStore();
+
+  //
+  // Handlers
+  //
   function foundMe() {
     logAction("NewbFindTutor : Found Tutor");
     setMsg("You found me! Click the right arrow next to me to continue.");
     setNavDisabled(false);
   }
 
+  //
   // JSX
+  //
   if (current !== index + 1) return null;
+
   return (
     <div
       className={cn(
