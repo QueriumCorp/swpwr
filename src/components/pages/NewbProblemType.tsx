@@ -173,10 +173,11 @@ const NewbProblemType: FC<{
             <Card
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                schema === "TOTAL" ? "bg-qqAccent" : "bg-white",
                 disabledSchemas?.includes("additiveTotalSchema")
                   ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : "bg-white cursor-pointer",
+                  : schema === "TOTAL"
+                    ? "bg-qqAccent cursor-pointer"
+                    : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("TOTAL")}
             >
@@ -192,10 +193,11 @@ const NewbProblemType: FC<{
             <Card
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                schema === "DIFFERENCE" ? "bg-qqAccent" : "bg-white",
                 disabledSchemas?.includes("additiveDifferenceSchema")
                   ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : "bg-white cursor-pointer",
+                  : schema === "DIFFERENCE"
+                    ? "bg-qqAccent cursor-pointer"
+                    : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("DIFFERENCE")}
             >
@@ -211,10 +213,11 @@ const NewbProblemType: FC<{
             <Card
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                schema === "CHANGEINCREASE" ? "bg-qqAccent" : "bg-white",
                 disabledSchemas?.includes("additiveChangeSchema")
                   ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : "bg-white cursor-pointer",
+                  : schema === "CHANGEINCREASE"
+                    ? "bg-qqAccent cursor-pointer"
+                    : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("CHANGEINCREASE")}
             >
@@ -229,10 +232,11 @@ const NewbProblemType: FC<{
             <Card
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                schema === "CHANGEDECREASE" ? "bg-qqAccent" : "bg-white",
                 disabledSchemas?.includes("additiveChangeSchema")
                   ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : "bg-white cursor-pointer",
+                  : schema === "CHANGEDECREASE"
+                    ? "bg-qqAccent cursor-pointer"
+                    : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("CHANGEDECREASE")}
             >
@@ -251,7 +255,9 @@ const NewbProblemType: FC<{
                 schema === "EQUALGROUPS" ? "bg-qqAccent" : "bg-white",
                 disabledSchemas?.includes("multiplicativeEqualGroupsSchema")
                   ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : "bg-white cursor-pointer",
+                  : schema === "EQUALGROUPS"
+                    ? "bg-qqAccent cursor-pointer"
+                    : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("EQUALGROUPS")}
             >
@@ -265,10 +271,11 @@ const NewbProblemType: FC<{
             <Card
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                schema === "COMPARE" ? "bg-qqAccent" : "bg-white",
                 disabledSchemas?.includes("multiplicativeCompareSchema")
                   ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : "bg-white cursor-pointer",
+                  : schema === "COMPARE"
+                    ? "bg-qqAccent cursor-pointer"
+                    : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("COMPARE")}
             >
