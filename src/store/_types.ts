@@ -3,11 +3,18 @@ import { z } from "zod";
 // STATE
 export interface State {
   swapiUrl: string;
+  gltfUrl?: string;
+  rank?: string;
+  disabledSchemas?: string[];
   problem: Problem;
   student: Student;
   session: Session;
   studentLog: LogItem[];
   setSwapiUrl: (url: string) => void;
+  setGltfUrl: (url: string) => void;
+  setRank: (rank: string) => void;
+  setDisabledSchemas: (disabledSchemas: string[]) => void;
+
   setProblem: (problem: Problem) => any;
   setStudent: (student: Student) => void;
   setSession: (session: Session) => void;

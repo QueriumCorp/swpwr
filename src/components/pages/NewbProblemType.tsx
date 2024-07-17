@@ -38,7 +38,7 @@ const NewbProblemType: FC<{
     useProblemStore();
 
   // State
-  const [schema, setSchema] = useState("TOTAL");
+  const [schema, setSchema] = useState("");
   const [msg, setMsg] = useState<string>(
     "Check this out! There are different types of problems, Let’s have you select the only one you know about yet, “Total",
   );
@@ -289,9 +289,13 @@ const NewbProblemType: FC<{
         >
           Next
         </CarouselNext>
+        <h1 className="absolute bottom-0 left-0 text-slate-500">
+          NewbProblemType
+        </h1>
       </NavBar>
     </div>
   );
 };
+
 NewbProblemType.displayName = "NewbProblemType";
 export default NewbProblemType;

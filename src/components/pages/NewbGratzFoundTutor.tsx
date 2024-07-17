@@ -1,16 +1,11 @@
 "use client";
 
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
-import {
-  useAvatarAPI,
-  AnimeTutor,
-  AvatarAPIType,
-  Chat,
-} from "@/components/AnimeTutor";
+import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
@@ -21,15 +16,19 @@ const NewbGratzFoundTutor: React.FC<{
   page?: YBRpage;
   index: number;
 }> = ({ className, index }) => {
+  //
   // NavContext
+  //
   const { current, api } = useContext(NavContext) as NavContextType;
 
+  //
   // Store
+  //
   const { initSession, logAction } = useProblemStore();
 
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
-
+  //
   // JSX
+  //
   if (current !== index + 1) return null;
   return (
     <div
@@ -72,7 +71,7 @@ const NewbGratzFoundTutor: React.FC<{
           }}
         >
           Next
-        </CarouselNext>{" "}
+        </CarouselNext>
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           NewbGratzFoundTutor
         </h1>

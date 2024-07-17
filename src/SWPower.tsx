@@ -66,6 +66,9 @@ const StepWisePower = forwardRef<
   // Store
   const {
     setSwapiUrl,
+    setGltfUrl,
+    setRank,
+    setDisabledSchemas,
     setProblem,
     setStudent,
     setSession,
@@ -73,6 +76,10 @@ const StepWisePower = forwardRef<
     problem,
     student,
     session,
+    swapiUrl,
+    gltfUrl,
+    rank,
+    disabledSchemas,
     closeSession,
     saveTrace,
   } = useProblemStore();
@@ -98,6 +105,23 @@ const StepWisePower = forwardRef<
       setSwapiUrl(props.options.swapiUrl);
     }
   }, [props.options?.swapiUrl]);
+  useEffect(() => {
+    if (props.options?.gltfUrl) {
+      setGltfUrl(props.options.gltfUrl);
+    }
+  }, [props.options?.gltfUrl]);
+
+  useEffect(() => {
+    if (props.options?.rank) {
+      setRank(props.options.rank);
+    }
+  }, [props.options?.rank]);
+
+  useEffect(() => {
+    if (props.options?.disabledSchemas) {
+      setDisabledSchemas(props.options.disabledSchemas);
+    }
+  }, [props.options?.disabledSchemas]);
 
   // Not sure why I did this
   useEffect(() => {
@@ -214,6 +238,16 @@ const StepWisePower = forwardRef<
                         </h3>
                         <pre className="font-mono text-xs select-text">
                           {JSON.stringify(session, null, 2)}
+                        </pre>
+                        <h3 className="bg-qqAccent font-sans font-black">
+                          Options
+                        </h3>
+                        <pre className="font-mono text-xs select-text">
+                          {JSON.stringify(
+                            { swapiUrl, gltfUrl, rank, disabledSchemas },
+                            null,
+                            2,
+                          )}
                         </pre>
                       </div>
                     </div>

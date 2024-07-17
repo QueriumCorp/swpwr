@@ -27,6 +27,10 @@ export const useProblemStore = create<State>((set, get) => ({
   ///////////////////////////////////////////////////////////////////
 
   swapiUrl: "https://swapi2.onrender.com",
+  gltfUrl: "",
+  rank: "",
+  disabledSchemas: [],
+
   problem: {
     appKey: "",
     id: "",
@@ -41,10 +45,12 @@ export const useProblemStore = create<State>((set, get) => ({
     qs2: "",
     qs3: "",
   },
+
   student: {
     studentId: "",
     studentName: "",
   },
+
   session: {
     sessionToken: "",
     identifiers: [],
@@ -54,6 +60,7 @@ export const useProblemStore = create<State>((set, get) => ({
     schema: "",
     finalAnswer: "",
   },
+
   studentLog: [],
 
   ///////////////////////////////////////////////////////////////////
@@ -65,7 +72,21 @@ export const useProblemStore = create<State>((set, get) => ({
       swapiUrl: url,
     }));
   },
-
+  setGltfUrl: (url: string) => {
+    set((_state) => ({
+      gltfUrl: url,
+    }));
+  },
+  setRank: (rank: string) => {
+    set((_state) => ({
+      rank: rank,
+    }));
+  },
+  setDisabledSchemas: (disabledSchemas: string[]) => {
+    set((_state) => ({
+      disabledSchemas: disabledSchemas,
+    }));
+  },
   setProblem: (problem: Problem) => {
     const problemValidation = ProblemSchema.safeParse(problem);
     // TODO: Do we need to add a check for the problem changing?
