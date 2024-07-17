@@ -9,6 +9,18 @@ import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
+import { ChatBubble } from "../qq/ChatBubble/ChatBubble";
+
+const introMsg = `I’m right here if you need me, just click my cute self to get my attention 😊.
+
+
+Try it now.`;
+const gratzMsg = `
+Perfect! You found me!
+
+If you ever get stuck, click on me just like that. I'll do my best to give you a hand.
+      
+Now click →.`;
 
 const NewbFindTutor: React.FC<{
   className?: string;
@@ -20,9 +32,7 @@ const NewbFindTutor: React.FC<{
   // State
   //
   const [navDisabled, setNavDisabled] = useState(true);
-  const [msg, setMsg] = useState(
-    "I’m right here if you need me, just click my cute self to get my attention 😊. Try it now.",
-  );
+  const [msg, setMsg] = useState(introMsg);
 
   //
   // Context
@@ -39,7 +49,7 @@ const NewbFindTutor: React.FC<{
   //
   function foundMe() {
     logAction("NewbFindTutor : Found Tutor");
-    setMsg("You found me! Click the right arrow next to me to continue.");
+    setMsg(gratzMsg);
     setNavDisabled(false);
   }
 
@@ -74,8 +84,8 @@ const NewbFindTutor: React.FC<{
             foundMe();
           }}
         ></div>
-        <Chat
-          msg={msg}
+        <ChatBubble
+          msgs={msg}
           className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
         />
         <CarouselPrevious disabled={navDisabled} className="relative left-0">

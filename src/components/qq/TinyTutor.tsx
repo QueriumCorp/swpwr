@@ -180,8 +180,9 @@ export const TinyTutor = ({
           msgs={[msg]}
           closeClicked={closeChatBubble}
         />
-      ) : null}
-      <StagedChatBubble />
+      ) : (
+        <StagedChatBubble />
+      )}
     </div>
   );
 };

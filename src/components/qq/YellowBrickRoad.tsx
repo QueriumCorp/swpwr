@@ -68,6 +68,9 @@ Ready? Click → and I’ll show you how to Prepare.`,
     title: "string",
     phase: "I",
     phaseLabel: "str",
+    intro: [
+      "We’ll work together. I’ll be right here if you need me. Just click my cute self to get my attention. 🥰 Try it now.",
+    ],
   },
   {
     rank: "newb",

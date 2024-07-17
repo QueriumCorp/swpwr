@@ -33,7 +33,6 @@ export const ChatBubble = ({
   const latexRef = useRef(null);
 
   const messages = typeof msgs === "string" ? [msgs] : msgs;
-  console.log("messages", messages);
 
   // State
   const [api, setApi] = useState<CarouselApi>();
@@ -56,7 +55,6 @@ export const ChatBubble = ({
 
   // on initial render, tell MathLive to render the latex
   useLayoutEffect(() => {
-    console.log("render");
     if (latexRef.current) {
       renderMathInElement(latexRef.current, {
         TeX: {
