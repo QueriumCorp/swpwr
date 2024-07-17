@@ -39,14 +39,7 @@ const options = {
   swapiUrl,
   gltfUrl,
   rank: urlRank || import.meta.env.VITE_RANK || "newb",
-  disabledSchemas: [
-    "additiveTotalSchema",
-    "additiveDifferenceSchema",
-    "additiveChangeSchema",
-    "additiveChangeSchema",
-    "multiplicativeEqualGroupsSchema",
-    "multiplicativeCompareSchema",
-  ],
+  disabledSchemas: [],
 };
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

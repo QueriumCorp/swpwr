@@ -34,8 +34,14 @@ const NewbProblemType: FC<{
   const { api, current } = useContext(NavContext) as NavContextType;
 
   // Store
-  const { logAction, submitPickSchema, getHint, problem, session } =
-    useProblemStore();
+  const {
+    logAction,
+    submitPickSchema,
+    getHint,
+    problem,
+    session,
+    disabledSchemas,
+  } = useProblemStore();
 
   // State
   const [schema, setSchema] = useState("");
@@ -168,6 +174,9 @@ const NewbProblemType: FC<{
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "TOTAL" ? "bg-qqAccent" : "bg-white",
+                disabledSchemas?.includes("additiveTotalSchema")
+                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
+                  : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("TOTAL")}
             >
@@ -184,6 +193,9 @@ const NewbProblemType: FC<{
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "DIFFERENCE" ? "bg-qqAccent" : "bg-white",
+                disabledSchemas?.includes("additiveDifferenceSchema")
+                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
+                  : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("DIFFERENCE")}
             >
@@ -200,6 +212,9 @@ const NewbProblemType: FC<{
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "CHANGEINCREASE" ? "bg-qqAccent" : "bg-white",
+                disabledSchemas?.includes("additiveChangeSchema")
+                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
+                  : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("CHANGEINCREASE")}
             >
@@ -215,6 +230,9 @@ const NewbProblemType: FC<{
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "CHANGEDECREASE" ? "bg-qqAccent" : "bg-white",
+                disabledSchemas?.includes("additiveChangeSchema")
+                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
+                  : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("CHANGEDECREASE")}
             >
@@ -231,6 +249,9 @@ const NewbProblemType: FC<{
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "EQUALGROUPS" ? "bg-qqAccent" : "bg-white",
+                disabledSchemas?.includes("multiplicativeEqualGroupsSchema")
+                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
+                  : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("EQUALGROUPS")}
             >
@@ -245,6 +266,9 @@ const NewbProblemType: FC<{
               className={cn(
                 "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
                 schema === "COMPARE" ? "bg-qqAccent" : "bg-white",
+                disabledSchemas?.includes("multiplicativeCompareSchema")
+                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
+                  : "bg-white cursor-pointer",
               )}
               onClick={() => handleSelectSchema("COMPARE")}
             >
