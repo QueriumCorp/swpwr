@@ -323,7 +323,7 @@ const StepWisePower = forwardRef<
                           <p className="text-xs select-text">{traceMsg}</p>
                         </div>
                       </div>
-                      <div className="flex items-center justify-start w-full border-b-2 border-b-slate-600">
+                      <div className="flex items-center justify-start w-full border-b-2 border-b-slate-600 mt-4">
                         <Button
                           className="w-48 mr-2"
                           onClick={() => handleCompleteProblem()}
