@@ -34,6 +34,7 @@ const StepWisePowerProps = z.object({
   problem: ProblemSchema,
   student: StudentSchema,
   options: OptionsSchema.optional(),
+  onComplete: z.function().optional(),
 });
 export type StepWisePowerProps = z.infer<typeof StepWisePowerProps> | undefined;
 
@@ -44,8 +45,10 @@ const StepWisePower = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & StepWisePowerProps
 >((props, _ref) => {
+  //
+  // Prep YellowBrickRoad
+  //
   let ybr;
-
   if (props.options?.rank) {
     ybr = YellowBrickRoad.filter((page) => {
       return page.rank == props.options!.rank;
@@ -54,7 +57,9 @@ const StepWisePower = forwardRef<
     ybr = YellowBrickRoad;
   }
 
+  //
   // State
+  //
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [closeMsg, setCloseMsg] = useState("");
@@ -63,7 +68,9 @@ const StepWisePower = forwardRef<
   const [enableDebugger, setEnableDebugger] = useState(true);
   const [propError, setPropError] = useState("");
 
+  //
   // Store
+  //
   const {
     setSwapiUrl,
     setGltfUrl,
@@ -71,7 +78,6 @@ const StepWisePower = forwardRef<
     setDisabledSchemas,
     setProblem,
     setStudent,
-    setSession,
     studentLog,
     problem,
     student,
@@ -82,9 +88,13 @@ const StepWisePower = forwardRef<
     disabledSchemas,
     closeSession,
     saveTrace,
+    onComplete,
+    setOnComplete,
   } = useProblemStore();
 
-  // Manage Props and Changes to Props
+  //
+  // Props Management
+  //
   useEffect(() => {
     if (props.problem) {
       const probResult = setProblem(props.problem);
@@ -123,6 +133,12 @@ const StepWisePower = forwardRef<
     }
   }, [props.options?.disabledSchemas]);
 
+  useEffect(() => {
+    if (props.onComplete) {
+      setOnComplete(props.onComplete);
+    }
+  }, [props.onComplete]);
+
   // Not sure why I did this
   useEffect(() => {
     if (!api) {
@@ -135,7 +151,9 @@ const StepWisePower = forwardRef<
     });
   }, [api]);
 
+  //
   // Event Handlers
+  //
   const handleCloseSession = async () => {
     const msg = await closeSession();
     setCloseMsg(msg);
@@ -144,11 +162,20 @@ const StepWisePower = forwardRef<
     const msg = await saveTrace(traceComment);
     setTraceMsg(msg);
   };
+  const handleCompleteProblem = async () => {
+    onComplete();
+  };
+
+  //
+  // Hotkeys
+  //
   useHotkeys("shift+ctrl+d", () => {
     setEnableDebugger(!!!enableDebugger);
   });
 
+  //
   // JSX
+  //
   return (
     <NavContext.Provider value={{ current, setCurrent, api }}>
       <AvatarAPIProvider>
@@ -178,7 +205,8 @@ const StepWisePower = forwardRef<
                     <TabsTrigger value="errors">Errors</TabsTrigger>
                     <TabsTrigger value="speech">Speech</TabsTrigger>
                   </TabsList>
-                  {/* Props */}
+
+                  {/* PROPS */}
                   <TabsContent value="props" className="w-full h-[90%]">
                     <div className="p-4 pb-0 w-full h-full">
                       <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
@@ -186,7 +214,8 @@ const StepWisePower = forwardRef<
                       </div>
                     </div>
                   </TabsContent>
-                  {/* Log */}
+
+                  {/* LOG */}
                   <TabsContent value="log" className="w-full h-[90%]">
                     <div className="p-4 pb-0 w-full h-full">
                       <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
@@ -218,6 +247,8 @@ const StepWisePower = forwardRef<
                       </div>
                     </div>
                   </TabsContent>
+
+                  {/* STORE */}
                   <TabsContent value="store" className="w-full h-[90%]">
                     <div className="p-4 pb-0 w-full h-full">
                       <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
@@ -252,6 +283,7 @@ const StepWisePower = forwardRef<
                       </div>
                     </div>
                   </TabsContent>
+
                   {/* YellowBrickRoad */}
                   <TabsContent value="ybr" className="w-full h-[90%]">
                     <div className="p-4 pb-0 w-full h-full">
@@ -260,6 +292,8 @@ const StepWisePower = forwardRef<
                       </div>
                     </div>
                   </TabsContent>
+
+                  {/* COMMANDS */}
                   <TabsContent value="cmds" className="w-full h-[90%]">
                     <div className="p-4 pb-0 w-full h-full">
                       <div className="flex items-center justify-start w-full border-b-2 border-b-slate-600">
@@ -289,14 +323,27 @@ const StepWisePower = forwardRef<
                           <p className="text-xs select-text">{traceMsg}</p>
                         </div>
                       </div>
+                      <div className="flex items-center justify-start w-full border-b-2 border-b-slate-600">
+                        <Button
+                          className="w-48 mr-2"
+                          onClick={() => handleCompleteProblem()}
+                        >
+                          Complete Problem
+                        </Button>
+                        <p className="text-xs select-text">{closeMsg}</p>
+                      </div>
                     </div>
                   </TabsContent>
+
+                  {/* ERRORS */}
                   <TabsContent value="errors" className="w-full h-[90%]">
                     <div className="p-4 pb-0 w-full h-full">
                       <h1>Errors</h1>
                       <div>{propError}</div>
                     </div>
                   </TabsContent>
+
+                  {/* SPEECH */}
                   <TabsContent value="speech" className="w-full h-[90%]">
                     <VoiceTester />
                   </TabsContent>

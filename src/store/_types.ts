@@ -10,6 +10,8 @@ export interface State {
   student: Student;
   session: Session;
   studentLog: LogItem[];
+  onComplete: () => void;
+
   setSwapiUrl: (url: string) => void;
   setGltfUrl: (url: string) => void;
   setRank: (rank: string) => void;
@@ -26,6 +28,8 @@ export interface State {
   closeSession: () => Promise<string>;
   saveTrace: (comment: string) => Promise<string>;
   logAction: (action: string) => void;
+
+  setOnComplete: (onComplete: () => void) => void;
 }
 
 // PROBLEM

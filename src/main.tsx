@@ -31,6 +31,10 @@ const student = {
   studentName: "Loki Van Riper",
 };
 
+function completeHandler() {
+  console.log("Complete Handler");
+}
+
 // get rank from url
 let params = new URLSearchParams(window.location.search);
 let urlRank = params.get("rank");
@@ -50,6 +54,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         problem={problem}
         student={student}
         options={options}
+        onComplete={completeHandler}
       />
     </div>
   </React.StrictMode>,

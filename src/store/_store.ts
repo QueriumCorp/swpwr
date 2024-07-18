@@ -62,6 +62,9 @@ export const useProblemStore = create<State>((set, get) => ({
   },
 
   studentLog: [],
+  onComplete: () => {
+    console.info("onComplete called but not customized.");
+  },
 
   ///////////////////////////////////////////////////////////////////
   // METHODS
@@ -168,6 +171,11 @@ export const useProblemStore = create<State>((set, get) => ({
     };
     set((state) => ({
       studentLog: [...state.studentLog, actionLog],
+    }));
+  },
+  setOnComplete: (onComplete: () => void) => {
+    set((_state) => ({
+      onComplete: onComplete,
     }));
   },
 }));
