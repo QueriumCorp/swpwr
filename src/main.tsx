@@ -79,10 +79,10 @@ if (window.swpwr) {
     disabledSchemas: [],
   };
 }
-debugger;
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <div className="w-dvw h-dvh overflow-hidden relative">
+    <div className="SWPowerComponent w-dvw h-dvh overflow-hidden relative">
       <StepWisePower
         className="absolute top-0 left-0 right-0 bottom-0 flex flex-col"
         problem={problem}
