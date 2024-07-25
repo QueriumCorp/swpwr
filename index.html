@@ -46,13 +46,15 @@
           wpHints: [],
         },
         handlers: {
-          onComplete: () => {
+          onComplete: (session, studentLog) => {
             console.info("I'm an external onComplete Handler");
+            console.info("session", session);
+            console.info("studentLog", studentLog);
           },
         },
       };
     </script>
-    <script type="module" crossorigin src="/swpwr/assets/index-Bt3VUgZ4.js"></script>
+    <script type="module" crossorigin src="/swpwr/assets/index-BlOU5R5C.js"></script>
     <link rel="stylesheet" crossorigin href="/swpwr/assets/index-DaUPfx0b.css">
   </head>
   <body>
