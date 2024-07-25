@@ -10,7 +10,7 @@ export interface State {
   student: Student;
   session: Session;
   studentLog: LogItem[];
-  onComplete: () => void;
+  onComplete: (session: Session, studentLog: LogItem[]) => void;
 
   setSwapiUrl: (url: string) => void;
   setGltfUrl: (url: string) => void;

@@ -163,7 +163,7 @@ const StepWisePower = forwardRef<
     setTraceMsg(msg);
   };
   const handleCompleteProblem = async () => {
-    onComplete();
+    onComplete(session, studentLog);
   };
 
   //
