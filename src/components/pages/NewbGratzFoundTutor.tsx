@@ -24,7 +24,7 @@ const NewbGratzFoundTutor: React.FC<{
   //
   // Store
   //
-  const { initSession, logAction } = useProblemStore();
+  const { logAction } = useProblemStore();
 
   //
   // JSX
@@ -66,7 +66,6 @@ const NewbGratzFoundTutor: React.FC<{
           className="relative right-0"
           onClick={() => {
             logAction("NewbGratzFoundTutor : Clicked Next");
-            initSession();
             api?.scrollNext();
           }}
         >
