@@ -58,6 +58,8 @@ export const useProblemStore = create<State>((set, get) => ({
     knowns: [],
     unknowns: [],
     schema: "",
+    explanations: [],
+    selectedExplanation: "",
     finalAnswer: "",
   },
 
@@ -152,6 +154,15 @@ export const useProblemStore = create<State>((set, get) => ({
       },
     }));
     return await submitPickSchema(set, get, schema);
+  },
+
+  submitExplanation: async (type: string) => {
+    set((state) => ({
+      session: {
+        ...state.session,
+        selectedExplanation: type,
+      },
+    }));
   },
 
   getHint: async () => {

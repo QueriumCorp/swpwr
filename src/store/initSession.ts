@@ -52,6 +52,8 @@ const initSession = async (set: SetFn, get: GetFn) => {
       sessionToken: data.sessionToken,
       identifiers: data.identifiers,
       operators: data.operators,
+      explanations: data.explanation,
+      selectedExplanation: "",
     },
   }));
   get().logAction(
