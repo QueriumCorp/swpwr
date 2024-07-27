@@ -12,14 +12,6 @@ import { TinyTutor } from "../qq/TinyTutor";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { Card } from "../ui/card";
 
-function shuffle<T>(array: T[]): T[] {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
 interface Explanation {
   type: string;
   text: string;
@@ -54,7 +46,9 @@ const RangerReflect: FC<{
   //
   // State
   //
-  const [explanations, setExplanations] = useState<Explanation[]>([]);
+  const [explanations, setExplanations] = useState<Explanation[]>(
+    session.explanations,
+  );
   const [explanation, setExplanation] = useState<Explanation | null>(null);
   const [msg, setMsg] = useState<string>("");
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -63,7 +57,7 @@ const RangerReflect: FC<{
   // Side Effects
   //
   useEffect(() => {
-    setExplanations(shuffle(session.explanations || []));
+    setExplanations(session.explanations);
   }, [session.explanations]);
 
   //

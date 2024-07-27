@@ -1,3 +1,4 @@
+import { shuffle } from "@/lib/utils";
 import type { SetFn, GetFn } from "./_types";
 
 const initSession = async (set: SetFn, get: GetFn) => {
@@ -45,14 +46,16 @@ const initSession = async (set: SetFn, get: GetFn) => {
     },
     body: JSON.stringify(theProblem),
   });
+
   const data = await response.json();
+
   set((state) => ({
     session: {
       ...state.session,
       sessionToken: data.sessionToken,
       identifiers: data.identifiers,
       operators: data.operators,
-      explanations: data.explanation,
+      explanations: shuffle(data.explanation),
       selectedExplanation: "",
     },
   }));
