@@ -31,7 +31,6 @@ import RangerSolveTheEquation from "../pages/RangerSolveTheEquation";
 import RangerSolvedFor from "../pages/RangerSolvedFor";
 import RangerWhatToAnswer from "../pages/RangerWhatToAnswer";
 import { YBRpage } from "./YellowBrickRoad";
-import NewbSolveTheEquation from "../pages/NewbSolveTheEquation";
 import DevMeetTutor from "../pages/DevMeetTutor";
 import DevSolveTheEquation from "../pages/DevSolveTheEquation";
 import NewbVictory from "../pages/NewbVictory";
@@ -126,7 +125,9 @@ export function renderPage(page: YBRpage, index: number) {
     case "cadet:WhatIsPower":
       return <CadetWhatIsPower page={page} index={index}></CadetWhatIsPower>;
 
+    //
     // RANGER
+    //
     case "ranger:ReadProblem":
       return <RangerReadProblem page={page} index={index}></RangerReadProblem>;
     case "ranger:WhatToAnswer":

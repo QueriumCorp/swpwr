@@ -132,7 +132,7 @@ export const useProblemStore = create<State>((set, get) => ({
   },
 
   initSession: async () => {
-    initSession(set, get);
+    return await initSession(set, get);
   },
 
   submitTTable: async (knowns: string[], unknowns: string[]) => {
