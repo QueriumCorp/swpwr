@@ -42,8 +42,14 @@ const RangerReflect: FC<{
   //
   // Store
   //
-  const { studentLog, logAction, session, submitExplanation, onComplete } =
-    useProblemStore();
+  const {
+    problem,
+    studentLog,
+    logAction,
+    session,
+    submitExplanation,
+    onComplete,
+  } = useProblemStore();
 
   //
   // State
@@ -116,24 +122,34 @@ const RangerReflect: FC<{
         instructions="Pull Apart the Statement"
       ></HdrBar>
 
-      <div className="flex flex-col p-2 gap-2 justify-center items-center grow relative">
-        {explanations.map((exp) => (
-          <Card
-            key={exp.type}
-            onClick={() => {
-              if (!disabled) setExplanation(exp);
-            }}
-            className={cn(
-              "w-96 min-h-28 px-4 py-2 ring-qqBrand",
-              exp.type === explanation?.type ? "ring-4" : "ring-0",
-              disabled
-                ? "bg-slate-300 cursor-not-allowed"
-                : "hover:bg-qqAccent hover:text-white cursor-pointer",
-            )}
-          >
-            {exp.text}
-          </Card>
-        ))}
+      <div className="flex flex-col p-2 gap-2 justify-stretch items-center grow relative">
+        <StimulusSelector
+          className={cn(
+            "flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            className,
+            "inline",
+          )}
+          stimulusText={problem.stimulus}
+        ></StimulusSelector>
+        <div className="flex flex-col p-2 gap-2 justify-center items-center grow relative">
+          {explanations.map((exp) => (
+            <Card
+              key={exp.type}
+              onClick={() => {
+                if (!disabled) setExplanation(exp);
+              }}
+              className={cn(
+                "w-96 min-h-28 px-4 py-2 ring-qqBrand",
+                exp.type === explanation?.type ? "ring-4" : "ring-0",
+                disabled
+                  ? "bg-slate-300 cursor-not-allowed"
+                  : "hover:bg-qqAccent hover:text-white cursor-pointer",
+              )}
+            >
+              {exp.text}
+            </Card>
+          ))}
+        </div>
       </div>
 
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
