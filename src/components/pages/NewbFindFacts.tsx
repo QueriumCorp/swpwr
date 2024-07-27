@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useContext, useEffect, useState } from "react";
+import { FC, ReactNode, useContext, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
@@ -12,7 +12,6 @@ import { StimulusSelector } from "../qq/StimulusSelector";
 import UnknownFacts from "../qq/UnknownFacts";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
 import { TinyTutor } from "../qq/TinyTutor";

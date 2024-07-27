@@ -60,6 +60,9 @@ export function renderPage(page: YBRpage, index: number) {
       );
     case "newb:FindTutor":
       return <NewbFindTutor page={page} index={index}></NewbFindTutor>;
+    case "newb:Reflect":
+      return <RangerReflect page={page} index={index}></RangerReflect>;
+
     case "newb:GratzFoundTutor":
       return (
         <NewbGratzFoundTutor page={page} index={index}></NewbGratzFoundTutor>

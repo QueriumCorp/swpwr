@@ -74,6 +74,13 @@ Ready? Click → and I’ll show you how to Prepare.`,
   },
   {
     rank: "newb",
+    id: "Reflect",
+    title: "Why is this answer correct?",
+    phase: "R",
+    phaseLabel: "Reflect on the Answer",
+  },
+  {
+    rank: "newb",
     id: "GratzFoundTutor",
     title: "string",
     phase: "I",
