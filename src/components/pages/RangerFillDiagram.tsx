@@ -108,6 +108,8 @@ const RangerFillDiagram: FC<{
   // JSX
   //
   if (current !== index + 1) return null;
+
+  console.log("RENDERING FILL:", session.schema);
   return (
     <div
       className={cn(
@@ -166,129 +168,105 @@ const RangerFillDiagram: FC<{
               </CardContent>
             </Card>
           </div>
-          <h2 className="mt-3 ml-1 mr-1">
-            Click on the type of problem you think this is
-          </h2>
+
           <div className="grow flex flex-wrap gap-2 mb-4 justify-center">
-            <Card
-              className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                disabledSchemas?.includes("additiveTotalSchema")
-                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : schema === "TOTAL"
-                    ? "bg-qqAccent cursor-pointer"
-                    : "bg-white cursor-pointer",
-              )}
-              onClick={() => handleSelectSchema("TOTAL")}
-            >
-              <CardHeader className="pb-2">
-                <CardTitle>Total</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TotalSchemaGraphic className="mb-4" />
-                <TotalEquationGraphic />
-              </CardContent>
-            </Card>
+            {session.schema == "additiveTotalSchema" ? (
+              <Card
+                className={cn(
+                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
+                )}
+              >
+                <CardHeader className="pb-2">
+                  <CardTitle>Total</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <TotalSchemaGraphic className="mb-4" />
+                  <TotalEquationGraphic />
+                </CardContent>
+              </Card>
+            ) : null}
 
-            <Card
-              className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                disabledSchemas?.includes("additiveDifferenceSchema")
-                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : schema === "DIFFERENCE"
-                    ? "bg-qqAccent cursor-pointer"
-                    : "bg-white cursor-pointer",
-              )}
-              onClick={() => handleSelectSchema("DIFFERENCE")}
-            >
-              <CardHeader className="pb-2">
-                <CardTitle>Difference</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <DifferenceSchemaGraphic className="mb-4" />
-                <DifferenceEquationGraphic />
-              </CardContent>
-            </Card>
+            {session.schema == "additiveDifferenceSchema" ? (
+              <Card
+                className={cn(
+                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
+                )}
+              >
+                <CardHeader className="pb-2">
+                  <CardTitle>Difference</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <DifferenceSchemaGraphic className="mb-4" />
+                  <DifferenceEquationGraphic />
+                </CardContent>
+              </Card>
+            ) : null}
 
-            <Card
-              className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                disabledSchemas?.includes("additiveChangeSchema")
-                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : schema === "CHANGEINCREASE"
-                    ? "bg-qqAccent cursor-pointer"
-                    : "bg-white cursor-pointer",
-              )}
-              onClick={() => handleSelectSchema("CHANGEINCREASE")}
-            >
-              <CardHeader className="pb-2">
-                <CardTitle>Change Increase</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ChangeIncreaseSchemaGraphic className="mb-4" />
-                <ChangeIncreaseEquationGraphic />
-              </CardContent>
-            </Card>
-            <Card
-              className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                disabledSchemas?.includes("additiveChangeSchema")
-                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : schema === "CHANGEDECREASE"
-                    ? "bg-qqAccent cursor-pointer"
-                    : "bg-white cursor-pointer",
-              )}
-              onClick={() => handleSelectSchema("CHANGEDECREASE")}
-            >
-              <CardHeader className="pb-2">
-                <CardTitle>Change Decrease</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ChangeDecreaseSchemaGraphic className="mb-4" />
-                <ChangeDecreaseEquationGraphic />
-              </CardContent>
-            </Card>
-            <div className="h-0 basis-full"></div>
-            <Card
-              className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                schema === "EQUALGROUPS" ? "bg-qqAccent" : "bg-white",
-                disabledSchemas?.includes("multiplicativeEqualGroupsSchema")
-                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : schema === "EQUALGROUPS"
-                    ? "bg-qqAccent cursor-pointer"
-                    : "bg-white cursor-pointer",
-              )}
-              onClick={() => handleSelectSchema("EQUALGROUPS")}
-            >
-              <CardHeader className="pb-2">
-                <CardTitle>Equal Groups</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <EqualGroupsEquationGraphic />
-              </CardContent>
-            </Card>
-            <Card
-              className={cn(
-                "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                disabledSchemas?.includes("multiplicativeCompareSchema")
-                  ? "bg-slate-400 text-slate-500 cursor-not-allowed"
-                  : schema === "COMPARE"
-                    ? "bg-qqAccent cursor-pointer"
-                    : "bg-white cursor-pointer",
-              )}
-              onClick={() => handleSelectSchema("COMPARE")}
-            >
-              <CardHeader className="pb-2">
-                <CardTitle>Compare</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CompareEquationGraphic />
-              </CardContent>
-            </Card>
+            {session.schema == "additiveChangeSchema" ? (
+              <Card
+                className={cn(
+                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
+                )}
+              >
+                <CardHeader className="pb-2">
+                  <CardTitle>Change Increase</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ChangeIncreaseSchemaGraphic className="mb-4" />
+                  <ChangeIncreaseEquationGraphic />
+                </CardContent>
+              </Card>
+            ) : null}
+
+            {session.schema == "additiveChangeSchema" ? (
+              <Card
+                className={cn(
+                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
+                )}
+              >
+                <CardHeader className="pb-2">
+                  <CardTitle>Change Decrease</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ChangeDecreaseSchemaGraphic className="mb-4" />
+                  <ChangeDecreaseEquationGraphic />
+                </CardContent>
+              </Card>
+            ) : null}
+
+            {session.schema == "multiplicativeEqualGroupsSchema" ? (
+              <Card
+                className={cn(
+                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
+                )}
+              >
+                <CardHeader className="pb-2">
+                  <CardTitle>Equal Groups</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <EqualGroupsEquationGraphic />
+                </CardContent>
+              </Card>
+            ) : null}
+
+            {session.schema == "multiplicativeCompareSchema" ? (
+              <Card
+                className={cn(
+                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
+                )}
+              >
+                <CardHeader className="pb-2">
+                  <CardTitle>Compare</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CompareEquationGraphic />
+                </CardContent>
+              </Card>
+            ) : null}
           </div>
         </div>
       </div>
+
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         {/* Tiny Avatar */}
         <AnimeTutor
