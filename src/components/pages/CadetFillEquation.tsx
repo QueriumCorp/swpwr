@@ -8,10 +8,6 @@ import { NavContext, NavContextType } from "@/NavContext";
 import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import DiagramChange from "../qq/DiagramChange/DiagramChange";
-import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
-import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
-import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
@@ -57,23 +53,6 @@ const CadetFillEquation: React.FC<{
           <h2 className="mt-3 ml-1 mr-1">
             Drag the items to fill in the relevant fields in the equation
           </h2>
-          <div className="grow grid grid-cols-2 gap-2">
-            {fakeDiagramType === "DiagramCombine" ? <DiagramCombine /> : null}
-            {fakeDiagramType === "DiagramChange" ? <DiagramChange /> : null}
-            {fakeDiagramType === "DiagramMultiplyTimes" ? (
-              <DiagramMultiplyTimes />
-            ) : null}
-            {fakeDiagramType === "DiagramEqualGroups" ? (
-              <DiagramEqualGroups />
-            ) : null}
-          </div>
-          <div className="flex">
-            <div className="border-2">P1</div>
-            <div>+</div>
-            <div className="border-2">P2</div>
-            <div>=</div>
-            <div className="border-2">T</div>
-          </div>
         </div>
       </div>
 

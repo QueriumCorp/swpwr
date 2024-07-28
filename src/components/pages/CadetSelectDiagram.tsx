@@ -15,10 +15,6 @@ import {
   useAvatarAPI,
 } from "@/components/AnimeTutor";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
-import DiagramChange from "../qq/DiagramChange/DiagramChange";
-import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
-import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
 
@@ -92,12 +88,6 @@ const CadetSelectDiagram: React.FC<{
           <h2 className="mt-3 ml-1 mr-1">
             Click on the type of problem you think this is
           </h2>
-          <div className="grow grid grid-cols-2 gap-2">
-            <DiagramCombine />
-            <DiagramChange />
-            <DiagramMultiplyTimes />
-            <DiagramEqualGroups />
-          </div>
         </div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">

@@ -15,10 +15,6 @@ import {
   useAvatarAPI,
 } from "@/components/AnimeTutor";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import DiagramCombine from "../qq/DiagramCombine/DiagramCombine";
-import DiagramChange from "../qq/DiagramChange/DiagramChange";
-import DiagramMultiplyTimes from "../qq/DiagramMultiplyTimes/DiagramMultiplyTimes";
-import DiagramEqualGroups from "../qq/DiagramEqualGroups/DiagramEqualGroups";
 import { useProblemStore } from "@/store/_store";
 
 const CadetFillDiagram: React.FC<{
@@ -98,16 +94,7 @@ const CadetFillDiagram: React.FC<{
             </Card>
           </div>
 
-          <div className="grow grid grid-cols-2 gap-2">
-            {fakeDiagramType === "DiagramCombine" ? <DiagramCombine /> : null}
-            {fakeDiagramType === "DiagramChange" ? <DiagramChange /> : null}
-            {fakeDiagramType === "DiagramMultiplyTimes" ? (
-              <DiagramMultiplyTimes />
-            ) : null}
-            {fakeDiagramType === "DiagramEqualGroups" ? (
-              <DiagramEqualGroups />
-            ) : null}
-          </div>
+          <div className="grow grid grid-cols-2 gap-2"></div>
         </div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
