@@ -90,9 +90,9 @@ const NewbFindFacts: FC<{
       )}
     >
       <HdrBar
-        highlightLetter="P"
-        subTitle="Prepare"
-        instructions="Pull Apart the Statement"
+        highlightLetter={page?.phase}
+        subTitle={page?.phaseLabel}
+        instructions={page?.title}
       ></HdrBar>
       <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
         <DndContext onDragEnd={handleDragEnd}>

@@ -23,7 +23,7 @@ const CadetSelectDiagram: React.FC<{
   children?: React.ReactNode;
   page?: YBRpage;
   index: number;
-}> = ({ className, index }) => {
+}> = ({ className, page, index }) => {
   const { current } = React.useContext(NavContext) as NavContextType;
 
   // Store
@@ -45,9 +45,9 @@ const CadetSelectDiagram: React.FC<{
       <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative  mb-2">
         <div className="absolute top-0 left-0 bottom-0 right-0  overflow-y-scroll">
           <HdrBar
-            highlightLetter="P"
-            subTitle="Prepare"
-            instructions="Pick the Problem Type"
+            highlightLetter={page?.phase}
+            subTitle={page?.phaseLabel}
+            instructions={page?.title}
           ></HdrBar>
           <div>
             <h1>Stimulus</h1>

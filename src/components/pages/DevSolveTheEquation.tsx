@@ -79,9 +79,9 @@ const DevSolveTheEquation: FC<{
       <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative  mb-2">
         <div className="absolute top-0 left-0 bottom-0 right-0 flex flex-col overflow-y-scroll">
           <HdrBar
-            highlightLetter="W"
-            subTitle="Work"
-            instructions="Solve the Equation"
+            highlightLetter={page?.phase}
+            subTitle={page?.phaseLabel}
+            instructions={page?.title}
           ></HdrBar>
           <div className="grow flex flex-col justify-center items-center">
             <div

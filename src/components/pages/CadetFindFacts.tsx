@@ -26,7 +26,7 @@ const CadetFindFacts: React.FC<{
   children?: React.ReactNode;
   page?: YBRpage;
   index: number;
-}> = ({ className, index }) => {
+}> = ({ className, page, index }) => {
   // Dont render if page not active
   const { current } = React.useContext(NavContext) as NavContextType;
 
@@ -63,9 +63,9 @@ const CadetFindFacts: React.FC<{
       )}
     >
       <HdrBar
-        highlightLetter="P"
-        subTitle="Prepare"
-        instructions="Pull Apart the Problem"
+        highlightLetter={page?.phase}
+        subTitle={page?.phaseLabel}
+        instructions={page?.title}
       ></HdrBar>
       <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
         <DndContext onDragEnd={handleDragEnd}>

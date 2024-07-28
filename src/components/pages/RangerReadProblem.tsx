@@ -63,9 +63,9 @@ const RangerReadProblem: React.FC<{
       )}
     >
       <HdrBar
-        highlightLetter="P"
-        subTitle="Prepare"
-        instructions="Read the Statement"
+        highlightLetter={page?.phase}
+        subTitle={page?.phaseLabel}
+        instructions={page?.title}
       ></HdrBar>
       <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
         <StimulusSelector
