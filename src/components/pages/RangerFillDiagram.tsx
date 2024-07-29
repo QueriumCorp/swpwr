@@ -1,28 +1,22 @@
 "use client";
 
+//  React Imports
 import { FC, ReactNode, useContext, useState } from "react";
 
+// Third-party Imports
 import { cn } from "@/lib/utils";
+
+// Querium Imports
 import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { AnimeTutor, Chat } from "@/components/AnimeTutor";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
-import { TotalSchemaGraphic } from "../schemas/total/graphic";
-import { TotalEquationGraphic } from "../schemas/total/equation";
-import { ChangeIncreaseSchemaGraphic } from "../schemas/changeIncrease/graphic";
-import { ChangeIncreaseEquationGraphic } from "../schemas/changeIncrease/equation";
-import { ChangeDecreaseEquationGraphic } from "../schemas/changeDecrease/equation";
-import { ChangeDecreaseSchemaGraphic } from "../schemas/changeDecrease/graphic";
-import { DifferenceEquationGraphic } from "../schemas/difference/equation";
-import { DifferenceSchemaGraphic } from "../schemas/difference/graphic";
-import { EqualGroupsEquationGraphic } from "../schemas/equalGroups/equation";
-import { CompareEquationGraphic } from "../schemas/compare/equation";
 import { SchemaType } from "@/store/_types";
+import EqualGroupsEditor from "../schemaEditors/equalGroups/EqualGroupsEditor";
 
 const RangerFillDiagram: FC<{
   className?: string;
@@ -109,7 +103,6 @@ const RangerFillDiagram: FC<{
   //
   if (current !== index + 1) return null;
 
-  console.log("RENDERING FILL:", session.schema);
   return (
     <div
       className={cn(
@@ -134,136 +127,7 @@ const RangerFillDiagram: FC<{
             )}
             stimulusText={problem.stimulus}
           ></StimulusSelector>
-          <div className="grow grid grid-cols-2 gap-2">
-            <Card className="bg-slate-300">
-              <CardHeader className="pb-2">
-                <CardTitle>
-                  <CardTitle>Knowns</CardTitle>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {session.knowns ? (
-                  <ul>
-                    {session.knowns.map((known) => (
-                      <li key={known}>{known}</li>
-                    ))}
-                  </ul>
-                ) : null}
-              </CardContent>
-            </Card>
-            <Card className="bg-slate-300">
-              <CardHeader className="pb-2">
-                <CardTitle>
-                  <CardTitle>Unknowns</CardTitle>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {session.unknowns ? (
-                  <ul>
-                    {session.unknowns.map((unknown) => (
-                      <li key={unknown}>{unknown}</li>
-                    ))}
-                  </ul>
-                ) : null}
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grow flex flex-wrap gap-2 mb-4 justify-center">
-            {session.schema == "additiveTotalSchema" ? (
-              <Card
-                className={cn(
-                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                )}
-              >
-                <CardHeader className="pb-2">
-                  <CardTitle>Total</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TotalSchemaGraphic className="mb-4" />
-                  <TotalEquationGraphic />
-                </CardContent>
-              </Card>
-            ) : null}
-
-            {session.schema == "additiveDifferenceSchema" ? (
-              <Card
-                className={cn(
-                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                )}
-              >
-                <CardHeader className="pb-2">
-                  <CardTitle>Difference</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <DifferenceSchemaGraphic className="mb-4" />
-                  <DifferenceEquationGraphic />
-                </CardContent>
-              </Card>
-            ) : null}
-
-            {session.schema == "additiveChangeSchema" ? (
-              <Card
-                className={cn(
-                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                )}
-              >
-                <CardHeader className="pb-2">
-                  <CardTitle>Change Increase</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ChangeIncreaseSchemaGraphic className="mb-4" />
-                  <ChangeIncreaseEquationGraphic />
-                </CardContent>
-              </Card>
-            ) : null}
-
-            {session.schema == "additiveChangeSchema" ? (
-              <Card
-                className={cn(
-                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                )}
-              >
-                <CardHeader className="pb-2">
-                  <CardTitle>Change Decrease</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ChangeDecreaseSchemaGraphic className="mb-4" />
-                  <ChangeDecreaseEquationGraphic />
-                </CardContent>
-              </Card>
-            ) : null}
-
-            {session.schema == "multiplicativeEqualGroupsSchema" ? (
-              <Card
-                className={cn(
-                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                )}
-              >
-                <CardHeader className="pb-2">
-                  <CardTitle>Equal Groups</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <EqualGroupsEquationGraphic />
-                </CardContent>
-              </Card>
-            ) : null}
-
-            {session.schema == "multiplicativeCompareSchema" ? (
-              <Card
-                className={cn(
-                  "w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]",
-                )}
-              >
-                <CardHeader className="pb-2">
-                  <CardTitle>Compare</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CompareEquationGraphic />
-                </CardContent>
-              </Card>
-            ) : null}
-          </div>
+          <EqualGroupsEditor />
         </div>
       </div>
 

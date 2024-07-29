@@ -1,8 +1,7 @@
 import { cn } from "@/lib/utils";
-import { FaEquals } from "react-icons/fa";
-import { ImEqualizer, ImPlus } from "react-icons/im";
+import { FaEquals, FaMinus, FaTimes } from "react-icons/fa";
 
-export const TotalEquationGraphic = ({
+export const ChangeDecreaseEquationGraphic = ({
   interactive,
   className,
 }: {
@@ -17,24 +16,24 @@ export const TotalEquationGraphic = ({
   return (
     <div
       className={cn(
-        "w-full h-full flex justify-around items-center",
+        "w-full h-full flex justify-around items-center bg-pink-400",
         className,
       )}
     >
       <div className="flex justify-center items-center border-4 border-indigo-500 w-[30%] h-full">
-        Part1
+        S
       </div>
       <div className="mx-2">
-        <ImPlus />
+        <FaMinus />
       </div>
       <div className="flex justify-center items-center border-4 border-indigo-500 w-[30%] h-full">
-        Part2
+        C
       </div>
       <div className="mx-2">
         <FaEquals />
       </div>
       <div className="flex justify-center items-center border-4 border-indigo-500 w-[30%] h-full">
-        Total
+        E
       </div>
     </div>
   );

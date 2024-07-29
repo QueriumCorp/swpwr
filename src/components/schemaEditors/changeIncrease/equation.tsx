@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
-import { FaEquals, FaMinus, FaTimes } from "react-icons/fa";
+import { FaEquals, FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 
-export const ChangeDecreaseEquationGraphic = ({
+export const ChangeIncreaseEquationGraphic = ({
   interactive,
   className,
 }: {
@@ -16,7 +16,7 @@ export const ChangeDecreaseEquationGraphic = ({
   return (
     <div
       className={cn(
-        "w-full h-full flex justify-around items-center",
+        "w-full h-full flex justify-around items-center bg-pink-400",
         className,
       )}
     >
@@ -24,7 +24,7 @@ export const ChangeDecreaseEquationGraphic = ({
         S
       </div>
       <div className="mx-2">
-        <FaMinus />
+        <FaPlus />
       </div>
       <div className="flex justify-center items-center border-4 border-indigo-500 w-[30%] h-full">
         C

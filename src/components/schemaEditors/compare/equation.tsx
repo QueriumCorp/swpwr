@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { FaEquals, FaTimes } from "react-icons/fa";
 
-export const EqualGroupsEquationGraphic = ({
+export const CompareEquationGraphic = ({
   interactive,
   className,
 }: {
@@ -16,18 +16,18 @@ export const EqualGroupsEquationGraphic = ({
   return (
     <div
       className={cn(
-        "w-full h-full flex justify-around items-center",
+        "w-full h-full flex justify-around items-center bg-pink-400",
         className,
       )}
     >
       <div className="flex justify-center items-center border-4 border-indigo-500 w-[30%] h-full">
-        G
+        S
       </div>
       <div className="mx-2">
         <FaTimes />
       </div>
       <div className="flex justify-center items-center border-4 border-indigo-500 w-[30%] h-full">
-        N
+        M
       </div>
       <div className="mx-2">
         <FaEquals />

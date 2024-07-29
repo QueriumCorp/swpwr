@@ -39,7 +39,7 @@ const FactChicklet = React.forwardRef<HTMLDivElement, FactChickletProps>(
     const dragStyle = transform
       ? {
           transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-          zIndex: 10,
+          zIndex: 999,
         }
       : undefined;
     return (

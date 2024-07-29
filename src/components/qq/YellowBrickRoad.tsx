@@ -219,7 +219,7 @@ Ready? Click → and I’ll show you how to Prepare.`,
   {
     rank: "ranger",
     id: "ReadProblem",
-    title: "string",
+    title: "Carefully Read the Problem",
     phase: "P",
     phaseLabel: "Prepare",
   },

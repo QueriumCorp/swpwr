@@ -57,43 +57,43 @@ const RangerSelectDiagram: FC<{
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     console.log("handleCheckSchema");
+
+    setMsg("Just a moment while I verify your choice");
+    logAction("RangerSelectDiagram : Clicked Next");
+
+    let selectedSchema: SchemaType = "additiveChangeSchema";
+    switch (schema) {
+      case "TOTAL":
+        selectedSchema = "additiveTotalSchema";
+        break;
+      case "DIFFERENCE":
+        selectedSchema = "additiveDifferenceSchema";
+        break;
+      case "CHANGEINCREASE":
+        selectedSchema = "additiveChangeSchema";
+        break;
+      case "CHANGEDECREASE":
+        selectedSchema = "additiveChangeSchema";
+        break;
+      case "EQUALGROUPS":
+        selectedSchema = "multiplicativeEqualGroupsSchema";
+        break;
+      case "COMPARE":
+        selectedSchema = "multiplicativeCompareSchema";
+        break;
+    }
+
+    logAction("RangerSelectDiagram : Checking Schema : " + selectedSchema);
+    const result = await submitPickSchema(selectedSchema);
+    logAction(
+      "RangerSelectDiagram : Checked Schema : " + JSON.stringify(result),
+    );
+    setMsg(result.message);
+    if (result.stepStatus == "VALID") {
+      api?.scrollNext();
+    }
     if (evt.metaKey) {
       api?.scrollNext();
-    } else {
-      setMsg("Just a moment while I verify your choice");
-      logAction("RangerSelectDiagram : Clicked Next");
-
-      let selectedSchema: SchemaType = "additiveChangeSchema";
-      switch (schema) {
-        case "TOTAL":
-          selectedSchema = "additiveTotalSchema";
-          break;
-        case "DIFFERENCE":
-          selectedSchema = "additiveDifferenceSchema";
-          break;
-        case "CHANGEINCREASE":
-          selectedSchema = "additiveChangeSchema";
-          break;
-        case "CHANGEDECREASE":
-          selectedSchema = "additiveChangeSchema";
-          break;
-        case "EQUALGROUPS":
-          selectedSchema = "multiplicativeEqualGroupsSchema";
-          break;
-        case "COMPARE":
-          selectedSchema = "multiplicativeCompareSchema";
-          break;
-      }
-
-      logAction("RangerSelectDiagram : Checking Schema : " + selectedSchema);
-      const result = await submitPickSchema(selectedSchema);
-      logAction(
-        "RangerSelectDiagram : Checked Schema : " + JSON.stringify(result),
-      );
-      setMsg(result.message);
-      if (result.stepStatus == "VALID") {
-        api?.scrollNext();
-      }
     }
   }
 
