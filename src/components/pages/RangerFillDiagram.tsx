@@ -30,7 +30,7 @@ const RangerFillDiagram: FC<{
   // Store
   const {
     logAction,
-    submitPickSchema,
+    submitOrganize,
     getHint,
     problem,
     session,
@@ -40,6 +40,7 @@ const RangerFillDiagram: FC<{
   // State
   const [schema, setSchema] = useState("");
   const [msg, setMsg] = useState<string>("");
+  const [equation, setEquation] = useState<string>("");
 
   // Event Handlers
   async function handleSelectSchema(schema: string) {
@@ -47,42 +48,20 @@ const RangerFillDiagram: FC<{
     setSchema(schema);
   }
 
-  async function handleCheckSchema(
+  async function handleCheckEquation(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    console.log("handleCheckSchema");
+    console.log("handleCheckEquation");
     if (evt.metaKey) {
       api?.scrollNext();
     } else {
-      setMsg("Just a moment while I verify your choice");
+      setMsg("Just a moment while I verify your equation");
       logAction("RangerFillDiagram : Clicked Next");
 
-      let selectedSchema: SchemaType = "additiveChangeSchema";
-      switch (schema) {
-        case "TOTAL":
-          selectedSchema = "additiveTotalSchema";
-          break;
-        case "DIFFERENCE":
-          selectedSchema = "additiveDifferenceSchema";
-          break;
-        case "CHANGEINCREASE":
-          selectedSchema = "additiveChangeSchema";
-          break;
-        case "CHANGEDECREASE":
-          selectedSchema = "additiveChangeSchema";
-          break;
-        case "EQUALGROUPS":
-          selectedSchema = "multiplicativeEqualGroupsSchema";
-          break;
-        case "COMPARE":
-          selectedSchema = "multiplicativeCompareSchema";
-          break;
-      }
-
-      logAction("RangerFillDiagram : Checking Schema : " + selectedSchema);
-      const result = await submitPickSchema(selectedSchema);
+      logAction("RangerFillDiagram : Checking Schema : " + equation);
+      const result = await submitOrganize(equation);
       logAction(
-        "RangerFillDiagram : Checked Schema : " + JSON.stringify(result),
+        "RangerFillDiagram : Checked Equation : " + JSON.stringify(result),
       );
       setMsg(result.message);
       if (result.stepStatus == "VALID") {
@@ -96,6 +75,10 @@ const RangerFillDiagram: FC<{
     logAction("RangerFillDiagram : GetHint");
     const hint = await getHint();
     setMsg(hint);
+  }
+
+  function HandleEquationChange(latex: string) {
+    setEquation(latex);
   }
 
   //
@@ -127,7 +110,7 @@ const RangerFillDiagram: FC<{
             )}
             stimulusText={problem.stimulus}
           ></StimulusSelector>
-          <EqualGroupsEditor />
+          <EqualGroupsEditor onChange={HandleEquationChange} />
         </div>
       </div>
 
@@ -157,7 +140,7 @@ const RangerFillDiagram: FC<{
         <CarouselNext
           className="relative right-0"
           onClick={(evt) => {
-            handleCheckSchema(evt);
+            handleCheckEquation(evt);
           }}
         >
           Next

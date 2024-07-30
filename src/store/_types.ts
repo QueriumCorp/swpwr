@@ -24,6 +24,7 @@ export interface State {
   initSession: () => void;
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>;
   submitPickSchema: (schema: string) => Promise<any>;
+  submitOrganize: (equation: string) => Promise<any>;
   submitExplanation: (type: string) => Promise<any>;
   getHint: () => Promise<string>;
   closeSession: () => Promise<string>;

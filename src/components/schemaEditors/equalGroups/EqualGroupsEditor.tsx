@@ -1,5 +1,5 @@
 // React Imports
-import { FC, ReactNode, useContext, useState } from "react";
+import { FC, ReactNode, useContext, useEffect, useState } from "react";
 
 // Third-party Imports
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
@@ -14,34 +14,42 @@ import { EqualGroupsEquationGraphic } from "./EqualGroupsEquationGraphic";
 import { FactChicklet } from "@/components/qq/FactChicklet";
 
 const EqualGroupsEditor: FC<{
+  onChange?: (latex: string) => void;
   className?: string;
   children?: ReactNode;
-}> = ({ className }) => {
+}> = ({ onChange, className }) => {
+  //
   // Nav Context
+  //
   const { api, current } = useContext(NavContext) as NavContextType;
 
+  //
   // Store
-  const {
-    logAction,
-    submitPickSchema,
-    getHint,
-    problem,
-    session,
-    disabledSchemas,
-  } = useProblemStore();
+  //
+  const { session } = useProblemStore();
 
+  //
   // State
-  const [schema, setSchema] = useState("");
-  const [msg, setMsg] = useState<string>("");
-  const [g, setG] = useState<string>("g");
-  const [n, setN] = useState<string>("n");
-  const [p, setP] = useState<string>("p");
+  //
+  const [g, setG] = useState<string>("");
+  const [n, setN] = useState<string>("");
+  const [p, setP] = useState<string>("");
 
+  //
+  // Side Effects
+  //
+  useEffect(() => {
+    if (!onChange) return;
+
+    // If any are blank, equation is blank and disable Next
+    if (g.length === 0 || n.length === 0 || p.length === 0) onChange("");
+
+    onChange(`${g}\\times${n}=${p}`);
+  }, [g, n, p]);
+
+  //
   // Event Handlers
-  async function handleSelectSchema(schema: string) {
-    logAction("RangerFillDiagram : Selected Schema : " + schema);
-    setSchema(schema);
-  }
+  //
   function handleDragEnd(event: DragEndEvent) {
     if (!event.over) return;
 
@@ -50,10 +58,10 @@ const EqualGroupsEditor: FC<{
 
     let values = rawValue.match(/(-?\d+(\.\d+)?)/);
 
-    // if no value found, we use the entire string
+    // if no value found, use the box identifier
     let value;
     if (!values) {
-      value = rawValue;
+      value = event.over.id as string;
     } else {
       value = values[0];
     }

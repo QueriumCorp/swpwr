@@ -20,6 +20,7 @@ import getHint from "./getHint";
 import submitPickSchema from "./submitPickSchema";
 import closeSession from "./closeSession";
 import saveTrace from "./saveTrace";
+import submitOrganize from "./submitOrganize";
 
 export const useProblemStore = create<State>((set, get) => ({
   ///////////////////////////////////////////////////////////////////
@@ -156,6 +157,15 @@ export const useProblemStore = create<State>((set, get) => ({
     return await submitPickSchema(set, get, schema);
   },
 
+  submitOrganize: async (equation: string) => {
+    set((state) => ({
+      session: {
+        ...state.session,
+        equation: equation,
+      },
+    }));
+    return await submitOrganize(set, get, equation);
+  },
   submitExplanation: async (type: string) => {
     set((state) => ({
       session: {
