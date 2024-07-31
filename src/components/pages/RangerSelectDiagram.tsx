@@ -73,7 +73,7 @@ const RangerSelectDiagram: FC<{
         selectedSchema = "additiveChangeSchema";
         break;
       case "CHANGEDECREASE":
-        selectedSchema = "additiveChangeSchema";
+        selectedSchema = "subtractiveChangeSchema";
         break;
       case "EQUALGROUPS":
         selectedSchema = "multiplicativeEqualGroupsSchema";

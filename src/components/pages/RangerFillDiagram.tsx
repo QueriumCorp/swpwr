@@ -19,6 +19,7 @@ import TotalEditor from "../schemaEditors/total/TotalEditor";
 import EqualGroupsEditor from "../schemaEditors/equalGroups/EqualGroupsEditor";
 import DifferenceEditor from "../schemaEditors/difference/DifferenceEditor";
 import ChangeDecreaseEditor from "../schemaEditors/changeDecrease/ChangeDecreaseEditor";
+import ChangeIncreaseEditor from "../schemaEditors/changeIncrease/ChangeIncreaseEditor";
 
 const RangerFillDiagram: FC<{
   className?: string;
@@ -117,12 +118,18 @@ const RangerFillDiagram: FC<{
               className={className}
             ></DifferenceEditor>
           ) : null}
-          {session.schema === "additiveChangeSchema" ? (
+          {session.schema === "subtractiveChangeSchema" ? (
             <ChangeDecreaseEditor
               onChange={HandleEquationChange}
               className={className}
             ></ChangeDecreaseEditor>
-          ) : null}{" "}
+          ) : null}
+          {session.schema === "additiveChangeSchema" ? (
+            <ChangeIncreaseEditor
+              onChange={HandleEquationChange}
+              className={className}
+            ></ChangeIncreaseEditor>
+          ) : null}
         </div>
       </div>
 

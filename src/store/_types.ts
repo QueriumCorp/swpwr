@@ -109,6 +109,7 @@ export type LogItem = {
 
 export type SchemaType =
   | "additiveChangeSchema"
+  | "subtractiveChangeSchema"
   | "additiveDifferenceSchema"
   | "additiveTotalSchema"
   | "multiplicativeCompareSchema"
