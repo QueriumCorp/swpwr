@@ -18,6 +18,7 @@ import { useProblemStore } from "@/store/_store";
 import TotalEditor from "../schemaEditors/total/TotalEditor";
 import EqualGroupsEditor from "../schemaEditors/equalGroups/EqualGroupsEditor";
 import DifferenceEditor from "../schemaEditors/difference/DifferenceEditor";
+import ChangeDecreaseEditor from "../schemaEditors/changeDecrease/ChangeDecreaseEditor";
 
 const RangerFillDiagram: FC<{
   className?: string;
@@ -104,20 +105,24 @@ const RangerFillDiagram: FC<{
               className={className}
             ></TotalEditor>
           ) : null}
-
           {session.schema === "multiplicativeEqualGroupsSchema" ? (
             <EqualGroupsEditor
               onChange={HandleEquationChange}
               className={className}
             ></EqualGroupsEditor>
           ) : null}
-
           {session.schema === "additiveDifferenceSchema" ? (
             <DifferenceEditor
               onChange={HandleEquationChange}
               className={className}
             ></DifferenceEditor>
           ) : null}
+          {session.schema === "additiveChangeSchema" ? (
+            <ChangeDecreaseEditor
+              onChange={HandleEquationChange}
+              className={className}
+            ></ChangeDecreaseEditor>
+          ) : null}{" "}
         </div>
       </div>
 
