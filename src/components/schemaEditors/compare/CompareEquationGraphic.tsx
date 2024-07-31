@@ -7,18 +7,18 @@ import { FaEquals, FaTimes } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import { Droppable } from "../Droppable";
 
-export const EqualGroupsEquationGraphic = ({
+export const CompareEquationGraphic = ({
   className,
-  g,
-  n,
+  s,
+  m,
   p,
 }: {
   className?: string;
-  g?: string;
-  n?: string;
+  s?: string;
+  m?: string;
   p?: string;
 }) => {
-  console.log("EqualGroupsEquationGraphic", g, n, p);
+  console.log("CompareEquationGraphic", s, m, p);
   // JSX
   return (
     <div
@@ -29,7 +29,7 @@ export const EqualGroupsEquationGraphic = ({
     >
       <div className="flex grow max-w-[768px] min-w-[480px]">
         <Droppable
-          id="G"
+          id="S"
           className="relative flex flex-col justify-start items-center w-[30%] h-16"
         >
           <div
@@ -38,9 +38,9 @@ export const EqualGroupsEquationGraphic = ({
               "flex justify-start items-center",
             )}
           >
-            <div className={cn()}>G</div>
+            <div className={cn()}>Set</div>
           </div>
-          <div>{g}</div>
+          <div>{s}</div>
         </Droppable>
 
         <div className="mx-2 flex justify-center items-center">
@@ -48,7 +48,7 @@ export const EqualGroupsEquationGraphic = ({
         </div>
 
         <Droppable
-          id="N"
+          id="M"
           className="relative flex flex-col justify-start items-center w-[30%] h-16"
         >
           <div
@@ -57,9 +57,9 @@ export const EqualGroupsEquationGraphic = ({
               "flex justify-start items-center",
             )}
           >
-            <div className={cn()}>N</div>
+            <div className={cn()}>Multiplier</div>
           </div>
-          <div>{n}</div>
+          <div>{m}</div>
         </Droppable>
         <div className="mx-2 flex justify-center items-center">
           <FaEquals />
@@ -74,7 +74,7 @@ export const EqualGroupsEquationGraphic = ({
               "flex justify-start items-center",
             )}
           >
-            <div className={cn()}>P</div>
+            <div className={cn()}>Product</div>
           </div>
           <div>{p}</div>
         </Droppable>

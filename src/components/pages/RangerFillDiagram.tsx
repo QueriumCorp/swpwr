@@ -20,6 +20,7 @@ import EqualGroupsEditor from "../schemaEditors/equalGroups/EqualGroupsEditor";
 import DifferenceEditor from "../schemaEditors/difference/DifferenceEditor";
 import ChangeDecreaseEditor from "../schemaEditors/changeDecrease/ChangeDecreaseEditor";
 import ChangeIncreaseEditor from "../schemaEditors/changeIncrease/ChangeIncreaseEditor";
+import CompareEditor from "../schemaEditors/compare/CompareEditor";
 
 const RangerFillDiagram: FC<{
   className?: string;
@@ -129,6 +130,12 @@ const RangerFillDiagram: FC<{
               onChange={HandleEquationChange}
               className={className}
             ></ChangeIncreaseEditor>
+          ) : null}
+          {session.schema === "multiplicativeCompareSchema" ? (
+            <CompareEditor
+              onChange={HandleEquationChange}
+              className={className}
+            ></CompareEditor>
           ) : null}
         </div>
       </div>
