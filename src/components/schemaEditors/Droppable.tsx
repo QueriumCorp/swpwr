@@ -22,7 +22,7 @@ export const Droppable = ({
         `Droppable:${id}`,
         className,
         "bg-transparent overflow-hidden",
-        "rounded border border-gray-600  px-12 py-3",
+        "rounded border border-gray-600",
         "text-sm font-medium text-slate-800",
         "focus:outline-none focus:ring active:bg-indigo-600 active:text-white",
         isOver ? "text-transparent border-0" : "text-slate-800",

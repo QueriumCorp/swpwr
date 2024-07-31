@@ -18,47 +18,70 @@ export const EqualGroupsEquationGraphic = ({
   n?: string;
   p?: string;
 }) => {
+  console.log("EqualGroupsEquationGraphic", g, n, p);
   // JSX
   return (
     <div
       className={cn(
-        "w-full h-full flex justify-around items-center -z-10",
+        "flex flex-col justify-around items-center gap-6 mt-2",
         className,
       )}
     >
-      <Droppable
-        id="G"
-        className="relative flex flex-col justify-center items-center w-[30%] h-16"
-      >
-        <div className="text-slate-300 font-irishGrover text-5xl absolute w-full h-full select-none flex items-center">
-          G
+      <div className="flex grow max-w-[768px] min-w-[480px]">
+        <Droppable
+          id="G"
+          className="relative flex flex-col justify-start items-center w-[30%] h-16"
+        >
+          <div
+            className={cn(
+              "text-slate-300 text-xl select-none",
+              "flex justify-start items-center",
+            )}
+          >
+            <div className={cn()}>G</div>
+          </div>
+          <div>{g}</div>
+        </Droppable>
+
+        <div className="mx-2 flex justify-center items-center">
+          <FaTimes />
         </div>
-        <div>{g}</div>
-      </Droppable>
-      <div className="mx-2">
-        <FaTimes />
+
+        <Droppable
+          id="N"
+          className="relative flex flex-col justify-start items-center w-[30%] h-16"
+        >
+          <div
+            className={cn(
+              "text-slate-300 text-xl select-none",
+              "flex justify-start items-center",
+            )}
+          >
+            <div className={cn()}>N</div>
+          </div>
+          <div>{n}</div>
+        </Droppable>
+        <div className="mx-2 flex justify-center items-center">
+          <FaEquals />
+        </div>
+        <Droppable
+          id="P"
+          className="relative flex flex-col justify-start items-center w-[30%] h-16"
+        >
+          <div
+            className={cn(
+              "text-slate-300 text-xl select-none",
+              "flex justify-start items-center",
+            )}
+          >
+            <div className={cn()}>P</div>
+          </div>
+          <div>{p}</div>
+        </Droppable>
       </div>
-      <Droppable
-        id="N"
-        className="relative flex flex-col justify-center items-center w-[30%] h-16"
-      >
-        <div className="text-slate-300 font-irishGrover text-5xl absolute w-full h-full select-none flex items-center">
-          <span className={cn()}>N</span>
-        </div>
-        <div>{n}</div>
-      </Droppable>
-      <div className="mx-2">
-        <FaEquals />
-      </div>
-      <Droppable
-        id="P"
-        className="relative flex flex-col justify-center items-center w-[30%] h-16"
-      >
-        <div className="text-slate-300 font-irishGrover text-5xl absolute w-full h-full select-none flex items-center">
-          P
-        </div>
-        <div>{p}</div>
-      </Droppable>
+      <h1>G:{g}</h1>
+      <h1>N:{n}</h1>
+      <h1>P:{p}</h1>
     </div>
   );
 };

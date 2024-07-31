@@ -15,7 +15,7 @@ import { StimulusSelector } from "../qq/StimulusSelector";
 import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
-import { SchemaType } from "@/store/_types";
+import TotalEditor from "../schemaEditors/total/TotalEditor";
 import EqualGroupsEditor from "../schemaEditors/equalGroups/EqualGroupsEditor";
 
 const RangerFillDiagram: FC<{
@@ -28,26 +28,14 @@ const RangerFillDiagram: FC<{
   const { api, current } = useContext(NavContext) as NavContextType;
 
   // Store
-  const {
-    logAction,
-    submitOrganize,
-    getHint,
-    problem,
-    session,
-    disabledSchemas,
-  } = useProblemStore();
+  const { logAction, submitOrganize, getHint, problem, session } =
+    useProblemStore();
 
   // State
-  const [schema, setSchema] = useState("");
   const [msg, setMsg] = useState<string>("");
   const [equation, setEquation] = useState<string>("");
 
   // Event Handlers
-  async function handleSelectSchema(schema: string) {
-    logAction("RangerFillDiagram : Selected Schema : " + schema);
-    setSchema(schema);
-  }
-
   async function handleCheckEquation(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
@@ -89,28 +77,39 @@ const RangerFillDiagram: FC<{
   return (
     <div
       className={cn(
-        "RangerFillDiagram rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch ",
+        "RangerFillDiagram rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
         className,
       )}
     >
-      <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative  mb-2">
-        <div className="absolute top-0 left-0 bottom-0 right-0  overflow-y-scroll">
-          <HdrBar
-            highlightLetter={page?.phase}
-            subTitle={page?.phaseLabel}
-            instructions={page?.title}
-          ></HdrBar>
-          <div>
-            <h1>Stimulus</h1>
-          </div>
-          <StimulusSelector
-            className={cn(
-              "flex w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
-              className,
-            )}
-            stimulusText={problem.stimulus}
-          ></StimulusSelector>
-          <EqualGroupsEditor onChange={HandleEquationChange} />
+      <HdrBar
+        highlightLetter={page?.phase}
+        subTitle={page?.phaseLabel}
+        instructions={page?.title}
+      ></HdrBar>
+      <div className="flex flex-col p-2 gap-2 justify-stretch grow m-2 overflow-y-auto">
+        <StimulusSelector
+          className={cn(
+            "flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            className,
+            "inline",
+          )}
+          stimulusText={problem.stimulus}
+        ></StimulusSelector>
+
+        <div className="grow">
+          {session.schema === "additiveTotalSchema" ? (
+            <TotalEditor
+              onChange={HandleEquationChange}
+              className={className}
+            ></TotalEditor>
+          ) : null}
+
+          {session.schema === "multiplicativeEqualGroupsSchema" ? (
+            <EqualGroupsEditor
+              onChange={HandleEquationChange}
+              className={className}
+            ></EqualGroupsEditor>
+          ) : null}
         </div>
       </div>
 

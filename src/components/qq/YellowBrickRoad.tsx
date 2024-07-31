@@ -19,6 +19,13 @@ export const YellowBrickRoad: YBRpage[] = [
   // },
   {
     rank: "dev",
+    id: "FillDiagram",
+    title: "Fill in the Diagram",
+    phase: "O",
+    phaseLabel: "Organize",
+  },
+  {
+    rank: "dev",
     id: "SolveTheEquation",
     title: "Solve the Equation",
     phase: "W",

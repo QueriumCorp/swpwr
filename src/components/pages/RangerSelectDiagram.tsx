@@ -83,17 +83,21 @@ const RangerSelectDiagram: FC<{
         break;
     }
 
+    const fake = evt.metaKey;
     logAction("RangerSelectDiagram : Checking Schema : " + selectedSchema);
-    const result = await submitPickSchema(selectedSchema);
-    logAction(
-      "RangerSelectDiagram : Checked Schema : " + JSON.stringify(result),
-    );
-    setMsg(result.message);
-    if (result.stepStatus == "VALID") {
+    const result = await submitPickSchema(selectedSchema, fake);
+
+    if (fake) {
+      // Bypass qEval validation
       api?.scrollNext();
-    }
-    if (evt.metaKey) {
-      api?.scrollNext();
+    } else {
+      logAction(
+        "RangerSelectDiagram : Checked Schema : " + JSON.stringify(result),
+      );
+      setMsg(result.message);
+      if (result.stepStatus == "VALID") {
+        api?.scrollNext();
+      }
     }
   }
 

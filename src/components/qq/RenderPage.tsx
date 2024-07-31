@@ -38,6 +38,8 @@ import NewbVictory from "../pages/NewbVictory";
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ":" + page.id) {
     // DEV
+    case "dev:FillDiagram":
+      return <RangerFillDiagram page={page} index={index}></RangerFillDiagram>;
     case "dev:MeetTutor":
       return <DevMeetTutor page={page} index={index}></DevMeetTutor>;
     case "dev:SolveTheEquation":

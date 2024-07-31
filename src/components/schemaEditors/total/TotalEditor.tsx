@@ -9,10 +9,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { cn } from "@/lib/utils";
 import { NavContext, NavContextType } from "@/NavContext";
 import { useProblemStore } from "@/store/_store";
-import { EqualGroupsEquationGraphic } from "./EqualGroupsEquationGraphic";
+import { TotalEquationGraphic } from "./TotalEquationGraphic";
 import { FactChicklet } from "@/components/qq/FactChicklet";
 
-const EqualGroupsEditor: FC<{
+const TotalEditor: FC<{
   onChange?: (latex: string) => void;
   className?: string;
   children?: ReactNode;
@@ -30,10 +30,10 @@ const EqualGroupsEditor: FC<{
   //
   // State
   //
-  const [g, setG] = useState<string>("");
-  const [n, setN] = useState<string>("");
-  const [p, setP] = useState<string>("");
-  console.log("EqualGroupsEditor", g, n, p);
+  const [p1, setP1] = useState<string>("");
+  const [p2, setP2] = useState<string>("");
+  const [t, setT] = useState<string>("");
+
   //
   // Side Effects
   //
@@ -41,16 +41,15 @@ const EqualGroupsEditor: FC<{
     if (!onChange) return;
 
     // If any are blank, equation is blank and disable Next
-    if (g.length === 0 || n.length === 0 || p.length === 0) onChange("");
+    if (p1.length === 0 || p2.length === 0 || t.length === 0) onChange("");
 
-    onChange(`${g}\\times${n}=${p}`);
-  }, [g, n, p]);
+    onChange(`${p1}\\plus${p2}=${t}`);
+  }, [p1, p2, t]);
 
   //
   // Event Handlers
   //
   function handleDragEnd(event: DragEndEvent) {
-    console.log("handleDragEnd", event);
     if (!event.over) return;
 
     const rawValue = event.active.id as string;
@@ -67,14 +66,26 @@ const EqualGroupsEditor: FC<{
     }
 
     switch (event.over.id) {
-      case "G":
-        setG(value);
+      // Schema Editor
+      case "P1":
+        setP1(value);
         break;
-      case "N":
-        setN(value);
+      case "P2":
+        setP2(value);
         break;
-      case "P":
-        setP(value);
+      case "T":
+        setT(value);
+        break;
+
+      // Equation Editor
+      case "PART1":
+        setP1(value);
+        break;
+      case "PART2":
+        setP2(value);
+        break;
+      case "TOTAL":
+        setT(value);
         break;
     }
   }
@@ -83,7 +94,7 @@ const EqualGroupsEditor: FC<{
   // JSX
   //
   return (
-    <div className={cn("EqualGroupsEditor", "z-10", className)}>
+    <div className={cn("TotalEditor", "z-10", className)}>
       <DndContext onDragEnd={handleDragEnd}>
         <div className="grow grid grid-cols-2 gap-2">
           <Card className="">
@@ -121,12 +132,12 @@ const EqualGroupsEditor: FC<{
         </div>
 
         <div className={cn("DROPZONE", "mt-5")}>
-          <EqualGroupsEquationGraphic g={g} n={n} p={p} />
+          <TotalEquationGraphic p1={p1} p2={p2} t={t} />
         </div>
       </DndContext>
     </div>
   );
 };
 
-EqualGroupsEditor.displayName = "EqualGroupsEditor";
-export default EqualGroupsEditor;
+TotalEditor.displayName = "TotalEditor";
+export default TotalEditor;
