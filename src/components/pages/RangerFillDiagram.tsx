@@ -17,6 +17,7 @@ import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
 import TotalEditor from "../schemaEditors/total/TotalEditor";
 import EqualGroupsEditor from "../schemaEditors/equalGroups/EqualGroupsEditor";
+import DifferenceEditor from "../schemaEditors/difference/DifferenceEditor";
 
 const RangerFillDiagram: FC<{
   className?: string;
@@ -109,6 +110,13 @@ const RangerFillDiagram: FC<{
               onChange={HandleEquationChange}
               className={className}
             ></EqualGroupsEditor>
+          ) : null}
+
+          {session.schema === "additiveDifferenceSchema" ? (
+            <DifferenceEditor
+              onChange={HandleEquationChange}
+              className={className}
+            ></DifferenceEditor>
           ) : null}
         </div>
       </div>
