@@ -112,8 +112,8 @@ const RangerSolveTheEquation: FC<{
             >
               Let's Do This!
             </Button>
-            <pre>{JSON.stringify(pageSpecificHints, null, 2)}</pre>
-            <pre>{JSON.stringify(page?.intro, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(pageSpecificHints, null, 2)}</pre>
+            <pre>{JSON.stringify(page?.intro, null, 2)}</pre> */}
           </div>
         </div>
       </div>

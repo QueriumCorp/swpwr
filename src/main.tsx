@@ -13,13 +13,17 @@ declare global {
 }
 window.swpwr = window.swpwr || {};
 
-const swapiUrl = import.meta.env.DEV
+const envSwapiUrl = import.meta.env.DEV
   ? "http://0.0.0.0:4000"
   : "https://swapi2.onrender.com";
 
 var gltfUrl;
 console.info("ENVIRONMENT", import.meta.env);
-console.info("SWAPI URL", swapiUrl);
+
+// get rank from url
+let params = new URLSearchParams(window.location.search);
+let urlRank = params.get("rank");
+let urlSWAPI = params.get("swapi");
 
 let problem: any = {},
   student: any = {},
@@ -39,9 +43,10 @@ if (window.swpwr) {
   student.studentId = window.swpwr.student.studentId;
   student.studentName = window.swpwr.student.fullName;
 
-  options.swapiUrl = window.swpwr.options.swapiUrl;
+  options.swapiUrl = urlSWAPI || envSwapiUrl || window.swpwr.options.swapiUrl;
   options.gltfUrl = window.swpwr.options.gltfUrl;
-  options.rank = window.swpwr.options.rank;
+  options.rank =
+    urlRank || import.meta.env.VITE_RANK || window.swpwr.options.rank || "newb";
   options.disabledSchemas = window.swpwr.options.disableSchemas;
 
   handlers.onComplete = window.swpwr.handlers.onComplete;
@@ -68,17 +73,17 @@ if (window.swpwr) {
     console.info("I'm a built-in onComplete Handler");
   };
 
-  // get rank from url
-  let params = new URLSearchParams(window.location.search);
-  let urlRank = params.get("rank");
-
   options = {
-    swapiUrl,
+    swapiUrl: urlSWAPI || envSwapiUrl,
     gltfUrl,
     rank: urlRank || import.meta.env.VITE_RANK || "newb",
     disabledSchemas: [],
   };
 }
+
+console.table("PROBLEM", problem);
+console.table("STUDENT", student);
+console.table("OPTIONS", options);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

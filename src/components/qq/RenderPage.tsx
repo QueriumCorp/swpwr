@@ -28,12 +28,13 @@ import RangerReadProblem from "../pages/RangerReadProblem";
 import RangerReflect from "../pages/RangerReflect";
 import RangerSelectDiagram from "../pages/RangerSelectDiagram";
 import RangerSolveTheEquation from "../pages/RangerSolveTheEquation";
-import RangerSolvedFor from "../pages/RangerSolvedFor";
+import RangerOwnWords from "../pages/RangerOwnWords";
 import RangerWhatToAnswer from "../pages/RangerWhatToAnswer";
 import { YBRpage } from "./YellowBrickRoad";
 import DevMeetTutor from "../pages/DevMeetTutor";
 import DevSolveTheEquation from "../pages/DevSolveTheEquation";
 import NewbVictory from "../pages/NewbVictory";
+import RangerVictory from "../pages/RangerVictory";
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ":" + page.id) {
@@ -155,10 +156,13 @@ export function renderPage(page: YBRpage, index: number) {
           index={index}
         ></RangerSolveTheEquation>
       );
-    case "ranger:SolvedFor":
-      return <RangerSolvedFor page={page} index={index}></RangerSolvedFor>;
+    case "ranger:OwnWords":
+      return <RangerOwnWords page={page} index={index}></RangerOwnWords>;
     case "ranger:Reflect":
       return <RangerReflect page={page} index={index}></RangerReflect>;
+    case "ranger:RangerVictory":
+      return <RangerVictory page={page} index={index}></RangerVictory>;
+
     default:
       return (
         <>
