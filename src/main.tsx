@@ -13,10 +13,6 @@ declare global {
 }
 window.swpwr = window.swpwr || {};
 
-const envSwapiUrl = import.meta.env.DEV
-  ? "http://0.0.0.0:4000"
-  : "https://swapi2.onrender.com";
-
 var gltfUrl;
 console.info("ENVIRONMENT", import.meta.env);
 
@@ -43,7 +39,11 @@ if (window.swpwr) {
   student.studentId = window.swpwr.student.studentId;
   student.studentName = window.swpwr.student.fullName;
 
-  options.swapiUrl = urlSWAPI || envSwapiUrl || window.swpwr.options.swapiUrl;
+  options.swapiUrl =
+    urlSWAPI ||
+    import.meta.env.VITE_SWAPI ||
+    window.swpwr.options.swapiUrl ||
+    "https://swapi2.onrender.com";
   options.gltfUrl = window.swpwr.options.gltfUrl;
   options.rank =
     urlRank || import.meta.env.VITE_RANK || window.swpwr.options.rank || "newb";
@@ -74,9 +74,17 @@ if (window.swpwr) {
   };
 
   options = {
-    swapiUrl: urlSWAPI || envSwapiUrl,
+    swapiUrl:
+      urlSWAPI ||
+      import.meta.env.VITE_SWAPI ||
+      window.swpwr.options.swapiUrl ||
+      "https://swapi2.onrender.com",
     gltfUrl,
-    rank: urlRank || import.meta.env.VITE_RANK || "newb",
+    rank:
+      urlRank ||
+      import.meta.env.VITE_RANK ||
+      window.swpwr.options.rank ||
+      "newb",
     disabledSchemas: [],
   };
 }
