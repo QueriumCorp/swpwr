@@ -111,9 +111,27 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     //
     // JSX
     //
+
+    function LatexText({ fragment }: { fragment: string }) {
+      let start = fragment.indexOf("\\(");
+      let end = fragment.indexOf("\\)", start);
+      console.info(fragment, start, end);
+
+      if (start === -1) return <span>{fragment}</span>;
+      return (
+        <span>
+          <span>{fragment.substring(0, start)}</span>
+          <math-field read-only className="text-red-500 inline">
+            {fragment.substring(start + 2, end)}
+          </math-field>
+          <span>{fragment.substring(end + 2)}</span>
+        </span>
+      );
+    }
+
     return (
-      <div ref={theRef} className={cn(className, "")}>
-        {preText}
+      <div ref={theRef} className={cn("STIMULUS", className, "")}>
+        <LatexText fragment={preText}></LatexText>
         {theText.length ? <FactChicklet fact={theText}></FactChicklet> : null}
         {postText}
       </div>

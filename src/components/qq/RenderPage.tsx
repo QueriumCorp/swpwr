@@ -35,6 +35,7 @@ import DevMeetTutor from "../pages/DevMeetTutor";
 import DevSolveTheEquation from "../pages/DevSolveTheEquation";
 import NewbVictory from "../pages/NewbVictory";
 import RangerVictory from "../pages/RangerVictory";
+import NewbVideoTotal from "../pages/NewbVideoTotal";
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ":" + page.id) {
@@ -53,6 +54,8 @@ export function renderPage(page: YBRpage, index: number) {
       return <NewbMeetTutor page={page} index={index}></NewbMeetTutor>;
     case "newb:FeelThePower":
       return <NewbFeelThePower page={page} index={index}></NewbFeelThePower>;
+    case "newb:VideoTotal":
+      return <NewbVideoTotal page={page} index={index}></NewbVideoTotal>;
     case "newb:GratzWatchedVideo":
       return (
         <NewbGratzWatchedVideo

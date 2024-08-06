@@ -61,7 +61,10 @@ export const ChatBubble = ({
           delimiters: {
             // Allow math formulas surrounded by $$...$$ for display or \(...\) for inline
             inline: [["\\(", "\\)"]],
-            display: [["$$", "$$"]],
+            display: [
+              ["$$", "$$"],
+              ["\\[", "\\]"],
+            ],
           },
         },
       });
@@ -134,6 +137,7 @@ export const ChatBubble = ({
     <div
       ref={latexRef}
       className={cn(
+        "ChatBubble",
         "rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl rounded-br-none bg-amber-400 text-cyan-700 overflow-hidden relative block  w-[fit-content] px-4 py-[.5rem] max-w-[90%] min-h-[2.75rem] min-w-[2.75rem] ml-2",
         "before:start-[99.9%]",
         "before:[mask-image:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMycgaGVpZ2h0PSczJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxwYXRoIGZpbGw9J2JsYWNrJyBkPSdtIDAgMyBMIDEgMyBMIDMgMyBDIDIgMyAwIDEgMCAwJy8+PC9zdmc+)]",
@@ -150,7 +154,7 @@ export const ChatBubble = ({
         <CarouselContent>
           {messages.map((m, i) => (
             <CarouselItem key={i}>
-              <div key={i} className="flex flex-col gap-1">
+              <div key={i} className="flex flex-col gap-1 select-none">
                 <Markdown remarkPlugins={[remarkGfm]}>{m}</Markdown>
               </div>
             </CarouselItem>

@@ -23,6 +23,7 @@ import { DifferenceSchemaGraphic } from "../schemas/difference/graphic";
 import { EqualGroupsEquationGraphic } from "../schemas/equalGroups/equation";
 import { CompareEquationGraphic } from "../schemas/compare/equation";
 import { SchemaType } from "@/store/_types";
+import { TinyTutor } from "../qq/TinyTutor";
 
 const NewbProblemType: FC<{
   className?: string;
@@ -290,14 +291,10 @@ const NewbProblemType: FC<{
         </div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
-        {/* Tiny Avatar */}
-        <AnimeTutor
-          emote={"wave:01"}
-          style={{
-            bottom: "0px",
-            right: "0px",
-            height: "100%",
-          }}
+        <TinyTutor
+          intro={page?.intro}
+          psHints={page?.psHints || []}
+          aiHints={true}
         />
         <div
           className="h-full bottom-0 right-0 w-[100px] border-solid border-red-500 z-10 cursor-pointer"
@@ -305,10 +302,7 @@ const NewbProblemType: FC<{
             HandleGetHint();
           }}
         ></div>
-        <Chat
-          msg={msg}
-          className="font-irishGrover absolute right-[200px] bottom-[30%] h-fit w-fit min-h-[64px]"
-        />
+
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

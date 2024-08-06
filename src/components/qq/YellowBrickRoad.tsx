@@ -10,13 +10,13 @@ export type YBRpage = {
 };
 
 export const YellowBrickRoad: YBRpage[] = [
-  // {
-  //   rank: "dev",
-  //   id: "MeetTutor",
-  //   title: "string",
-  //   phase: "I",
-  //   phaseLabel: "str",
-  // },
+  {
+    rank: "dev",
+    id: "MeetTutor",
+    title: "string",
+    phase: "I",
+    phaseLabel: "str",
+  },
   {
     rank: "dev",
     id: "FillDiagram",
@@ -46,29 +46,31 @@ export const YellowBrickRoad: YBRpage[] = [
     phaseLabel: "Instruction",
     intro: [
       "Hi! My name is Kettu.",
-      "Together, we’re going to get the POWER to solve math word problems!",
-      "Each letter in POWER is a problem‐solving step that I will teach you.",
-      "Some word problems are easy. But others are harder. When you have POWER, you can use it to solve any word problem.",
-      "When we work together, we’ll always use POWER, even for easy problems. That’s so you can practice your skills and keep your POWER strong.",
-      `Let’s learn the first POWER step!
-The first step is P. P stands for Prepare.
-Ready? Click → and I’ll show you how to Prepare.`,
+      "Together, we're going to get the POWER to solve math word problems!",
+      "Each letter in POWER is a problem-solving step that I will teach you.",
+      "Some word problems are easy. Others are harder. When you have POWER, you can use it to solve *any* word problem.",
+      "When we work together, we'll always use POWER, even for easy problems. That's so you can practice your skills and keep your POWER strong.",
+      `Let's learn the first **P**OWER step!
+
+**P** is the first step. **P** stands for **P**repare.
+
+Ready? Click →.`,
     ],
   },
-  {
-    rank: "newb",
-    id: "FeelThePower",
-    title: "string",
-    phase: "I",
-    phaseLabel: "Instruction",
-  },
-  {
-    rank: "newb",
-    id: "GratzWatchedVideo",
-    title: "string",
-    phase: "I",
-    phaseLabel: "Instruction",
-  },
+  // {
+  //   rank: "newb",
+  //   id: "FeelThePower",
+  //   title: "string",
+  //   phase: "I",
+  //   phaseLabel: "Instruction",
+  // },
+  // {
+  //   rank: "newb",
+  //   id: "GratzWatchedVideo",
+  //   title: "string",
+  //   phase: "I",
+  //   phaseLabel: "Instruction",
+  // },
   {
     rank: "newb",
     id: "FindTutor",
@@ -78,44 +80,90 @@ Ready? Click → and I’ll show you how to Prepare.`,
     intro: [
       "We’ll work together. I’ll be right here if you need me. Just click my cute self to get my attention. 🥰 Try it now.",
     ],
-  },
+    psHints: [
+      `Perfect! You found me!
 
-  {
-    rank: "newb",
-    id: "GratzFoundTutor",
-    title: "string",
-    phase: "I",
-    phaseLabel: "Instruction",
+If you're ever stuck, click on me just like that. I'll do my best to give you a hand.`,
+      `Look next to me. Do you see the →? When it's blue, you can click it. If you've done any work, I'll check it before we move on. If something isn't right, I can help you fix it.
+
+      Click → now to continue.`,
+    ],
   },
+  // {
+  //   rank: "newb",
+  //   id: "GratzFoundTutor",
+  //   title: "string",
+  //   phase: "I",
+  //   phaseLabel: "Instruction",
+  // },
   {
     rank: "newb",
     id: "ReadProblem",
-    title: "string",
+    title: "Read",
     phase: "P",
     phaseLabel: "Prepare",
-    intro:
-      "Read this statement carefully and then click the right arrow to continue.",
+    intro: [
+      `You did that just right! Now let's Prepare.`,
+      `There are three things we do to Prepare. The first one is Read.
+
+Read the story above. Take your time, and read every word carefully. Click → when you're done.`,
+    ],
+    psHints: [
+      `Click → when you're done reading.`,
+      `Go ahead and click → to continue.`,
+    ],
   },
   {
     rank: "newb",
     id: "KnownFacts",
-    title: "string",
+    title: "Pull Apart",
     phase: "P",
     phaseLabel: "Prepare",
+    intro: [
+      `After reading a problem, we pull it apart. That means to find the important amounts and pull them out.`,
+      `An amount in a word problem can be known, or it can be unknown.`,
+      `When you find an amount, highlight it. Then pull it out and place it under Known or Unknown.
+
+Let's find the known amounts together. Click on me and I'll show you how.`,
+    ],
   },
   {
     rank: "newb",
-    id: "GratzOnPrepare",
-    title: "string",
+    id: "VideoTotal",
+    title: "Total Stories (First Total Video)",
     phase: "I",
     phaseLabel: "Instruction",
+    intro: [
+      `The final Prepare task is to pick the problem type.
+
+A word problem tells a story. Before you solve a word problem, it helps to know what *type* of story it tells.`,
+      `There are a few different story types. The first one we'll learn about is Total.
+
+Press [PLAY] to start the video.
+
+When the video finishes, click → to continue.`,
+    ],
   },
+  // {
+  //   rank: "newb",
+  //   id: "GratzOnPrepare",
+  //   title: "string",
+  //   phase: "I",
+  //   phaseLabel: "Instruction",
+  // },
   {
     rank: "newb",
     id: "NewbProblemType",
-    title: "string",
+    title: "Pick the problem type",
     phase: "P",
     phaseLabel: "Prepare",
+    intro: [
+      `Super! Now we can pick the problem type.
+
+The only type we know for now is Total. Let's make sure we've got a Total story here.`,
+      `Are parts put together to make a total?
+Yes! Click on me for more details.`,
+    ],
   },
   {
     rank: "newb",
