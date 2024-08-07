@@ -1,3 +1,4 @@
+// React Imports
 import {
   forwardRef,
   useEffect,
@@ -6,10 +7,15 @@ import {
   useState,
 } from "react";
 
-import { cn } from "@/lib/utils";
+// Third Party Imports
+import { HiMiniSpeakerWave } from "react-icons/hi2";
+
+// Querium Imports
+import { cn, makeVocalizable } from "@/lib/utils";
 import { FactChicklet } from "./FactChicklet";
 import { renderMathInElement } from "mathlive";
 
+// Type Definitions
 export interface StimulusSelectorProps
   extends React.HTMLAttributes<HTMLDivElement> {
   stimulusText?: string;
@@ -17,6 +23,7 @@ export interface StimulusSelectorProps
   onChangeFact?(fact: string): void;
 }
 
+// Component
 const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
   ({ className, stimulusText = "", interactive, onChangeFact }, _ref) => {
     //
@@ -108,6 +115,31 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
       }
     }, []);
 
+    // Speak Button
+    function handleSpeak() {
+      if (!stimulusText) {
+        return;
+      }
+
+      const msg2Vocalize = stimulusText;
+      const utterance = new SpeechSynthesisUtterance(
+        makeVocalizable(msg2Vocalize),
+      );
+      utterance.lang = "en-US";
+      utterance.voice = speechSynthesis.getVoices()[159];
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      speechSynthesis.speak(utterance);
+    }
+    function SpeakButton() {
+      return (
+        <button className="border-none text-xs" onClick={handleSpeak}>
+          <HiMiniSpeakerWave className="text-cyan-900" />
+        </button>
+      );
+    }
+
     //
     // JSX
     //
@@ -130,11 +162,16 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     }
 
     return (
-      <div ref={theRef} className={cn("STIMULUS", className, "")}>
-        <LatexText fragment={preText}></LatexText>
-        {theText.length ? <FactChicklet fact={theText}></FactChicklet> : null}
-        {postText}
-      </div>
+      <>
+        <div ref={theRef} className={cn("STIMULUS", className, "")}>
+          <LatexText fragment={preText}></LatexText>
+          {theText.length ? <FactChicklet fact={theText}></FactChicklet> : null}
+          {postText}
+          <div className="text-right text-black italic mt-2 flex justify-between items-center">
+            <SpeakButton></SpeakButton>
+          </div>
+        </div>
+      </>
     );
   },
 );
