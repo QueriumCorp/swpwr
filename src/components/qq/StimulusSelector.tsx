@@ -1,11 +1,5 @@
 // React Imports
-import {
-  forwardRef,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 
 // Third Party Imports
 import { HiMiniSpeakerWave } from "react-icons/hi2";
@@ -13,7 +7,6 @@ import { HiMiniSpeakerWave } from "react-icons/hi2";
 // Querium Imports
 import { cn, makeVocalizable } from "@/lib/utils";
 import { FactChicklet } from "./FactChicklet";
-import { renderMathInElement } from "mathlive";
 
 // Type Definitions
 export interface StimulusSelectorProps
@@ -54,6 +47,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     }
 
     function retrieveSelection(): void {
+      console.log("retrieveSelection");
       const sel = document.getSelection();
 
       // Ignore empty selection
@@ -100,22 +94,9 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
       if (theRef && theRef.current) attachSelectionListener(theRef.current);
     }, [theRef]);
 
-    // on initial render, tell MathLive to render the latex
-    useLayoutEffect(() => {
-      if (theRef.current) {
-        renderMathInElement(theRef.current, {
-          TeX: {
-            delimiters: {
-              // Allow math formulas surrounded by $$...$$ for display or \(...\) for inline
-              inline: [["\\(", "\\)"]],
-              display: [["\\[", "\\]"]],
-            },
-          },
-        });
-      }
-    }, []);
-
-    // Speak Button
+    //
+    // Handlers
+    //
     function handleSpeak() {
       if (!stimulusText) {
         return;
@@ -144,32 +125,15 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     // JSX
     //
 
-    function LatexText({ fragment }: { fragment: string }) {
-      let start = fragment.indexOf("\\(");
-      let end = fragment.indexOf("\\)", start);
-      console.info(fragment, start, end);
-
-      if (start === -1) return <span>{fragment}</span>;
-      return (
-        <span>
-          <span>{fragment.substring(0, start)}</span>
-          <math-field read-only className="text-red-500 inline">
-            {fragment.substring(start + 2, end)}
-          </math-field>
-          <span>{fragment.substring(end + 2)}</span>
-        </span>
-      );
-    }
-
     return (
       <>
         <div ref={theRef} className={cn("STIMULUS", className, "")}>
-          <LatexText fragment={preText}></LatexText>
+          {preText}
           {theText.length ? <FactChicklet fact={theText}></FactChicklet> : null}
           {postText}
-          <div className="text-right text-black italic mt-2 flex justify-between items-center">
+          {/* <div className="text-right text-black italic mt-2 flex justify-between items-center">
             <SpeakButton></SpeakButton>
-          </div>
+          </div> */}
         </div>
       </>
     );

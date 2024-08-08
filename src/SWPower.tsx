@@ -97,6 +97,9 @@ const StepWisePower = forwardRef<
   //
   useEffect(() => {
     if (props.problem) {
+      if (props.problem.stimulus) {
+        props.problem.stimulus = props.problem.stimulus.replace(/\s{2,}/g, " ");
+      }
       const probResult = setProblem(props.problem);
       if (probResult && !probResult.problemValid) {
         setPropError(probResult.problemStatusMsg);
