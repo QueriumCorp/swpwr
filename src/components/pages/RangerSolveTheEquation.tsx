@@ -20,16 +20,24 @@ const RangerSolveTheEquation: FC<{
   page?: YBRpage;
   index: number;
 }> = ({ className, index, page }) => {
-  console.log("RangerSolveTheEquation", page);
+  //
+  // Context
+  //
+  const { api, current } = useContext(NavContext) as NavContextType;
 
-  // Dont render if page not active
-  const { current } = useContext(NavContext) as NavContextType;
+  //
+  // Refs
+  //
   const stepwiseRef = useRef<StepWiseAPI>(null);
 
+  //
   // Store
+  //
   const { problem, student, session, swapiUrl } = useProblemStore();
 
+  //
   // State
+  //
   const [working, setWorking] = useState(false);
 
   const pageSpecificHints = page?.psHints || [];
@@ -63,6 +71,20 @@ const RangerSolveTheEquation: FC<{
   }
   if (problem.qs3) {
     swProblem.hints.push(problem.qs3);
+  }
+
+  //
+  // Handlers
+  //
+  async function HandleNext(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    if (evt.metaKey) {
+      //If Cmd+Enter just scroll to next page
+      api?.scrollNext();
+    } else {
+      alert("Need to respond to math completion event");
+    }
   }
 
   if (current !== index + 1)
@@ -126,7 +148,12 @@ const RangerSolveTheEquation: FC<{
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
-        <CarouselNext className="relative right-0">Next</CarouselNext>
+        <CarouselNext
+          className="relative right-0"
+          onClick={(evt) => HandleNext(evt)}
+        >
+          Next
+        </CarouselNext>
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerSolveTheEquation
         </h1>
