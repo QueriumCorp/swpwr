@@ -41,7 +41,9 @@ const NewbProblemType: FC<{
     getHint,
     problem,
     session,
+    studentLog,
     disabledSchemas,
+    onComplete,
   } = useProblemStore();
 
   // State
@@ -61,6 +63,7 @@ const NewbProblemType: FC<{
   ) {
     console.log("handleCheckSchema");
     if (evt.metaKey) {
+      onComplete(session, studentLog);
       api?.scrollNext();
     } else {
       setMsg("Just a moment while I verify your choice");
@@ -94,6 +97,7 @@ const NewbProblemType: FC<{
       setMsg(result.message);
       if (result.stepStatus == "VALID") {
         api?.scrollNext();
+        onComplete(session, studentLog);
       }
     }
   }
