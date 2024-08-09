@@ -91,6 +91,7 @@ const RangerReflect: FC<{
       }
       submitExplanation(explanation?.type || "");
       setDisabled(true);
+      onComplete(session, studentLog);
       // const result = await submitTTable(knowns, unknowns);
       // setMsg(result.message);
       // if (result.stepStatus == "VALID") {
