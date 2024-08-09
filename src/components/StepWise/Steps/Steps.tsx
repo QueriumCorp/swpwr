@@ -89,6 +89,20 @@ const Steps = () => {
             hintObject={step.hintObject}
           />
         );
+      case "mathComplete":
+        return (
+          <VictoryStep
+            key={step.timestamp}
+            timestamp={step.timestamp}
+            type={step.type}
+            latex={step.latex}
+            message={step.message}
+            status={step.status}
+            stepStatus={step.stepStatus}
+            rawResponse={step.rawResponse}
+            hintObject={step.hintObject}
+          />
+        );
       default:
         // TODO: Finish exhaustive union as shown here: https://www.youtube.com/watch?v=CG3_Y9T03J4
         return <div>Step type not implemented: {JSON.stringify(step)}</div>;

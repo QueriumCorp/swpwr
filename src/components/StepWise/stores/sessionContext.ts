@@ -56,6 +56,7 @@ export const createSessionStore = (
   problem?: Problem,
   server?: Server,
   assistant?: (msg: string) => void,
+  onComplete?: (steps: Step[], log: Log[]) => void,
 ) => {
   console.info("CREATE SESSION STORE");
   console.info("Initial state:", initialState);
@@ -555,6 +556,13 @@ export const createSessionStore = (
                 break;
               case "COMPLETE":
                 resultingStep.type = "victory";
+                break;
+              case "MATHCOMPLETE":
+                resultingStep.type = "mathComplete";
+                if (typeof onComplete === "function") {
+                  const log = get().log;
+                  onComplete(get().steps, log);
+                }
                 break;
             }
 

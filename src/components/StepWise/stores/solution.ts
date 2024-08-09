@@ -60,6 +60,15 @@ export type Step = {
       latex: string;
       hintObject: Hint[];
     }
+  | {
+      type: "mathComplete";
+      status: string;
+      stepStatus: "MATHCOMPLETE";
+      message: string;
+      rawResponse: string;
+      latex: string;
+      hintObject: Hint[];
+    }
 );
 
 export const StepSchema = z.object({

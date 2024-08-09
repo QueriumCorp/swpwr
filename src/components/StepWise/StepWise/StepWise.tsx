@@ -14,6 +14,7 @@ import { Session } from "../stores/session";
 // Imports of Components
 import { ActiveSession, type ActiveSessionAPI } from "./ActiveSession";
 import { Server } from "../stores/server";
+import { Log, Step } from "../stores/solution";
 
 // Definition of Types and Interfaces
 export interface StepWiseProps {
@@ -23,6 +24,7 @@ export interface StepWiseProps {
   ready?: boolean;
   go?: boolean;
   assistant?: (msg: string) => void;
+  onComplete?: (steps: Step[], log: Log[]) => void;
   className?: string;
   style?: CSSProperties;
 }
@@ -35,7 +37,10 @@ export interface StepWiseAPI {
 // StepWise COMPONENT
 //
 export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
-  ({ student, problem, assistant, server, className, ready, go }, ref) => {
+  (
+    { student, problem, assistant, onComplete, server, className, ready, go },
+    ref,
+  ) => {
     console.log("RENDERING StepWise @ ", new Date().toLocaleTimeString());
 
     // Define component's API
@@ -69,6 +74,7 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
         problem,
         server,
         assistant,
+        onComplete,
       );
     }
 

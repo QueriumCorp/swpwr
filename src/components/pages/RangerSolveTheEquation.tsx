@@ -13,6 +13,7 @@ import { useProblemStore } from "@/store/_store";
 import { Button } from "../ui/button";
 import { StepWiseAPI } from "../StepWise/StepWise/StepWise";
 import { TinyTutor } from "../qq/TinyTutor";
+import { Log, Step } from "../StepWise/stores/solution";
 
 const RangerSolveTheEquation: FC<{
   className?: string;
@@ -39,6 +40,7 @@ const RangerSolveTheEquation: FC<{
   // State
   //
   const [working, setWorking] = useState(false);
+  const [msg, setMsg] = useState("");
 
   const pageSpecificHints = page?.psHints || [];
 
@@ -87,6 +89,11 @@ const RangerSolveTheEquation: FC<{
     }
   }
 
+  function onComplete(steps: Step[], log: Log[]) {
+    console.table(steps);
+    console.table(log);
+  }
+
   if (current !== index + 1)
     // JSX
     return null;
@@ -119,6 +126,8 @@ const RangerSolveTheEquation: FC<{
                 server={{ serverURL: swapiUrl }}
                 problem={swProblem}
                 student={student}
+                assistant={setMsg}
+                onComplete={onComplete}
               />
             </div>
             <Button
@@ -141,6 +150,7 @@ const RangerSolveTheEquation: FC<{
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
         <TinyTutor
+          msg={msg}
           intro={page?.intro}
           psHints={pageSpecificHints}
           aiHints={true}
