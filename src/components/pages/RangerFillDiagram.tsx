@@ -38,6 +38,7 @@ const RangerFillDiagram: FC<{
   // State
   const [msg, setMsg] = useState<string>("");
   const [equation, setEquation] = useState<string>("");
+  const [values, setValues] = useState<string[]>([]);
 
   // Event Handlers
   async function handleCheckEquation(
@@ -51,7 +52,7 @@ const RangerFillDiagram: FC<{
       logAction("RangerFillDiagram : Clicked Next");
 
       logAction("RangerFillDiagram : Checking Schema : " + equation);
-      const result = await submitOrganize(equation);
+      const result = await submitOrganize(equation, values);
       logAction(
         "RangerFillDiagram : Checked Equation : " + JSON.stringify(result),
       );
@@ -69,8 +70,9 @@ const RangerFillDiagram: FC<{
     setMsg(hint);
   }
 
-  function HandleEquationChange(latex: string) {
+  function HandleEquationChange(latex: string, values: string[]) {
     setEquation(latex);
+    setValues(values);
   }
 
   //

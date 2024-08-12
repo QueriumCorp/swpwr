@@ -13,7 +13,7 @@ import { EqualGroupsEquationGraphic } from "./EqualGroupsEquationGraphic";
 import { FactChicklet } from "@/components/qq/FactChicklet";
 
 const EqualGroupsEditor: FC<{
-  onChange?: (latex: string) => void;
+  onChange?: (latex: string, values: string[]) => void;
   className?: string;
   children?: ReactNode;
 }> = ({ onChange, className }) => {
@@ -41,9 +41,9 @@ const EqualGroupsEditor: FC<{
     if (!onChange) return;
 
     // If any are blank, equation is blank and disable Next
-    if (g.length === 0 || n.length === 0 || p.length === 0) onChange("");
+    if (g.length === 0 || n.length === 0 || p.length === 0) onChange("", []);
 
-    onChange(`${g}\\times${n}=${p}`);
+    onChange(`${g}\\times${n}=${p}`, [g, n, p]);
   }, [g, n, p]);
 
   //

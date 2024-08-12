@@ -13,7 +13,7 @@ import { ChangeIncreaseEquationGraphic } from "./ChangeIncreaseEquationGraphic";
 import { FactChicklet } from "@/components/qq/FactChicklet";
 
 const ChangeIncreaseEditor: FC<{
-  onChange?: (latex: string) => void;
+  onChange?: (latex: string, values: string[]) => void;
   className?: string;
   children?: ReactNode;
 }> = ({ onChange, className }) => {
@@ -41,10 +41,10 @@ const ChangeIncreaseEditor: FC<{
     if (!onChange) return;
 
     // If any are blank, equation is blank and disable Next
-    if (s.length === 0 || c.length === 0 || e.length === 0) onChange("");
+    if (s.length === 0 || c.length === 0 || e.length === 0) onChange("", []);
 
     console.log(`${s}\\plus${c}\=${e}`);
-    onChange(`${s}\\plus${c}\=${e}`);
+    onChange(`${s}\\plus${c}\=${e}`, [s, c, e]);
   }, [s, c, e]);
 
   //

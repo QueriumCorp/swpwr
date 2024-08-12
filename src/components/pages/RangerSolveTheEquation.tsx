@@ -53,6 +53,7 @@ const RangerSolveTheEquation: FC<{
   //
   const [working, setWorking] = useState(false);
   const [msg, setMsg] = useState("");
+  const [complete, setComplete] = useState(false);
 
   const pageSpecificHints = page?.psHints || [];
 
@@ -93,17 +94,18 @@ const RangerSolveTheEquation: FC<{
   async function HandleNext(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    if (evt.metaKey) {
+    if (evt.metaKey || complete) {
       //If Cmd+Enter just scroll to next page
       api?.scrollNext();
     } else {
-      alert("Need to respond to math completion event");
+      setMsg("You must complete the math before proceeding.");
     }
   }
 
   function onComplete(steps: Step[], log: Log[]) {
     console.table(steps);
     console.table(log);
+    setComplete(true);
   }
 
   if (current !== index + 1)
@@ -143,19 +145,39 @@ const RangerSolveTheEquation: FC<{
               >
                 <div className="mt-2">
                   {session.schema === "additiveTotalSchema" ? (
-                    <TotalEquationGraphic></TotalEquationGraphic>
+                    <TotalEquationGraphic
+                      p1={session.schemaValues[0]}
+                      p2={session.schemaValues[1]}
+                      t={session.schemaValues[2]}
+                    ></TotalEquationGraphic>
                   ) : null}
                   {session.schema === "multiplicativeEqualGroupsSchema" ? (
-                    <EqualGroupsEquationGraphic></EqualGroupsEquationGraphic>
+                    <EqualGroupsEquationGraphic
+                      g={session.schemaValues[0]}
+                      n={session.schemaValues[1]}
+                      p={session.schemaValues[2]}
+                    ></EqualGroupsEquationGraphic>
                   ) : null}
                   {session.schema === "additiveDifferenceSchema" ? (
-                    <DifferenceEquationGraphic></DifferenceEquationGraphic>
+                    <DifferenceEquationGraphic
+                      l={session.schemaValues[0]}
+                      d={session.schemaValues[1]}
+                      g={session.schemaValues[2]}
+                    ></DifferenceEquationGraphic>
                   ) : null}
                   {session.schema === "subtractiveChangeSchema" ? (
-                    <ChangeDecreaseEquationGraphic></ChangeDecreaseEquationGraphic>
+                    <ChangeDecreaseEquationGraphic
+                      e={session.schemaValues[0]}
+                      c={session.schemaValues[1]}
+                      s={session.schemaValues[2]}
+                    ></ChangeDecreaseEquationGraphic>
                   ) : null}
                   {session.schema === "additiveChangeSchema" ? (
-                    <ChangeIncreaseEquationGraphic></ChangeIncreaseEquationGraphic>
+                    <ChangeIncreaseEquationGraphic
+                      e={session.schemaValues[0]}
+                      c={session.schemaValues[1]}
+                      s={session.schemaValues[2]}
+                    ></ChangeIncreaseEquationGraphic>
                   ) : null}
                   {session.schema === "multiplicativeCompareSchema" ? (
                     <CompareEquationGraphic></CompareEquationGraphic>

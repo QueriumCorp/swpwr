@@ -59,6 +59,7 @@ export const useProblemStore = create<State>((set, get) => ({
     knowns: [],
     unknowns: [],
     schema: "",
+    schemaValues: [],
     explanations: [],
     selectedExplanation: "",
     finalAnswer: "",
@@ -157,11 +158,12 @@ export const useProblemStore = create<State>((set, get) => ({
     if (!fake) return await submitPickSchema(set, get, schema);
   },
 
-  submitOrganize: async (equation: string) => {
+  submitOrganize: async (equation: string, values: string[]) => {
     set((state) => ({
       session: {
         ...state.session,
         equation: equation,
+        schemaValues: values,
       },
     }));
     return await submitOrganize(set, get, equation);

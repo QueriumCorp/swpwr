@@ -13,7 +13,7 @@ import { DifferenceEquationGraphic } from "./DifferenceEquationGraphic";
 import { FactChicklet } from "@/components/qq/FactChicklet";
 
 const DifferenceEditor: FC<{
-  onChange?: (latex: string) => void;
+  onChange?: (latex: string, values: string[]) => void;
   className?: string;
   children?: ReactNode;
 }> = ({ onChange, className }) => {
@@ -41,10 +41,10 @@ const DifferenceEditor: FC<{
     if (!onChange) return;
 
     // If any are blank, equation is blank and disable Next
-    if (l.length === 0 || d.length === 0 || g.length === 0) onChange("");
+    if (l.length === 0 || d.length === 0 || g.length === 0) onChange("", []);
 
     console.log(`${g}\\minus${l}\=${d}`);
-    onChange(`${g}\\minus${l}\=${d}`);
+    onChange(`${g}\\minus${l}\=${d}`, [l, d, g]);
   }, [l, d, g]);
 
   //

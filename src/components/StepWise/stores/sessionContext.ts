@@ -566,6 +566,11 @@ export const createSessionStore = (
                 break;
             }
 
+            if (typeof assistant === "function") {
+              assistant(body.message);
+              return;
+            }
+
             set((state) => ({
               log: [...state.log, logEntry],
               steps: [...state.steps, resultingStep as Step],
