@@ -9,9 +9,9 @@ export const TotalEquationGraphic = ({
   t,
   className,
 }: {
-  p1: string;
-  p2: string;
-  t: string;
+  p1?: string;
+  p2?: string;
+  t?: string;
   className?: string;
 }) => {
   //

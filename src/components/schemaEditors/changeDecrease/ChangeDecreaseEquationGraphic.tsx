@@ -9,9 +9,9 @@ export const ChangeDecreaseEquationGraphic = ({
   s,
   className,
 }: {
-  e: string;
-  c: string;
-  s: string;
+  e?: string;
+  c?: string;
+  s?: string;
   className?: string;
 }) => {
   //

@@ -9,9 +9,9 @@ export const DifferenceEquationGraphic = ({
   g,
   className,
 }: {
-  l: string;
-  d: string;
-  g: string;
+  l?: string;
+  d?: string;
+  g?: string;
   className?: string;
 }) => {
   //
