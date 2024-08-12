@@ -106,7 +106,9 @@ If you're ever stuck, click on me just like that. I'll do my best to give you a 
       `You did that just right! Now let's Prepare.`,
       `There are three things we do to Prepare. The first one is Read.
 
-Read the story above. Take your time, and read every word carefully. Click → when you're done.`,
+Read the story above. Take your time, and read every word carefully.
+
+Click → when you're done.`,
     ],
     psHints: [
       `Click → when you're done reading.`,
@@ -162,6 +164,7 @@ When the video finishes, click → to continue.`,
 
 The only type we know for now is Total. Let's make sure we've got a Total story here.`,
       `Are parts put together to make a total?
+      
 Yes! Click on me for more details.`,
     ],
   },
