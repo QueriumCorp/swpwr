@@ -183,7 +183,7 @@ Now you know the first POWER step, **P**repare.`,
 1. Pull apart
 1. Pick the problem type`,
       `*And* you now know one problem type: Total.
-      
+
 Click Next to practice and check your understanding.`,
     ],
   },
@@ -292,6 +292,11 @@ Click Next to practice and check your understanding.`,
     title: "Carefully Read the Problem",
     phase: "P",
     phaseLabel: "Prepare",
+    psHints: [
+      `Click → when you're done reading.`,
+      `Go ahead and click → to continue.`,
+    ],
+    aiHints: true,
   },
   {
     rank: "ranger",
@@ -299,6 +304,7 @@ Click Next to practice and check your understanding.`,
     title: "What are the relevant facts?",
     phase: "P",
     phaseLabel: "Prepare",
+    aiHints: true,
   },
   {
     rank: "ranger",
@@ -306,6 +312,7 @@ Click Next to practice and check your understanding.`,
     title: "What type of problem is it?",
     phase: "O",
     phaseLabel: "Organize",
+    aiHints: true,
   },
   {
     rank: "ranger",
@@ -313,6 +320,7 @@ Click Next to practice and check your understanding.`,
     title: "Fill in the Diagram",
     phase: "O",
     phaseLabel: "Organize",
+    aiHints: true,
   },
   {
     rank: "ranger",
@@ -320,6 +328,7 @@ Click Next to practice and check your understanding.`,
     title: "Solve the Equation",
     phase: "W",
     phaseLabel: "Work the Problem",
+    aiHints: true,
   },
   {
     rank: "ranger",
@@ -327,13 +336,16 @@ Click Next to practice and check your understanding.`,
     title: "Answer the question in your own words",
     phase: "E",
     phaseLabel: "Explain your Answer",
+    aiHints: true,
   },
   {
     rank: "ranger",
     id: "Reflect",
-    title: "Why is this answer correct?",
+    title: "Think about the answer",
     phase: "R",
     phaseLabel: "Reflect on the Answer",
+    psHints: [`Choose the reason you think is best. Then click →.`],
+    aiHints: true,
   },
   {
     rank: "ranger",
@@ -341,5 +353,10 @@ Click Next to practice and check your understanding.`,
     title: "string",
     phase: "I",
     phaseLabel: "Congratulations",
+    intro: [
+      `Congratulations! You solved the problem!
+      
+Click Next when you're ready to move on.`,
+    ],
   },
 ];

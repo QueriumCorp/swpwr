@@ -126,6 +126,7 @@ const RangerReflect: FC<{
           )}
           stimulusText={problem.stimulus}
         ></StimulusSelector>
+        <h2>Why does your answer make sense? Choose the best reason.</h2>
         <div className="flex flex-col p-2 gap-2 justify-center items-center grow relative">
           {explanations.map((exp) => (
             <Card
