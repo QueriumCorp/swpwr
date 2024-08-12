@@ -164,7 +164,7 @@ When the video finishes, click → to continue.`,
 
 The only type we know for now is Total. Let's make sure we've got a Total story here.`,
       `Are parts put together to make a total?
-      
+
 Yes! Click on me for more details.`,
     ],
   },
@@ -174,6 +174,18 @@ Yes! Click on me for more details.`,
     title: "string",
     phase: "I",
     phaseLabel: "Instruction",
+    intro: [
+      `Great work!
+
+Now you know the first POWER step, **P**repare.`,
+      `To **P**repare, we:
+1. Read
+1. Pull apart
+1. Pick the problem type`,
+      `*And* you now know one problem type: Total.
+      
+Click Next to practice and check your understanding.`,
+    ],
   },
   {
     rank: "cadet",
