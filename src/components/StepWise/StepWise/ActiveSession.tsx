@@ -139,6 +139,7 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
           <CardHeader className="px-2 pt-4 pb-2">
             <TitleBar />
             <Stimulus />
+            {children}
           </CardHeader>
           <CardContent className="grow px-2 py-1 overflow-y-auto">
             <Steps />

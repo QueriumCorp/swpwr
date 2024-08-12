@@ -27,6 +27,7 @@ export interface StepWiseProps {
   onComplete?: (steps: Step[], log: Log[]) => void;
   className?: string;
   style?: CSSProperties;
+  children?: React.ReactNode; // best, accepts everything React can render
 }
 export interface StepWiseAPI {
   start?: () => void;
@@ -38,7 +39,17 @@ export interface StepWiseAPI {
 //
 export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
   (
-    { student, problem, assistant, onComplete, server, className, ready, go },
+    {
+      student,
+      problem,
+      assistant,
+      onComplete,
+      server,
+      className,
+      ready,
+      go,
+      children,
+    },
     ref,
   ) => {
     console.log("RENDERING StepWise @ ", new Date().toLocaleTimeString());
@@ -81,7 +92,9 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
     // Active Session
     return (
       <SessionContext.Provider value={storeRef.current}>
-        <ActiveSession ref={ActiveSessionRef} className={className} />
+        <ActiveSession ref={ActiveSessionRef} className={className}>
+          {children}
+        </ActiveSession>
       </SessionContext.Provider>
     );
   },

@@ -1,10 +1,12 @@
 "use client";
 
+// React Imports
 import { FC, ReactNode, useContext, useEffect, useRef, useState } from "react";
 
+// Querium Imports
 import { cn } from "@/lib/utils";
 import { StepWise } from "@/components/StepWise";
-import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
+import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
 import { CarouselPrevious, CarouselNext } from "../ui/carousel";
@@ -15,6 +17,16 @@ import { StepWiseAPI } from "../StepWise/StepWise/StepWise";
 import { TinyTutor } from "../qq/TinyTutor";
 import { Log, Step } from "../StepWise/stores/solution";
 
+import { TotalEquationGraphic } from "../schemaEditors/total/TotalEquationGraphic";
+import { EqualGroupsEquationGraphic } from "../schemaEditors/equalGroups/EqualGroupsEquationGraphic";
+import { DifferenceEquationGraphic } from "../schemaEditors/difference/DifferenceEquationGraphic";
+import { ChangeDecreaseEquationGraphic } from "../schemaEditors/changeDecrease/ChangeDecreaseEquationGraphic";
+import { ChangeIncreaseEquationGraphic } from "../schemaEditors/changeIncrease/ChangeIncreaseEquationGraphic";
+import { CompareEquationGraphic } from "../schemaEditors/compare/CompareEquationGraphic";
+
+//
+// Component
+//
 const RangerSolveTheEquation: FC<{
   className?: string;
   children?: ReactNode;
@@ -128,7 +140,28 @@ const RangerSolveTheEquation: FC<{
                 student={student}
                 assistant={setMsg}
                 onComplete={onComplete}
-              />
+              >
+                <div className="mt-2">
+                  {session.schema === "additiveTotalSchema" ? (
+                    <TotalEquationGraphic></TotalEquationGraphic>
+                  ) : null}
+                  {session.schema === "multiplicativeEqualGroupsSchema" ? (
+                    <EqualGroupsEquationGraphic></EqualGroupsEquationGraphic>
+                  ) : null}
+                  {session.schema === "additiveDifferenceSchema" ? (
+                    <DifferenceEquationGraphic></DifferenceEquationGraphic>
+                  ) : null}
+                  {session.schema === "subtractiveChangeSchema" ? (
+                    <ChangeDecreaseEquationGraphic></ChangeDecreaseEquationGraphic>
+                  ) : null}
+                  {session.schema === "additiveChangeSchema" ? (
+                    <ChangeIncreaseEquationGraphic></ChangeIncreaseEquationGraphic>
+                  ) : null}
+                  {session.schema === "multiplicativeCompareSchema" ? (
+                    <CompareEquationGraphic></CompareEquationGraphic>
+                  ) : null}
+                </div>
+              </StepWise>
             </div>
             <Button
               className={cn("w-full", working ? "hidden" : "bg-orange-500")}
