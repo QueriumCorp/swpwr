@@ -27,7 +27,8 @@ const RangerVictory: React.FC<{
   const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   // Store
-  const { logAction, heartbeat } = useProblemStore();
+  const { logAction, heartbeat, onComplete, session, studentLog } =
+    useProblemStore();
 
   // Side Effects
   React.useEffect(() => {
@@ -38,6 +39,8 @@ const RangerVictory: React.FC<{
   function handleDance() {
     sayMsg("Dance Dance Revolution", "gratz");
   }
+
+  onComplete(session, studentLog);
 
   // JSX
   if (current !== index + 1) return null;

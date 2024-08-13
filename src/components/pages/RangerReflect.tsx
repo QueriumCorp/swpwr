@@ -34,14 +34,8 @@ const RangerReflect: FC<{
   //
   // Store
   //
-  const {
-    problem,
-    studentLog,
-    logAction,
-    session,
-    submitExplanation,
-    onComplete,
-  } = useProblemStore();
+  const { problem, studentLog, logAction, session, submitExplanation } =
+    useProblemStore();
 
   //
   // State
@@ -51,7 +45,6 @@ const RangerReflect: FC<{
   );
   const [explanation, setExplanation] = useState<Explanation | null>(null);
   const [msg, setMsg] = useState<string>("");
-  const [disabled, setDisabled] = useState<boolean>(false);
 
   //
   // Side Effects
@@ -66,12 +59,13 @@ const RangerReflect: FC<{
   async function HandleCheckExplanation(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    if (disabled) {
-      onComplete(session, studentLog);
-      return;
-    }
     if (evt.metaKey) {
       //If Cmd+Enter just scroll to next page
+      api?.scrollNext();
+    } else if (
+      explanation?.type === "schema" ||
+      explanation?.type === "estimation"
+    ) {
       api?.scrollNext();
     } else {
       logAction("RangerReflect : Clicked Next");
@@ -90,13 +84,6 @@ const RangerReflect: FC<{
           break;
       }
       submitExplanation(explanation?.type || "");
-      setDisabled(true);
-      onComplete(session, studentLog);
-      // const result = await submitTTable(knowns, unknowns);
-      // setMsg(result.message);
-      // if (result.stepStatus == "VALID") {
-      //   api?.scrollNext();
-      // }
     }
   }
 
@@ -132,14 +119,12 @@ const RangerReflect: FC<{
             <Card
               key={exp.type}
               onClick={() => {
-                if (!disabled) setExplanation(exp);
+                setExplanation(exp);
               }}
               className={cn(
                 "w-96 min-h-28 px-4 py-2 ring-qqBrand",
                 exp.type === explanation?.type ? "ring-4" : "ring-0",
-                disabled
-                  ? "bg-slate-300 cursor-not-allowed"
-                  : "hover:bg-qqAccent hover:text-white cursor-pointer",
+                "hover:bg-qqAccent hover:text-white cursor-pointer",
               )}
             >
               {exp.text}
