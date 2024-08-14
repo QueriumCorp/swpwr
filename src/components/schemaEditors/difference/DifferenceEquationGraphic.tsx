@@ -40,7 +40,7 @@ export const DifferenceEquationGraphic = ({
           >
             <div className={cn()}>Greater</div>
           </div>
-          <div className={cn()}>{g}</div>
+          <div className={cn(className)}>{g}</div>
         </Droppable>
 
         <div className="flex">
@@ -56,7 +56,7 @@ export const DifferenceEquationGraphic = ({
             >
               <div className={cn()}>Less</div>
             </div>
-            <div className={cn()}>{l}</div>
+            <div className={cn(className)}>{l}</div>
           </Droppable>
 
           <Droppable
@@ -71,7 +71,7 @@ export const DifferenceEquationGraphic = ({
             >
               <div className={cn()}>Difference</div>
             </div>
-            <div className={cn()}>{d}</div>
+            <div className={cn(className)}>{d}</div>
           </Droppable>
         </div>
       </div>
@@ -92,7 +92,7 @@ export const DifferenceEquationGraphic = ({
           >
             <div className={cn()}>Greater</div>
           </div>
-          <div>{g}</div>
+          <div className={cn(className)}>{g}</div>
         </Droppable>
 
         <div className="mx-2 flex justify-center items-center">
@@ -110,7 +110,7 @@ export const DifferenceEquationGraphic = ({
           >
             <div className={cn()}>Less</div>
           </div>
-          <div>{l}</div>
+          <div className={cn(className)}>{l}</div>
         </Droppable>
 
         <div className="mx-2 flex justify-center items-center">
@@ -128,7 +128,7 @@ export const DifferenceEquationGraphic = ({
           >
             <div className={cn()}>Difference</div>
           </div>
-          <div>{d}</div>
+          <div className={cn(className)}>{d}</div>
         </Droppable>
       </div>
     </div>

@@ -40,7 +40,7 @@ export const ChangeDecreaseEquationGraphic = ({
           >
             <div className={cn()}>Start</div>
           </div>
-          <div className={cn()}>{s}</div>
+          <div className={cn(className)}>{s}</div>
         </Droppable>
 
         <div className="flex">
@@ -56,7 +56,7 @@ export const ChangeDecreaseEquationGraphic = ({
             >
               <div className={cn()}>Change</div>
             </div>
-            <div className={cn()}>{c}</div>
+            <div className={cn(className)}>{c}</div>
           </Droppable>
 
           <Droppable
@@ -71,7 +71,7 @@ export const ChangeDecreaseEquationGraphic = ({
             >
               <div className={cn()}>End</div>
             </div>
-            <div className={cn()}>{e}</div>
+            <div className={cn(className)}>{e}</div>
           </Droppable>
         </div>
       </div>
@@ -92,7 +92,7 @@ export const ChangeDecreaseEquationGraphic = ({
           >
             <div className={cn()}>Start</div>
           </div>
-          <div>{s}</div>
+          <div className={cn(className)}>{s}</div>
         </Droppable>
 
         <div className="mx-2 flex justify-center items-center">
@@ -110,7 +110,7 @@ export const ChangeDecreaseEquationGraphic = ({
           >
             <div className={cn()}>Change</div>
           </div>
-          <div>{c}</div>
+          <div className={cn(className)}>{c}</div>
         </Droppable>
 
         <div className="mx-2 flex justify-center items-center">
@@ -128,7 +128,7 @@ export const ChangeDecreaseEquationGraphic = ({
           >
             <div className={cn()}>End</div>
           </div>
-          <div>{e}</div>
+          <div className={cn(className)}>{e}</div>
         </Droppable>
       </div>
     </div>

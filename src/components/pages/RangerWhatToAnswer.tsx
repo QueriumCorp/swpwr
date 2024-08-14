@@ -19,7 +19,7 @@ import { TinyTutor } from "../qq/TinyTutor";
 const RangerWhatToAnswer: FC<{
   className?: string;
   children?: ReactNode;
-  page?: YBRpage;
+  page: YBRpage;
   index: number;
 }> = ({ className, page, index }) => {
   //
@@ -30,7 +30,7 @@ const RangerWhatToAnswer: FC<{
   //
   // Store
   //
-  const { logAction, submitTTable, getHint, problem } = useProblemStore();
+  const { logAction, submitTTable, getHint, problem, rank } = useProblemStore();
 
   //
   // State
@@ -40,6 +40,9 @@ const RangerWhatToAnswer: FC<{
   const [currentFact, setCurrentFact] = useState<string>("");
   const [emote, setEmote] = useState<string>("gratz:02");
   const [msg, setMsg] = useState<string>("");
+  const wpHints = problem.wpHints?.find(
+    (wpHint) => wpHint.page === `${rank}:${page.id}`,
+  );
 
   //
   // Event Handlers
@@ -137,8 +140,8 @@ const RangerWhatToAnswer: FC<{
         <TinyTutor
           msg={msg}
           intro={page?.intro}
-          psHints={page?.psHints || []}
-          aiHints={true}
+          psHints={page?.psHints}
+          wpHints={wpHints?.hints}
         />
         <CarouselPrevious className="relative left-0">
           Previous

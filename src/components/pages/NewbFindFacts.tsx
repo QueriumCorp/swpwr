@@ -138,7 +138,6 @@ const NewbFindFacts: FC<{
           msg={msg}
           intro={page?.intro}
           psHints={page?.psHints || []}
-          aiHints={true}
         />
         <CarouselPrevious className="relative left-0">
           Previous

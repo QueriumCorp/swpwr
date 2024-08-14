@@ -10,9 +10,8 @@ import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { CarouselNext } from "../ui/carousel";
 import { StimulusSelector } from "../qq/StimulusSelector";
-import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
 import TotalEditor from "../schemaEditors/total/TotalEditor";
@@ -21,26 +20,51 @@ import DifferenceEditor from "../schemaEditors/difference/DifferenceEditor";
 import ChangeDecreaseEditor from "../schemaEditors/changeDecrease/ChangeDecreaseEditor";
 import ChangeIncreaseEditor from "../schemaEditors/changeIncrease/ChangeIncreaseEditor";
 import CompareEditor from "../schemaEditors/compare/CompareEditor";
+import { TinyTutor } from "../qq/TinyTutor";
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 const RangerFillDiagram: FC<{
   className?: string;
   children?: ReactNode;
-  page?: YBRpage;
+  page: YBRpage;
   index: number;
 }> = ({ className, page, index }) => {
-  // Nav Context
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
   const { api, current } = useContext(NavContext) as NavContextType;
 
+  ///////////////////////////////////////////////////////////////////
   // Store
-  const { logAction, submitOrganize, getHint, problem, session } =
+  ///////////////////////////////////////////////////////////////////
+
+  const { logAction, submitOrganize, getHint, problem, session, rank } =
     useProblemStore();
 
+  ///////////////////////////////////////////////////////////////////
   // State
-  const [msg, setMsg] = useState<string>("");
+  ///////////////////////////////////////////////////////////////////
+
   const [equation, setEquation] = useState<string>("");
   const [values, setValues] = useState<string[]>([]);
+  const [msg, setMsg] = useState<string>("");
+  const [busy, setBusy] = useState(false);
+  const wpHints = problem.wpHints?.find(
+    (wpHint) => wpHint.page === `${rank}:${page.id}`,
+  );
+  const [aiHints, setAiHints] = useState<string[]>([]);
 
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
   // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
   async function handleCheckEquation(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
@@ -63,11 +87,14 @@ const RangerFillDiagram: FC<{
     }
   }
 
-  async function HandleGetHint() {
-    setMsg("Hmmm...  Let me see");
-    logAction("RangerFillDiagram : GetHint");
-    const hint = await getHint();
-    setMsg(hint);
+  async function getAiHints() {
+    setBusy(true);
+    setMsg("Hmmm...  let me see.");
+    const hints = [];
+    hints.push(await getHint());
+    setMsg("");
+    setBusy(false);
+    setAiHints(hints);
   }
 
   function HandleEquationChange(latex: string, values: string[]) {
@@ -75,9 +102,10 @@ const RangerFillDiagram: FC<{
     setValues(values);
   }
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  //
+  ///////////////////////////////////////////////////////////////////
+
   if (current !== index + 1) return null;
 
   return (
@@ -143,29 +171,18 @@ const RangerFillDiagram: FC<{
       </div>
 
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
-        {/* Tiny Avatar */}
-        <AnimeTutor
-          emote={"wave:01"}
-          style={{
-            bottom: "0px",
-            right: "0px",
-            height: "100%",
-          }}
-        />
-        <div
-          className="h-full bottom-0 right-0 w-[100px] border-solid border-red-500 z-10 cursor-pointer"
-          onClick={() => {
-            HandleGetHint();
-          }}
-        ></div>
-        <Chat
+        <TinyTutor
           msg={msg}
-          className="font-irishGrover absolute right-[200px] bottom-[30%] h-fit w-fit min-h-[64px]"
+          busy={busy}
+          intro={page?.intro}
+          psHints={page?.psHints}
+          wpHints={wpHints?.hints}
+          aiHints={aiHints}
+          getAiHints={getAiHints}
         />
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
+
         <CarouselNext
+          disabled={busy}
           className="relative right-0"
           onClick={(evt) => {
             handleCheckEquation(evt);

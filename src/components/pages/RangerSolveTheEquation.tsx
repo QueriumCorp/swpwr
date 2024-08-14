@@ -1,15 +1,22 @@
 "use client";
 
 // React Imports
-import { FC, ReactNode, useContext, useEffect, useRef, useState } from "react";
+import {
+  FC,
+  ReactNode,
+  useContext,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 // Querium Imports
 import { cn } from "@/lib/utils";
 import { StepWise } from "@/components/StepWise";
-import { type YBRpage } from "../qq/YellowBrickRoad";
+import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { CarouselNext } from "../ui/carousel";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
 import { Button } from "../ui/button";
@@ -24,38 +31,56 @@ import { ChangeDecreaseEquationGraphic } from "../schemaEditors/changeDecrease/C
 import { ChangeIncreaseEquationGraphic } from "../schemaEditors/changeIncrease/ChangeIncreaseEquationGraphic";
 import { CompareEquationGraphic } from "../schemaEditors/compare/CompareEquationGraphic";
 
-//
-// Component
-//
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 const RangerSolveTheEquation: FC<{
   className?: string;
   children?: ReactNode;
-  page?: YBRpage;
+  page: YBRpage;
   index: number;
 }> = ({ className, index, page }) => {
-  //
-  // Context
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
   const { api, current } = useContext(NavContext) as NavContextType;
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // Refs
-  //
+  ///////////////////////////////////////////////////////////////////
+
   const stepwiseRef = useRef<StepWiseAPI>(null);
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // Store
-  //
-  const { problem, student, session, swapiUrl } = useProblemStore();
+  ///////////////////////////////////////////////////////////////////
 
-  //
+  const { problem, student, session, rank, swapiUrl } = useProblemStore();
+
+  ///////////////////////////////////////////////////////////////////
   // State
-  //
+  ///////////////////////////////////////////////////////////////////
+
   const [working, setWorking] = useState(false);
   const [msg, setMsg] = useState("");
   const [complete, setComplete] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const wpHints = problem.wpHints?.find(
+    (wpHint) => wpHint.page === `${rank}:${page.id}`,
+  );
+  const [aiHints, setAiHints] = useState<string[]>([]);
 
   const pageSpecificHints = page?.psHints || [];
+
+  console.log(
+    "///////////////////////////////////////////////////////////////////",
+  );
+  console.info(YellowBrickRoad[current]);
+  console.info(page, index);
+  console.log(
+    "///////////////////////////////////////////////////////////////////",
+  );
 
   // Prepare problem data to work with StepWise
   type swProblemType = {
@@ -88,9 +113,22 @@ const RangerSolveTheEquation: FC<{
     swProblem.hints.push(problem.qs3);
   }
 
-  //
-  // Handlers
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
+  function startStepWise() {
+    if (stepwiseRef.current) {
+      setWorking(true);
+      // @ts-ignore: TS seems to think the ✓ above doesnt exist
+      stepwiseRef.current.resume(session);
+    }
+  }
+
   async function HandleNext(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
@@ -108,14 +146,18 @@ const RangerSolveTheEquation: FC<{
     setComplete(true);
   }
 
-  if (current !== index + 1)
-    // JSX
-    return null;
+  ///////////////////////////////////////////////////////////////////
+  // JSX
+  ///////////////////////////////////////////////////////////////////
+
+  if (current !== index + 1) return null;
+
   return (
     <div
       className={cn(
         "RangerSolveTheEquation",
-        "rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch",
+        "rounded-lg bg-card text-card-foreground shadow-sm",
+        "w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch",
         className,
       )}
     >
@@ -146,6 +188,7 @@ const RangerSolveTheEquation: FC<{
                 <div className="mt-2">
                   {session.schema === "additiveTotalSchema" ? (
                     <TotalEquationGraphic
+                      className="text-qqBrand text-2xl"
                       p1={session.schemaValues[0]}
                       p2={session.schemaValues[1]}
                       t={session.schemaValues[2]}
@@ -153,6 +196,7 @@ const RangerSolveTheEquation: FC<{
                   ) : null}
                   {session.schema === "multiplicativeEqualGroupsSchema" ? (
                     <EqualGroupsEquationGraphic
+                      className="text-qqBrand text-2xl"
                       g={session.schemaValues[0]}
                       n={session.schemaValues[1]}
                       p={session.schemaValues[2]}
@@ -160,6 +204,7 @@ const RangerSolveTheEquation: FC<{
                   ) : null}
                   {session.schema === "additiveDifferenceSchema" ? (
                     <DifferenceEquationGraphic
+                      className="text-qqBrand text-2xl"
                       l={session.schemaValues[0]}
                       d={session.schemaValues[1]}
                       g={session.schemaValues[2]}
@@ -167,6 +212,7 @@ const RangerSolveTheEquation: FC<{
                   ) : null}
                   {session.schema === "subtractiveChangeSchema" ? (
                     <ChangeDecreaseEquationGraphic
+                      className="text-qqBrand text-2xl"
                       e={session.schemaValues[0]}
                       c={session.schemaValues[1]}
                       s={session.schemaValues[2]}
@@ -174,13 +220,14 @@ const RangerSolveTheEquation: FC<{
                   ) : null}
                   {session.schema === "additiveChangeSchema" ? (
                     <ChangeIncreaseEquationGraphic
+                      className="text-qqBrand text-2xl"
                       e={session.schemaValues[0]}
                       c={session.schemaValues[1]}
                       s={session.schemaValues[2]}
                     ></ChangeIncreaseEquationGraphic>
                   ) : null}
                   {session.schema === "multiplicativeCompareSchema" ? (
-                    <CompareEquationGraphic></CompareEquationGraphic>
+                    <CompareEquationGraphic className="text-qqBrand text-2xl"></CompareEquationGraphic>
                   ) : null}
                 </div>
               </StepWise>
@@ -188,18 +235,11 @@ const RangerSolveTheEquation: FC<{
             <Button
               className={cn("w-full", working ? "hidden" : "bg-orange-500")}
               onClick={() => {
-                if (stepwiseRef.current) {
-                  console.info("Starting StepWise", session);
-                  setWorking(true);
-                  // @ts-ignore: TS seems to think the ✓ above doesnt exist
-                  stepwiseRef.current.resume(session);
-                }
+                startStepWise();
               }}
             >
               Let's Do This!
             </Button>
-            {/* <pre>{JSON.stringify(pageSpecificHints, null, 2)}</pre>
-            <pre>{JSON.stringify(page?.intro, null, 2)}</pre> */}
           </div>
         </div>
       </div>
@@ -208,11 +248,9 @@ const RangerSolveTheEquation: FC<{
           msg={msg}
           intro={page?.intro}
           psHints={pageSpecificHints}
-          aiHints={true}
+          wpHints={wpHints?.hints}
         />
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
+
         <CarouselNext
           className="relative right-0"
           onClick={(evt) => HandleNext(evt)}

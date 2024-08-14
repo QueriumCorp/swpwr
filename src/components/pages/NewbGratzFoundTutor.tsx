@@ -17,7 +17,7 @@ const NewbGratzFoundTutor: React.FC<{
   index: number;
 }> = ({ className, index }) => {
   //
-  // NavContext
+  // Contexts
   //
   const { current, api } = useContext(NavContext) as NavContextType;
 

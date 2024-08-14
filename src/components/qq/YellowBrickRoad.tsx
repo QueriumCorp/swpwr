@@ -317,7 +317,7 @@ Click Next to practice and check your understanding.`,
   {
     rank: "ranger",
     id: "FillDiagram",
-    title: "Fill in the Diagram",
+    title: "Fill in the Equation",
     phase: "O",
     phaseLabel: "Organize",
     aiHints: true,

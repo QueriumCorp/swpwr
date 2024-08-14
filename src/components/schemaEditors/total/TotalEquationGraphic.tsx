@@ -38,9 +38,9 @@ export const TotalEquationGraphic = ({
               "flex justify-start items-center",
             )}
           >
-            <div className={cn()}>Total</div>
+            <div className={cn(className)}>Total</div>
           </div>
-          <div className={cn()}>{t}</div>
+          <div className={cn(className)}>{t}</div>
         </Droppable>
 
         <div className="flex">

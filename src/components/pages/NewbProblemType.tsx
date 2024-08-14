@@ -295,11 +295,7 @@ const NewbProblemType: FC<{
         </div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
-        <TinyTutor
-          intro={page?.intro}
-          psHints={page?.psHints || []}
-          aiHints={true}
-        />
+        <TinyTutor intro={page?.intro} psHints={page?.psHints || []} />
         <div
           className="h-full bottom-0 right-0 w-[100px] border-solid border-red-500 z-10 cursor-pointer"
           onClick={() => {

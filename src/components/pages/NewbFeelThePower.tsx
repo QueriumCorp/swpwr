@@ -23,7 +23,7 @@ const NewbFeelThePower: React.FC<{
   const ybr = YellowBrickRoad;
   const src = "https://querium.wistia.com/medias/oyfe3sqhwb";
 
-  // NavContext
+  // Contexts
   const { current, api } = React.useContext(NavContext) as NavContextType;
 
   // Store

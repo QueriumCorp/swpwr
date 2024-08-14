@@ -1,6 +1,9 @@
 "use client";
 
+// React Imports
 import { FC, ReactNode, useContext, useEffect, useState } from "react";
+
+// Querium Imports
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
@@ -9,7 +12,7 @@ import { HdrBar } from "../qq/HdrBar";
 import { NavBar } from "../qq/NavBar";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { TinyTutor } from "../qq/TinyTutor";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { CarouselNext } from "../ui/carousel";
 import { Card } from "../ui/card";
 
 interface Explanation {
@@ -17,45 +20,54 @@ interface Explanation {
   text: string;
 }
 
-//
-//
-//
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 const RangerReflect: FC<{
   className?: string;
   children?: ReactNode;
-  page?: YBRpage;
+  page: YBRpage;
   index: number;
 }> = ({ className, page, index }) => {
-  //
-  // Context
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
   const { api, current } = useContext(NavContext) as NavContextType;
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // Store
-  //
-  const { problem, studentLog, logAction, session, submitExplanation } =
+  ///////////////////////////////////////////////////////////////////
+
+  const { problem, studentLog, logAction, session, rank, submitExplanation } =
     useProblemStore();
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // State
-  //
+  ///////////////////////////////////////////////////////////////////
+
   const [explanations, setExplanations] = useState<Explanation[]>(
     session.explanations,
   );
   const [explanation, setExplanation] = useState<Explanation | null>(null);
   const [msg, setMsg] = useState<string>("");
+  const [busy, setBusy] = useState(false);
+  const wpHints = problem.wpHints?.find(
+    (wpHint) => wpHint.page === `${rank}:${page.id}`,
+  );
 
-  //
-  // Side Effects
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
   useEffect(() => {
     setExplanations(session.explanations);
   }, [session.explanations]);
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // Event Handlers
-  //
+  ///////////////////////////////////////////////////////////////////
+
   async function HandleCheckExplanation(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
@@ -87,9 +99,10 @@ const RangerReflect: FC<{
     }
   }
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  //
+  ///////////////////////////////////////////////////////////////////
+
   if (current !== index + 1) return null;
   return (
     <div
@@ -136,13 +149,12 @@ const RangerReflect: FC<{
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
         <TinyTutor
           msg={msg}
+          busy={busy}
           intro={page?.intro}
-          psHints={page?.psHints || []}
-          aiHints={false}
+          psHints={page?.psHints}
+          wpHints={wpHints?.hints}
         />
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
+
         <CarouselNext
           className="relative right-0"
           onClick={(evt) => HandleCheckExplanation(evt)}

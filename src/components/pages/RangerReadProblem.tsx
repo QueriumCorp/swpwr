@@ -1,12 +1,14 @@
 "use client";
 
+// React Imports
 import { useContext, useEffect, useState } from "react";
 
+// Querium Imports
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { CarouselNext } from "../ui/carousel";
 import { StimulusSelector } from "../qq/StimulusSelector";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
@@ -19,7 +21,7 @@ const RangerReadProblem: React.FC<{
   index: number;
 }> = ({ className, page, index }) => {
   ///////////////////////////////////////////////////////////////////
-  // NavContext
+  // Contexts
   ///////////////////////////////////////////////////////////////////
 
   const { api, current } = useContext(NavContext) as NavContextType;
@@ -117,9 +119,6 @@ const RangerReadProblem: React.FC<{
           aiHints={aiHints}
           getAiHints={getAiHints}
         />
-        {/* <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious> */}
         <CarouselNext disabled={busy} className="relative right-0">
           Next
         </CarouselNext>

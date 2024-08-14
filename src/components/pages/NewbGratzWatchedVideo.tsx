@@ -16,7 +16,7 @@ const NewbGratzWatchedVideo: React.FC<{
   page?: YBRpage;
   index: number;
 }> = ({ className, index }) => {
-  // NavContext
+  // Contexts
   const { current, api } = React.useContext(NavContext) as NavContextType;
 
   // Store

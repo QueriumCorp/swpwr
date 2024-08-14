@@ -1,14 +1,15 @@
 "use client";
 
+// React Imports
 import { FC, ReactNode, useContext, useState } from "react";
 
+// Querium Imports
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { CarouselNext } from "../ui/carousel";
 import { StimulusSelector } from "../qq/StimulusSelector";
-import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
@@ -23,31 +24,54 @@ import { DifferenceSchemaGraphic } from "../schemas/difference/graphic";
 import { EqualGroupsEquationGraphic } from "../schemas/equalGroups/equation";
 import { CompareEquationGraphic } from "../schemas/compare/equation";
 import { SchemaType } from "@/store/_types";
+import { TinyTutor } from "../qq/TinyTutor";
 
 const RangerSelectDiagram: FC<{
   className?: string;
   children?: ReactNode;
-  page?: YBRpage;
+  page: YBRpage;
   index: number;
 }> = ({ className, page, index }) => {
-  // Nav Context
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
   const { api, current } = useContext(NavContext) as NavContextType;
 
+  ///////////////////////////////////////////////////////////////////
   // Store
+  ///////////////////////////////////////////////////////////////////
+
   const {
     logAction,
     submitPickSchema,
     getHint,
     problem,
     session,
+    rank,
     disabledSchemas,
   } = useProblemStore();
 
+  ///////////////////////////////////////////////////////////////////
   // State
+  ///////////////////////////////////////////////////////////////////
+
   const [schema, setSchema] = useState("");
   const [msg, setMsg] = useState<string>("");
+  const [busy, setBusy] = useState(false);
+  const wpHints = problem.wpHints?.find(
+    (wpHint) => wpHint.page === `${rank}:${page.id}`,
+  );
+  const [aiHints, setAiHints] = useState<string[]>([]);
 
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
   // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
   async function handleSelectSchema(schema: string) {
     logAction("RangerSelectDiagram : Selected Schema : " + schema);
     setSchema(schema);
@@ -56,9 +80,8 @@ const RangerSelectDiagram: FC<{
   async function handleCheckSchema(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    console.log("handleCheckSchema");
-
     setMsg("Just a moment while I verify your choice");
+    setBusy(true);
     logAction("RangerSelectDiagram : Clicked Next");
 
     let selectedSchema: SchemaType = "additiveChangeSchema";
@@ -87,6 +110,7 @@ const RangerSelectDiagram: FC<{
     logAction("RangerSelectDiagram : Checking Schema : " + selectedSchema);
     const result = await submitPickSchema(selectedSchema, fake);
 
+    setBusy(false);
     if (fake) {
       // Bypass qEval validation
       api?.scrollNext();
@@ -101,21 +125,27 @@ const RangerSelectDiagram: FC<{
     }
   }
 
-  async function HandleGetHint() {
-    setMsg("Hmmm...  Let me see");
-    logAction("RangerSelectDiagram : GetHint");
-    const hint = await getHint();
-    setMsg(hint);
+  async function getAiHints() {
+    setBusy(true);
+    setMsg("Hmmm...  let me see.");
+    const hints = [];
+    hints.push(await getHint());
+    setMsg("");
+    setBusy(false);
+    setAiHints(hints);
   }
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  //
+  ///////////////////////////////////////////////////////////////////
+
   if (current !== index + 1) return null;
   return (
     <div
       className={cn(
-        "RangerSelectDiagram rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch ",
+        "RangerSelectDiagram",
+        "rounded-lg  bg-card text-card-foreground shadow-sm",
+        "w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch ",
         className,
       )}
     >
@@ -126,9 +156,7 @@ const RangerSelectDiagram: FC<{
             subTitle={page?.phaseLabel}
             instructions={page?.title}
           ></HdrBar>
-          <div>
-            <h1>Stimulus</h1>
-          </div>
+
           <StimulusSelector
             className={cn(
               "flex w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
@@ -136,6 +164,7 @@ const RangerSelectDiagram: FC<{
             )}
             stimulusText={problem.stimulus}
           ></StimulusSelector>
+
           <div className="grow grid grid-cols-2 gap-2">
             <Card className="bg-slate-300">
               <CardHeader className="pb-2">
@@ -170,7 +199,7 @@ const RangerSelectDiagram: FC<{
               </CardContent>
             </Card>
           </div>
-          <h2 className="mt-3 ml-1 mr-1">
+          <h2 className="mt-3 ml-1 mr-1 select-none">
             Click on the type of problem you think this is
           </h2>
           <div className="grow flex flex-wrap gap-2 mb-4 justify-center">
@@ -294,29 +323,18 @@ const RangerSelectDiagram: FC<{
         </div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
-        {/* Tiny Avatar */}
-        <AnimeTutor
-          emote={"wave:01"}
-          style={{
-            bottom: "0px",
-            right: "0px",
-            height: "100%",
-          }}
-        />
-        <div
-          className="h-full bottom-0 right-0 w-[100px] border-solid border-red-500 z-10 cursor-pointer"
-          onClick={() => {
-            HandleGetHint();
-          }}
-        ></div>
-        <Chat
+        <TinyTutor
           msg={msg}
-          className="font-irishGrover absolute right-[200px] bottom-[30%] h-fit w-fit min-h-[64px]"
+          busy={busy}
+          intro={page?.intro}
+          psHints={page?.psHints}
+          wpHints={wpHints?.hints}
+          aiHints={aiHints}
+          getAiHints={getAiHints}
         />
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
+
         <CarouselNext
+          disabled={busy}
           className="relative right-0"
           onClick={(evt) => {
             handleCheckSchema(evt);

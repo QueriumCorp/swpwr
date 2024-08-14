@@ -23,7 +23,7 @@ const NewbVideoTotal: React.FC<{
   const ybr = YellowBrickRoad;
   const src = "https://querium.wistia.com/medias/oyfe3sqhwb";
 
-  // NavContext
+  // Contexts
   const { current, api } = React.useContext(NavContext) as NavContextType;
 
   // Store
@@ -55,11 +55,7 @@ const NewbVideoTotal: React.FC<{
         </div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
-        <TinyTutor
-          intro={page?.intro}
-          psHints={page?.psHints || []}
-          aiHints={true}
-        />
+        <TinyTutor intro={page?.intro} psHints={page?.psHints || []} />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

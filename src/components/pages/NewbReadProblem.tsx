@@ -19,7 +19,7 @@ const NewbReadProblem: React.FC<{
   page: YBRpage;
   index: number;
 }> = ({ className, page, index }) => {
-  // NavContext
+  // Contexts
   const { api, current } = useContext(NavContext) as NavContextType;
 
   // Store
@@ -52,7 +52,7 @@ const NewbReadProblem: React.FC<{
         <div className="flex grow gap-2"></div>
       </div>
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
-        <TinyTutor intro={page?.intro} psHints={page?.psHints} aiHints={true} />
+        <TinyTutor intro={page?.intro} psHints={page?.psHints} />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

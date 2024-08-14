@@ -28,7 +28,7 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
         )}
         {...props}
       >
-        <div className="font-inter font-black text-5xl">
+        <div className="font-inter font-black text-5xl select-none">
           <span
             className={cn(
               highlightLetter === "P" ? "text-qqAccent" : "text-slate-500",
@@ -65,8 +65,8 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
             R
           </span>
         </div>
-        <div className="font-inter text-1xl">{subTitle}</div>
-        <div className="font-sura text-2xl">{instructions}</div>
+        <div className="font-inter text-1xl select-none">{subTitle}</div>
+        <div className="font-sura text-2xl select-none">{instructions}</div>
       </div>
     );
   },

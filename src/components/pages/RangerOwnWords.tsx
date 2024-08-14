@@ -15,32 +15,48 @@ import { StimulusSelector } from "../qq/StimulusSelector";
 import { AnimeTutor, Chat } from "@/components/AnimeTutor";
 import { HdrBar } from "../qq/HdrBar";
 import { useProblemStore } from "@/store/_store";
-import TotalEditor from "../schemaEditors/total/TotalEditor";
-import EqualGroupsEditor from "../schemaEditors/equalGroups/EqualGroupsEditor";
-import DifferenceEditor from "../schemaEditors/difference/DifferenceEditor";
-import ChangeDecreaseEditor from "../schemaEditors/changeDecrease/ChangeDecreaseEditor";
-import ChangeIncreaseEditor from "../schemaEditors/changeIncrease/ChangeIncreaseEditor";
-import CompareEditor from "../schemaEditors/compare/CompareEditor";
 import { Textarea } from "../ui/textarea";
+import { TinyTutor } from "../qq/TinyTutor";
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 const RangerOwnWords: FC<{
   className?: string;
   children?: ReactNode;
-  page?: YBRpage;
+  page: YBRpage;
   index: number;
 }> = ({ className, page, index }) => {
-  // Nav Context
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
   const { api, current } = useContext(NavContext) as NavContextType;
 
+  ///////////////////////////////////////////////////////////////////
   // Store
-  const { logAction, submitOrganize, getHint, problem, session } =
+  ///////////////////////////////////////////////////////////////////
+
+  const { logAction, submitOrganize, getHint, problem, session, rank } =
     useProblemStore();
 
+  ///////////////////////////////////////////////////////////////////
   // State
+  ///////////////////////////////////////////////////////////////////
+
   const [msg, setMsg] = useState<string>("");
   const [ownWords, setOwnWords] = useState<string>("");
+  const wpHints = problem.wpHints?.find(
+    (wpHint) => wpHint.page === `${rank}:${page.id}`,
+  );
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
 
+  ///////////////////////////////////////////////////////////////////
   // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
   async function handleCheckOwnWords(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
@@ -65,11 +81,11 @@ const RangerOwnWords: FC<{
     setMsg(hint);
   }
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  //
-  if (current !== index + 1) return null;
+  ///////////////////////////////////////////////////////////////////
 
+  if (current !== index + 1) return null;
   return (
     <div
       className={cn(
@@ -106,24 +122,11 @@ const RangerOwnWords: FC<{
       </div>
 
       <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
-        {/* Tiny Avatar */}
-        <AnimeTutor
-          emote={"wave:01"}
-          style={{
-            bottom: "0px",
-            right: "0px",
-            height: "100%",
-          }}
-        />
-        <div
-          className="h-full bottom-0 right-0 w-[100px] border-solid border-red-500 z-10 cursor-pointer"
-          onClick={() => {
-            HandleGetHint();
-          }}
-        ></div>
-        <Chat
+        <TinyTutor
           msg={msg}
-          className="font-irishGrover absolute right-[200px] bottom-[30%] h-fit w-fit min-h-[64px]"
+          intro={page?.intro}
+          psHints={page?.psHints}
+          wpHints={wpHints?.hints}
         />
         <CarouselPrevious className="relative left-0">
           Previous

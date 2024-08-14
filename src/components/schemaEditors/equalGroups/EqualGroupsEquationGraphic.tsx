@@ -21,16 +21,14 @@ export const EqualGroupsEquationGraphic = ({
   console.log("EqualGroupsEquationGraphic", g, n, p);
   // JSX
   return (
-    <div
-      className={cn(
-        "flex flex-col justify-around items-center gap-6 mt-2",
-        className,
-      )}
-    >
+    <div className={cn("flex flex-col justify-around items-center gap-6 mt-2")}>
       <div className="flex grow max-w-[768px] min-w-[480px]">
         <Droppable
           id="G"
-          className="relative flex flex-col justify-start items-center w-[30%] h-16"
+          className={cn(
+            "relative flex flex-col justify-start items-center w-[30%] h-16",
+            className,
+          )}
         >
           <div
             className={cn(
@@ -40,7 +38,7 @@ export const EqualGroupsEquationGraphic = ({
           >
             <div className={cn()}>G</div>
           </div>
-          <div>{g}</div>
+          <div className={cn(className)}>{g}</div>
         </Droppable>
 
         <div className="mx-2 flex justify-center items-center">
@@ -59,7 +57,7 @@ export const EqualGroupsEquationGraphic = ({
           >
             <div className={cn()}>N</div>
           </div>
-          <div>{n}</div>
+          <div className={cn(className)}>{n}</div>
         </Droppable>
         <div className="mx-2 flex justify-center items-center">
           <FaEquals />
@@ -76,7 +74,7 @@ export const EqualGroupsEquationGraphic = ({
           >
             <div className={cn()}>P</div>
           </div>
-          <div>{p}</div>
+          <div className={cn(className)}>{p}</div>
         </Droppable>
       </div>
     </div>
