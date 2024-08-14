@@ -1,84 +1,67 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimeTutor } from "../AnimeTutor";
 import { ChatBubble } from "../qq/ChatBubble/ChatBubble";
-import { useProblemStore } from "@/store/_store";
+import { cn } from "@/lib/utils";
 
 type HintStage = "intro" | "psHints" | "aiHints" | "none";
 
 export const TinyTutor = ({
   msg,
+  busy,
   intro,
   psHints,
+  wpHints,
   aiHints,
+  getAiHints,
   className,
 }: {
   msg?: string;
+  busy?: boolean;
   intro?: string | string[];
   psHints?: string[];
-  aiHints?: boolean;
+  wpHints?: string[];
+  aiHints?: string[];
+  getAiHints?: () => void;
   className?: string;
 }) => {
-  // Last value of msg
-  const prevMsg = useRef(msg);
-
+  ///////////////////////////////////////////////////////////////////
   // Prepare messages
+  ///////////////////////////////////////////////////////////////////
+
   let introMsgs = normalizeIntro(intro);
-  let psHintsMsgs = normalizePsHints(psHints);
+  let psHintsMsgs = normalizePsHints(wpHints || psHints);
+  let aiHintsMsgs = normalizePsHints(aiHints);
+  let hintStages: HintStage[] = ["none"];
+  if (introMsgs.length) hintStages.push("intro");
+  if (psHintsMsgs.length) hintStages.push("psHints");
+  if (getAiHints) hintStages.push("aiHints");
 
   ///////////////////////////////////////////////////////////////////
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { getHint, logAction } = useProblemStore();
-
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [aiHintMsgs, setAiHintMsgs] = useState<string[]>([]);
-  const [hintStage, setHintStage] = useState<HintStage>(
-    intro ? "intro" : psHints ? "psHints" : aiHints ? "aiHints" : "none",
-  );
+  const [hintStage, setHintStage] = useState<HintStage>("none");
   const [bubbleShown, setBubbleShow] = useState(
     introMsgs.length ? true : false,
   );
-  const [thinking, setThinking] = useState<string>("");
 
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
 
-  // Monitor changes to props
   useEffect(() => {
-    console.info(`TinyTutor - msg changed from ${prevMsg.current} to ${msg}`);
-    prevMsg.current = msg;
-  }, [msg]);
-
-  // Fetch AI hints
-  useEffect(() => {
-    const fetchAiHints = async () => {
-      const aiHints: string[] = ["an aiHint1", "an aiHint2", "an aiHint3"];
-      let i = 0;
-      // while (i < 3) {
-      //   const hint = await getHint();
-      //   if (!hint) {
-      //     break;
-      //   }
-      //   aiHints.push(hint);
-      //   i++;
-      // }
-      setAiHintMsgs(aiHints);
-    };
-    if (aiHints) {
-      fetchAiHints().catch((err) => {
-        console.error("Error fetching ai hints", err);
-        setAiHintMsgs([]);
-      });
+    if (aiHints && aiHints?.length > 0) {
+      setHintStage("aiHints");
+      setBubbleShow(true);
     }
-  }, []);
+  }, [aiHints]);
 
   ///////////////////////////////////////////////////////////////////
-  // Handlers
+  // Event Handlers
   ///////////////////////////////////////////////////////////////////
 
   function closeChatBubble() {
@@ -86,35 +69,18 @@ export const TinyTutor = ({
   }
 
   function nextHintStage() {
-    if (hintStage === "intro") {
-      setHintStage("psHints");
-      setBubbleShow(true);
-    } else if (hintStage === "psHints") {
-      if (aiHints) {
-        setHintStage("aiHints");
-        setBubbleShow(true);
-      } else {
-        setHintStage("none");
-        setBubbleShow(false);
-      }
-    } else if (hintStage === "aiHints") {
-      setHintStage("none");
-      setBubbleShow(false);
-    } else if (hintStage === "none") {
-      setHintStage(
-        intro ? "intro" : psHints ? "psHints" : aiHints ? "aiHints" : "none",
-      );
-      setBubbleShow(false);
+    if (busy) {
+      return;
     }
-  }
+    let stageIndex = hintStages.findIndex((stage) => stage === hintStage);
+    stageIndex = stageIndex == hintStages.length - 1 ? 0 : stageIndex + 1;
+    const nextStage = hintStages[stageIndex];
+    if (nextStage === "aiHints" && getAiHints) {
+      getAiHints();
+    }
 
-  // Event Handlers
-  async function HandleGetHint() {
-    setThinking("Hmmm...  Let me see");
-    logAction("Getting aiHints");
-    const aiHints = await getHint();
-    setThinking("");
-    setAiHintMsgs(aiHintMsgs.concat(aiHints));
+    setHintStage(nextStage);
+    setBubbleShow(nextStage === "none" ? false : true);
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -122,12 +88,14 @@ export const TinyTutor = ({
   ///////////////////////////////////////////////////////////////////
 
   function StagedChatBubble() {
+    console.log("StagedChatBubble", hintStage);
     switch (hintStage) {
       case "intro":
         return (
           <ChatBubble
             className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
             msgs={bubbleShown ? introMsgs : null}
+            closeable={true}
             closeClicked={closeChatBubble}
           />
         );
@@ -136,6 +104,7 @@ export const TinyTutor = ({
           <ChatBubble
             className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
             msgs={bubbleShown ? psHintsMsgs : null}
+            closeable={true}
             closeClicked={closeChatBubble}
           />
         );
@@ -143,7 +112,8 @@ export const TinyTutor = ({
         return (
           <ChatBubble
             className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
-            msgs={bubbleShown ? aiHintMsgs : null}
+            msgs={bubbleShown ? aiHintsMsgs : null}
+            closeable={true}
             closeClicked={closeChatBubble}
           />
         );
@@ -168,7 +138,10 @@ export const TinyTutor = ({
         }}
       />
       <div
-        className="absolute h-full bottom-0 right-[100px] w-[100px] z-10 cursor-pointer"
+        className={cn(
+          "absolute h-full bottom-0 right-[100px] w-[100px] z-10",
+          busy ? "cursor-wait" : "cursor-pointer",
+        )}
         onClick={() => {
           console.info("Next Hint Stage");
           nextHintStage();
@@ -178,6 +151,7 @@ export const TinyTutor = ({
         <ChatBubble
           className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
           msgs={[msg]}
+          closeable={true}
           closeClicked={closeChatBubble}
         />
       ) : (

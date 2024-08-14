@@ -296,7 +296,7 @@ Click Next to practice and check your understanding.`,
       `Click → when you're done reading.`,
       `Go ahead and click → to continue.`,
     ],
-    aiHints: true,
+    aiHints: false,
   },
   {
     rank: "ranger",

@@ -35,6 +35,7 @@ if (window.swpwr) {
   problem.class = window.swpwr.problem.topic;
   problem.question = window.swpwr.problem.definition;
   problem.hints = window.swpwr.problem.mathHints;
+  problem.wpHints = window.swpwr.problem.wpHints;
 
   student.studentId = window.swpwr.student.studentId;
   student.studentName = window.swpwr.student.fullName;

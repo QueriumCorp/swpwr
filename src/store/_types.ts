@@ -34,6 +34,12 @@ export interface State {
   setOnComplete: (onComplete: () => void) => void;
 }
 
+// WORD PROBLEM HINTS
+export type WPHint = {
+  page: string;
+  hints: string[];
+};
+
 // PROBLEM
 export type Problem = {
   appKey: string;
@@ -48,6 +54,7 @@ export type Problem = {
   qs1?: string;
   qs2?: string;
   qs3?: string;
+  wpHints?: WPHint[];
 };
 export const ProblemSchema = z.object({
   appKey: z.string(),
@@ -62,6 +69,9 @@ export const ProblemSchema = z.object({
   qs1: z.string().optional(),
   qs2: z.string().optional(),
   qs3: z.string().optional(),
+  wpHints: z
+    .array(z.object({ page: z.string(), hints: z.array(z.string()) }))
+    .optional(),
 }) satisfies z.ZodType<Problem>;
 
 // STUDENT
