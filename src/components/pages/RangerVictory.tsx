@@ -1,7 +1,9 @@
 "use client";
 
-import * as React from "react";
+// React Imports
+import { FC, ReactNode, useContext } from "react";
 
+// Querium Imports
 import { cn } from "@/lib/utils";
 import { type YBRpage } from "../qq/YellowBrickRoad";
 import {
@@ -12,30 +14,49 @@ import {
 } from "@/components/AnimeTutor";
 import { NavContext, NavContextType } from "@/NavContext";
 import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+import { CarouselNext } from "../ui/carousel";
 import { useProblemStore } from "@/store/_store";
 import { Button } from "../ui/button";
 
-const RangerVictory: React.FC<{
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+const RangerVictory: FC<{
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   page: YBRpage;
   index: number;
 }> = ({ className, index }) => {
-  // Context
-  const { current, api } = React.useContext(NavContext) as NavContextType;
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
+  const { current, api } = useContext(NavContext) as NavContextType;
   const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType;
 
+  ///////////////////////////////////////////////////////////////////
+  // Refs
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
   // Store
+  ///////////////////////////////////////////////////////////////////
+
   const { logAction, heartbeat, onComplete, session, studentLog } =
     useProblemStore();
 
-  // Side Effects
-  React.useEffect(() => {
-    logAction("RangerVictory : Finished path");
-  }, []);
+  ///////////////////////////////////////////////////////////////////
+  // State
+  ///////////////////////////////////////////////////////////////////
 
-  // Handlers
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
   function handleDance() {
     sayMsg("Dance Dance Revolution", "gratz");
   }
@@ -47,7 +68,9 @@ const RangerVictory: React.FC<{
   return (
     <div
       className={cn(
-        "RangerVictory rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        "RangerVictory",
+        "rounded-lg border bg-card text-card-foreground shadow-sm",
+        "w-full h-full m-0 p-0 flex flex-col justify-stretch",
         className,
       )}
     >
@@ -79,9 +102,6 @@ You did a great job!
           ))}
         </div>
 
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
         <CarouselNext
           className="relative right-0"
           onClick={() => {

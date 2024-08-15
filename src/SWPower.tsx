@@ -46,16 +46,30 @@ const StepWisePower = forwardRef<
   React.HTMLAttributes<HTMLDivElement> & StepWisePowerProps
 >((props, _ref) => {
   //
-  // Prep YellowBrickRoad
+  // Store
   //
-  let ybr;
-  if (props.options?.rank) {
-    ybr = YellowBrickRoad.filter((page) => {
-      return page.rank == props.options!.rank;
-    });
-  } else {
-    ybr = YellowBrickRoad;
-  }
+  const {
+    setSwapiUrl,
+    setGltfUrl,
+    setRank,
+    setDisabledSchemas,
+    setProblem,
+    setStudent,
+    setYBR,
+    studentLog,
+    problem,
+    student,
+    session,
+    ybr,
+    swapiUrl,
+    gltfUrl,
+    rank,
+    disabledSchemas,
+    closeSession,
+    saveTrace,
+    onComplete,
+    setOnComplete,
+  } = useProblemStore();
 
   //
   // State
@@ -67,30 +81,6 @@ const StepWisePower = forwardRef<
   const [traceMsg, setTraceMsg] = useState("");
   const [enableDebugger, setEnableDebugger] = useState(true);
   const [propError, setPropError] = useState("");
-
-  //
-  // Store
-  //
-  const {
-    setSwapiUrl,
-    setGltfUrl,
-    setRank,
-    setDisabledSchemas,
-    setProblem,
-    setStudent,
-    studentLog,
-    problem,
-    student,
-    session,
-    swapiUrl,
-    gltfUrl,
-    rank,
-    disabledSchemas,
-    closeSession,
-    saveTrace,
-    onComplete,
-    setOnComplete,
-  } = useProblemStore();
 
   //
   // Props Management
@@ -141,6 +131,21 @@ const StepWisePower = forwardRef<
       setOnComplete(props.onComplete);
     }
   }, [props.onComplete]);
+
+  //
+  // Prep YellowBrickRoad
+  //
+  useEffect(() => {
+    var ybr;
+    if (props.options?.rank) {
+      ybr = YellowBrickRoad.filter((page) => {
+        return page.rank == props.options!.rank;
+      });
+    } else {
+      ybr = YellowBrickRoad;
+    }
+    setYBR(ybr);
+  }, []);
 
   // Not sure why I did this
   useEffect(() => {

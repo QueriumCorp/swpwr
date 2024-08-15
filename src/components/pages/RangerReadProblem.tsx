@@ -51,6 +51,7 @@ const RangerReadProblem: React.FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
+    console.info("INITSESSION!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     initSession();
   }, []);
 

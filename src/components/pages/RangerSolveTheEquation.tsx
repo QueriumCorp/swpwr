@@ -56,7 +56,7 @@ const RangerSolveTheEquation: FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { problem, student, session, rank, swapiUrl } = useProblemStore();
+  const { problem, student, session, ybr, rank, swapiUrl } = useProblemStore();
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -76,8 +76,21 @@ const RangerSolveTheEquation: FC<{
   console.log(
     "///////////////////////////////////////////////////////////////////",
   );
-  console.info(YellowBrickRoad[current]);
-  console.info(page, index);
+  if (index === current) {
+    console.info("🥰🥰🥰🥰🥰🥰🥰🥰🥰🥰🥰🥰");
+  }
+  /* 
+  page
+    aiHints: true
+    id: "SolveTheEquation"
+    phase: "W"
+    phaseLabel: "Work the Problem"
+    rank: "ranger"
+    title: "Solve the Equation"
+
+  index: 4
+*/
+
   console.log(
     "///////////////////////////////////////////////////////////////////",
   );

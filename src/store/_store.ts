@@ -21,6 +21,7 @@ import submitPickSchema from "./submitPickSchema";
 import closeSession from "./closeSession";
 import saveTrace from "./saveTrace";
 import submitOrganize from "./submitOrganize";
+import { YBRpage } from "@/components/qq/YellowBrickRoad";
 
 export const useProblemStore = create<State>((set, get) => ({
   ///////////////////////////////////////////////////////////////////
@@ -64,6 +65,8 @@ export const useProblemStore = create<State>((set, get) => ({
     selectedExplanation: "",
     finalAnswer: "",
   },
+
+  ybr: [],
 
   studentLog: [],
   onComplete: () => {
@@ -126,6 +129,12 @@ export const useProblemStore = create<State>((set, get) => ({
   setSession: (session: Session) => {
     set((_state) => ({
       session: session,
+    }));
+  },
+
+  setYBR: (ybr: YBRpage[]) => {
+    set((_state) => ({
+      ybr: ybr,
     }));
   },
 

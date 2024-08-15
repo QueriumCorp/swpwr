@@ -1,3 +1,4 @@
+import { YBRpage } from "@/components/qq/YellowBrickRoad";
 import { z } from "zod";
 
 // STATE
@@ -9,6 +10,7 @@ export interface State {
   problem: Problem;
   student: Student;
   session: Session;
+  ybr: YBRpage[];
   studentLog: LogItem[];
   onComplete: (session: Session, studentLog: LogItem[]) => void;
 
@@ -20,6 +22,7 @@ export interface State {
   setProblem: (problem: Problem) => any;
   setStudent: (student: Student) => void;
   setSession: (session: Session) => void;
+  setYBR: (ybr: YBRpage[]) => void;
   heartbeat: () => Promise<void>;
   initSession: () => void;
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>;
