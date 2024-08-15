@@ -27,7 +27,7 @@ const DevMeetTutor: FC<{
   const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType;
 
   // Store
-  const { logAction, heartbeat, initSession, session } = useProblemStore();
+  const { logAction, heartbeat, session } = useProblemStore();
 
   // State
   const [navDisabled, setNavDisabled] = useState(true);
@@ -35,7 +35,6 @@ const DevMeetTutor: FC<{
   // Side Effects
   useEffect(() => {
     logAction("DevMeetTutor : Entered Application");
-    initSession();
     setTimeout(() => heartbeat(), 1000);
   }, []);
   useEffect(() => {

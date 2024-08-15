@@ -32,7 +32,7 @@ const NewbMeetTutor: React.FC<{
   //
   // Store
   //
-  const { logAction, heartbeat, initSession } = useProblemStore();
+  const { logAction, heartbeat } = useProblemStore();
 
   //
   // State
@@ -103,7 +103,6 @@ const NewbMeetTutor: React.FC<{
           className="relative right-0"
           onClick={() => {
             logAction("NewbMeetTutor : Clicked Next");
-            initSession();
             api?.scrollNext();
           }}
         >

@@ -30,8 +30,7 @@ const RangerReadProblem: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, problem, rank, initSession, session, getHint } =
-    useProblemStore();
+  const { problem, rank, session, getHint } = useProblemStore();
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -49,11 +48,6 @@ const RangerReadProblem: React.FC<{
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
-
-  useEffect(() => {
-    console.info("INITSESSION!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    initSession();
-  }, []);
 
   useEffect(() => {
     if (session.sessionToken.length > 0) {

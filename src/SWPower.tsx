@@ -28,6 +28,7 @@ import { useProblemStore } from "./store/_store";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import VoiceTester from "./components/qq/ChatBubble/VoiceTester";
+import initSession from "./store/initSession";
 
 // Props
 const StepWisePowerProps = z.object({
@@ -65,6 +66,7 @@ const StepWisePower = forwardRef<
     gltfUrl,
     rank,
     disabledSchemas,
+    initSession,
     closeSession,
     saveTrace,
     onComplete,
@@ -86,6 +88,8 @@ const StepWisePower = forwardRef<
   // Props Management
   //
   useEffect(() => {
+    console.info("props UPDATED", props);
+
     if (props.problem) {
       if (props.problem.stimulus) {
         props.problem.stimulus = props.problem.stimulus.replace(/\s{2,}/g, " ");
@@ -97,40 +101,35 @@ const StepWisePower = forwardRef<
         setPropError("");
       }
     }
-  }, [props.problem]);
-  useEffect(() => {
+
     if (props.student) {
       setStudent(props.student);
     }
-  }, [props.student]);
-  useEffect(() => {
     if (props.options?.swapiUrl) {
       setSwapiUrl(props.options.swapiUrl);
     }
-  }, [props.options?.swapiUrl]);
-  useEffect(() => {
     if (props.options?.gltfUrl) {
       setGltfUrl(props.options.gltfUrl);
     }
-  }, [props.options?.gltfUrl]);
-
-  useEffect(() => {
     if (props.options?.rank) {
       setRank(props.options.rank);
     }
-  }, [props.options?.rank]);
-
-  useEffect(() => {
     if (props.options?.disabledSchemas) {
       setDisabledSchemas(props.options.disabledSchemas);
     }
-  }, [props.options?.disabledSchemas]);
 
-  useEffect(() => {
     if (props.onComplete) {
       setOnComplete(props.onComplete);
     }
-  }, [props.onComplete]);
+  }, [props]);
+
+  // If we have problem but no sessionToken, start up the session.
+  useEffect(() => {
+    if (problem.question.length > 10 && session.sessionToken.length == 0) {
+      console.info("😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈");
+      initSession();
+    }
+  }, [problem, session]);
 
   //
   // Prep YellowBrickRoad
