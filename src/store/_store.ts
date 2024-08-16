@@ -114,6 +114,7 @@ export const useProblemStore = create<State>((set, get) => ({
     }
 
     console.error("Problem Validation Errors in: ", problem);
+    console.info(generateErrorMessage(problemValidation.error.issues));
     return {
       problemValid: false,
       problemStatusMsg: generateErrorMessage(problemValidation.error.issues),
