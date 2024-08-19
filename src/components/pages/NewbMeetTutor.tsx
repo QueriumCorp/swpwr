@@ -1,109 +1,115 @@
-"use client";
+'use client'
 
-import * as React from "react";
+// React Imports
+import * as React from 'react'
 
-import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
+// Querium Imports
+import { cn } from '@/lib/utils'
+import { type YBRpage } from '../qq/YellowBrickRoad'
 import {
   AnimeTutor,
   AvatarAPIType,
-  Chat,
   useAvatarAPI,
-} from "@/components/AnimeTutor";
-import { NavContext, NavContextType } from "@/NavContext";
-import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { useProblemStore } from "@/store/_store";
-import { Button } from "../ui/button";
-import { ChatBubble } from "../qq/ChatBubble/ChatBubble";
+} from '@/components/AnimeTutor'
+import { NavContext, NavContextType } from '@/NavContext'
+import { NavBar } from '../qq/NavBar'
+import { CarouselNext } from '../ui/carousel'
+import { useProblemStore } from '@/store/_store'
+import { Button } from '../ui/button'
+import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 const NewbMeetTutor: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-  page: YBRpage;
-  index: number;
+  className?: string
+  children?: React.ReactNode
+  page: YBRpage
+  index: number
 }> = ({ className, page, index }) => {
-  //
-  // Context
-  //
-  const { current, api } = React.useContext(NavContext) as NavContextType;
-  const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType;
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
 
-  //
+  const { current, api } = React.useContext(NavContext) as NavContextType
+  const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType
+
+  ///////////////////////////////////////////////////////////////////
   // Store
-  //
-  const { logAction, heartbeat } = useProblemStore();
+  ///////////////////////////////////////////////////////////////////
 
-  //
+  const { logAction, heartbeat } = useProblemStore()
+
+  ///////////////////////////////////////////////////////////////////
   // State
-  //
-  const [nextDisabled, setNextDisabled] = React.useState(true);
+  ///////////////////////////////////////////////////////////////////
 
-  //
-  // Side Effects
-  //
+  const [nextDisabled, setNextDisabled] = React.useState(true)
+
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
   React.useEffect(() => {
-    logAction("NewbMeetTutor : Entered Application");
-    setTimeout(() => heartbeat(), 1000);
-  }, []);
+    logAction('NewbMeetTutor : Entered Application')
+    setTimeout(() => heartbeat(), 1000)
+  }, [])
 
-  //
-  // Handlers
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
   function handleDance() {
-    sayMsg("Dance Dance Revolution", "gratz");
+    sayMsg('Dance Dance Revolution', 'gratz')
   }
   function finishedIntro() {
-    logAction("NewbMeetTutor : Intro Finished");
-    setNextDisabled(false);
+    logAction('NewbMeetTutor : Intro Finished')
+    setNextDisabled(false)
   }
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  //
-  if (current !== index + 1) return null;
+  ///////////////////////////////////////////////////////////////////
+
+  if (current !== index + 1) return null
   return (
     <div
       className={cn(
-        "NewbMeetTutor rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        'NewbMeetTutor m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
-      <div className="grow bg-qqAccent relative">
+      <div className="relative grow bg-qqAccent">
         <AnimeTutor
-          emote={"celebrate:01"}
+          emote={'celebrate:01'}
           closeUp
           style={{
-            position: "absolute",
-            height: "100%",
-            right: "-150px",
-            width: "100%",
-            // border: "1px solid #000000",
+            position: 'absolute',
+            height: '100%',
+            right: '-150px',
+            width: '100%',
           }}
         />
         <ChatBubble
           msgs={page.intro!}
-          className="font-irishGrover absolute right-[50%] bottom-[50%]"
+          className="absolute bottom-[50%] right-[50%] max-w-[45%] font-irishGrover"
           introFinished={finishedIntro}
         />
       </div>
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
-        <div className="flex flex-col grow m-1 gap-1">
-          {emotes.map((emote) => (
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+        <div className="m-1 flex grow flex-col gap-1">
+          {emotes.map(emote => (
             <Button key={emote.name} onClick={handleDance} className="w-full">
               {emote.name}
             </Button>
           ))}
         </div>
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
         <CarouselNext
           disabled={nextDisabled}
           className="relative right-0"
           onClick={() => {
-            logAction("NewbMeetTutor : Clicked Next");
-            api?.scrollNext();
+            logAction('NewbMeetTutor : Clicked Next')
+            api?.scrollNext()
           }}
         >
           Next
@@ -113,7 +119,7 @@ const NewbMeetTutor: React.FC<{
         </h1>
       </NavBar>
     </div>
-  );
-};
-NewbMeetTutor.displayName = "NewbMeetTutor";
-export default NewbMeetTutor;
+  )
+}
+NewbMeetTutor.displayName = 'NewbMeetTutor'
+export default NewbMeetTutor

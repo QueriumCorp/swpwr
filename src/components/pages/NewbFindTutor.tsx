@@ -1,102 +1,108 @@
-"use client";
+'use client'
 
-import { useContext, useEffect, useState } from "react";
+// React Imports
+import { useContext, useState } from 'react'
 
-import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
-import { NavContext, NavContextType } from "@/NavContext";
-import { AnimeTutor, Chat } from "@/components/AnimeTutor";
-import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { useProblemStore } from "@/store/_store";
-import { ChatBubble } from "../qq/ChatBubble/ChatBubble";
+// Querium Imports
+import { cn } from '@/lib/utils'
+import { type YBRpage } from '../qq/YellowBrickRoad'
+import { NavContext, NavContextType } from '@/NavContext'
+import { NavBar } from '../qq/NavBar'
+import { CarouselNext } from '../ui/carousel'
+import { useProblemStore } from '@/store/_store'
+import { TinyTutor } from '../qq/TinyTutor'
 
 const introMsg = `I’m right here if you need me, just click my cute self to get my attention 😊.
 
 
-Try it now.`;
+Try it now.`
 const gratzMsg = `
 Perfect! You found me!
 
 If you ever get stuck, click on me just like that. I'll do my best to give you a hand.
       
-Now click →.`;
+Now click →.`
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 const NewbFindTutor: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-  page: YBRpage;
-  index: number;
-}> = ({ className, children, index }) => {
-  //
-  // State
-  //
-  const [navDisabled, setNavDisabled] = useState(true);
-  const [msg, setMsg] = useState(introMsg);
+  className?: string
+  children?: React.ReactNode
+  page: YBRpage
+  index: number
+}> = ({ className, children, page, index }) => {
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
 
-  //
-  // Context
-  //
-  const { current, api } = useContext(NavContext) as NavContextType;
+  const { current, api } = useContext(NavContext) as NavContextType
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // Store
-  //
-  const { logAction } = useProblemStore();
+  ///////////////////////////////////////////////////////////////////
 
-  //
-  // Handlers
-  //
+  const { logAction, problem, rank } = useProblemStore()
+
+  ///////////////////////////////////////////////////////////////////
+  // State
+  ///////////////////////////////////////////////////////////////////
+
+  const [navDisabled, setNavDisabled] = useState(true)
+  const [msg, setMsg] = useState('')
+  const wpHints = problem.wpHints?.find(
+    wpHint => wpHint.page === `${rank}:${page.id}`,
+  )
+
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
   function foundMe() {
-    logAction("NewbFindTutor : Found Tutor");
-    setMsg(gratzMsg);
-    setNavDisabled(false);
+    logAction('NewbFindTutor : Found Tutor')
+    setMsg(gratzMsg)
+    setNavDisabled(false)
   }
 
-  //
+  function newStage(newStage: string) {
+    if (newStage === 'psHints') setNavDisabled(false)
+  }
+
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  //
-  if (current !== index + 1) return null;
+  ///////////////////////////////////////////////////////////////////
+
+  if (current !== index + 1) return null
 
   return (
     <div
       className={cn(
-        "NewbFindTutor rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        'NewbFindTutor',
+        'm-0 flex h-full w-full flex-col justify-stretch',
+        'rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
-      <div className="grow relative"></div>
+      <div className="relative grow"></div>
       {children}
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
-        {/* Tiny Avatar */}
-        <AnimeTutor
-          emote={"wave:01"}
-          style={{
-            bottom: "0px",
-            right: "0px",
-            height: "100%",
-            // border: "solid 1px red",
-          }}
+      <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
+        <TinyTutor
+          msg={msg}
+          intro={page?.intro}
+          psHints={page?.psHints}
+          wpHints={wpHints?.hints}
+          newStage={newStage}
         />
-        <div
-          className="h-full bottom-0 right-0 w-[100px] border-solid border-red-500 z-10 cursor-pointer"
-          onClick={() => {
-            foundMe();
-          }}
-        ></div>
-        <ChatBubble
-          msgs={msg}
-          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
-        />
-        <CarouselPrevious disabled={navDisabled} className="relative left-0">
-          Previous
-        </CarouselPrevious>
         <CarouselNext
           disabled={navDisabled}
           className="relative right-0"
           onClick={() => {
-            logAction("NewbFindTutor : Clicked Next");
-            api?.scrollNext();
+            logAction('NewbFindTutor : Clicked Next')
+            api?.scrollNext()
           }}
         >
           Next
@@ -106,7 +112,7 @@ const NewbFindTutor: React.FC<{
         </h1>
       </NavBar>
     </div>
-  );
-};
-NewbFindTutor.displayName = "NewbFindTutor";
-export default NewbFindTutor;
+  )
+}
+NewbFindTutor.displayName = 'NewbFindTutor'
+export default NewbFindTutor
