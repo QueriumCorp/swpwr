@@ -131,8 +131,7 @@ const RangerSelectDiagram: FC<{
   async function getAiHints() {
     setBusy(true)
     setMsg('Hmmm...  let me see.')
-    const hints = []
-    hints.push(await getHint())
+    const hints: string[] = await getHint()
     setMsg('')
     setBusy(false)
     setAiHints(hints)

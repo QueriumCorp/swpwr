@@ -52,6 +52,7 @@ const NewbFindFacts: FC<{
     wpHint => wpHint.page === `${rank}:${page.id}`,
   )
   const [aiHints, setAiHints] = useState<string[]>([])
+
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
@@ -88,6 +89,7 @@ const NewbFindFacts: FC<{
       }
     }
   }
+
   async function getAiHints() {
     setBusy(true)
     setMsg('Hmmm...  let me see.')

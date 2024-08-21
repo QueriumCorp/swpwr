@@ -1,54 +1,56 @@
-"use client";
+'use client'
 
 //  React Imports
-import { FC, ReactNode, useContext, useState } from "react";
+import { FC, ReactNode, useContext, useState } from 'react'
 
 // Third-party Imports
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
 // Querium Imports
-import { type YBRpage } from "../qq/YellowBrickRoad";
-import { NavContext, NavContextType } from "@/NavContext";
-import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { StimulusSelector } from "../qq/StimulusSelector";
-import { AnimeTutor, Chat } from "@/components/AnimeTutor";
-import { HdrBar } from "../qq/HdrBar";
-import { useProblemStore } from "@/store/_store";
-import { Textarea } from "../ui/textarea";
-import { TinyTutor } from "../qq/TinyTutor";
+import { type YBRpage } from '../qq/YellowBrickRoad'
+import { NavContext, NavContextType } from '@/NavContext'
+import { NavBar } from '../qq/NavBar'
+import { CarouselPrevious, CarouselNext } from '../ui/carousel'
+import { StimulusSelector } from '../qq/StimulusSelector'
+import { AnimeTutor, Chat } from '@/components/AnimeTutor'
+import { HdrBar } from '../qq/HdrBar'
+import { useProblemStore } from '@/store/_store'
+import { Textarea } from '../ui/textarea'
+import { TinyTutor } from '../qq/TinyTutor'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 const RangerOwnWords: FC<{
-  className?: string;
-  children?: ReactNode;
-  page: YBRpage;
-  index: number;
+  className?: string
+  children?: ReactNode
+  page: YBRpage
+  index: number
 }> = ({ className, page, index }) => {
   ///////////////////////////////////////////////////////////////////
   // Contexts
   ///////////////////////////////////////////////////////////////////
 
-  const { api, current } = useContext(NavContext) as NavContextType;
+  const { api, current } = useContext(NavContext) as NavContextType
 
   ///////////////////////////////////////////////////////////////////
   // Store
   ///////////////////////////////////////////////////////////////////
 
   const { logAction, submitOrganize, getHint, problem, session, rank } =
-    useProblemStore();
+    useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [msg, setMsg] = useState<string>("");
-  const [ownWords, setOwnWords] = useState<string>("");
+  const [msg, setMsg] = useState<string>('')
+  const [busy, setBusy] = useState(false)
+  const [ownWords, setOwnWords] = useState<string>('')
   const wpHints = problem.wpHints?.find(
-    (wpHint) => wpHint.page === `${rank}:${page.id}`,
-  );
+    wpHint => wpHint.page === `${rank}:${page.id}`,
+  )
+  const [aiHints, setAiHints] = useState<string[]>([])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -61,36 +63,38 @@ const RangerOwnWords: FC<{
   async function handleCheckOwnWords(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    console.log("handleCheckOwnWords");
+    console.log('handleCheckOwnWords')
     if (evt.metaKey) {
-      api?.scrollNext();
+      api?.scrollNext()
     } else if (ownWords.length < 10) {
-      setMsg("Please explain your answer in your own words");
+      setMsg('Please explain your answer in your own words')
     } else {
-      logAction("RangerOwnWords : Checking Own Words : " + ownWords);
+      logAction('RangerOwnWords : Checking Own Words : ' + ownWords)
       // const result = await submitOwnWords(ownWords);
-      logAction("RangerOwnWords : Checked OwnWords : ");
+      logAction('RangerOwnWords : Checked OwnWords : ')
 
-      api?.scrollNext();
+      api?.scrollNext()
     }
   }
 
-  async function HandleGetHint() {
-    setMsg("Hmmm...  Let me see");
-    logAction("RangerOwnWords : GetHint");
-    const hint = await getHint();
-    setMsg(hint);
+  async function getAiHints() {
+    setBusy(true)
+    setMsg('Hmmm...  let me see.')
+    const hints: string[] = await getHint()
+    setMsg('')
+    setBusy(false)
+    setAiHints(hints)
   }
 
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
 
-  if (current !== index + 1) return null;
+  if (current !== index + 1) return null
   return (
     <div
       className={cn(
-        "RangerOwnWords rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        'RangerOwnWords m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
@@ -99,16 +103,16 @@ const RangerOwnWords: FC<{
         subTitle={page?.phaseLabel}
         instructions={page?.title}
       ></HdrBar>
-      <div className="flex flex-col p-2 gap-2 justify-stretch grow m-2 overflow-y-auto">
+      <div className="m-2 flex grow flex-col justify-stretch gap-2 overflow-y-auto p-2">
         <StimulusSelector
           className={cn(
-            "flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm",
-            "ring-offset-background ",
-            "placeholder:text-muted-foreground",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-            "disabled:cursor-not-allowed disabled:opacity-50",
+            'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm',
+            'ring-offset-background',
+            'placeholder:text-muted-foreground',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+            'disabled:cursor-not-allowed disabled:opacity-50',
             className,
-            "inline",
+            'inline',
           )}
           stimulusText={problem.stimulus}
         ></StimulusSelector>
@@ -116,13 +120,13 @@ const RangerOwnWords: FC<{
         <div className="grow">
           <Textarea
             value={ownWords}
-            onChange={(e) => setOwnWords(e.target.value)}
+            onChange={e => setOwnWords(e.target.value)}
             placeholder="Type your explanation here"
           />
         </div>
       </div>
 
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           intro={page?.intro}
@@ -134,8 +138,8 @@ const RangerOwnWords: FC<{
         </CarouselPrevious>
         <CarouselNext
           className="relative right-0"
-          onClick={(evt) => {
-            handleCheckOwnWords(evt);
+          onClick={evt => {
+            handleCheckOwnWords(evt)
           }}
         >
           Next
@@ -145,8 +149,8 @@ const RangerOwnWords: FC<{
         </h1>
       </NavBar>
     </div>
-  );
-};
+  )
+}
 
-RangerOwnWords.displayName = "RangerOwnWords";
-export default RangerOwnWords;
+RangerOwnWords.displayName = 'RangerOwnWords'
+export default RangerOwnWords

@@ -1,49 +1,49 @@
-"use client";
+'use client'
 
 // React Imports
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from 'react'
 
 // Querium Imports
-import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
-import { NavContext, NavContextType } from "@/NavContext";
-import { NavBar } from "../qq/NavBar";
-import { CarouselNext } from "../ui/carousel";
-import { StimulusSelector } from "../qq/StimulusSelector";
-import { HdrBar } from "../qq/HdrBar";
-import { useProblemStore } from "@/store/_store";
-import { TinyTutor } from "../qq/TinyTutor";
+import { cn } from '@/lib/utils'
+import { type YBRpage } from '../qq/YellowBrickRoad'
+import { NavContext, NavContextType } from '@/NavContext'
+import { NavBar } from '../qq/NavBar'
+import { CarouselNext } from '../ui/carousel'
+import { StimulusSelector } from '../qq/StimulusSelector'
+import { HdrBar } from '../qq/HdrBar'
+import { useProblemStore } from '@/store/_store'
+import { TinyTutor } from '../qq/TinyTutor'
 
 const RangerReadProblem: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-  page: YBRpage;
-  index: number;
+  className?: string
+  children?: React.ReactNode
+  page: YBRpage
+  index: number
 }> = ({ className, page, index }) => {
   ///////////////////////////////////////////////////////////////////
   // Contexts
   ///////////////////////////////////////////////////////////////////
 
-  const { api, current } = useContext(NavContext) as NavContextType;
+  const { api, current } = useContext(NavContext) as NavContextType
 
   ///////////////////////////////////////////////////////////////////
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { problem, rank, session, getHint } = useProblemStore();
+  const { problem, rank, session, getHint } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [busy, setBusy] = useState(true);
+  const [busy, setBusy] = useState(true)
   const [msg, setMsg] = useState<string>(
-    "Please read the problem while I get things ready to go.",
-  );
+    'Please read the problem while I get things ready to go.',
+  )
   const wpHints = problem.wpHints?.find(
-    (wpHint) => wpHint.page === `${rank}:${page.id}`,
-  );
-  const [aiHints, setAiHints] = useState<string[]>([]);
+    wpHint => wpHint.page === `${rank}:${page.id}`,
+  )
+  const [aiHints, setAiHints] = useState<string[]>([])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -51,34 +51,35 @@ const RangerReadProblem: React.FC<{
 
   useEffect(() => {
     if (session.sessionToken.length > 0) {
-      setBusy(false);
-      setMsg("");
+      setBusy(false)
+      setMsg('')
     }
-  }, [session]);
+  }, [session])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
 
   async function getAiHints() {
-    setMsg("Hmmm...  let me see.");
-    const hints = [];
-    hints.push(await getHint());
-    setMsg("");
-    setAiHints(hints);
+    setBusy(true)
+    setMsg('Hmmm...  let me see.')
+    const hints: string[] = await getHint()
+    setMsg('')
+    setBusy(false)
+    setAiHints(hints)
   }
 
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
 
-  if (current !== index + 1) return null;
+  if (current !== index + 1) return null
   return (
     <div
       className={cn(
-        "RangerReadProblem",
-        "rounded-lg border bg-card text-card-foreground shadow-sm",
-        "w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        'RangerReadProblem',
+        'rounded-lg border bg-card text-card-foreground shadow-sm',
+        'm-0 flex h-full w-full flex-col justify-stretch p-0',
         className,
       )}
     >
@@ -87,24 +88,24 @@ const RangerReadProblem: React.FC<{
         subTitle={page?.phaseLabel}
         instructions={page?.title}
       ></HdrBar>
-      <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
+      <div className="relative flex grow flex-col justify-stretch gap-2 p-2">
         <StimulusSelector
           className={cn(
-            "flex",
-            "w-full rounded-md border border-input bg-slate-200 px-3 py-2",
-            "text-sm ring-offset-background placeholder:text-muted-foreground",
-            "focus-visible:outline-none focus-visible:ring-2",
-            "focus-visible:ring-ring focus-visible:ring-offset-2",
-            "disabled:cursor-not-allowed disabled:opacity-50",
+            'flex',
+            'w-full rounded-md border border-input bg-slate-200 px-3 py-2',
+            'text-sm ring-offset-background placeholder:text-muted-foreground',
+            'focus-visible:outline-none focus-visible:ring-2',
+            'focus-visible:ring-ring focus-visible:ring-offset-2',
+            'disabled:cursor-not-allowed disabled:opacity-50',
             className,
-            "inline",
+            'inline',
           )}
           stimulusText={problem.stimulus}
         ></StimulusSelector>
 
         <div className="flex grow gap-2"></div>
       </div>
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           busy={busy}
@@ -122,10 +123,10 @@ const RangerReadProblem: React.FC<{
         </h1>
       </NavBar>
     </div>
-  );
-};
-RangerReadProblem.displayName = "RangerReadProblem";
-export default RangerReadProblem;
+  )
+}
+RangerReadProblem.displayName = 'RangerReadProblem'
+export default RangerReadProblem
 
 ///////////////////////////////////////////////////////////////////
 // Support Functions
