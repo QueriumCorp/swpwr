@@ -1,91 +1,113 @@
-"use client";
+'use client'
 
-import { FC, ReactNode, useContext, useState } from "react";
+import { FC, ReactNode, useContext, useState } from 'react'
 
-import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
-import { NavContext, NavContextType } from "@/NavContext";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import Chip from "../qq/Chip";
-import KnownFacts from "../qq/KnownFacts";
-import { StimulusSelector } from "../qq/StimulusSelector";
-import UnknownFacts from "../qq/UnknownFacts";
-import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { HdrBar } from "../qq/HdrBar";
-import { useProblemStore } from "@/store/_store";
-import { TinyTutor } from "../qq/TinyTutor";
+import { cn } from '@/lib/utils'
+import { type YBRpage } from '../qq/YellowBrickRoad'
+import { NavContext, NavContextType } from '@/NavContext'
+import { DndContext, DragEndEvent } from '@dnd-kit/core'
+import Chip from '../qq/Chip'
+import KnownFacts from '../qq/KnownFacts'
+import { StimulusSelector } from '../qq/StimulusSelector'
+import UnknownFacts from '../qq/UnknownFacts'
+import { NavBar } from '../qq/NavBar'
+import { CarouselPrevious, CarouselNext } from '../ui/carousel'
+import { HdrBar } from '../qq/HdrBar'
+import { useProblemStore } from '@/store/_store'
+import { TinyTutor } from '../qq/TinyTutor'
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 const NewbFindFacts: FC<{
-  className?: string;
-  children?: ReactNode;
-  page?: YBRpage;
-  index: number;
+  className?: string
+  children?: ReactNode
+  page?: YBRpage
+  index: number
 }> = ({ className, page, index }) => {
-  //
-  // Context
-  //
-  const { api, current } = useContext(NavContext) as NavContextType;
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
 
-  //
+  const { api, current } = useContext(NavContext) as NavContextType
+
+  ///////////////////////////////////////////////////////////////////
   // Store
-  //
-  const { logAction, submitTTable, getHint, problem } = useProblemStore();
+  ///////////////////////////////////////////////////////////////////
 
-  //
+  const { logAction, submitTTable, getHint, problem } = useProblemStore()
+
+  ///////////////////////////////////////////////////////////////////
   // State
-  //
-  const [knowns, setKnowns] = useState<string[]>([]);
-  const [unknowns, setUnknowns] = useState<string[]>([]);
-  const [currentFact, setCurrentFact] = useState<string>("");
-  const [emote, setEmote] = useState<string>("gratz:02");
-  const [msg, setMsg] = useState<string>("");
+  ///////////////////////////////////////////////////////////////////
 
-  //
+  const [navDisabled, setNavDisabled] = useState(true)
+  const [knowns, setKnowns] = useState<string[]>([])
+  const [unknowns, setUnknowns] = useState<string[]>([])
+  const [currentFact, setCurrentFact] = useState<string>('')
+  const [emote, setEmote] = useState<string>('gratz:02')
+  const [msg, setMsg] = useState<string>('')
+
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
   // Event Handlers
-  //
+  ///////////////////////////////////////////////////////////////////
+
   const delKnown = (fact: string) => {
-    logAction(`NewbFindFacts : Deleted '${fact}' from KnownFacts`);
-    setKnowns(knowns.filter((thisFact) => thisFact !== fact));
-  };
+    logAction(`NewbFindFacts : Deleted '${fact}' from KnownFacts`)
+    setKnowns(knowns.filter(thisFact => thisFact !== fact))
+  }
   const delUnknown = (fact: string) => {
-    logAction(`NewbFindFacts : Deleted '${fact}' from UnknownFacts`);
-    setUnknowns(unknowns.filter((thisFact) => thisFact !== fact));
-  };
+    logAction(`NewbFindFacts : Deleted '${fact}' from UnknownFacts`)
+    setUnknowns(unknowns.filter(thisFact => thisFact !== fact))
+  }
   async function HandleCheckFacts(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     if (evt.metaKey) {
       //If Cmd+Enter just scroll to next page
-      api?.scrollNext();
+      api?.scrollNext()
     } else {
-      setMsg("Give me a sec to review your knowns and unknowns");
-      setEmote("direct:02");
-      logAction("NewbFindFacts : Clicked Next");
+      setMsg('Give me a sec to review your knowns and unknowns')
+      setEmote('direct:02')
+      logAction('NewbFindFacts : Clicked Next')
 
-      logAction("NewbFindFacts : Checking Facts");
-      const result = await submitTTable(knowns, unknowns);
-      setMsg(result.message);
-      setEmote("pout:04");
-      if (result.stepStatus == "VALID") {
-        api?.scrollNext();
+      logAction('NewbFindFacts : Checking Facts')
+      const result = await submitTTable(knowns, unknowns)
+      setMsg(result.message)
+      setEmote('pout:04')
+      if (result.stepStatus == 'VALID') {
+        api?.scrollNext()
       }
     }
   }
   async function HandleGetHint() {
-    setMsg("Hmmm...  Let me see");
-    setEmote("direct:03");
-    logAction("NewbFindFacts : GetHint");
-    const hint = await getHint();
-    setMsg(hint);
+    setMsg('Hmmm...  Let me see')
+    setEmote('direct:03')
+    logAction('NewbFindFacts : GetHint')
+    const hint = await getHint()
+    setMsg(hint)
   }
 
+  function hintChanged(hintStage: string, current: number, count: number) {
+    if (hintStage === 'intro' && current === count) {
+      setNavDisabled(false)
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  if (current !== index + 1) return null;
+  ///////////////////////////////////////////////////////////////////
+
+  if (current !== index + 1) return null
+
   return (
     <div
       className={cn(
-        "NewbFindFacts rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        'NewbFindFacts m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
@@ -94,23 +116,23 @@ const NewbFindFacts: FC<{
         subTitle={page?.phaseLabel}
         instructions={page?.title}
       ></HdrBar>
-      <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
+      <div className="relative flex grow flex-col justify-stretch gap-2 p-2">
         <DndContext onDragEnd={handleDragEnd}>
           <StimulusSelector
             interactive={true}
             onChangeFact={setCurrentFact}
             className={cn(
-              "flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+              'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
               className,
-              "inline",
+              'inline',
             )}
             stimulusText={problem.stimulus}
           ></StimulusSelector>
 
-          <div className=" grow ">
-            <div className="grid gap-1 grid-cols-2 h-full">
+          <div className="grow">
+            <div className="grid h-full grid-cols-2 gap-1">
               <KnownFacts add={addKnown}>
-                {knowns.map((known) => (
+                {knowns.map(known => (
                   <Chip
                     id={known}
                     key={known}
@@ -120,7 +142,7 @@ const NewbFindFacts: FC<{
                 ))}
               </KnownFacts>
               <UnknownFacts add={addUnknown}>
-                {unknowns.map((unknown) => (
+                {unknowns.map(unknown => (
                   <Chip
                     id={unknown}
                     key={unknown}
@@ -133,18 +155,17 @@ const NewbFindFacts: FC<{
           </div>
         </DndContext>
       </div>
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           intro={page?.intro}
           psHints={page?.psHints || []}
+          hintChanged={hintChanged}
         />
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
         <CarouselNext
+          disabled={navDisabled}
           className="relative right-0"
-          onClick={(evt) => HandleCheckFacts(evt)}
+          onClick={evt => HandleCheckFacts(evt)}
         >
           Next
         </CarouselNext>
@@ -153,39 +174,39 @@ const NewbFindFacts: FC<{
         </h1>
       </NavBar>
     </div>
-  );
+  )
 
   function handleDragEnd(event: DragEndEvent) {
-    if (currentFact.length == 0 || currentFact.trim().length == 0) return;
-    if (knowns.includes(currentFact)) return;
+    if (currentFact.length == 0 || currentFact.trim().length == 0) return
+    if (knowns.includes(currentFact)) return
 
-    if (event.over && event.over.id === "KnownFacts") {
-      setKnowns([...knowns, currentFact]);
-      logAction(`NewbFindFacts : Dropped '${currentFact}' on KnownFacts`);
+    if (event.over && event.over.id === 'KnownFacts') {
+      setKnowns([...knowns, currentFact])
+      logAction(`NewbFindFacts : Dropped '${currentFact}' on KnownFacts`)
     }
-    if (event.over && event.over.id === "UnknownFacts") {
-      setUnknowns([...unknowns, currentFact]);
-      logAction(`NewbFindFacts : Dropped '${currentFact}' on UnknownFacts`);
+    if (event.over && event.over.id === 'UnknownFacts') {
+      setUnknowns([...unknowns, currentFact])
+      logAction(`NewbFindFacts : Dropped '${currentFact}' on UnknownFacts`)
     }
-    setCurrentFact("");
+    setCurrentFact('')
   }
 
   function addKnown() {
-    if (currentFact.length == 0 || currentFact.trim().length == 0) return;
-    if (knowns.includes(currentFact)) return;
+    if (currentFact.length == 0 || currentFact.trim().length == 0) return
+    if (knowns.includes(currentFact)) return
 
-    logAction(`NewbFindFacts : Added '${currentFact}' to KnownFacts`);
-    setKnowns([...knowns, currentFact]);
-    setCurrentFact("");
+    logAction(`NewbFindFacts : Added '${currentFact}' to KnownFacts`)
+    setKnowns([...knowns, currentFact])
+    setCurrentFact('')
   }
   function addUnknown() {
-    if (currentFact.length == 0 || currentFact.trim().length == 0) return;
-    if (unknowns.includes(currentFact)) return;
-    logAction(`NewbFindFacts : Added '${currentFact}' to UnknownFacts`);
-    setUnknowns([...unknowns, currentFact]);
-    setCurrentFact("");
+    if (currentFact.length == 0 || currentFact.trim().length == 0) return
+    if (unknowns.includes(currentFact)) return
+    logAction(`NewbFindFacts : Added '${currentFact}' to UnknownFacts`)
+    setUnknowns([...unknowns, currentFact])
+    setCurrentFact('')
   }
-};
+}
 
-NewbFindFacts.displayName = "NewbFindFacts";
-export default NewbFindFacts;
+NewbFindFacts.displayName = 'NewbFindFacts'
+export default NewbFindFacts
