@@ -142,7 +142,7 @@ Let's find the known amounts together. Click on me and I'll show you how.`,
 A word problem tells a story. Before you solve a word problem, it helps to know what *type* of story it tells.`,
       `There are a few different story types. The first one we'll learn about is Total.
 
-Press [PLAY] to start the video.
+Press ▶️ to start the video.
 
 When the video finishes, click → to continue.`,
     ],
