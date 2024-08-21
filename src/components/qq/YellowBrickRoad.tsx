@@ -52,11 +52,12 @@ export const YellowBrickRoad: YBRpage[] = [
       "When we work together, we'll always use POWER, even for easy problems. That's so you can practice your skills and keep your POWER strong.",
       `Let's learn the first **P**OWER step!
 
-**P** is the first step. **P** stands for **P**repare.
+  **P** is the first step. **P** stands for **P**repare.
 
-Ready? Click →.`,
+  Ready? Click →.`,
     ],
   },
+
   // {
   //   rank: "newb",
   //   id: "FeelThePower",

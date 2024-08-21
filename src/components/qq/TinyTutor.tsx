@@ -13,7 +13,7 @@ export const TinyTutor = ({
   wpHints,
   aiHints,
   getAiHints,
-  newStage,
+  hintChanged,
   className,
 }: {
   msg?: string
@@ -23,7 +23,7 @@ export const TinyTutor = ({
   wpHints?: string[]
   aiHints?: string[]
   getAiHints?: () => void
-  newStage?: (newStage: HintStage) => void
+  hintChanged?: (newStage: HintStage, current: number, count: number) => void
   className?: string
 }) => {
   ///////////////////////////////////////////////////////////////////
@@ -57,6 +57,17 @@ export const TinyTutor = ({
             : 'none',
   )
   const [bubbleShown, setBubbleShow] = useState(introMsgs.length ? true : false)
+  const [currentHintMsgs, setCurrentHintMsgs] = useState<string[]>(
+    msg
+      ? []
+      : intro
+        ? introMsgs
+        : psHints || wpHints
+          ? psHintsMsgs
+          : getAiHints
+            ? aiHintsMsgs
+            : [],
+  )
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -65,6 +76,7 @@ export const TinyTutor = ({
   useEffect(() => {
     if (aiHints && aiHints?.length > 0) {
       setHintStage('aiHints')
+      setCurrentHintMsgs(aiHintsMsgs)
       setBubbleShow(true)
     }
   }, [aiHints])
@@ -88,55 +100,45 @@ export const TinyTutor = ({
       getAiHints()
     }
 
-    if (newStage) newStage(nextStage)
+    let current, count
+    switch (nextStage) {
+      case 'intro':
+        current = 1
+        count = introMsgs.length
+        setCurrentHintMsgs(introMsgs)
+        break
+      case 'psHints':
+        current = 1
+        count = psHintsMsgs.length
+        setCurrentHintMsgs(psHintsMsgs)
+        break
+      case 'aiHints':
+        current = 1
+        count = aiHintsMsgs.length
+        setCurrentHintMsgs(aiHintsMsgs)
+        break
+      case 'none':
+        current = 0
+        count = 0
+        setCurrentHintMsgs([])
+        break
+    }
+
+    // If parent wants to know when the hint stage or msg changed
+    if (hintChanged) {
+      hintChanged(nextStage, current, count)
+    }
 
     setHintStage(nextStage)
     setBubbleShow(nextStage === 'none' ? false : true)
   }
 
   function hintPageChanged(current: number, count: number) {
-    console.info(`${current} of ${count}`)
-  }
-
-  ///////////////////////////////////////////////////////////////////
-  // JSX Support Components
-  ///////////////////////////////////////////////////////////////////
-
-  function StagedChatBubble() {
-    console.log('StagedChatBubble', hintStage)
-    switch (hintStage) {
-      case 'intro':
-        return (
-          <ChatBubble
-            className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-irishGrover"
-            msgs={bubbleShown ? introMsgs : null}
-            closeable={true}
-            closeClicked={closeChatBubble}
-            hintPageChanged={hintPageChanged}
-          />
-        )
-      case 'psHints':
-        return (
-          <ChatBubble
-            className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-irishGrover"
-            msgs={bubbleShown ? psHintsMsgs : null}
-            closeable={true}
-            closeClicked={closeChatBubble}
-            hintPageChanged={hintPageChanged}
-          />
-        )
-      case 'aiHints':
-        return (
-          <ChatBubble
-            className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-irishGrover"
-            msgs={bubbleShown ? aiHintsMsgs : null}
-            closeable={true}
-            closeClicked={closeChatBubble}
-            hintPageChanged={hintPageChanged}
-          />
-        )
-      case 'none':
-        return null
+    if (count < 1) {
+      return
+    }
+    if (hintChanged) {
+      hintChanged(hintStage, current, count)
     }
   }
 
@@ -152,7 +154,6 @@ export const TinyTutor = ({
           bottom: '0px',
           right: '0px',
           height: '100%',
-          // border: "solid 1px red",
         }}
       />
       <div
@@ -161,7 +162,6 @@ export const TinyTutor = ({
           busy ? 'cursor-wait' : 'cursor-pointer',
         )}
         onClick={() => {
-          console.info('Next Hint Stage')
           nextHintStage()
         }}
       ></div>
@@ -174,7 +174,13 @@ export const TinyTutor = ({
           hintPageChanged={hintPageChanged}
         />
       ) : (
-        <StagedChatBubble />
+        <ChatBubble
+          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-irishGrover"
+          msgs={bubbleShown ? currentHintMsgs : null}
+          closeable={true}
+          closeClicked={closeChatBubble}
+          hintPageChanged={hintPageChanged}
+        />
       )}
     </div>
   )

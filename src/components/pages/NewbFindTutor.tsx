@@ -50,6 +50,7 @@ const NewbFindTutor: React.FC<{
 
   const [navDisabled, setNavDisabled] = useState(true)
   const [msg, setMsg] = useState('')
+  const [hintStage, setHintStage] = useState('')
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}:${page.id}`,
   )
@@ -62,14 +63,15 @@ const NewbFindTutor: React.FC<{
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
 
-  function foundMe() {
-    logAction('NewbFindTutor : Found Tutor')
-    setMsg(gratzMsg)
-    setNavDisabled(false)
+  function newStage(newStage: string) {
+    setHintStage(newStage)
   }
 
-  function newStage(newStage: string) {
-    if (newStage === 'psHints') setNavDisabled(false)
+  function hintChanged(hintStage: string, current: number, count: number) {
+    console.info(hintStage, current, count)
+    if (hintStage === 'psHints' && current === count) {
+      setNavDisabled(false)
+    }
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -95,7 +97,7 @@ const NewbFindTutor: React.FC<{
           intro={page?.intro}
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
-          newStage={newStage}
+          hintChanged={hintChanged}
         />
         <CarouselNext
           disabled={navDisabled}
