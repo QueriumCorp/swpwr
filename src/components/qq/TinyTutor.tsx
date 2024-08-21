@@ -14,6 +14,7 @@ export const TinyTutor = ({
   aiHints,
   getAiHints,
   hintChanged,
+  closeable = true,
   className,
 }: {
   msg?: string
@@ -24,6 +25,7 @@ export const TinyTutor = ({
   aiHints?: string[]
   getAiHints?: () => void
   hintChanged?: (newStage: HintStage, current: number, count: number) => void
+  closeable?: boolean
   className?: string
 }) => {
   ///////////////////////////////////////////////////////////////////
@@ -169,7 +171,7 @@ export const TinyTutor = ({
         <ChatBubble
           className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-irishGrover"
           msgs={[msg]}
-          closeable={true}
+          closeable={closeable}
           closeClicked={closeChatBubble}
           hintPageChanged={hintPageChanged}
         />
@@ -177,7 +179,7 @@ export const TinyTutor = ({
         <ChatBubble
           className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-irishGrover"
           msgs={bubbleShown ? currentHintMsgs : null}
-          closeable={true}
+          closeable={closeable}
           closeClicked={closeChatBubble}
           hintPageChanged={hintPageChanged}
         />

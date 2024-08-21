@@ -22,7 +22,7 @@ import { TinyTutor } from '../qq/TinyTutor'
 const NewbFindFacts: FC<{
   className?: string
   children?: ReactNode
-  page?: YBRpage
+  page: YBRpage
   index: number
 }> = ({ className, page, index }) => {
   ///////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ const NewbFindFacts: FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, submitTTable, getHint, problem } = useProblemStore()
+  const { logAction, submitTTable, getHint, problem, rank } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -47,7 +47,11 @@ const NewbFindFacts: FC<{
   const [currentFact, setCurrentFact] = useState<string>('')
   const [emote, setEmote] = useState<string>('gratz:02')
   const [msg, setMsg] = useState<string>('')
-
+  const [busy, setBusy] = useState(false)
+  const wpHints = problem.wpHints?.find(
+    wpHint => wpHint.page === `${rank}:${page.id}`,
+  )
+  const [aiHints, setAiHints] = useState<string[]>([])
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
@@ -84,12 +88,13 @@ const NewbFindFacts: FC<{
       }
     }
   }
-  async function HandleGetHint() {
-    setMsg('Hmmm...  Let me see')
-    setEmote('direct:03')
-    logAction('NewbFindFacts : GetHint')
-    const hint = await getHint()
-    setMsg(hint)
+  async function getAiHints() {
+    setBusy(true)
+    setMsg('Hmmm...  let me see.')
+    const hints: string[] = await getHint()
+    setMsg('')
+    setBusy(false)
+    setAiHints(hints)
   }
 
   function hintChanged(hintStage: string, current: number, count: number) {
@@ -158,8 +163,13 @@ const NewbFindFacts: FC<{
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
+          busy={busy}
           intro={page?.intro}
-          psHints={page?.psHints || []}
+          psHints={page?.psHints}
+          wpHints={wpHints?.hints}
+          aiHints={aiHints}
+          getAiHints={getAiHints}
+          closeable={false}
           hintChanged={hintChanged}
         />
         <CarouselNext

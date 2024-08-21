@@ -1,64 +1,64 @@
-import { YBRpage } from "@/components/qq/YellowBrickRoad";
-import { z } from "zod";
+import { YBRpage } from '@/components/qq/YellowBrickRoad'
+import { z } from 'zod'
 
 // STATE
 export interface State {
-  swapiUrl: string;
-  gltfUrl?: string;
-  rank?: string;
-  disabledSchemas?: string[];
-  problem: Problem;
-  student: Student;
-  session: Session;
-  ybr: YBRpage[];
-  studentLog: LogItem[];
-  onComplete: (session: Session, studentLog: LogItem[]) => void;
+  swapiUrl: string
+  gltfUrl?: string
+  rank?: string
+  disabledSchemas?: string[]
+  problem: Problem
+  student: Student
+  session: Session
+  ybr: YBRpage[]
+  studentLog: LogItem[]
+  onComplete: (session: Session, studentLog: LogItem[]) => void
 
-  setSwapiUrl: (url: string) => void;
-  setGltfUrl: (url: string) => void;
-  setRank: (rank: string) => void;
-  setDisabledSchemas: (disabledSchemas: string[]) => void;
+  setSwapiUrl: (url: string) => void
+  setGltfUrl: (url: string) => void
+  setRank: (rank: string) => void
+  setDisabledSchemas: (disabledSchemas: string[]) => void
 
-  setProblem: (problem: Problem) => any;
-  setStudent: (student: Student) => void;
-  setSession: (session: Session) => void;
-  setYBR: (ybr: YBRpage[]) => void;
-  heartbeat: () => Promise<void>;
-  initSession: () => void;
-  submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>;
-  submitPickSchema: (schema: string, fake?: boolean) => Promise<any>;
-  submitOrganize: (equation: string, values: string[]) => Promise<any>;
-  submitExplanation: (type: string) => Promise<any>;
-  getHint: () => Promise<string>;
-  closeSession: () => Promise<string>;
-  saveTrace: (comment: string) => Promise<string>;
-  logAction: (action: string) => void;
+  setProblem: (problem: Problem) => any
+  setStudent: (student: Student) => void
+  setSession: (session: Session) => void
+  setYBR: (ybr: YBRpage[]) => void
+  heartbeat: () => Promise<void>
+  initSession: () => void
+  submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
+  submitPickSchema: (schema: string, fake?: boolean) => Promise<any>
+  submitOrganize: (equation: string, values: string[]) => Promise<any>
+  submitExplanation: (type: string) => Promise<any>
+  getHint: () => Promise<string[]>
+  closeSession: () => Promise<string>
+  saveTrace: (comment: string) => Promise<string>
+  logAction: (action: string) => void
 
-  setOnComplete: (onComplete: () => void) => void;
+  setOnComplete: (onComplete: () => void) => void
 }
 
 // WORD PROBLEM HINTS
 export type WPHint = {
-  page: string;
-  hints: string[];
-};
+  page: string
+  hints: string[]
+}
 
 // PROBLEM
 export type Problem = {
-  appKey: string;
-  problemId?: string;
-  title?: string;
-  stimulus?: string;
-  cmd?: string;
-  session?: string;
-  class: string;
-  question: string;
-  policies?: string;
-  qs1?: string;
-  qs2?: string;
-  qs3?: string;
-  wpHints?: WPHint[];
-};
+  appKey: string
+  problemId?: string
+  title?: string
+  stimulus?: string
+  cmd?: string
+  session?: string
+  class: string
+  question: string
+  policies?: string
+  qs1?: string
+  qs2?: string
+  qs3?: string
+  wpHints?: WPHint[]
+}
 export const ProblemSchema = z.object({
   appKey: z.string(),
   id: z.string().optional(),
@@ -75,63 +75,63 @@ export const ProblemSchema = z.object({
   wpHints: z
     .array(z.object({ page: z.string(), hints: z.array(z.string()) }))
     .optional(),
-}) satisfies z.ZodType<Problem>;
+}) satisfies z.ZodType<Problem>
 
 // STUDENT
 export type Student = {
-  studentId: string;
-  studentName: string;
-};
+  studentId: string
+  studentName: string
+}
 export const StudentSchema = z.object({
   studentId: z.string(),
   studentName: z.string(),
-}) satisfies z.ZodType<Student>;
+}) satisfies z.ZodType<Student>
 
 // SESSION
 export type Session = {
-  sessionToken: string;
-  identifiers: string[];
-  operators: string[];
-  knowns: string[];
-  unknowns: string[];
-  schema: string;
-  schemaValues: string[];
-  explanations: { type: string; text: string }[];
-  selectedExplanation: string;
-  finalAnswer: string;
-};
+  sessionToken: string
+  identifiers: string[]
+  operators: string[]
+  knowns: string[]
+  unknowns: string[]
+  schema: string
+  schemaValues: string[]
+  explanations: { type: string; text: string }[]
+  selectedExplanation: string
+  finalAnswer: string
+}
 
 // OPTIONS
 export type Options = {
-  swapiUrl?: string;
-  gltfUrl?: string;
-  rank?: string;
-  disabledSchemas?: string[];
-};
+  swapiUrl?: string
+  gltfUrl?: string
+  rank?: string
+  disabledSchemas?: string[]
+}
 export const OptionsSchema = z.object({
   swapiUrl: z.string().optional(),
   gltfUrl: z.string().optional(),
   rank: z.string().optional(),
   disabledSchemas: z.array(z.string()).optional(),
-}) satisfies z.ZodType<Options>;
+}) satisfies z.ZodType<Options>
 
 // LOGS
 export type LogItem = {
-  timestamp: Date;
-  action: string;
-};
+  timestamp: Date
+  action: string
+}
 
 export type SchemaType =
-  | "additiveChangeSchema"
-  | "subtractiveChangeSchema"
-  | "additiveDifferenceSchema"
-  | "additiveTotalSchema"
-  | "multiplicativeCompareSchema"
-  | "multiplicativeEqualGroupsSchema";
+  | 'additiveChangeSchema'
+  | 'subtractiveChangeSchema'
+  | 'additiveDifferenceSchema'
+  | 'additiveTotalSchema'
+  | 'multiplicativeCompareSchema'
+  | 'multiplicativeEqualGroupsSchema'
 
 export type SetFn = (
   partial: State | Partial<State> | ((state: State) => State | Partial<State>),
   replace?: boolean | undefined,
-) => void;
+) => void
 
-export type GetFn = () => State;
+export type GetFn = () => State

@@ -97,6 +97,7 @@ const NewbFindTutor: React.FC<{
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
           hintChanged={hintChanged}
+          closeable={false}
         />
         <CarouselNext
           disabled={navDisabled}

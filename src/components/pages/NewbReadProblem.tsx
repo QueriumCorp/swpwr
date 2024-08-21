@@ -83,6 +83,7 @@ const NewbReadProblem: React.FC<{
           intro={page?.intro}
           psHints={page?.psHints}
           hintChanged={hintChanged}
+          closeable={false}
         />
         <CarouselNext
           disabled={navDisabled}

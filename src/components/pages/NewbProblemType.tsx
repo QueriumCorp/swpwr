@@ -32,7 +32,7 @@ import { TinyTutor } from '../qq/TinyTutor'
 const NewbProblemType: FC<{
   className?: string
   children?: ReactNode
-  page?: YBRpage
+  page: YBRpage
   index: number
 }> = ({ className, page, index }) => {
   ///////////////////////////////////////////////////////////////////
@@ -52,6 +52,7 @@ const NewbProblemType: FC<{
     session,
     studentLog,
     disabledSchemas,
+    rank,
     onComplete,
   } = useProblemStore()
 
@@ -61,6 +62,11 @@ const NewbProblemType: FC<{
 
   const [schema, setSchema] = useState('')
   const [msg, setMsg] = useState<string>('')
+  const [busy, setBusy] = useState(false)
+  const wpHints = problem.wpHints?.find(
+    wpHint => wpHint.page === `${rank}:${page.id}`,
+  )
+  const [aiHints, setAiHints] = useState<string[]>([])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -119,11 +125,13 @@ const NewbProblemType: FC<{
     }
   }
 
-  async function HandleGetHint() {
-    setMsg('Hmmm...  Let me see')
-    logAction('NewbProblemType : GetHint')
-    const hint = await getHint()
-    setMsg(hint)
+  async function getAiHints() {
+    setBusy(true)
+    setMsg('Hmmm...  let me see.')
+    const hints: string[] = await getHint()
+    setMsg('')
+    setBusy(false)
+    setAiHints(hints)
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -312,17 +320,16 @@ const NewbProblemType: FC<{
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
+          busy={busy}
           intro={page?.intro}
-          psHints={page?.psHints || []}
+          psHints={page?.psHints}
+          wpHints={wpHints?.hints}
+          aiHints={aiHints}
+          getAiHints={getAiHints}
         />
-        <div
-          className="bottom-0 right-0 z-10 h-full w-[100px] cursor-pointer border-solid border-red-500"
-          onClick={() => {
-            HandleGetHint()
-          }}
-        ></div>
 
         <CarouselNext
+          disabled={busy}
           className="relative right-0"
           onClick={evt => {
             handleCheckSchema(evt)
