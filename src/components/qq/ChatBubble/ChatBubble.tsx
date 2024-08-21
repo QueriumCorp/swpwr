@@ -116,7 +116,6 @@ export const ChatBubble = ({
     api?.scrollTo(0)
   }
   function NavButton() {
-    console.info('NavButton', count)
     if (count === 1) return null
 
     if (current === count) {

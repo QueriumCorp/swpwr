@@ -68,7 +68,6 @@ const NewbFindTutor: React.FC<{
   }
 
   function hintChanged(hintStage: string, current: number, count: number) {
-    console.info(hintStage, current, count)
     if (hintStage === 'psHints' && current === count) {
       setNavDisabled(false)
     }

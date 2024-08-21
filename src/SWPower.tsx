@@ -1,8 +1,8 @@
 // General imports
-import { forwardRef, useEffect, useState } from "react";
-import z from "zod";
-import { useHotkeys } from "react-hotkeys-hook";
-import { BsBugFill } from "react-icons/bs";
+import { forwardRef, useEffect, useState } from 'react'
+import z from 'zod'
+import { useHotkeys } from 'react-hotkeys-hook'
+import { BsBugFill } from 'react-icons/bs'
 
 // ShadCN/UI imports
 import {
@@ -10,25 +10,25 @@ import {
   CarouselContent,
   CarouselItem,
   type CarouselApi,
-} from "./components/ui/carousel";
-import { Drawer, DrawerTrigger, DrawerContent } from "./components/ui/drawer";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
+} from './components/ui/carousel'
+import { Drawer, DrawerTrigger, DrawerContent } from './components/ui/drawer'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs'
 
 // SWPWR-specific imports
-import { AvatarAPIProvider } from "@/components/AnimeTutor";
-import { YellowBrickRoad } from "./components/qq/YellowBrickRoad";
-import { renderPage } from "./components/qq/RenderPage";
-import { NavContext } from "./NavContext";
-import { cn } from "./lib/utils";
-import { OptionsSchema, ProblemSchema, StudentSchema } from "./store/_types";
+import { AvatarAPIProvider } from '@/components/AnimeTutor'
+import { YellowBrickRoad } from './components/qq/YellowBrickRoad'
+import { renderPage } from './components/qq/RenderPage'
+import { NavContext } from './NavContext'
+import { cn } from './lib/utils'
+import { OptionsSchema, ProblemSchema, StudentSchema } from './store/_types'
 
-import { useProblemStore } from "./store/_store";
+import { useProblemStore } from './store/_store'
 
 // ShadCN/UI Components
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
-import VoiceTester from "./components/qq/ChatBubble/VoiceTester";
-import initSession from "./store/initSession";
+import { Button } from './components/ui/button'
+import { Input } from './components/ui/input'
+import VoiceTester from './components/qq/ChatBubble/VoiceTester'
+import initSession from './store/initSession'
 
 // Props
 const StepWisePowerProps = z.object({
@@ -36,8 +36,8 @@ const StepWisePowerProps = z.object({
   student: StudentSchema,
   options: OptionsSchema.optional(),
   onComplete: z.function().optional(),
-});
-export type StepWisePowerProps = z.infer<typeof StepWisePowerProps> | undefined;
+})
+export type StepWisePowerProps = z.infer<typeof StepWisePowerProps> | undefined
 
 //
 // StepWisePower COMPONENT
@@ -71,114 +71,111 @@ const StepWisePower = forwardRef<
     saveTrace,
     onComplete,
     setOnComplete,
-  } = useProblemStore();
+  } = useProblemStore()
 
   //
   // State
   //
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [closeMsg, setCloseMsg] = useState("");
-  const [traceComment, setTraceComment] = useState("");
-  const [traceMsg, setTraceMsg] = useState("");
-  const [enableDebugger, setEnableDebugger] = useState(true);
-  const [propError, setPropError] = useState("");
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(0)
+  const [closeMsg, setCloseMsg] = useState('')
+  const [traceComment, setTraceComment] = useState('')
+  const [traceMsg, setTraceMsg] = useState('')
+  const [enableDebugger, setEnableDebugger] = useState(true)
+  const [propError, setPropError] = useState('')
 
   //
   // Props Management
   //
   useEffect(() => {
-    console.info("props UPDATED", props);
-
     if (props.problem) {
       if (props.problem.stimulus) {
-        props.problem.stimulus = props.problem.stimulus.replace(/\s{2,}/g, " ");
+        props.problem.stimulus = props.problem.stimulus.replace(/\s{2,}/g, ' ')
       }
-      const probResult = setProblem(props.problem);
+      const probResult = setProblem(props.problem)
       if (probResult && !probResult.problemValid) {
-        setPropError(probResult.problemStatusMsg);
+        setPropError(probResult.problemStatusMsg)
       } else {
-        setPropError("");
+        setPropError('')
       }
     }
 
     if (props.student) {
-      setStudent(props.student);
+      setStudent(props.student)
     }
     if (props.options?.swapiUrl) {
-      setSwapiUrl(props.options.swapiUrl);
+      setSwapiUrl(props.options.swapiUrl)
     }
     if (props.options?.gltfUrl) {
-      setGltfUrl(props.options.gltfUrl);
+      setGltfUrl(props.options.gltfUrl)
     }
     if (props.options?.rank) {
-      setRank(props.options.rank);
+      setRank(props.options.rank)
     }
     if (props.options?.disabledSchemas) {
-      setDisabledSchemas(props.options.disabledSchemas);
+      setDisabledSchemas(props.options.disabledSchemas)
     }
 
     if (props.onComplete) {
-      setOnComplete(props.onComplete);
+      setOnComplete(props.onComplete)
     }
-  }, [props]);
+  }, [props])
 
   // If we have problem but no sessionToken, start up the session.
   useEffect(() => {
     if (problem.question.length > 10 && session.sessionToken.length == 0) {
-      console.info("😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈");
-      initSession();
+      initSession()
     }
-  }, [problem, session]);
+  }, [problem, session])
 
   //
   // Prep YellowBrickRoad
   //
   useEffect(() => {
-    var ybr;
+    var ybr
     if (props.options?.rank) {
-      ybr = YellowBrickRoad.filter((page) => {
-        return page.rank == props.options!.rank;
-      });
+      ybr = YellowBrickRoad.filter(page => {
+        return page.rank == props.options!.rank
+      })
     } else {
-      ybr = YellowBrickRoad;
+      ybr = YellowBrickRoad
     }
-    setYBR(ybr);
-  }, []);
+    setYBR(ybr)
+  }, [])
 
   // Not sure why I did this
   useEffect(() => {
     if (!api) {
-      return;
+      return
     }
-    setCurrent(api.selectedScrollSnap() + 1);
+    setCurrent(api.selectedScrollSnap() + 1)
     // This fires when the user selects a new page
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap() + 1)
+    })
+  }, [api])
 
   //
   // Event Handlers
   //
   const handleCloseSession = async () => {
-    const msg = await closeSession();
-    setCloseMsg(msg);
-  };
+    const msg = await closeSession()
+    setCloseMsg(msg)
+  }
   const handleSaveTrace = async () => {
-    const msg = await saveTrace(traceComment);
-    setTraceMsg(msg);
-  };
+    const msg = await saveTrace(traceComment)
+    setTraceMsg(msg)
+  }
   const handleCompleteProblem = async () => {
-    onComplete(session, studentLog);
-  };
+    onComplete(session, studentLog)
+  }
 
   //
   // Hotkeys
   //
-  useHotkeys("shift+ctrl+d", () => {
-    setEnableDebugger(!!!enableDebugger);
-  });
+  useHotkeys('shift+ctrl+d', () => {
+    setEnableDebugger(!!!enableDebugger)
+  })
 
   //
   // JSX
@@ -188,22 +185,22 @@ const StepWisePower = forwardRef<
       <AvatarAPIProvider>
         <div
           className={cn(
-            "StepWisePower min-h-24 w-full border-none relative",
+            'StepWisePower relative min-h-24 w-full border-none',
             props.className,
           )}
         >
           <Drawer>
             <DrawerTrigger asChild>
               {enableDebugger && (
-                <button className="fixed z-10 right-[50%] bottom-0 rounded-full m-1 text-xs bg-transparent cursor-pointer">
-                  <BsBugFill className="text-red-500 text-lg" />
+                <button className="fixed bottom-0 right-[50%] z-10 m-1 cursor-pointer rounded-full bg-transparent text-xs">
+                  <BsBugFill className="text-lg text-red-500" />
                 </button>
               )}
             </DrawerTrigger>
             <DrawerContent>
-              <div className="mx-auto w-full h-[400px] relative">
-                <Tabs defaultValue="speech" className="w-full h-[95%]">
-                  <TabsList className="w-full ">
+              <div className="relative mx-auto h-[400px] w-full">
+                <Tabs defaultValue="speech" className="h-[95%] w-full">
+                  <TabsList className="w-full">
                     <TabsTrigger value="props">Props</TabsTrigger>
                     <TabsTrigger value="log">Log</TabsTrigger>
                     <TabsTrigger value="store">Store</TabsTrigger>
@@ -214,31 +211,31 @@ const StepWisePower = forwardRef<
                   </TabsList>
 
                   {/* PROPS */}
-                  <TabsContent value="props" className="w-full h-[90%]">
-                    <div className="p-4 pb-0 w-full h-full">
-                      <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
+                  <TabsContent value="props" className="h-[90%] w-full">
+                    <div className="h-full w-full p-4 pb-0">
+                      <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
                         <pre>{JSON.stringify(props, null, 2)}</pre>
                       </div>
                     </div>
                   </TabsContent>
 
                   {/* LOG */}
-                  <TabsContent value="log" className="w-full h-[90%]">
-                    <div className="p-4 pb-0 w-full h-full">
-                      <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
+                  <TabsContent value="log" className="h-[90%] w-full">
+                    <div className="h-full w-full p-4 pb-0">
+                      <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
                         <div className="table w-full">
-                          <div className="table-row w-full p-2 select-text">
+                          <div className="table-row w-full select-text p-2">
                             {studentLog.map((item, index) => {
                               return (
                                 <div
                                   key={index}
-                                  className="table-row w-full p-2  border-b-2 border-b-slate-600"
+                                  className="table-row w-full border-b-2 border-b-slate-600 p-2"
                                 >
                                   <div className="table-cell min-w-[100px] text-xs">
-                                    {item.timestamp.toLocaleString("en-us", {
-                                      hour: "numeric",
-                                      minute: "2-digit",
-                                      second: "2-digit",
+                                    {item.timestamp.toLocaleString('en-us', {
+                                      hour: 'numeric',
+                                      minute: '2-digit',
+                                      second: '2-digit',
                                     })}
                                   </div>
                                   <div className="table-cell">
@@ -247,7 +244,7 @@ const StepWisePower = forwardRef<
                                     </pre>
                                   </div>
                                 </div>
-                              );
+                              )
                             })}
                           </div>
                         </div>
@@ -256,31 +253,31 @@ const StepWisePower = forwardRef<
                   </TabsContent>
 
                   {/* STORE */}
-                  <TabsContent value="store" className="w-full h-[90%]">
-                    <div className="p-4 pb-0 w-full h-full">
-                      <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
+                  <TabsContent value="store" className="h-[90%] w-full">
+                    <div className="h-full w-full p-4 pb-0">
+                      <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
                         <h3 className="bg-qqAccent font-sans font-black">
                           Student
                         </h3>
-                        <pre className="font-mono text-xs select-text">
+                        <pre className="select-text font-mono text-xs">
                           {JSON.stringify(student, null, 2)}
                         </pre>
                         <h3 className="bg-qqAccent font-sans font-black">
                           Problem
                         </h3>
-                        <pre className="font-mono text-xs select-text">
+                        <pre className="select-text font-mono text-xs">
                           {JSON.stringify(problem, null, 2)}
                         </pre>
                         <h3 className="bg-qqAccent font-sans font-black">
                           Session
                         </h3>
-                        <pre className="font-mono text-xs select-text">
+                        <pre className="select-text font-mono text-xs">
                           {JSON.stringify(session, null, 2)}
                         </pre>
                         <h3 className="bg-qqAccent font-sans font-black">
                           Options
                         </h3>
-                        <pre className="font-mono text-xs select-text">
+                        <pre className="select-text font-mono text-xs">
                           {JSON.stringify(
                             { swapiUrl, gltfUrl, rank, disabledSchemas },
                             null,
@@ -292,29 +289,29 @@ const StepWisePower = forwardRef<
                   </TabsContent>
 
                   {/* YellowBrickRoad */}
-                  <TabsContent value="ybr" className="w-full h-[90%]">
-                    <div className="p-4 pb-0 w-full h-full">
-                      <div className="p-2 overflow-y-scroll overflow-x-auto w-full h-full">
+                  <TabsContent value="ybr" className="h-[90%] w-full">
+                    <div className="h-full w-full p-4 pb-0">
+                      <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
                         <pre>{JSON.stringify(ybr, null, 2)}</pre>
                       </div>
                     </div>
                   </TabsContent>
 
                   {/* COMMANDS */}
-                  <TabsContent value="cmds" className="w-full h-[90%]">
-                    <div className="p-4 pb-0 w-full h-full">
-                      <div className="flex items-center justify-start w-full border-b-2 border-b-slate-600">
+                  <TabsContent value="cmds" className="h-[90%] w-full">
+                    <div className="h-full w-full p-4 pb-0">
+                      <div className="flex w-full items-center justify-start border-b-2 border-b-slate-600">
                         <Button
-                          className="w-48 mr-2"
+                          className="mr-2 w-48"
                           onClick={() => handleCloseSession()}
                         >
                           Close Session
                         </Button>
-                        <p className="text-xs select-text">{closeMsg}</p>
+                        <p className="select-text text-xs">{closeMsg}</p>
                       </div>
-                      <div className="flex items-center justify-start w-full border-b-2 border-b-slate-600 mt-4">
+                      <div className="mt-4 flex w-full items-center justify-start border-b-2 border-b-slate-600">
                         <Button
-                          className="w-48 mr-2"
+                          className="mr-2 w-48"
                           onClick={() => handleSaveTrace()}
                         >
                           Save Trace
@@ -324,34 +321,34 @@ const StepWisePower = forwardRef<
                             type="text"
                             className="w-full"
                             value={traceComment}
-                            onChange={(e) => setTraceComment(e.target.value)}
+                            onChange={e => setTraceComment(e.target.value)}
                             placeholder="Enter your Comment"
                           />
-                          <p className="text-xs select-text">{traceMsg}</p>
+                          <p className="select-text text-xs">{traceMsg}</p>
                         </div>
                       </div>
-                      <div className="flex items-center justify-start w-full border-b-2 border-b-slate-600 mt-4">
+                      <div className="mt-4 flex w-full items-center justify-start border-b-2 border-b-slate-600">
                         <Button
-                          className="w-48 mr-2"
+                          className="mr-2 w-48"
                           onClick={() => handleCompleteProblem()}
                         >
                           Complete Problem
                         </Button>
-                        <p className="text-xs select-text">{closeMsg}</p>
+                        <p className="select-text text-xs">{closeMsg}</p>
                       </div>
                     </div>
                   </TabsContent>
 
                   {/* ERRORS */}
-                  <TabsContent value="errors" className="w-full h-[90%]">
-                    <div className="p-4 pb-0 w-full h-full">
+                  <TabsContent value="errors" className="h-[90%] w-full">
+                    <div className="h-full w-full p-4 pb-0">
                       <h1>Errors</h1>
                       <div>{propError}</div>
                     </div>
                   </TabsContent>
 
                   {/* SPEECH */}
-                  <TabsContent value="speech" className="w-full h-[90%]">
+                  <TabsContent value="speech" className="h-[90%] w-full">
                     <VoiceTester />
                   </TabsContent>
                 </Tabs>
@@ -362,14 +359,14 @@ const StepWisePower = forwardRef<
           <Carousel
             setApi={setApi}
             opts={{ watchDrag: false }}
-            className="Carousel flex-grow flex flex-col"
+            className="Carousel flex flex-grow flex-col"
           >
             <CarouselContent
-              className="CarouselContent relative flex-grow pr-0 m-0"
-              style={{ paddingRight: "0px" }}
+              className="CarouselContent relative m-0 flex-grow pr-0"
+              style={{ paddingRight: '0px' }}
             >
               {ybr.length === 0 && (
-                <div className="flex items-center justify-center w-full h-full">
+                <div className="flex h-full w-full items-center justify-center">
                   <h1 className="text-2xl font-bold">
                     Invalid Rank therefore No Data
                   </h1>
@@ -377,8 +374,8 @@ const StepWisePower = forwardRef<
               )}
               {ybr.map((page, index) => (
                 <CarouselItem
-                  key={page.rank + ":" + page.id}
-                  className="CarouselItem h-full p-0 m-0"
+                  key={page.rank + ':' + page.id}
+                  className="CarouselItem m-0 h-full p-0"
                 >
                   {renderPage(page, index)}
                 </CarouselItem>
@@ -388,7 +385,7 @@ const StepWisePower = forwardRef<
         </div>
       </AvatarAPIProvider>
     </NavContext.Provider>
-  );
-});
+  )
+})
 
-export default StepWisePower;
+export default StepWisePower
