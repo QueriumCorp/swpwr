@@ -1,62 +1,62 @@
-"use client";
+'use client'
 
-import * as React from "react";
+import * as React from 'react'
 
-import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
+import { cn } from '@/lib/utils'
+import { type YBRpage } from '../qq/YellowBrickRoad'
 import {
   AnimeTutor,
   AvatarAPIType,
   Chat,
   useAvatarAPI,
-} from "@/components/AnimeTutor";
-import { NavContext, NavContextType } from "@/NavContext";
-import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { useProblemStore } from "@/store/_store";
-import { Button } from "../ui/button";
+} from '@/components/AnimeTutor'
+import { NavContext, NavContextType } from '@/NavContext'
+import { NavBar } from '../qq/NavBar'
+import { CarouselPrevious, CarouselNext } from '../ui/carousel'
+import { useProblemStore } from '@/store/_store'
+import { Button } from '../ui/button'
 
 const NewbVictory: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-  page: YBRpage;
-  index: number;
+  className?: string
+  children?: React.ReactNode
+  page: YBRpage
+  index: number
 }> = ({ className, index }) => {
   // Context
-  const { current, api } = React.useContext(NavContext) as NavContextType;
-  const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType;
+  const { current, api } = React.useContext(NavContext) as NavContextType
+  const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType
 
   // Store
-  const { logAction, heartbeat } = useProblemStore();
+  const { logAction, heartbeat } = useProblemStore()
 
   // Side Effects
   React.useEffect(() => {
-    logAction("NewbVictory : Finished path");
-  }, []);
+    logAction('NewbVictory : Finished path')
+  }, [])
 
   // Handlers
   function handleDance() {
-    sayMsg("Dance Dance Revolution", "gratz");
+    sayMsg('Dance Dance Revolution', 'gratz')
   }
 
   // JSX
-  if (current !== index + 1) return null;
+  if (current !== index + 1) return null
   return (
     <div
       className={cn(
-        "NewbVictory rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        'NewbVictory m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
-      <div className="grow bg-qqAccent relative">
+      <div className="relative grow bg-qqAccent">
         <AnimeTutor
-          emote={"celebrate:01"}
+          emote={'celebrate:01'}
           closeUp
           style={{
-            position: "absolute",
-            height: "100%",
-            right: "-150px",
-            width: "100%",
+            position: 'absolute',
+            height: '100%',
+            right: '-150px',
+            width: '100%',
             // border: "1px solid #000000",
           }}
         />
@@ -64,33 +64,30 @@ const NewbVictory: React.FC<{
           msg={`**Congratulations!**
 You are no longer a newbie!
 `}
-          className="font-irishGrover absolute right-[50%] bottom-[50%]"
+          className="absolute bottom-[50%] right-[50%] font-irishGrover"
         />
       </div>
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
-        <div className="flex flex-col grow m-1 gap-1">
-          {emotes.map((emote) => (
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+        <div className="m-1 flex grow flex-col gap-1">
+          {emotes.map(emote => (
             <Button key={emote.name} onClick={handleDance} className="w-full">
               {emote.name}
             </Button>
           ))}
         </div>
 
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
         <CarouselNext
           className="relative right-0"
           onClick={() => {
-            logAction("NewbVictory : Clicked Next");
-            api?.scrollNext();
+            logAction('NewbVictory : Clicked Next')
+            api?.scrollNext()
           }}
         >
           Next
         </CarouselNext>
       </NavBar>
     </div>
-  );
-};
-NewbVictory.displayName = "NewbVictory";
-export default NewbVictory;
+  )
+}
+NewbVictory.displayName = 'NewbVictory'
+export default NewbVictory
