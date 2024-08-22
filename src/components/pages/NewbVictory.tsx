@@ -48,7 +48,13 @@ const NewbVictory: React.FC<{
         className,
       )}
     >
-      <div className="relative grow bg-qqAccent">
+      <div
+        className="relative grow"
+        style={{
+          background:
+            'linear-gradient(0deg, rgba(30,106,8,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)',
+        }}
+      >
         <AnimeTutor
           emote={'celebrate:01'}
           closeUp
