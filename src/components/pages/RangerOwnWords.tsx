@@ -48,7 +48,7 @@ const RangerOwnWords: FC<{
   const [busy, setBusy] = useState(false)
   const [ownWords, setOwnWords] = useState<string>('')
   const wpHints = problem.wpHints?.find(
-    wpHint => wpHint.page === `${rank}:${page.id}`,
+    wpHint => wpHint.page === `${rank}${page.id}`,
   )
   const [aiHints, setAiHints] = useState<string[]>([])
 

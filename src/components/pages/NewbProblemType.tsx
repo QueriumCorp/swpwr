@@ -64,7 +64,7 @@ const NewbProblemType: FC<{
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
   const wpHints = problem.wpHints?.find(
-    wpHint => wpHint.page === `${rank}:${page.id}`,
+    wpHint => wpHint.page === `${rank}${page.id}`,
   )
   const [aiHints, setAiHints] = useState<string[]>([])
 

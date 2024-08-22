@@ -52,7 +52,7 @@ const NewbFindTutor: React.FC<{
   const [msg, setMsg] = useState('')
   const [hintStage, setHintStage] = useState('')
   const wpHints = problem.wpHints?.find(
-    wpHint => wpHint.page === `${rank}:${page.id}`,
+    wpHint => wpHint.page === `${rank}${page.id}`,
   )
 
   ///////////////////////////////////////////////////////////////////

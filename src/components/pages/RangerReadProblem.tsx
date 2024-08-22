@@ -41,7 +41,7 @@ const RangerReadProblem: React.FC<{
     'Please read the problem while I get things ready to go.',
   )
   const wpHints = problem.wpHints?.find(
-    wpHint => wpHint.page === `${rank}:${page.id}`,
+    wpHint => wpHint.page === `${rank}${page.id}`,
   )
   const [aiHints, setAiHints] = useState<string[]>([])
 
