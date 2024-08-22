@@ -36,13 +36,14 @@ if (window.swpwr) {
   problem.question = window.swpwr.problem.definition
   problem.hints = window.swpwr.problem.mathHints
 
-  problem.wpHints = window.swpwr.problem.wpHints.map(page => {
-    console.log(page)
-    return {
-      page: page.pageId ? page.pageId : page.page,
-      hints: page.hints,
-    }
-  })
+  problem.wpHints = window.swpwr.problem.wpHints.map(
+    (page: { pageId?: string; page?: string; hints: any }) => {
+      return {
+        page: page.pageId ? page.pageId : page.page,
+        hints: page.hints,
+      }
+    },
+  )
 
   student.studentId = window.swpwr.student.studentId
   student.studentName = window.swpwr.student.fullName
