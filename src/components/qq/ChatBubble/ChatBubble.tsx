@@ -8,7 +8,7 @@ import remarkGfm from 'remark-gfm'
 import { HiMiniSpeakerWave } from 'react-icons/hi2'
 import { VscDebugRestart } from 'react-icons/vsc'
 import { IoCloseSharp } from 'react-icons/io5'
-import { BsThreeDots } from 'react-icons/bs'
+import { TbPlayerTrackNext } from 'react-icons/tb'
 
 // Querium Imports
 import { cn, makeVocalizable } from '@/lib/utils'
@@ -18,6 +18,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel'
+import { GrNext } from 'react-icons/gr'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -127,7 +128,7 @@ export const ChatBubble = ({
     }
     return (
       <button className="border-none text-xs" onClick={handleShowMeMore}>
-        <BsThreeDots />
+        <TbPlayerTrackNext />
       </button>
     )
   }
