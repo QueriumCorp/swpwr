@@ -118,7 +118,7 @@ Click → when you're done.`,
   },
   {
     rank: 'newb',
-    id: 'KnownFacts',
+    id: 'FindFacts',
     title: 'Pull Apart',
     phase: 'P',
     phaseLabel: 'Prepare',
