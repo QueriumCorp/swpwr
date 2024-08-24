@@ -3,16 +3,13 @@
 //  React Imports
 import { FC, ReactNode, useContext, useState } from 'react'
 
-// Third-party Imports
-import { cn } from '@/lib/utils'
-
 // Querium Imports
+import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselPrevious, CarouselNext } from '../ui/carousel'
+import { CarouselNext } from '../ui/carousel'
 import { StimulusSelector } from '../qq/StimulusSelector'
-import { AnimeTutor, Chat } from '@/components/AnimeTutor'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { Textarea } from '../ui/textarea'
@@ -37,7 +34,7 @@ const RangerOwnWords: FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, submitOrganize, getHint, problem, session, rank } =
+  const { logAction, submitExplanation, getHint, problem, session, rank } =
     useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
@@ -70,10 +67,13 @@ const RangerOwnWords: FC<{
       setMsg('Please explain your answer in your own words')
     } else {
       logAction('RangerOwnWords : Checking Own Words : ' + ownWords)
-      // const result = await submitOwnWords(ownWords);
+      const result = await submitExplanation(ownWords)
       logAction('RangerOwnWords : Checked OwnWords : ')
 
-      api?.scrollNext()
+      setMsg(result.message)
+      if (result.stepStatus == 'VALID') {
+        api?.scrollNext()
+      }
     }
   }
 
@@ -133,9 +133,7 @@ const RangerOwnWords: FC<{
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
         />
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
+
         <CarouselNext
           className="relative right-0"
           onClick={evt => {
