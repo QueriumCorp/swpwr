@@ -17,7 +17,8 @@ module.exports = {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
         sura: ["Sura", "serif"],
-        irishGrover : ["Irish Grover", "system-ui"]
+        irishGrover : ["Irish Grover", "sans-serif"],
+        capriola : ["Capriola", "sans-serif"]
       },
       colors: {
         qqDark: "#00000",

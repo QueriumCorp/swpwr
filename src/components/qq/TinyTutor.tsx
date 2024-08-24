@@ -169,7 +169,7 @@ export const TinyTutor = ({
       ></div>
       {msg?.length ? (
         <ChatBubble
-          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-irishGrover"
+          className="font-capriola absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit text-sm"
           msgs={[msg]}
           closeable={closeable}
           closeClicked={closeChatBubble}
@@ -177,7 +177,7 @@ export const TinyTutor = ({
         />
       ) : (
         <ChatBubble
-          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-irishGrover"
+          className="font-capriola absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit text-sm"
           msgs={bubbleShown ? currentHintMsgs : null}
           closeable={closeable}
           closeClicked={closeChatBubble}
