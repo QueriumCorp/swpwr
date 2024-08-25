@@ -17,6 +17,7 @@ import { CarouselNext } from '../ui/carousel'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor } from '../qq/TinyTutor'
+import { NextButton } from '../qq/NextButton'
 
 const RangerFindFacts: FC<{
   className?: string
@@ -162,7 +163,7 @@ const RangerFindFacts: FC<{
           </div>
         </DndContext>
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           busy={busy}
@@ -173,13 +174,17 @@ const RangerFindFacts: FC<{
           getAiHints={getAiHints}
         />
 
-        <CarouselNext
+        <NextButton
+          busy={busy}
+          onClick={evt => HandleCheckFacts(evt)}
+        ></NextButton>
+        {/* <CarouselNext
           disabled={busy}
           className="relative right-0"
           onClick={evt => HandleCheckFacts(evt)}
         >
           Next
-        </CarouselNext>
+        </CarouselNext> */}
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerFindFacts
         </h1>

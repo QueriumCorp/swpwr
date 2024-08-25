@@ -13,6 +13,8 @@ import { StimulusSelector } from '../qq/StimulusSelector'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor } from '../qq/TinyTutor'
+import BusyIndicator from '../qq/BusyIndicator/BusyIndicator'
+import { NextButton } from '../qq/NextButton'
 
 const RangerReadProblem: React.FC<{
   className?: string
@@ -105,7 +107,7 @@ const RangerReadProblem: React.FC<{
 
         <div className="flex grow gap-2"></div>
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           busy={busy}
@@ -115,9 +117,8 @@ const RangerReadProblem: React.FC<{
           aiHints={aiHints}
           getAiHints={getAiHints}
         />
-        <CarouselNext disabled={busy} className="relative right-0">
-          Next
-        </CarouselNext>
+        <NextButton busy={busy}></NextButton>
+
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerReadProblem
         </h1>
