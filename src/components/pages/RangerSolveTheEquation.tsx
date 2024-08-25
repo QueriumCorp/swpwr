@@ -1,22 +1,14 @@
 'use client'
 
 // React Imports
-import {
-  FC,
-  ReactNode,
-  useContext,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react'
+import { FC, ReactNode, useContext, useRef, useState } from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
 import { StepWise } from '@/components/StepWise'
-import { YellowBrickRoad, type YBRpage } from '../qq/YellowBrickRoad'
+import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { Button } from '../ui/button'
@@ -30,6 +22,7 @@ import { DifferenceEquationGraphic } from '../schemaEditors/difference/Differenc
 import { ChangeDecreaseEquationGraphic } from '../schemaEditors/changeDecrease/ChangeDecreaseEquationGraphic'
 import { ChangeIncreaseEquationGraphic } from '../schemaEditors/changeIncrease/ChangeIncreaseEquationGraphic'
 import { CompareEquationGraphic } from '../schemaEditors/compare/CompareEquationGraphic'
+import { NextButton } from '../qq/NextButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -241,7 +234,7 @@ const RangerSolveTheEquation: FC<{
           </div>
         </div>
       </div>
-      <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           intro={page?.intro}
@@ -249,12 +242,8 @@ const RangerSolveTheEquation: FC<{
           wpHints={wpHints?.hints}
         />
 
-        <CarouselNext
-          className="relative right-0"
-          onClick={evt => HandleNext(evt)}
-        >
-          Next
-        </CarouselNext>
+        <NextButton busy={busy} onClick={evt => HandleNext(evt)}></NextButton>
+
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerSolveTheEquation
         </h1>

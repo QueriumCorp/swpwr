@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { StimulusSelector } from '../qq/StimulusSelector'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { HdrBar } from '../qq/HdrBar'
@@ -25,6 +24,7 @@ import { EqualGroupsEquationGraphic } from '../schemas/equalGroups/equation'
 import { CompareEquationGraphic } from '../schemas/compare/equation'
 import { SchemaType } from '@/store/_types'
 import { TinyTutor } from '../qq/TinyTutor'
+import { NextButton } from '../qq/NextButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -320,7 +320,7 @@ const RangerSelectDiagram: FC<{
           </div>
         </div>
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           busy={busy}
@@ -330,16 +330,11 @@ const RangerSelectDiagram: FC<{
           aiHints={aiHints}
           getAiHints={getAiHints}
         />
+        <NextButton
+          busy={busy}
+          onClick={evt => handleCheckSchema(evt)}
+        ></NextButton>
 
-        <CarouselNext
-          disabled={busy}
-          className="relative right-0"
-          onClick={evt => {
-            handleCheckSchema(evt)
-          }}
-        >
-          Next
-        </CarouselNext>
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerSelectDiagram
         </h1>

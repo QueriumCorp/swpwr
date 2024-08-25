@@ -12,8 +12,8 @@ import { HdrBar } from '../qq/HdrBar'
 import { NavBar } from '../qq/NavBar'
 import { StimulusSelector } from '../qq/StimulusSelector'
 import { TinyTutor } from '../qq/TinyTutor'
-import { CarouselNext } from '../ui/carousel'
 import { Card } from '../ui/card'
+import { NextButton } from '../qq/NextButton'
 
 interface Explanation {
   type: string
@@ -80,6 +80,7 @@ const RangerReflect: FC<{
     ) {
       api?.scrollNext()
     } else {
+      setBusy(true)
       logAction('RangerReflect : Clicked Next')
       logAction('RangerReflect : Checking Explanation')
       switch (explanation?.type) {
@@ -96,6 +97,7 @@ const RangerReflect: FC<{
           break
       }
       submitExplanation(explanation?.type || '')
+      setBusy(false)
     }
   }
 
@@ -146,7 +148,7 @@ const RangerReflect: FC<{
         </div>
       </div>
 
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           busy={busy}
@@ -155,12 +157,11 @@ const RangerReflect: FC<{
           wpHints={wpHints?.hints}
         />
 
-        <CarouselNext
-          className="relative right-0"
+        <NextButton
+          busy={busy}
           onClick={evt => HandleCheckExplanation(evt)}
-        >
-          Next
-        </CarouselNext>
+        ></NextButton>
+
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerReflect
         </h1>

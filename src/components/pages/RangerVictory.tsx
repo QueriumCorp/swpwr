@@ -14,7 +14,6 @@ import {
 } from '@/components/AnimeTutor'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { Button } from '../ui/button'
 
@@ -112,16 +111,6 @@ You did a great job!
             </Button>
           ))}
         </div>
-
-        <CarouselNext
-          className="relative right-0"
-          onClick={() => {
-            logAction('RangerVictory : Clicked Next')
-            api?.scrollNext()
-          }}
-        >
-          Next
-        </CarouselNext>
       </NavBar>
     </div>
   )

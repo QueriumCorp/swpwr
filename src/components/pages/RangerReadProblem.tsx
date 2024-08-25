@@ -8,12 +8,10 @@ import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { StimulusSelector } from '../qq/StimulusSelector'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor } from '../qq/TinyTutor'
-import BusyIndicator from '../qq/BusyIndicator/BusyIndicator'
 import { NextButton } from '../qq/NextButton'
 
 const RangerReadProblem: React.FC<{

@@ -8,12 +8,12 @@ import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { StimulusSelector } from '../qq/StimulusSelector'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { Textarea } from '../ui/textarea'
 import { TinyTutor } from '../qq/TinyTutor'
+import { NextButton } from '../qq/NextButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -66,10 +66,12 @@ const RangerOwnWords: FC<{
     } else if (ownWords.length < 10) {
       setMsg('Please explain your answer in your own words')
     } else {
+      setBusy(true)
       logAction('RangerOwnWords : Checking Own Words : ' + ownWords)
       const result = await submitExplanation(ownWords)
       logAction('RangerOwnWords : Checked OwnWords : ')
 
+      setBusy(false)
       setMsg(result.message)
       if (result.stepStatus == 'VALID') {
         api?.scrollNext()
@@ -94,7 +96,9 @@ const RangerOwnWords: FC<{
   return (
     <div
       className={cn(
-        'RangerOwnWords m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
+        'RangerOwnWords',
+        'm-0 flex h-full w-full flex-col justify-stretch',
+        'rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
@@ -126,22 +130,18 @@ const RangerOwnWords: FC<{
         </div>
       </div>
 
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           intro={page?.intro}
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
         />
+        <NextButton
+          busy={busy}
+          onClick={evt => handleCheckOwnWords(evt)}
+        ></NextButton>
 
-        <CarouselNext
-          className="relative right-0"
-          onClick={evt => {
-            handleCheckOwnWords(evt)
-          }}
-        >
-          Next
-        </CarouselNext>
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerOwnWords
         </h1>

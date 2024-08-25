@@ -10,7 +10,6 @@ import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { StimulusSelector } from '../qq/StimulusSelector'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
@@ -21,6 +20,7 @@ import ChangeDecreaseEditor from '../schemaEditors/changeDecrease/ChangeDecrease
 import ChangeIncreaseEditor from '../schemaEditors/changeIncrease/ChangeIncreaseEditor'
 import CompareEditor from '../schemaEditors/compare/CompareEditor'
 import { TinyTutor } from '../qq/TinyTutor'
+import { NextButton } from '../qq/NextButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -71,6 +71,7 @@ const RangerFillDiagram: FC<{
     if (evt.metaKey) {
       api?.scrollNext()
     } else {
+      setBusy(true)
       setMsg('Just a moment while I verify your equation')
       logAction('RangerFillDiagram : Clicked Next')
 
@@ -79,6 +80,7 @@ const RangerFillDiagram: FC<{
       logAction(
         'RangerFillDiagram : Checked Equation : ' + JSON.stringify(result),
       )
+      setBusy(false)
       setMsg(result.message)
       if (result.stepStatus == 'VALID') {
         api?.scrollNext()
@@ -168,7 +170,7 @@ const RangerFillDiagram: FC<{
         </div>
       </div>
 
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           busy={busy}
@@ -179,15 +181,11 @@ const RangerFillDiagram: FC<{
           getAiHints={getAiHints}
         />
 
-        <CarouselNext
-          disabled={busy}
-          className="relative right-0"
-          onClick={evt => {
-            handleCheckEquation(evt)
-          }}
-        >
-          Next
-        </CarouselNext>
+        <NextButton
+          busy={busy}
+          onClick={evt => handleCheckEquation(evt)}
+        ></NextButton>
+
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerFillDiagram
         </h1>
