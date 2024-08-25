@@ -1,28 +1,28 @@
-import React, { useEffect, useRef, useState, ChangeEvent } from "react";
+import React, { useEffect, useRef, useState, ChangeEvent } from 'react'
 
 // stores
-import { SessionContext } from "../stores/sessionContext";
-import { useStore } from "zustand";
+import { SessionContext } from '../stores/sessionContext'
+import { useStore } from 'zustand'
 
 // components
-import { Submit } from "./Submit/Submit";
-import { Hint } from "./Hint/Hint";
-import { ShowMe } from "./ShowMe/ShowMe";
-import Keyboard from "./Keyboard/Keyboard";
+import { Submit } from './Submit/Submit'
+import { Hint } from './Hint/Hint'
+import { ShowMe } from './ShowMe/ShowMe'
+import Keyboard from './Keyboard/Keyboard'
 
-import "./MathEditor.css";
+import './MathEditor.css'
 
-import type { MathfieldElement, Selector } from "mathlive";
-import { MathViewRef } from "../types/mathlive";
-import { Operator } from "../stores/solution";
+import type { MathfieldElement, Selector } from 'mathlive'
+import { MathViewRef } from '../types/mathlive'
+import { Operator } from '../stores/solution'
 /* eslint-disable */
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      "math-field": React.DetailedHTMLProps<
+      'math-field': React.DetailedHTMLProps<
         React.HTMLAttributes<MathfieldElement>,
         MathfieldElement
-      >;
+      >
     }
   }
 }
@@ -36,64 +36,63 @@ InputPanel
 
 const InputPanel = () => {
   // manage MathLive's mathfield
-  const mf = useRef<MathViewRef>(null);
-  const [value, setValue] = useState<string>("");
+  const mf = useRef<MathViewRef>(null)
+  const [value, setValue] = useState<string>('')
 
   useEffect(() => {
     if (mf.current) {
-      mf.current.mathVirtualKeyboardPolicy = "manual";
-      mf.current.addEventListener("beforeinput", (evt) => {
-        if (evt.inputType === "insertLineBreak" && mf.current) {
-          submitStep(mf.current.value);
-          evt.preventDefault();
+      mf.current.mathVirtualKeyboardPolicy = 'manual'
+      mf.current.addEventListener('beforeinput', evt => {
+        if (evt.inputType === 'insertLineBreak' && mf.current) {
+          submitStep(mf.current.value)
+          evt.preventDefault()
         }
-      });
+      })
     }
-  }, []);
+  }, [])
 
   // get session
-  const session = React.useContext(SessionContext);
-  if (!session) throw new Error("No SessionContext.Provider in the tree");
-  const identifiers = useStore(session, (s) => s.identifiers);
-  const operators = useStore(session, (s) => s.operators);
-  const submitStep = useStore(session, (s) => s.submitStep);
+  const session = React.useContext(SessionContext)
+  if (!session) throw new Error('No SessionContext.Provider in the tree')
+  const identifiers = useStore(session, s => s.identifiers)
+  const operators = useStore(session, s => s.operators)
+  const submitStep = useStore(session, s => s.submitStep)
 
   // setup event handlers
   const handleKeyPress = (operator: Operator) => {
-    console.info("handleKeyPress", operator);
-    let cmd;
+    let cmd
     switch (operator.method) {
-      case "char":
-        mf.current?.executeCommand(["insert", operator.latex]);
-        break;
-      case "latex":
+      case 'char':
+        mf.current?.executeCommand(['insert', operator.latex])
+        break
+      case 'latex':
         mf.current?.executeCommand([
-          "insert",
+          'insert',
           operator.latex,
-          { focus: true, selectionMode: "placeholder" },
-        ]);
-        break;
-      case "identifier":
-        mf.current?.executeCommand(["insert", operator.operator]);
-        break;
-      case "cmd":
-        mf.current?.executeCommand(operator.operator as Selector);
-        break;
-      case "enter":
+          { focus: true, selectionMode: 'placeholder' },
+        ])
+        break
+      case 'identifier':
+        mf.current?.executeCommand(['insert', operator.operator])
+        break
+      case 'cmd':
+        mf.current?.executeCommand(operator.operator as Selector)
+        break
+      case 'enter':
         if (mf.current) {
-          submitStep(mf.current.value);
+          submitStep(mf.current.value)
         }
-        break;
+        break
       default:
-        break;
+        break
     }
-    mf.current?.focus();
-  };
+    mf.current?.focus()
+  }
 
   // JSX
   return (
     <>
-      <div className="w-full flex items-center rounded-full bg-slate-300 py-2">
+      <div className="flex w-full items-center rounded-full bg-slate-300 py-2">
         <ShowMe className="ml-3"></ShowMe>
         <Hint className="ml-0"></Hint>
         <math-field
@@ -103,10 +102,10 @@ const InputPanel = () => {
           }
           style={{
             flexGrow: 1,
-            boxSizing: "border-box",
-            background: "none",
-            border: "1px white solid",
-            borderRadius: "6px",
+            boxSizing: 'border-box',
+            background: 'none',
+            border: '1px white solid',
+            borderRadius: '6px',
           }}
         >
           {value}
@@ -116,10 +115,10 @@ const InputPanel = () => {
       <Keyboard
         identifiers={identifiers}
         operators={operators}
-        onKeyPress={(key) => handleKeyPress(key)}
+        onKeyPress={key => handleKeyPress(key)}
       />
     </>
-  );
-};
+  )
+}
 
-export default InputPanel;
+export default InputPanel

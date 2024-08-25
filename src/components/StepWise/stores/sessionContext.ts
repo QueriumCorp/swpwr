@@ -1,25 +1,25 @@
-import { createContext } from "react";
-import { createStore } from "zustand";
-import { devtools } from "zustand/middleware";
-import type {} from "@redux-devtools/extension"; // for devtools typing
+import { createContext } from 'react'
+import { createStore } from 'zustand'
+import { devtools } from 'zustand/middleware'
+import type {} from '@redux-devtools/extension' // for devtools typing
 
 // problem imports
-import type { Problem, ProblemStatus } from "./problem";
+import type { Problem, ProblemStatus } from './problem'
 import {
   DEFAULT_PROBLEM,
   DEFAULT_PROBLEM_STATUS,
   validateProblem,
-} from "./problem";
+} from './problem'
 
 // student imports
-import type { Student, StudentStatus } from "./student";
+import type { Student, StudentStatus } from './student'
 import {
   DEFAULT_STUDENT,
   DEFAULT_STUDENT_STATUS,
   validateStudent,
-} from "./student";
-import type { Server } from "./server";
-import { validateServer } from "./server";
+} from './student'
+import type { Server } from './server'
+import { validateServer } from './server'
 
 // solution imports
 import type {
@@ -29,50 +29,47 @@ import type {
   SolutionState,
   RawShowMeStep,
   ShowMeStep,
-} from "./solution";
+} from './solution'
 import {
   DEFAULT_SOLUTION,
   extractErrorMsg,
   getHintMessage,
   getIncorrectStepMessage,
   LaTeXText,
-} from "./solution";
+} from './solution'
 
 // actions imports
-import { heartbeatAction } from "./solutionActions/heartbeat";
-import { MathMLToLaTeX } from "mathml-to-latex";
-import { prepareOperators } from "../utils/prepareOperators";
-import { Session } from "./session";
+import { heartbeatAction } from './solutionActions/heartbeat'
+import { MathMLToLaTeX } from 'mathml-to-latex'
+import { prepareOperators } from '../utils/prepareOperators'
+import { Session } from './session'
 
 // ============================================================================
 // STORE DEFINITION
 // ============================================================================
 
-export type SessionStore = ReturnType<typeof createSessionStore>;
+export type SessionStore = ReturnType<typeof createSessionStore>
 
 export const createSessionStore = (
-  initialState?: "READY" | "SET" | "GO",
+  initialState?: 'READY' | 'SET' | 'GO',
   student?: Student,
   problem?: Problem,
   server?: Server,
   assistant?: (msg: string) => void,
   onComplete?: (steps: Step[], log: Log[]) => void,
 ) => {
-  console.info("CREATE SESSION STORE");
-  console.info("Initial state:", initialState);
-
-  initialState = initialState || "GO";
+  initialState = initialState || 'GO'
 
   // Validate incoming props
   const problemStatus: ProblemStatus = problem
     ? validateProblem(problem)
-    : { problemValid: false, problemStatusMsg: "problem is undefined" };
+    : { problemValid: false, problemStatusMsg: 'problem is undefined' }
   const studentStatus: StudentStatus = student
     ? validateStudent(student)
-    : { studentValid: false, studentStatusMsg: "student is undefined" };
-  server = validateServer(server);
+    : { studentValid: false, studentStatusMsg: 'student is undefined' }
+  server = validateServer(server)
 
-  type State = Student & Problem & Server & SolutionState & SolutionActions;
+  type State = Student & Problem & Server & SolutionState & SolutionActions
 
   return createStore<State>()(
     devtools(
@@ -93,10 +90,10 @@ export const createSessionStore = (
         // HEARTBEAT
         //=====================================================
         heartbeat: async () => {
-          const newLogEntry = await heartbeatAction();
-          set((state) => ({
+          const newLogEntry = await heartbeatAction()
+          set(state => ({
             log: [...(state as any)!.log, newLogEntry],
-          }));
+          }))
         },
 
         //=====================================================
@@ -107,52 +104,52 @@ export const createSessionStore = (
             problemStatus.problemValid === false ||
             studentStatus.studentValid === false
           ) {
-            console.error("Invalid problem or student");
-            return;
+            console.error('Invalid problem or student')
+            return
           }
 
-          set((_state) => ({
-            sessionToken: "starting",
-          }));
+          set(_state => ({
+            sessionToken: 'starting',
+          }))
 
-          let response;
+          let response
           // create logEntry starting point
           const logEntry: Log = {
             timestamp: Date.now(),
-            action: "startSession",
-            response: "",
-          };
-
-          // If we already have a session, log and exit
-          const existingSessionToken = get().sessionToken;
-          if (
-            existingSessionToken &&
-            typeof existingSessionToken === "string" &&
-            existingSessionToken.length > 0 &&
-            existingSessionToken !== "starting"
-          ) {
-            logEntry.response = `Session for sessionToken already started. ${existingSessionToken}`;
-            set((state) => ({
-              log: [...state.log, logEntry],
-            }));
-            return;
+            action: 'startSession',
+            response: '',
           }
 
-          const studentId = get().studentId;
-          const appKey = get().appKey;
-          const id = get().problemId;
-          const policyId = get().policyId;
-          const title = get().title;
-          const stimulus = get().stimulus;
-          const topic = get().topic;
-          const definition = get().definition;
-          const hints = get().hints;
+          // If we already have a session, log and exit
+          const existingSessionToken = get().sessionToken
+          if (
+            existingSessionToken &&
+            typeof existingSessionToken === 'string' &&
+            existingSessionToken.length > 0 &&
+            existingSessionToken !== 'starting'
+          ) {
+            logEntry.response = `Session for sessionToken already started. ${existingSessionToken}`
+            set(state => ({
+              log: [...state.log, logEntry],
+            }))
+            return
+          }
+
+          const studentId = get().studentId
+          const appKey = get().appKey
+          const id = get().problemId
+          const policyId = get().policyId
+          const title = get().title
+          const stimulus = get().stimulus
+          const topic = get().topic
+          const definition = get().definition
+          const hints = get().hints
 
           try {
             response = await fetch(`${server.serverURL}/start`, {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "content-type": "application/json;charset=UTF-8",
+                'content-type': 'application/json;charset=UTF-8',
               },
               body: JSON.stringify({
                 appKey: appKey,
@@ -165,41 +162,41 @@ export const createSessionStore = (
                 definition: definition,
                 hints: hints,
               }),
-            });
+            })
           } catch (error) {
-            logEntry.response = extractErrorMsg(error);
+            logEntry.response = extractErrorMsg(error)
           }
 
           // If environmental error (404, CORS, etc) in logEntry.response...
           if (logEntry.response.length > 0) {
-            set((state) => ({
-              sessionToken: "",
+            set(state => ({
+              sessionToken: '',
               log: [...state.log, logEntry],
-            }));
-            return;
+            }))
+            return
           }
 
           // got a valid http response
           if (response?.ok) {
-            logEntry.response = response?.statusText;
-            const body = await response.json();
-            const preppedOperators = prepareOperators(body.operators);
-            set((state) => ({
+            logEntry.response = response?.statusText
+            const body = await response.json()
+            const preppedOperators = prepareOperators(body.operators)
+            set(state => ({
               sessionToken: body.sessionToken,
               identifiers: body.identifiers,
               operators: preppedOperators,
               log: [...state.log, logEntry],
               steps: [],
-            }));
-            return;
+            }))
+            return
           }
 
           // response was not ok
-          logEntry.response = `HTTP Response Code: ${response?.status}`;
-          set((state) => ({
-            sessionToken: "",
+          logEntry.response = `HTTP Response Code: ${response?.status}`
+          set(state => ({
+            sessionToken: '',
             log: [...state.log, logEntry],
-          }));
+          }))
         },
 
         //=====================================================
@@ -208,335 +205,334 @@ export const createSessionStore = (
         resumeSession: async (session: Session) => {
           let logEntry: Log = {
             timestamp: Date.now(),
-            action: "resumeSession",
-            response: "",
-          };
+            action: 'resumeSession',
+            response: '',
+          }
 
           if (
             problemStatus.problemValid === false ||
             studentStatus.studentValid === false
           ) {
-            console.error("Invalid problem or student");
-            logEntry.response = `Trying to resume Session but problem or student is invalid.`;
-            set((state) => ({
+            console.error('Invalid problem or student')
+            logEntry.response = `Trying to resume Session but problem or student is invalid.`
+            set(state => ({
               log: [...state.log, logEntry],
-            }));
-            return;
+            }))
+            return
           }
           if (
             !session ||
             !session.sessionToken ||
             session.sessionToken.length < 20
           ) {
-            console.error("Invalid problem or student");
-            logEntry.response = `Provided sessionToken is invalid ${session?.sessionToken}`;
-            set((state) => ({
+            console.error('Invalid problem or student')
+            logEntry.response = `Provided sessionToken is invalid ${session?.sessionToken}`
+            set(state => ({
               log: [...state.log, logEntry],
-            }));
-            return;
+            }))
+            return
           }
 
-          logEntry.response = `Session resumed for sessionToken: ${session?.sessionToken}`;
+          logEntry.response = `Session resumed for sessionToken: ${session?.sessionToken}`
 
-          const preppedOperators = prepareOperators(session.operators);
-          set((state) => ({
+          const preppedOperators = prepareOperators(session.operators)
+          set(state => ({
             sessionToken: session.sessionToken,
             identifiers: session.identifiers,
             operators: preppedOperators,
             log: [...state.log, logEntry],
             steps: [],
-          }));
-          return;
+          }))
+          return
         },
 
         //=====================================================
         // GET HINT
         //=====================================================
         getHint: async () => {
-          const appKey = get().appKey;
+          const appKey = get().appKey
 
-          let response;
+          let response
           // create logEntry starting point
           const logEntry: Log = {
             timestamp: Date.now(),
-            action: "getHint",
-            response: "",
-          };
+            action: 'getHint',
+            response: '',
+          }
 
           // If we don't have a session, log and exit
-          const existingSessionToken = get().sessionToken;
+          const existingSessionToken = get().sessionToken
           if (
             !existingSessionToken ||
-            typeof existingSessionToken !== "string" ||
+            typeof existingSessionToken !== 'string' ||
             existingSessionToken.length == 0
           ) {
-            logEntry.response = `No sessionToken. ${existingSessionToken}`;
-            set((state) => ({
+            logEntry.response = `No sessionToken. ${existingSessionToken}`
+            set(state => ({
               log: [...state.log, logEntry],
-            }));
-            return;
+            }))
+            return
           }
 
           try {
             response = await fetch(`${server.serverURL}/getHint`, {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "content-type": "application/json;charset=UTF-8",
+                'content-type': 'application/json;charset=UTF-8',
               },
               body: JSON.stringify({
                 appKey: appKey,
                 sessionToken: existingSessionToken,
               }),
-            });
+            })
           } catch (error) {
-            logEntry.response = extractErrorMsg(error);
+            logEntry.response = extractErrorMsg(error)
           }
 
           // If environmental error (404, CORS, etc) in logEntry.response...
           if (logEntry.response.length > 0) {
-            set((state) => ({
+            set(state => ({
               log: [...state.log, logEntry],
-            }));
-            return;
+            }))
+            return
           }
 
           // got a valid http response
           if (response?.ok) {
-            logEntry.response = response?.statusText;
-            const body = await response.json();
+            logEntry.response = response?.statusText
+            const body = await response.json()
 
-            set((state) => ({
+            set(state => ({
               log: [...state.log, logEntry],
               steps: [
                 ...state.steps,
                 {
                   timestamp: Date.now(),
-                  type: "hint",
+                  type: 'hint',
                   hintObject: body.hintObject,
                   hintText: LaTeXText(body.hintText),
                 } as Step,
               ],
               lastAction: Date.now(),
-            }));
-            if (typeof assistant === "function") assistant(body.hintText);
-            return;
+            }))
+            if (typeof assistant === 'function') assistant(body.hintText)
+            return
           }
 
           // response was not ok
-          logEntry.response = `HTTP Response Code: ${response?.status}`;
-          set((state) => ({
+          logEntry.response = `HTTP Response Code: ${response?.status}`
+          set(state => ({
             log: [...state.log, logEntry],
-          }));
+          }))
         },
 
         //=====================================================
         // SHOW ME
         //=====================================================
         showMe: async () => {
-          const now = Date.now();
-          const appKey = get().appKey;
+          const now = Date.now()
+          const appKey = get().appKey
 
-          let response;
+          let response
           // create logEntry starting point
           const logEntry: Log = {
             timestamp: Date.now(),
-            action: "showMe",
-            response: "",
-          };
+            action: 'showMe',
+            response: '',
+          }
 
           // If we dont have a session, log and exit
-          const existingSessionToken = get().sessionToken;
+          const existingSessionToken = get().sessionToken
           if (
             !existingSessionToken ||
-            typeof existingSessionToken !== "string" ||
+            typeof existingSessionToken !== 'string' ||
             existingSessionToken.length == 0
           ) {
-            logEntry.response = `No sessionToken. ${existingSessionToken}`;
-            set((state) => ({
+            logEntry.response = `No sessionToken. ${existingSessionToken}`
+            set(state => ({
               log: [...state.log, logEntry],
-            }));
-            return;
+            }))
+            return
           }
 
           try {
             response = await fetch(`${server.serverURL}/showMe`, {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "content-type": "application/json;charset=UTF-8",
+                'content-type': 'application/json;charset=UTF-8',
               },
               body: JSON.stringify({
                 appKey: appKey,
                 sessionToken: existingSessionToken,
               }),
-            });
+            })
           } catch (error) {
-            logEntry.response = extractErrorMsg(error);
+            logEntry.response = extractErrorMsg(error)
           }
 
           // If environmental error (404, CORS, etc) in logEntry.response...
           if (logEntry.response.length > 0) {
-            set((state) => ({
+            set(state => ({
               log: [...state.log, logEntry],
-            }));
-            return;
+            }))
+            return
           }
 
           // got a valid http response
           if (response?.ok) {
-            logEntry.response = response?.statusText;
-            const body = await response.json();
+            logEntry.response = response?.statusText
+            const body = await response.json()
             const showMeSteps: ShowMeStep[] = body.showMe.map(
               (step: RawShowMeStep, idx: number) => {
                 return {
-                  key: now + "-" + idx,
+                  key: now + '-' + idx,
                   suggestedStep:
-                    "\\(" + MathMLToLaTeX.convert(step.suggestedStep) + "\\)",
+                    '\\(' + MathMLToLaTeX.convert(step.suggestedStep) + '\\)',
                   instruction: getHintMessage(step.instruction),
-                };
+                }
               },
-            );
+            )
 
-            set((state) => ({
+            set(state => ({
               log: [...state.log, logEntry],
               steps: [
                 ...state.steps,
 
                 {
                   timestamp: now,
-                  type: "showMe",
+                  type: 'showMe',
                   status: body.status,
                   showMe: showMeSteps,
                 },
               ],
               lastAction: now,
-            }));
-            return;
+            }))
+            return
           }
 
           // response was not ok
-          logEntry.response = `HTTP Response Code: ${response?.status}`;
-          set((state) => ({
+          logEntry.response = `HTTP Response Code: ${response?.status}`
+          set(state => ({
             log: [...state.log, logEntry],
-          }));
+          }))
         },
 
         //=====================================================
         // CLOSE SESSION
         //=====================================================
         close: async () => {
-          console.error("closeSessionAction has not been tested");
-          const appKey = get().appKey;
-          let response;
+          console.error('closeSessionAction has not been tested')
+          const appKey = get().appKey
+          let response
           const logEntry: Log = {
             timestamp: Date.now(),
-            action: "closeSession",
-            response: "",
-          };
+            action: 'closeSession',
+            response: '',
+          }
 
           // If we dont have a session, log and exit
-          const existingSessionToken = get().sessionToken;
+          const existingSessionToken = get().sessionToken
           if (
             !existingSessionToken ||
-            typeof existingSessionToken !== "string" ||
+            typeof existingSessionToken !== 'string' ||
             existingSessionToken.length == 0
           ) {
-            logEntry.response = `No sessionToken. ${existingSessionToken}`;
-            set((state) => ({
+            logEntry.response = `No sessionToken. ${existingSessionToken}`
+            set(state => ({
               log: [...state.log, logEntry],
-            }));
-            return;
+            }))
+            return
           }
 
           try {
             response = await fetch(`${server.serverURL}/close`, {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "content-type": "application/json;charset=UTF-8",
+                'content-type': 'application/json;charset=UTF-8',
               },
               body: JSON.stringify({
                 appKey: appKey,
                 sessionToken: existingSessionToken,
               }),
-            });
+            })
           } catch (error) {
-            logEntry.response = error as string;
+            logEntry.response = error as string
           }
 
-          console.info(response);
+          console.info(response)
           if (response?.ok) {
-            logEntry.response = response?.statusText;
+            logEntry.response = response?.statusText
           } else {
-            logEntry.response = `HTTP Response Code: ${response?.status}`;
+            logEntry.response = `HTTP Response Code: ${response?.status}`
           }
 
-          set((state) => ({
+          set(state => ({
             log: [...state.log, logEntry],
-          }));
+          }))
         },
 
         //=====================================================
         // SUBMIT STEP
         //=====================================================
         submitStep: async (step: string) => {
-          console.info("Submitting step:", step);
-          const appKey = get().appKey;
-          const now = Date.now();
+          const appKey = get().appKey
+          const now = Date.now()
 
-          let response;
+          let response
           // create logEntry starting point
           const logEntry: Log = {
             timestamp: now,
-            action: "submitStep",
-            response: "",
-          };
+            action: 'submitStep',
+            response: '',
+          }
 
           // If we already have a session, log and exit
-          const existingSessionToken = get().sessionToken;
+          const existingSessionToken = get().sessionToken
           if (
             !existingSessionToken ||
-            typeof existingSessionToken !== "string" ||
+            typeof existingSessionToken !== 'string' ||
             existingSessionToken.length == 0
           ) {
-            logEntry.response = `No sessionToken. ${existingSessionToken}`;
-            set((state) => ({
+            logEntry.response = `No sessionToken. ${existingSessionToken}`
+            set(state => ({
               log: [...state.log, logEntry],
-            }));
-            return;
+            }))
+            return
           }
 
           try {
             response = await fetch(`${server.serverURL}/submitStep`, {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "content-type": "application/json;charset=UTF-8",
+                'content-type': 'application/json;charset=UTF-8',
               },
               body: JSON.stringify({
                 appKey: appKey,
                 sessionToken: existingSessionToken,
                 step: `\\begin{{equation}}${step.replace(
-                  "=",
-                  "&#63449;",
+                  '=',
+                  '&#63449;',
                 )}\\end{{equation}}`,
               }),
-            });
+            })
           } catch (error) {
-            logEntry.response = extractErrorMsg(error);
+            logEntry.response = extractErrorMsg(error)
           }
 
           // If environmental error (404, CORS, etc) in logEntry.response...
           if (logEntry.response.length > 0) {
-            set((state) => ({
+            set(state => ({
               log: [...state.log, logEntry],
-            }));
-            return;
+            }))
+            return
           }
 
           // got a valid http response
           if (response?.ok) {
-            const body = await response.json();
-            logEntry.response = body.rawResponse;
+            const body = await response.json()
+            logEntry.response = body.rawResponse
 
-            type ScratchPadStep = Partial<Step>;
+            type ScratchPadStep = Partial<Step>
             const resultingStep: ScratchPadStep = {
               timestamp: now,
               status: body.status,
@@ -545,37 +541,37 @@ export const createSessionStore = (
               rawResponse: body.rawResponse,
               latex: step,
               hintObject: body.hintObject,
-            };
+            }
 
             switch (body.stepStatus) {
-              case "VALID":
-                resultingStep.type = "correct";
-                break;
-              case "INVALID":
-                resultingStep.type = "incorrect";
-                break;
-              case "COMPLETE":
-                resultingStep.type = "victory";
-                break;
-              case "MATHCOMPLETE":
-                resultingStep.type = "mathComplete";
-                if (typeof onComplete === "function") {
-                  const log = get().log;
-                  onComplete(get().steps, log);
+              case 'VALID':
+                resultingStep.type = 'correct'
+                break
+              case 'INVALID':
+                resultingStep.type = 'incorrect'
+                break
+              case 'COMPLETE':
+                resultingStep.type = 'victory'
+                break
+              case 'MATHCOMPLETE':
+                resultingStep.type = 'mathComplete'
+                if (typeof onComplete === 'function') {
+                  const log = get().log
+                  onComplete(get().steps, log)
                 }
-                break;
+                break
             }
 
-            if (typeof assistant === "function") {
-              assistant(body.message);
-              return;
+            if (typeof assistant === 'function') {
+              assistant(body.message)
+              return
             }
 
-            set((state) => ({
+            set(state => ({
               log: [...state.log, logEntry],
               steps: [...state.steps, resultingStep as Step],
               lastAction: now,
-            }));
+            }))
           }
         },
 
@@ -583,66 +579,66 @@ export const createSessionStore = (
         // GET GRADE
         //=====================================================
         getGrade: async () => {
-          let response;
+          let response
           const logEntry: Log = {
             timestamp: Date.now(),
-            action: "getGrade",
-            response: "",
-          };
+            action: 'getGrade',
+            response: '',
+          }
 
           try {
-            response = await fetch(`${server.serverURL}/getGrade`);
+            response = await fetch(`${server.serverURL}/getGrade`)
           } catch (error) {
-            logEntry.response = error as string;
+            logEntry.response = error as string
           }
 
           if (response?.ok) {
-            logEntry.response = response?.statusText;
+            logEntry.response = response?.statusText
           } else {
-            logEntry.response = `HTTP Response Code: ${response?.status}`;
+            logEntry.response = `HTTP Response Code: ${response?.status}`
           }
 
-          set((state) => ({
+          set(state => ({
             log: [...state.log, logEntry],
-          }));
+          }))
         },
 
         //
         precomputeHints: async () => {
-          const appKey = get().appKey;
-          const existingSessionToken = get().sessionToken;
-          let response;
+          const appKey = get().appKey
+          const existingSessionToken = get().sessionToken
+          let response
           const logEntry: Log = {
             timestamp: Date.now(),
-            action: "heartbeat",
-            response: "",
-          };
+            action: 'heartbeat',
+            response: '',
+          }
 
           try {
             response = await fetch(`${server.serverURL}/precomputeHints`, {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "content-type": "application/json;charset=UTF-8",
+                'content-type': 'application/json;charset=UTF-8',
               },
               body: JSON.stringify({
                 appKey: appKey,
                 sessionToken: existingSessionToken,
               }),
-            });
+            })
           } catch (error) {
-            logEntry.response = error as string;
+            logEntry.response = error as string
           }
 
-          console.info(response);
+          console.info(response)
           if (response?.ok) {
-            logEntry.response = response?.statusText;
+            logEntry.response = response?.statusText
           } else {
-            logEntry.response = `HTTP Response Code: ${response?.status}`;
+            logEntry.response = `HTTP Response Code: ${response?.status}`
           }
 
-          set((state) => ({
+          set(state => ({
             log: [...state.log, logEntry],
-          }));
+          }))
         },
 
         //=====================================================
@@ -650,31 +646,31 @@ export const createSessionStore = (
         //=====================================================
         saveTrace: async () => {
           // TODO: Need to add the comment payload
-          console.error("saveTraceAction needs work");
+          console.error('saveTraceAction needs work')
 
-          let response;
+          let response
           const logEntry: Log = {
             timestamp: Date.now(),
-            action: "saveTrace",
-            response: "",
-          };
+            action: 'saveTrace',
+            response: '',
+          }
 
           try {
-            response = await fetch(`${server.serverURL}/saveTrace`);
+            response = await fetch(`${server.serverURL}/saveTrace`)
           } catch (error) {
-            logEntry.response = error as string;
+            logEntry.response = error as string
           }
 
-          console.info(response);
+          console.info(response)
           if (response?.ok) {
-            logEntry.response = response?.statusText;
+            logEntry.response = response?.statusText
           } else {
-            logEntry.response = `HTTP Response Code: ${response?.status}`;
+            logEntry.response = `HTTP Response Code: ${response?.status}`
           }
 
-          set((state) => ({
+          set(state => ({
             log: [...state.log, logEntry],
-          }));
+          }))
         },
 
         //=====================================================
@@ -682,44 +678,44 @@ export const createSessionStore = (
         //=====================================================
         addComment: async (comment: string) => {
           // TODO: Fix add comment
-          console.error("addCommentAction needs work");
+          console.error('addCommentAction needs work')
 
-          const appKey = get().appKey;
-          const existingSessionToken = get().sessionToken;
+          const appKey = get().appKey
+          const existingSessionToken = get().sessionToken
 
-          let response;
+          let response
           const logEntry: Log = {
             timestamp: Date.now(),
-            action: "addComment",
-            response: "",
-          };
+            action: 'addComment',
+            response: '',
+          }
 
           try {
             response = await fetch(`${server.serverURL}/submitComment`, {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "content-type": "application/json;charset=UTF-8",
+                'content-type': 'application/json;charset=UTF-8',
               },
               body: JSON.stringify({
                 appKey: appKey,
                 sessionToken: existingSessionToken,
                 comment: comment,
               }),
-            });
+            })
           } catch (error) {
-            logEntry.response = error as string;
+            logEntry.response = error as string
           }
 
-          console.info(response);
+          console.info(response)
           if (response?.ok) {
-            logEntry.response = response?.statusText;
+            logEntry.response = response?.statusText
           } else {
-            logEntry.response = `HTTP Response Code: ${response?.status}`;
+            logEntry.response = `HTTP Response Code: ${response?.status}`
           }
 
-          set((state) => ({
+          set(state => ({
             log: [...state.log, logEntry],
-          }));
+          }))
         },
 
         //=====================================================
@@ -727,35 +723,35 @@ export const createSessionStore = (
         //=====================================================
         assessSolution: async () => {
           // TODO: Need to add the proposed solution payload
-          console.error("assessSolutionAction needs work");
-          let response;
+          console.error('assessSolutionAction needs work')
+          let response
           const logEntry: Log = {
             timestamp: Date.now(),
-            action: "assessSolution",
-            response: "",
-          };
+            action: 'assessSolution',
+            response: '',
+          }
 
           try {
-            response = await fetch(`${server.serverURL}/assessSolution/`);
+            response = await fetch(`${server.serverURL}/assessSolution/`)
           } catch (error) {
-            logEntry.response = error as string;
+            logEntry.response = error as string
           }
 
-          console.info(response);
+          console.info(response)
           if (response?.ok) {
-            logEntry.response = response?.statusText;
+            logEntry.response = response?.statusText
           } else {
-            logEntry.response = `HTTP Response Code: ${response?.status}`;
+            logEntry.response = `HTTP Response Code: ${response?.status}`
           }
 
-          set((state) => ({
+          set(state => ({
             log: [...state.log, logEntry],
-          }));
+          }))
         },
       }), // end of state
-      { name: "session" },
+      { name: 'session' },
     ),
-  );
-};
+  )
+}
 
-export const SessionContext = createContext<SessionStore | null>(null);
+export const SessionContext = createContext<SessionStore | null>(null)

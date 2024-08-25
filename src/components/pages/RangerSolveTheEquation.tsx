@@ -56,7 +56,8 @@ const RangerSolveTheEquation: FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { problem, student, session, ybr, rank, swapiUrl } = useProblemStore()
+  const { problem, student, session, ybr, rank, swapiUrl, logAction } =
+    useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -73,28 +74,9 @@ const RangerSolveTheEquation: FC<{
 
   const pageSpecificHints = page?.psHints || []
 
-  console.log(
-    '///////////////////////////////////////////////////////////////////',
-  )
   if (ybr[current - 1]?.id === page?.id) {
-    console.info('🥰🥰🥰🥰🥰🥰🥰🥰🥰🥰🥰🥰')
     setTimeout(startStepWise, 1000)
   }
-  /* 
-  page
-    aiHints: true
-    id: "SolveTheEquation"
-    phase: "W"
-    phaseLabel: "Work the Problem"
-    rank: "ranger"
-    title: "Solve the Equation"
-
-  index: 4
-*/
-
-  console.log(
-    '///////////////////////////////////////////////////////////////////',
-  )
 
   // Prepare problem data to work with StepWise
   type swProblemType = {
@@ -155,8 +137,10 @@ const RangerSolveTheEquation: FC<{
   }
 
   function onComplete(steps: Step[], log: Log[]) {
-    console.table(steps)
-    console.table(log)
+    logAction(
+      'RangerSolveTheEquation : ' +
+        JSON.stringify({ studentSolution: steps, log: log }),
+    )
     setComplete(true)
   }
 
