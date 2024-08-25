@@ -178,13 +178,7 @@ const RangerFindFacts: FC<{
           busy={busy}
           onClick={evt => HandleCheckFacts(evt)}
         ></NextButton>
-        {/* <CarouselNext
-          disabled={busy}
-          className="relative right-0"
-          onClick={evt => HandleCheckFacts(evt)}
-        >
-          Next
-        </CarouselNext> */}
+
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerFindFacts
         </h1>
