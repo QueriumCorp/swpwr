@@ -76,8 +76,9 @@ const RangerSolveTheEquation: FC<{
   console.log(
     '///////////////////////////////////////////////////////////////////',
   )
-  if (index === current) {
+  if (ybr[current - 1]?.id === page?.id) {
     console.info('🥰🥰🥰🥰🥰🥰🥰🥰🥰🥰🥰🥰')
+    setTimeout(startStepWise, 1000)
   }
   /* 
   page
