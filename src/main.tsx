@@ -56,7 +56,7 @@ if (window.swpwr) {
   options.gltfUrl = window.swpwr.options.gltfUrl
   options.rank =
     urlRank || import.meta.env.VITE_RANK || window.swpwr.options.rank || 'newb'
-  options.disabledSchemas = window.swpwr.options.disableSchemas
+  options.disabledSchemas = window.swpwr.options.disabledSchemas
 
   handlers.onComplete = window.swpwr.handlers.onComplete
 } else {
