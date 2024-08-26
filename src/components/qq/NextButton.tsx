@@ -4,9 +4,11 @@ import BusyIndicator from './BusyIndicator/BusyIndicator'
 
 const NextButton = ({
   busy = false,
+  disabled = false,
   onClick,
 }: {
   busy?: boolean
+  disabled?: boolean
   children?: ReactNode
   className?: string
   onClick?: (evt: any) => Promise<void>
@@ -23,7 +25,7 @@ const NextButton = ({
         ></CarouselNext>
       ) : (
         <CarouselNext
-          disabled={busy}
+          disabled={busy || disabled}
           className="relative right-0 top-0 translate-y-0"
         ></CarouselNext>
       )}
