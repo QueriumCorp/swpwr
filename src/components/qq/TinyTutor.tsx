@@ -47,17 +47,7 @@ export const TinyTutor = ({
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [hintStage, setHintStage] = useState<HintStage>(
-    msg
-      ? 'none'
-      : intro
-        ? 'intro'
-        : psHints || wpHints
-          ? 'psHints'
-          : getAiHints
-            ? 'aiHints'
-            : 'none',
-  )
+  const [hintStage, setHintStage] = useState<HintStage>('none')
   const [bubbleShown, setBubbleShow] = useState(introMsgs.length ? true : false)
   const [currentHintMsgs, setCurrentHintMsgs] = useState<string[]>(
     msg
@@ -95,6 +85,7 @@ export const TinyTutor = ({
     if (busy) {
       return
     }
+
     let stageIndex = hintStages.findIndex(stage => stage === hintStage)
     stageIndex = stageIndex == hintStages.length - 1 ? 0 : stageIndex + 1
     const nextStage = hintStages[stageIndex]

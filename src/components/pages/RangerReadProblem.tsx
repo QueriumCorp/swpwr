@@ -60,15 +60,6 @@ const RangerReadProblem: React.FC<{
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
 
-  async function getAiHints() {
-    setBusy(true)
-    setMsg('Hmmm...  let me see.')
-    const hints: string[] = await getHint()
-    setMsg('')
-    setBusy(false)
-    setAiHints(hints)
-  }
-
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
@@ -112,8 +103,6 @@ const RangerReadProblem: React.FC<{
           intro={page?.intro}
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
-          aiHints={aiHints}
-          getAiHints={getAiHints}
         />
         <NextButton busy={busy}></NextButton>
 
