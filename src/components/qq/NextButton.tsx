@@ -14,12 +14,13 @@ const NextButton = ({
   onClick?: (evt: any) => Promise<void>
 }) => {
   // JSX
+  console.log('busy', busy, 'disabled', disabled)
   return (
     <div className="relative flex h-10 w-10 items-center justify-center bg-none">
       <BusyIndicator busy={busy} className="BusyIndicator"></BusyIndicator>
       {onClick ? (
         <CarouselNext
-          disabled={busy}
+          disabled={busy || disabled}
           className="relative right-0 top-0 translate-y-0"
           onClick={onClick}
         ></CarouselNext>

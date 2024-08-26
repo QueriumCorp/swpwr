@@ -1,7 +1,7 @@
 'use client'
 
 //  React Imports
-import { FC, ReactNode, useContext, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useState } from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -14,6 +14,7 @@ import { useProblemStore } from '@/store/_store'
 import { Textarea } from '../ui/textarea'
 import { TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
+import { set } from 'zod'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -43,6 +44,7 @@ const RangerOwnWords: FC<{
 
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
+  const [disabled, setDisabled] = useState(false)
   const [ownWords, setOwnWords] = useState<string>('')
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
@@ -52,6 +54,11 @@ const RangerOwnWords: FC<{
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    console.log('ownWords.length', ownWords.length)
+    ownWords.length > 10 ? setDisabled(false) : setDisabled(true)
+  }, [ownWords])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -125,7 +132,7 @@ const RangerOwnWords: FC<{
           <Textarea
             value={ownWords}
             onChange={e => setOwnWords(e.target.value)}
-            placeholder="Type your explanation here"
+            placeholder="Type your answer here"
           />
         </div>
       </div>
@@ -139,6 +146,7 @@ const RangerOwnWords: FC<{
         />
         <NextButton
           busy={busy}
+          disabled={disabled}
           onClick={evt => handleCheckOwnWords(evt)}
         ></NextButton>
 
