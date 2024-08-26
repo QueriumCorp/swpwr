@@ -28,6 +28,7 @@ export interface State {
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
   submitPickSchema: (schema: string, fake?: boolean) => Promise<any>
   submitOrganize: (equation: string, values: string[]) => Promise<any>
+  submitMyOwnWords: (type: string) => Promise<any>
   submitExplanation: (type: string) => Promise<any>
   getHint: () => Promise<string[]>
   closeSession: () => Promise<string>
@@ -89,14 +90,19 @@ export const StudentSchema = z.object({
 
 // SESSION
 export type Session = {
+  // returned by SWAPI
   sessionToken: string
+  // returned by qEval
   identifiers: string[]
   operators: string[]
+  explanations: { type: string; text: string }[]
+  // created by student
   knowns: string[]
   unknowns: string[]
   schema: string
   schemaValues: string[]
-  explanations: { type: string; text: string }[]
+  mathAnswer: string
+  myOwnWords: string
   selectedExplanation: string
   finalAnswer: string
 }

@@ -35,7 +35,7 @@ const RangerOwnWords: FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, submitExplanation, getHint, problem, session, rank } =
+  const { logAction, submitMyOwnWords, getHint, problem, session, rank } =
     useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
@@ -73,10 +73,13 @@ const RangerOwnWords: FC<{
     } else if (ownWords.length < 10) {
       setMsg('Please explain your answer in your own words')
     } else {
+      setMsg("I'm thinking...")
       setBusy(true)
       logAction('RangerOwnWords : Checking Own Words : ' + ownWords)
-      const result = await submitExplanation(ownWords)
-      logAction('RangerOwnWords : Checked OwnWords : ')
+      const result = await submitMyOwnWords(ownWords)
+      logAction(
+        `RangerOwnWords : Checked OwnWords : ${ownWords} : ${JSON.stringify(result)}`,
+      )
 
       setBusy(false)
       setMsg(result.message)
@@ -127,7 +130,7 @@ const RangerOwnWords: FC<{
           )}
           stimulusText={problem.stimulus}
         ></StimulusSelector>
-
+        <div>{session.mathAnswer}</div>
         <div className="grow">
           <Textarea
             value={ownWords}

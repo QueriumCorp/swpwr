@@ -1,40 +1,40 @@
-import { cn } from "@/lib/utils";
-import { FaEquals, FaTimes } from "react-icons/fa";
+import { cn } from '@/lib/utils'
+import { FaEquals, FaTimes } from 'react-icons/fa'
 
 export const EqualGroupsEquationGraphic = ({
   interactive,
   className,
 }: {
-  interactive?: boolean;
-  className?: string;
+  interactive?: boolean
+  className?: string
 }) => {
   if (interactive) {
-    console.log("interactive");
+    console.log('interactive')
   }
 
   // JSX
   return (
     <div
       className={cn(
-        "w-full h-full flex justify-around items-center",
+        'flex h-full w-full items-center justify-around',
         className,
       )}
     >
-      <div className="flex justify-center items-center border-4 border-indigo-500 w-[30%] h-full">
+      <div className="flex h-full w-[30%] items-center justify-center border-4 border-slate-500">
         G
       </div>
       <div className="mx-2">
         <FaTimes />
       </div>
-      <div className="flex justify-center items-center border-4 border-indigo-500 w-[30%] h-full">
+      <div className="flex h-full w-[30%] items-center justify-center border-4 border-slate-500">
         N
       </div>
       <div className="mx-2">
         <FaEquals />
       </div>
-      <div className="flex justify-center items-center border-4 border-indigo-500 w-[30%] h-full">
+      <div className="flex h-full w-[30%] items-center justify-center border-4 border-slate-500">
         P
       </div>
     </div>
-  );
-};
+  )
+}

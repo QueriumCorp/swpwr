@@ -23,6 +23,7 @@ import saveTrace from './saveTrace'
 import submitOrganize from './submitOrganize'
 import { YBRpage } from '@/components/qq/YellowBrickRoad'
 import submitExplanation from './submitExplanation'
+import submitMyOwnWords from './submitMyOwnWords'
 
 export const useProblemStore = create<State>((set, get) => ({
   ///////////////////////////////////////////////////////////////////
@@ -63,6 +64,8 @@ export const useProblemStore = create<State>((set, get) => ({
     schema: '',
     schemaValues: [],
     explanations: [],
+    mathAnswer: "student's LaTeX",
+    myOwnWords: '',
     selectedExplanation: '',
     finalAnswer: '',
   },
@@ -179,6 +182,16 @@ export const useProblemStore = create<State>((set, get) => ({
     }))
     return await submitOrganize(set, get, equation)
   },
+  submitMyOwnWords: async (myOwnWords: string) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        myOwnWords: myOwnWords,
+      },
+    }))
+    return await submitMyOwnWords(set, get, myOwnWords)
+  },
+
   submitExplanation: async (type: string) => {
     set(state => ({
       session: {

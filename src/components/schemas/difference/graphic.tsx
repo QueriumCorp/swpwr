@@ -1,32 +1,32 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
 export const DifferenceSchemaGraphic = ({
   interactive,
   className,
 }: {
-  interactive?: boolean;
-  className?: string;
+  interactive?: boolean
+  className?: string
 }) => {
   if (interactive) {
-    console.log("interactive");
+    console.log('interactive')
   }
 
   // JSX
   return (
     <div
-      className={cn("w-full h-full flex flex-col justify-stretch", className)}
+      className={cn('flex h-full w-full flex-col justify-stretch', className)}
     >
-      <div className="grow flex justify-center items-center border-4 border-indigo-500 border-b-0">
+      <div className="flex grow items-center justify-center border-4 border-b-0 border-slate-500">
         Greater
       </div>
-      <div className="flex flex-row grow justify-evenly">
-        <div className="w-[50%] flex justify-center items-center border-4 border-indigo-500 border-r-0">
+      <div className="flex grow flex-row justify-evenly">
+        <div className="flex w-[50%] items-center justify-center border-4 border-r-0 border-slate-500">
           Less
         </div>
-        <div className="w-[50%] flex justify-center items-center border-4 border-indigo-500">
+        <div className="flex w-[50%] items-center justify-center border-4 border-slate-500">
           Difference
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

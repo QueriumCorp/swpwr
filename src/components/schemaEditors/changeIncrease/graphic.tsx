@@ -1,35 +1,35 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
 export const ChangeIncreaseSchemaGraphic = ({
   interactive,
   className,
 }: {
-  interactive?: boolean;
-  className?: string;
+  interactive?: boolean
+  className?: string
 }) => {
   if (interactive) {
-    console.log("interactive");
+    console.log('interactive')
   }
 
   // JSX
   return (
     <div
       className={cn(
-        "w-full h-full flex flex-col justify-stretch bg-pink-400",
+        'flex h-full w-full flex-col justify-stretch bg-pink-400',
         className,
       )}
     >
-      <div className="flex flex-row grow justify-evenly">
-        <div className="w-[50%] flex justify-center items-center border-4 border-indigo-500 border-r-0">
+      <div className="flex grow flex-row justify-evenly">
+        <div className="flex w-[50%] items-center justify-center border-4 border-r-0 border-slate-500">
           Start
         </div>
-        <div className="w-[50%] flex justify-center items-center border-4 border-indigo-500">
+        <div className="flex w-[50%] items-center justify-center border-4 border-slate-500">
           Change
         </div>
       </div>
-      <div className="grow flex justify-center items-center border-4 border-indigo-500 border-t-0">
+      <div className="flex grow items-center justify-center border-4 border-t-0 border-slate-500">
         End
       </div>
     </div>
-  );
-};
+  )
+}

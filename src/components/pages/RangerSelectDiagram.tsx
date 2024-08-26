@@ -332,6 +332,7 @@ const RangerSelectDiagram: FC<{
         />
         <NextButton
           busy={busy}
+          disabled={schema.length === 0}
           onClick={evt => handleCheckSchema(evt)}
         ></NextButton>
 
