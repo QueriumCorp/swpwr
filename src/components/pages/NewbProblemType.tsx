@@ -104,7 +104,7 @@ const NewbProblemType: FC<{
           selectedSchema = 'additiveChangeSchema'
           break
         case 'CHANGEDECREASE':
-          selectedSchema = 'additiveChangeSchema'
+          selectedSchema = 'subtractiveChangeSchema'
           break
         case 'EQUALGROUPS':
           selectedSchema = 'multiplicativeEqualGroupsSchema'
@@ -260,7 +260,7 @@ const NewbProblemType: FC<{
             <Card
               className={cn(
                 'w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
-                disabledSchemas?.includes('additiveChangeSchema')
+                disabledSchemas?.includes('subtractiveChangeSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
                   : schema === 'CHANGEDECREASE'
                     ? 'cursor-pointer bg-qqAccent'
