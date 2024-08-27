@@ -34,10 +34,11 @@ export const TinyTutor = ({
   let introMsgs = normalizeIntro(intro)
   let psHintsMsgs = normalizePsHints(wpHints || psHints)
   let aiHintsMsgs = normalizePsHints(aiHints)
-  let hintStages: HintStage[] = ['none']
+  let hintStages: HintStage[] = []
   if (introMsgs.length) hintStages.push('intro')
   if (psHintsMsgs.length) hintStages.push('psHints')
   if (getAiHints) hintStages.push('aiHints')
+  hintStages.push('none')
 
   ///////////////////////////////////////////////////////////////////
   // Store

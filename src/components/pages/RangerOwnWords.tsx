@@ -14,7 +14,6 @@ import { useProblemStore } from '@/store/_store'
 import { Textarea } from '../ui/textarea'
 import { TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
-import { set } from 'zod'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -56,7 +55,6 @@ const RangerOwnWords: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    console.log('ownWords.length', ownWords.length)
     ownWords.length > 10 ? setDisabled(false) : setDisabled(true)
   }, [ownWords])
 
@@ -143,9 +141,12 @@ const RangerOwnWords: FC<{
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
+          busy={busy}
           intro={page?.intro}
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
+          aiHints={aiHints}
+          getAiHints={getAiHints}
         />
         <NextButton
           busy={busy}
