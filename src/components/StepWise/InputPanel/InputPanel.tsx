@@ -104,7 +104,7 @@ const InputPanel = () => {
           style={{
             flexGrow: 1,
             boxSizing: 'border-box',
-            background: 'none',
+            background: 'white',
             border: '1px white solid',
             borderRadius: '6px',
           }}

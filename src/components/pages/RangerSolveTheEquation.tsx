@@ -153,7 +153,7 @@ const RangerSolveTheEquation: FC<{
       )}
     >
       <div className="div relative mb-2 flex grow flex-col justify-stretch gap-2 p-2">
-        <div className="absolute bottom-0 left-0 right-0 top-0 flex flex-col overflow-y-scroll">
+        <div className="absolute bottom-0 left-0 right-0 top-0 flex flex-col overflow-y-auto">
           <HdrBar
             highlightLetter={page?.phase}
             subTitle={page?.phaseLabel}
