@@ -21,6 +21,9 @@ export interface StepWiseProps {
   problem: Problem
   student: Student
   server?: Server
+  options?: {
+    showMe?: boolean
+  }
   ready?: boolean
   go?: boolean
   assistant?: (msg: string) => void
@@ -45,6 +48,7 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
       assistant,
       onComplete,
       server,
+      options,
       className,
       ready,
       go,
@@ -82,6 +86,7 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
         student,
         problem,
         server,
+        options,
         assistant,
         onComplete,
       )

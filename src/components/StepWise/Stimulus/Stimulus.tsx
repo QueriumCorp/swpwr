@@ -1,25 +1,40 @@
+//  React Imports
 import { useContext, useLayoutEffect, useRef } from 'react'
+
+// Querium Imports
 import { SessionContext } from '../stores/sessionContext'
 import { useStore } from 'zustand'
 import { renderMathInElement } from 'mathlive'
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
 const Stimulus = () => {
-  //
-  // CONTEXT
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
   const session = useContext(SessionContext)
   if (!session) throw new Error('No SessionContext.Provider in the tree')
 
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Store
+  ///////////////////////////////////////////////////////////////////
+
+  const stimulus = useStore(session, s => s.stimulus)
+
+  ///////////////////////////////////////////////////////////////////
   // Refs
-  //
+  ///////////////////////////////////////////////////////////////////
   const latexRef = useRef(null)
 
-  //
-  // Side Effects
-  //
-  // on initial render, tell MathLive to render the latex
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
   useLayoutEffect(() => {
+    // on initial render, tell MathLive to render the latex
     if (latexRef.current) {
       renderMathInElement(latexRef.current, {
         TeX: {
@@ -33,12 +48,9 @@ const Stimulus = () => {
     }
   }, [])
 
-  const stimulus = useStore(session, s => s.stimulus)
   return (
     <div ref={latexRef}>
-      <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-        {stimulus}!!!
-      </p>
+      <p className="mt-2 text-sm text-slate-500">{stimulus}</p>
     </div>
   )
 }

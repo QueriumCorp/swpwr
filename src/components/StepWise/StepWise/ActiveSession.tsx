@@ -1,4 +1,4 @@
-import React, { Ref, forwardRef, useContext, useImperativeHandle } from 'react'
+import React, { forwardRef, useContext, useImperativeHandle } from 'react'
 import { SessionContext } from '../stores/sessionContext'
 import { useStore } from 'zustand'
 
@@ -131,7 +131,7 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
         <Card
           id="ActiveSession"
           className={cn(
-            'flex flex-col rounded-lg bg-white p-1 shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800',
+            'flex flex-col rounded-lg bg-white p-1 text-slate-800 shadow-xl ring-1 ring-slate-900/5',
             className,
           )}
         >
@@ -145,17 +145,7 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
           </CardContent>
           <CardFooter className="flex flex-col px-2 pb-4">
             <InputPanel />
-            {/* <div>
-            <button onClick={handleStartSessionClick}>🇿🇲</button>
-            <button onClick={handleGetHintClick}>😉</button>
-            <button onClick={handleShowMeClick}>👉</button>
-            <button onClick={handleSubmitStepClick}>🦶🏽</button>
-            <button onClick={handleCloseClick}>🏁</button>
-          </div> */}
           </CardFooter>
-          {/* <pre style={{ textAlign: "left" }}>
-        {JSON.stringify(sessionStatus, null, 2)}
-      </pre> */}
         </Card>
       )
     }

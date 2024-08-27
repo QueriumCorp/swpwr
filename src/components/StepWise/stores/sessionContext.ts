@@ -43,6 +43,7 @@ import { heartbeatAction } from './solutionActions/heartbeat'
 import { MathMLToLaTeX } from 'mathml-to-latex'
 import { prepareOperators } from '../utils/prepareOperators'
 import { Session } from './session'
+import { Options } from './options'
 
 // ============================================================================
 // STORE DEFINITION
@@ -55,6 +56,7 @@ export const createSessionStore = (
   student?: Student,
   problem?: Problem,
   server?: Server,
+  options?: Options,
   assistant?: (msg: string) => void,
   onComplete?: (steps: Step[], log: Log[]) => void,
 ) => {
@@ -69,7 +71,12 @@ export const createSessionStore = (
     : { studentValid: false, studentStatusMsg: 'student is undefined' }
   server = validateServer(server)
 
-  type State = Student & Problem & Server & SolutionState & SolutionActions
+  type State = Student &
+    Problem &
+    Server &
+    Options &
+    SolutionState &
+    SolutionActions
 
   return createStore<State>()(
     devtools(
@@ -80,6 +87,7 @@ export const createSessionStore = (
         ...DEFAULT_PROBLEM_STATUS,
         ...DEFAULT_SOLUTION,
         ...server,
+        ...options,
         ...problem,
         ...problemStatus,
         ...student,
