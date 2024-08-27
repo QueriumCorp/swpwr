@@ -11,7 +11,7 @@ import KnownFacts from '../qq/KnownFacts'
 import { StimulusSelector } from '../qq/StimulusSelector'
 import UnknownFacts from '../qq/UnknownFacts'
 import { NavBar } from '../qq/NavBar'
-import { CarouselPrevious, CarouselNext } from '../ui/carousel'
+import { CarouselNext } from '../ui/carousel'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor } from '../qq/TinyTutor'
@@ -170,8 +170,7 @@ const NewbFindFacts: FC<{
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
           aiHints={aiHints}
-          getAiHints={getAiHints}
-          closeable={false}
+          closeable={true}
           hintChanged={hintChanged}
         />
         <CarouselNext

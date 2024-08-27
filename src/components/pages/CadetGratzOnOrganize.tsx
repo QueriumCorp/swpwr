@@ -1,62 +1,62 @@
-"use client";
+'use client'
 
-import * as React from "react";
+import * as React from 'react'
 
-import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
-import { NavContext, NavContextType } from "@/NavContext";
+import { cn } from '@/lib/utils'
+import { type YBRpage } from '../qq/YellowBrickRoad'
+import { NavContext, NavContextType } from '@/NavContext'
 import {
   AnimeTutor,
   AvatarAPIType,
   Chat,
   useAvatarAPI,
-} from "@/components/AnimeTutor";
-import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
+} from '@/components/AnimeTutor'
+import { NavBar } from '../qq/NavBar'
+import { CarouselPrevious, CarouselNext } from '../ui/carousel'
 
 const CadetGratzOnOrganize: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-  page?: YBRpage;
-  index: number;
+  className?: string
+  children?: React.ReactNode
+  page?: YBRpage
+  index: number
 }> = ({ className, children, index }) => {
-  const { current } = React.useContext(NavContext) as NavContextType;
+  const { current } = React.useContext(NavContext) as NavContextType
 
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
+  const { sayMsg } = useAvatarAPI() as AvatarAPIType
 
   React.useEffect(() => {
-    sayMsg("You've prepared and organized...'!", "idle:02");
-  }, []);
+    sayMsg("You've prepared and organized...'!", 'idle:02')
+  }, [])
 
   // JSX
-  if (current !== index + 1) return null; // Dont render if page not active
+  if (current !== index + 1) return null // Dont render if page not active
   return (
     <div
       className={cn(
-        "CadetGratzOnOrganize rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        'CadetGratzOnOrganize m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
       <h1>CadetGratzOnOrganize</h1>
       {children}
-      <div className="grow bg-qqAccent relative">
+      <div className="relative grow bg-qqAccent">
         <AnimeTutor
           closeUp
-          style={{ position: "absolute", height: "100%", right: "0px" }}
+          style={{ position: 'absolute', height: '100%', right: '0px' }}
         />
         <Chat
           msg="RATATATA"
-          className="font-irishGrover absolute right-[300px] bottom-[50%]"
+          className="absolute bottom-[50%] right-[300px] font-capriola"
         />
       </div>
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
+      <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
         <CarouselNext className="relative right-0">Next</CarouselNext>
       </NavBar>
     </div>
-  );
-};
-CadetGratzOnOrganize.displayName = "CadetGratzOnOrganize";
-export default CadetGratzOnOrganize;
+  )
+}
+CadetGratzOnOrganize.displayName = 'CadetGratzOnOrganize'
+export default CadetGratzOnOrganize

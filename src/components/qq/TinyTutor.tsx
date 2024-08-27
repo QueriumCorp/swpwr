@@ -47,7 +47,17 @@ export const TinyTutor = ({
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [hintStage, setHintStage] = useState<HintStage>('none')
+  const [hintStage, setHintStage] = useState<HintStage>(
+    msg
+      ? 'none'
+      : introMsgs
+        ? 'intro'
+        : psHints || wpHints
+          ? 'psHints'
+          : getAiHints
+            ? 'aiHints'
+            : 'none',
+  )
   const [bubbleShown, setBubbleShow] = useState(introMsgs.length ? true : false)
   const [currentHintMsgs, setCurrentHintMsgs] = useState<string[]>(
     msg
@@ -82,6 +92,8 @@ export const TinyTutor = ({
   }
 
   function nextHintStage() {
+    console.info('nextHintStage', hintStage)
+
     if (busy) {
       return
     }
@@ -160,17 +172,17 @@ export const TinyTutor = ({
       ></div>
       {msg?.length ? (
         <ChatBubble
-          className="font-capriola absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit text-sm"
+          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
           msgs={[msg]}
-          closeable={closeable}
+          closeable={closeable && !busy}
           closeClicked={closeChatBubble}
           hintPageChanged={hintPageChanged}
         />
       ) : (
         <ChatBubble
-          className="font-capriola absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit text-sm"
+          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
           msgs={bubbleShown ? currentHintMsgs : null}
-          closeable={closeable}
+          closeable={closeable && !busy}
           closeClicked={closeChatBubble}
           hintPageChanged={hintPageChanged}
         />

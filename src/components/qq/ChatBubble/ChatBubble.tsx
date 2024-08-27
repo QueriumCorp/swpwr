@@ -115,15 +115,37 @@ export const ChatBubble = ({
   function handleStartOver() {
     api?.scrollTo(0)
   }
-  function NavButton() {
-    if (count === 1) return null
 
+  ///////////////////////////////////////////////////////////////////
+  // Local Components
+  ///////////////////////////////////////////////////////////////////
+
+  // restart button
+  function RestartMsgs() {
     if (current === count) {
       return (
         <button className="border-none text-xs" onClick={handleStartOver}>
           <VscDebugRestart />
         </button>
       )
+    } else {
+      return <div></div>
+    }
+  }
+
+  // Navigation Button
+  function NavButton() {
+    if (count === 1 && !closeable) return null
+
+    if (current === count && closeable) {
+      return (
+        <div onClick={closeClicked} className="flex cursor-pointer justify-end">
+          <IoCloseSharp />
+        </div>
+      )
+    }
+    if (current === count && !closeable) {
+      return <div></div>
     }
     return (
       <button className="border-none text-xs" onClick={handleShowMeMore}>
@@ -199,17 +221,8 @@ export const ChatBubble = ({
         </Carousel>
       </div>
       <div className="absolute bottom-2 right-0 top-2 flex w-[30px] flex-col items-center justify-between bg-amber-400 text-right italic text-black">
-        {closeable ? (
-          <div
-            onClick={closeClicked}
-            className="flex cursor-pointer justify-end"
-          >
-            <IoCloseSharp />
-          </div>
-        ) : (
-          <div></div>
-        )}
         <SpeakButton></SpeakButton>
+        <RestartMsgs></RestartMsgs>
         <NavButton></NavButton>
       </div>
     </div>

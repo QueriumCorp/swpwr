@@ -1,73 +1,73 @@
-"use client";
+'use client'
 
-import * as React from "react";
+import * as React from 'react'
 
-import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
-import { NavContext, NavContextType } from "@/NavContext";
-import { AnimeTutor, Chat } from "@/components/AnimeTutor";
-import { NavBar } from "../qq/NavBar";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { useProblemStore } from "@/store/_store";
+import { cn } from '@/lib/utils'
+import { type YBRpage } from '../qq/YellowBrickRoad'
+import { NavContext, NavContextType } from '@/NavContext'
+import { AnimeTutor, Chat } from '@/components/AnimeTutor'
+import { NavBar } from '../qq/NavBar'
+import { CarouselPrevious, CarouselNext } from '../ui/carousel'
+import { useProblemStore } from '@/store/_store'
 
 const NewbGratzWatchedVideo: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-  page?: YBRpage;
-  index: number;
+  className?: string
+  children?: React.ReactNode
+  page?: YBRpage
+  index: number
 }> = ({ className, index }) => {
   // Contexts
-  const { current, api } = React.useContext(NavContext) as NavContextType;
+  const { current, api } = React.useContext(NavContext) as NavContextType
 
   // Store
-  const { logAction } = useProblemStore();
+  const { logAction } = useProblemStore()
 
   // JSX
-  if (current !== index + 1) return null; // Dont render if page not active
+  if (current !== index + 1) return null // Dont render if page not active
   return (
     <div
       className={cn(
-        "NewbGratzWatchedVideo rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        'NewbGratzWatchedVideo m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
-      <div className="grow bg-qqAccent relative">
+      <div className="relative grow bg-qqAccent">
         <AnimeTutor
-          emote={"gratz:03"}
+          emote={'gratz:03'}
           closeUp
           style={{
-            position: "absolute",
-            height: "100%",
-            right: "-150px",
-            width: "100%",
+            position: 'absolute',
+            height: '100%',
+            right: '-150px',
+            width: '100%',
             // border: "1px solid #000000",
           }}
         />
         <Chat
           msg="You are doing GREAT! Give this next exercise a try!"
-          className="font-irishGrover absolute right-[50%] bottom-[50%]"
+          className="absolute bottom-[50%] right-[50%] font-capriola"
         />
       </div>
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
+      <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
         <CarouselNext
           className="relative right-0"
           onClick={() => {
-            logAction("NewbGratzWatchedVideo : Clicked Next");
-            api?.scrollNext();
+            logAction('NewbGratzWatchedVideo : Clicked Next')
+            api?.scrollNext()
           }}
         >
           Next
-        </CarouselNext>{" "}
+        </CarouselNext>{' '}
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           NewbGratzWatchedVideo
         </h1>
       </NavBar>
     </div>
-  );
-};
-NewbGratzWatchedVideo.displayName = "NewbGratzWatchedVideo";
+  )
+}
+NewbGratzWatchedVideo.displayName = 'NewbGratzWatchedVideo'
 
-export default NewbGratzWatchedVideo;
+export default NewbGratzWatchedVideo

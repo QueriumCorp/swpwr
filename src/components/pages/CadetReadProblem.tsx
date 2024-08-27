@@ -1,47 +1,47 @@
-"use client";
+'use client'
 
-import * as React from "react";
+import * as React from 'react'
 
-import { cn } from "@/lib/utils";
-import { type YBRpage } from "../qq/YellowBrickRoad";
-import { NavContext, NavContextType } from "@/NavContext";
+import { cn } from '@/lib/utils'
+import { type YBRpage } from '../qq/YellowBrickRoad'
+import { NavContext, NavContextType } from '@/NavContext'
 import {
   useAvatarAPI,
   AvatarAPIType,
   AnimeTutor,
   Chat,
-} from "@/components/AnimeTutor";
-import { NavBar } from "../qq/NavBar";
-import { StimulusSelector } from "../qq/StimulusSelector";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { HdrBar } from "../qq/HdrBar";
-import { useProblemStore } from "@/store/_store";
+} from '@/components/AnimeTutor'
+import { NavBar } from '../qq/NavBar'
+import { StimulusSelector } from '../qq/StimulusSelector'
+import { CarouselPrevious, CarouselNext } from '../ui/carousel'
+import { HdrBar } from '../qq/HdrBar'
+import { useProblemStore } from '@/store/_store'
 
 const CadetReadProblem: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-  page?: YBRpage;
-  index: number;
+  className?: string
+  children?: React.ReactNode
+  page?: YBRpage
+  index: number
 }> = ({ className, page, index }) => {
-  const { current } = React.useContext(NavContext) as NavContextType;
+  const { current } = React.useContext(NavContext) as NavContextType
 
   // Store
-  const { problem } = useProblemStore();
+  const { problem } = useProblemStore()
 
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
+  const { sayMsg } = useAvatarAPI() as AvatarAPIType
   React.useEffect(() => {
     sayMsg(
-      "Read this statement carefully and then click the right arrow to continue.",
-      "idle:01",
-    );
-  }, []);
+      'Read this statement carefully and then click the right arrow to continue.',
+      'idle:01',
+    )
+  }, [])
 
   // JSX
-  if (current !== index + 1) return null;
+  if (current !== index + 1) return null
   return (
     <div
       className={cn(
-        "CadetReadProblem rounded-lg border bg-card text-card-foreground shadow-sm w-full h-full m-0 p-0 flex flex-col justify-stretch",
+        'CadetReadProblem m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
@@ -50,30 +50,30 @@ const CadetReadProblem: React.FC<{
         subTitle={page?.phaseLabel}
         instructions={page?.title}
       ></HdrBar>
-      <div className="flex flex-col p-2 gap-2 justify-stretch grow relative">
+      <div className="relative flex grow flex-col justify-stretch gap-2 p-2">
         <StimulusSelector
           className={cn(
-            "flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
             className,
-            "inline",
+            'inline',
           )}
-          stimulusText={problem.stimulus || ""}
+          stimulusText={problem.stimulus || ''}
         ></StimulusSelector>
 
         <div className="flex grow gap-2"></div>
       </div>
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300 relative">
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
         {/* Tiny Avatar */}
         <AnimeTutor
           style={{
-            bottom: "0px",
-            right: "0px",
-            height: "100%",
+            bottom: '0px',
+            right: '0px',
+            height: '100%',
           }}
         />
         <Chat
           msg="RATATATA"
-          className="font-irishGrover absolute right-[200px] bottom-[50%] h-fit w-fit min-h-[64px]"
+          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola"
         />
         <CarouselPrevious className="relative left-0">
           Previous
@@ -81,7 +81,7 @@ const CadetReadProblem: React.FC<{
         <CarouselNext className="relative right-0">Next</CarouselNext>
       </NavBar>
     </div>
-  );
-};
-CadetReadProblem.displayName = "CadetReadProblem";
-export default CadetReadProblem;
+  )
+}
+CadetReadProblem.displayName = 'CadetReadProblem'
+export default CadetReadProblem

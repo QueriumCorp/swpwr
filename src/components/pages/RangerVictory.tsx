@@ -100,7 +100,7 @@ const RangerVictory: FC<{
           msg={`**Congratulations!**
 You did a great job!
 `}
-          className="absolute bottom-[50%] right-[50%] font-irishGrover"
+          className="absolute bottom-[50%] right-[50%] font-capriola"
         />
       </div>
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
