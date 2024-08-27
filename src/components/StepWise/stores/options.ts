@@ -1,3 +1,3 @@
 export type Options = {
-  showMe?: boolean
+  enableShowMe?: boolean
 }

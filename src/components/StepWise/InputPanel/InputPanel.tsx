@@ -54,6 +54,7 @@ const InputPanel = () => {
   // get session
   const session = React.useContext(SessionContext)
   if (!session) throw new Error('No SessionContext.Provider in the tree')
+  const enableShowMe = useStore(session, s => s.enableShowMe)
   const identifiers = useStore(session, s => s.identifiers)
   const operators = useStore(session, s => s.operators)
   const submitStep = useStore(session, s => s.submitStep)
@@ -93,7 +94,7 @@ const InputPanel = () => {
   return (
     <>
       <div className="flex w-full items-center rounded-full bg-slate-300 py-2">
-        <ShowMe className="ml-3"></ShowMe>
+        {enableShowMe ? <ShowMe className="ml-3"></ShowMe> : null}
         <Hint className="ml-0"></Hint>
         <math-field
           ref={mf}
