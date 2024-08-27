@@ -15,15 +15,14 @@ import { Session } from '../stores/session'
 import { ActiveSession, type ActiveSessionAPI } from './ActiveSession'
 import { Server } from '../stores/server'
 import { Log, Step } from '../stores/solution'
+import { Options } from '../stores/options'
 
 // Definition of Types and Interfaces
 export interface StepWiseProps {
   problem: Problem
   student: Student
   server?: Server
-  options?: {
-    showMe?: boolean
-  }
+  options?: Options
   ready?: boolean
   go?: boolean
   assistant?: (msg: string) => void
