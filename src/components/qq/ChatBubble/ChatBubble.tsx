@@ -122,7 +122,7 @@ export const ChatBubble = ({
 
   // restart button
   function RestartMsgs() {
-    if (current === count) {
+    if (current === count && count > 1) {
       return (
         <button className="border-none text-xs" onClick={handleStartOver}>
           <VscDebugRestart />
