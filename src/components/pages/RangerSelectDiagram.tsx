@@ -203,11 +203,11 @@ const RangerSelectDiagram: FC<{
           <div className="mb-4 flex grow flex-wrap justify-center gap-2">
             <Card
               className={cn(
-                'w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
+                'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('additiveTotalSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
                   : schema === 'TOTAL'
-                    ? 'cursor-pointer bg-qqAccent'
+                    ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
               onClick={() => handleSelectSchema('TOTAL')}
@@ -223,11 +223,11 @@ const RangerSelectDiagram: FC<{
 
             <Card
               className={cn(
-                'w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
+                'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('additiveDifferenceSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
                   : schema === 'DIFFERENCE'
-                    ? 'cursor-pointer bg-qqAccent'
+                    ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
               onClick={() => handleSelectSchema('DIFFERENCE')}
@@ -243,11 +243,11 @@ const RangerSelectDiagram: FC<{
 
             <Card
               className={cn(
-                'w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
+                'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('additiveChangeSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
                   : schema === 'CHANGEINCREASE'
-                    ? 'cursor-pointer bg-qqAccent'
+                    ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
               onClick={() => handleSelectSchema('CHANGEINCREASE')}
@@ -262,11 +262,11 @@ const RangerSelectDiagram: FC<{
             </Card>
             <Card
               className={cn(
-                'w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
+                'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('subtractiveChangeSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
                   : schema === 'CHANGEDECREASE'
-                    ? 'cursor-pointer bg-qqAccent'
+                    ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
               onClick={() => handleSelectSchema('CHANGEDECREASE')}
@@ -282,12 +282,14 @@ const RangerSelectDiagram: FC<{
             <div className="h-0 basis-full"></div>
             <Card
               className={cn(
-                'w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
-                schema === 'EQUALGROUPS' ? 'bg-qqAccent' : 'bg-white',
+                'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
+                schema === 'EQUALGROUPS'
+                  ? 'border-4 border-qqAccent'
+                  : 'bg-white',
                 disabledSchemas?.includes('multiplicativeEqualGroupsSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
                   : schema === 'EQUALGROUPS'
-                    ? 'cursor-pointer bg-qqAccent'
+                    ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
               onClick={() => handleSelectSchema('EQUALGROUPS')}
@@ -301,11 +303,11 @@ const RangerSelectDiagram: FC<{
             </Card>
             <Card
               className={cn(
-                'w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
+                'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('multiplicativeCompareSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
                   : schema === 'COMPARE'
-                    ? 'cursor-pointer bg-qqAccent'
+                    ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
               onClick={() => handleSelectSchema('COMPARE')}
