@@ -279,7 +279,7 @@ export const createSessionStore = (
             set(state => ({
               log: [...state.log, logEntry],
             }))
-            return
+            return "I'm sorry. We don't have a sessionToken."
           }
 
           try {
@@ -302,7 +302,7 @@ export const createSessionStore = (
             set(state => ({
               log: [...state.log, logEntry],
             }))
-            return
+            return JSON.stringify(logEntry)
           }
 
           // got a valid http response
@@ -324,7 +324,7 @@ export const createSessionStore = (
               lastAction: Date.now(),
             }))
             if (typeof assistant === 'function') assistant(body.hintText)
-            return
+            return body.hintText
           }
 
           // response was not ok
@@ -332,6 +332,7 @@ export const createSessionStore = (
           set(state => ({
             log: [...state.log, logEntry],
           }))
+          return logEntry.response
         },
 
         //=====================================================
@@ -482,7 +483,8 @@ export const createSessionStore = (
         //=====================================================
         // SUBMIT STEP
         //=====================================================
-        submitStep: async (step: string) => {
+        submitStep: async (step?: string) => {
+          step = step || get().editingStep
           const appKey = get().appKey
           const now = Date.now()
 
@@ -505,7 +507,7 @@ export const createSessionStore = (
             set(state => ({
               log: [...state.log, logEntry],
             }))
-            return
+            return logEntry.response
           }
 
           try {
@@ -532,7 +534,7 @@ export const createSessionStore = (
             set(state => ({
               log: [...state.log, logEntry],
             }))
-            return
+            return logEntry.response
           }
 
           // got a valid http response
@@ -572,7 +574,7 @@ export const createSessionStore = (
 
             if (typeof assistant === 'function') {
               assistant(body.message)
-              return
+              return body.message
             }
 
             set(state => ({
@@ -754,6 +756,15 @@ export const createSessionStore = (
 
           set(state => ({
             log: [...state.log, logEntry],
+          }))
+        },
+
+        //=====================================================
+        // setEditingStep
+        //=====================================================
+        setEditingStep: async (stepInProgress: string) => {
+          set(_state => ({
+            editingStep: stepInProgress,
           }))
         },
       }), // end of state

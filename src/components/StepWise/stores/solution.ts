@@ -1,18 +1,18 @@
-import { z } from "zod";
-import { MathMLToLaTeX } from "mathml-to-latex";
-import { Session } from "./session";
+import { z } from 'zod'
+import { MathMLToLaTeX } from 'mathml-to-latex'
+import { Session } from './session'
 
 export type Hint = {
-  type: "advisory" | "genhint" | "writedown";
-  tag: string;
-  message: string;
-};
+  type: 'advisory' | 'genhint' | 'writedown'
+  tag: string
+  message: string
+}
 
 export type ShowMeStep = {
-  key: string;
-  suggestedStep: string;
-  instruction: string;
-};
+  key: string
+  suggestedStep: string
+  instruction: string
+}
 
 /**
  * Step type defines the structure of a step in the solution state.
@@ -20,90 +20,90 @@ export type ShowMeStep = {
  * the math content of the step, array of hints, and a message.
  */
 export type Step = {
-  timestamp: number;
+  timestamp: number
 } & (
   | {
-      type: "correct";
-      status: string;
-      stepStatus: "VALID";
-      message: string;
-      rawResponse: string;
-      latex: string;
-      hintObject: Hint[];
+      type: 'correct'
+      status: string
+      stepStatus: 'VALID'
+      message: string
+      rawResponse: string
+      latex: string
+      hintObject: Hint[]
     }
   | {
-      type: "incorrect";
-      status: string;
-      stepStatus: "INVALID";
-      message: string;
-      rawResponse: string;
-      latex: string;
-      hintObject: Hint[];
+      type: 'incorrect'
+      status: string
+      stepStatus: 'INVALID'
+      message: string
+      rawResponse: string
+      latex: string
+      hintObject: Hint[]
     }
   | {
-      type: "hint";
-      status: string;
-      hintText: string;
-      hintObject: Hint[];
+      type: 'hint'
+      status: string
+      hintText: string
+      hintObject: Hint[]
     }
   | {
-      type: "showMe";
-      status: string;
-      showMe: ShowMeStep[];
+      type: 'showMe'
+      status: string
+      showMe: ShowMeStep[]
     }
   | {
-      type: "victory";
-      status: string;
-      stepStatus: "COMPLETE";
-      message: string;
-      rawResponse: string;
-      latex: string;
-      hintObject: Hint[];
+      type: 'victory'
+      status: string
+      stepStatus: 'COMPLETE'
+      message: string
+      rawResponse: string
+      latex: string
+      hintObject: Hint[]
     }
   | {
-      type: "mathComplete";
-      status: string;
-      stepStatus: "MATHCOMPLETE";
-      message: string;
-      rawResponse: string;
-      latex: string;
-      hintObject: Hint[];
+      type: 'mathComplete'
+      status: string
+      stepStatus: 'MATHCOMPLETE'
+      message: string
+      rawResponse: string
+      latex: string
+      hintObject: Hint[]
     }
-);
+)
 
 export const StepSchema = z.object({
   type: z.string(),
-});
+})
 
 export type Log = {
-  timestamp: number;
-  action: string;
-  response: string;
-};
+  timestamp: number
+  action: string
+  response: string
+}
 export const LogSchema = z.object({
   timestamp: z.number(),
   action: z.string(),
   response: z.string(),
-}) satisfies z.ZodType<Log>;
+}) satisfies z.ZodType<Log>
 
 export type Operator = {
-  method: string;
-  cursorShift: string;
-  atomic: boolean;
-  enabled: boolean;
-  latex: string;
-  mma: string;
-  operator: string;
-  string: string;
-  symbol_style?: any;
-  symbol_latex: string;
-  symbol_html: string;
-  symbol_icon: string;
-  symbol_img: string;
-  symbol_svg: string;
-  symbol_utf8: string;
-  tooltip: string;
-};
+  method: string
+  cursorShift: string
+  atomic: boolean
+  enabled: boolean
+  latex: string
+  mma: string
+  operator: string
+  string: string
+  symbol_style?: any
+  symbol_latex: string
+  symbol_html: string
+  symbol_icon: string
+  symbol_img: string
+  symbol_svg: string
+  symbol_utf8: string
+  tooltip: string
+}
 export const OperatorSchema = z.object({
   method: z.string(),
   cursorShift: z.string(),
@@ -121,24 +121,25 @@ export const OperatorSchema = z.object({
   symbol_svg: z.string(),
   symbol_utf8: z.string(),
   tooltip: z.string(),
-}) satisfies z.ZodType<Operator>;
+}) satisfies z.ZodType<Operator>
 
 export type SolutionState = {
-  initialState: "READY" | "SET" | "GO";
-  sessionToken: string;
-  identifiers: string[];
-  operators: Operator[];
-  steps: Step[];
-  stepCount: number;
-  hintCount: number;
-  errorCount: number;
-  log: Log[];
-  lastAction: number;
-};
+  initialState: 'READY' | 'SET' | 'GO'
+  sessionToken: string
+  identifiers: string[]
+  operators: Operator[]
+  steps: Step[]
+  stepCount: number
+  hintCount: number
+  errorCount: number
+  log: Log[]
+  lastAction: number
+  editingStep: string
+}
 // define the initial state
 export const DEFAULT_SOLUTION: SolutionState = {
-  initialState: "GO",
-  sessionToken: "",
+  initialState: 'GO',
+  sessionToken: '',
   identifiers: [],
   operators: [],
   steps: [],
@@ -147,7 +148,8 @@ export const DEFAULT_SOLUTION: SolutionState = {
   errorCount: 0,
   log: [],
   lastAction: 0,
-};
+  editingStep: '',
+}
 
 export const SolutionSchema = z.object({
   initialState: z.string(),
@@ -160,94 +162,96 @@ export const SolutionSchema = z.object({
   errorCount: z.number(),
   log: z.array(LogSchema),
   lastAction: z.number(),
-});
+  editingStep: z.string(),
+})
 
 export type SolutionActions = {
-  heartbeat: () => Promise<void>;
-  startSession: () => Promise<void>;
-  resumeSession: (session: Session) => Promise<void>;
-  getHint: () => Promise<void>;
-  showMe: () => Promise<void>;
-  submitStep: (step: string) => Promise<void>;
-  close: () => Promise<void>;
-  getGrade: () => Promise<void>;
-};
+  heartbeat: () => Promise<void>
+  startSession: () => Promise<void>
+  resumeSession: (session: Session) => Promise<void>
+  getHint: () => Promise<void>
+  showMe: () => Promise<void>
+  submitStep: (step: string) => Promise<string>
+  close: () => Promise<void>
+  getGrade: () => Promise<void>
+  setEditingStep: (stepInProgress: string) => Promise<void>
+}
 
 export const extractErrorMsg = (error: unknown): string => {
-  let message: string;
+  let message: string
 
   if (error instanceof Error) {
-    message = error.message;
-  } else if (error && typeof error === "object" && "message" in error) {
-    message = String(error.message);
-  } else if (typeof error === "string") {
-    message = error;
+    message = error.message
+  } else if (error && typeof error === 'object' && 'message' in error) {
+    message = String(error.message)
+  } else if (typeof error === 'string') {
+    message = error
   } else {
-    message = "Something went wrong";
+    message = 'Something went wrong'
   }
-  return message;
-};
+  return message
+}
 
 export function LaTeXText(text: string) {
   // TODO: Add support for multiple maths in a single string
-  const startIndex = text.indexOf("<math");
-  const endIndex = text.indexOf("</math") + 7;
+  const startIndex = text.indexOf('<math')
+  const endIndex = text.indexOf('</math') + 7
 
   // No MathML?
-  if (startIndex === -1) return text;
+  if (startIndex === -1) return text
 
   // All MathML?
   if (startIndex === 0 && endIndex === text.length - 1)
-    return MathMLToLaTeX.convert(text);
+    return MathMLToLaTeX.convert(text)
 
   // Part MathML
-  const front = text.substring(0, startIndex);
-  const middle = MathMLToLaTeX.convert(text.substring(startIndex, endIndex));
-  const back = text.substring(endIndex, text.length - 1);
-  return front + "\\(" + middle + "\\)" + back;
+  const front = text.substring(0, startIndex)
+  const middle = MathMLToLaTeX.convert(text.substring(startIndex, endIndex))
+  const back = text.substring(endIndex, text.length - 1)
+  return front + '\\(' + middle + '\\)' + back
 }
 
 export type RawShowMeStep = {
-  suggestedStep: string;
-  instruction: string;
-};
+  suggestedStep: string
+  instruction: string
+}
 
 export function getHintMessage(text: string): string {
-  const startDelimiter = "[HINTMSG:START]";
-  const endDelimiter = "[HINTMSG:END]";
+  const startDelimiter = '[HINTMSG:START]'
+  const endDelimiter = '[HINTMSG:END]'
 
-  const startIndex = text.indexOf(startDelimiter);
+  const startIndex = text.indexOf(startDelimiter)
   if (startIndex === -1) {
-    return "";
+    return ''
   }
 
   const endIndex = text.indexOf(
     endDelimiter,
     startIndex + startDelimiter.length,
-  );
+  )
   if (endIndex === -1) {
-    return "";
+    return ''
   }
 
-  return text.substring(startIndex + startDelimiter.length, endIndex);
+  return text.substring(startIndex + startDelimiter.length, endIndex)
 }
 
 export function getIncorrectStepMessage(text: string): string {
-  const startDelimiter = "[FBMSG:START]";
-  const endDelimiter = "[FBMSG:END]";
+  const startDelimiter = '[FBMSG:START]'
+  const endDelimiter = '[FBMSG:END]'
 
-  const startIndex = text.indexOf(startDelimiter);
+  const startIndex = text.indexOf(startDelimiter)
   if (startIndex === -1) {
-    return "";
+    return ''
   }
 
   const endIndex = text.indexOf(
     endDelimiter,
     startIndex + startDelimiter.length,
-  );
+  )
   if (endIndex === -1) {
-    return "";
+    return ''
   }
 
-  return text.substring(startIndex + startDelimiter.length, endIndex);
+  return text.substring(startIndex + startDelimiter.length, endIndex)
 }

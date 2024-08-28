@@ -20,6 +20,8 @@ export type ActiveSessionProps = {
 export type ActiveSessionAPI = {
   start: () => void
   resume?: (session: Session) => void
+  getExternalHint?: () => Promise<void>
+  evaluateStep?: () => Promise<string>
 }
 
 export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
@@ -40,6 +42,7 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
       startSession()
     }
     const getHint = useStore(session, s => s.getHint)
+
     const handleGetHintClick = () => {
       getHint()
     }
@@ -65,6 +68,12 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
           },
           resume(session: Session) {
             resumeSession(session)
+          },
+          async getExternalHint() {
+            return await getHint()
+          },
+          async evaluateStep() {
+            return await submitStep()
           },
         }
       },

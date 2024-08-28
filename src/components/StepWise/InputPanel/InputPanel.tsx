@@ -1,10 +1,10 @@
+// React Imports
 import React, { useEffect, useRef, useState, ChangeEvent } from 'react'
 
-// stores
+// Querium Imports
 import { SessionContext } from '../stores/sessionContext'
 import { useStore } from 'zustand'
 
-// components
 import { Submit } from './Submit/Submit'
 import { Hint } from './Hint/Hint'
 import { ShowMe } from './ShowMe/ShowMe'
@@ -15,6 +15,7 @@ import './MathEditor.css'
 import type { MathfieldElement, Selector } from 'mathlive'
 import { MathViewRef } from '../types/mathlive'
 import { Operator } from '../stores/solution'
+
 /* eslint-disable */
 declare global {
   namespace JSX {
@@ -28,16 +29,37 @@ declare global {
 }
 /* eslint-enable */
 
-/* ============================================================================
-
-InputPanel
-
-============================================================================ */
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 const InputPanel = () => {
-  // manage MathLive's mathfield
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+  const session = React.useContext(SessionContext)
+  if (!session) throw new Error('No SessionContext.Provider in the tree')
+  const enableShowMe = useStore(session, s => s.enableShowMe)
+  const identifiers = useStore(session, s => s.identifiers)
+  const operators = useStore(session, s => s.operators)
+  const submitStep = useStore(session, s => s.submitStep)
+  const setEditingStep = useStore(session, s => s.setEditingStep)
+
+  ///////////////////////////////////////////////////////////////////
+  // Refs
+  ///////////////////////////////////////////////////////////////////
+
   const mf = useRef<MathViewRef>(null)
+
+  ///////////////////////////////////////////////////////////////////
+  // State
+  ///////////////////////////////////////////////////////////////////
+
   const [value, setValue] = useState<string>('')
+
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
     if (mf.current) {
@@ -51,15 +73,14 @@ const InputPanel = () => {
     }
   }, [])
 
-  // get session
-  const session = React.useContext(SessionContext)
-  if (!session) throw new Error('No SessionContext.Provider in the tree')
-  const enableShowMe = useStore(session, s => s.enableShowMe)
-  const identifiers = useStore(session, s => s.identifiers)
-  const operators = useStore(session, s => s.operators)
-  const submitStep = useStore(session, s => s.submitStep)
+  useEffect(() => {
+    setEditingStep(value)
+  }, [value])
 
-  // setup event handlers
+  ///////////////////////////////////////////////////////////////////
+  // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
   const handleKeyPress = (operator: Operator) => {
     let cmd
     switch (operator.method) {
@@ -90,7 +111,10 @@ const InputPanel = () => {
     mf.current?.focus()
   }
 
+  ///////////////////////////////////////////////////////////////////
   // JSX
+  ///////////////////////////////////////////////////////////////////
+
   return (
     <>
       <div className="flex w-full items-center rounded-full bg-slate-300 py-2">

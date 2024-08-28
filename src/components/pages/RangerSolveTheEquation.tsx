@@ -118,6 +118,22 @@ const RangerSolveTheEquation: FC<{
     }
   }
 
+  function getExternalHint() {
+    if (stepwiseRef.current) {
+      setWorking(true)
+      // @ts-ignore: TS seems to think the ✓ above doesnt exist
+      stepwiseRef.current.getExternalHint()
+    }
+  }
+
+  function evaluateStep() {
+    if (stepwiseRef.current) {
+      setWorking(true)
+      // @ts-ignore: TS seems to think the ✓ above doesnt exist
+      stepwiseRef.current.evaluateStep()
+    }
+  }
+
   async function HandleNext(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
@@ -241,7 +257,12 @@ const RangerSolveTheEquation: FC<{
           psHints={pageSpecificHints}
           wpHints={wpHints?.hints}
         />
-
+        <Button className="z-10 bg-blue-400" onClick={getExternalHint}>
+          getHint
+        </Button>
+        <Button className="z-10 bg-green-400" onClick={evaluateStep}>
+          submit
+        </Button>
         <NextButton busy={busy} onClick={evt => HandleNext(evt)}></NextButton>
 
         <h1 className="absolute bottom-0 left-0 text-slate-500">
