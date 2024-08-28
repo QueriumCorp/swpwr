@@ -305,10 +305,6 @@ Click Next to practice and check your understanding.`,
     title: 'Pull apart the problem',
     phase: 'P',
     phaseLabel: 'Prepare',
-    psHints: [
-      `Drag the facts to the Known and Unknown boxes.`,
-      `Click → to continue.`,
-    ],
     aiHints: false,
   },
   {
