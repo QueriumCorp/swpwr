@@ -1,30 +1,34 @@
-import React from "react";
-import { SessionContext } from "../stores/sessionContext";
-import { useStore } from "zustand";
+import React, { useEffect } from 'react'
+import { SessionContext } from '../stores/sessionContext'
+import { useStore } from 'zustand'
 
-import type { Step as StepType } from "../stores/solution";
-import CorrectStep from "./CorrectStep";
-import IncorrectStep from "./IncorrectStep";
-import VictoryStep from "./VictoryStep";
-import HintStep from "./HintStep";
-import ShowMeStep from "./ShowMeStep";
+import type { Step as StepType } from '../stores/solution'
+import CorrectStep from './CorrectStep'
+import IncorrectStep from './IncorrectStep'
+import VictoryStep from './VictoryStep'
+import HintStep from './HintStep'
+import ShowMeStep from './ShowMeStep'
 import {
   Table,
   TableBody,
   TableCaption,
   TableHeader,
-} from "../components/Table";
+} from '../components/Table'
 
 const Steps = () => {
-  const session = React.useContext(SessionContext);
-  if (!session) throw new Error("No SessionContext.Provider in the tree");
+  const session = React.useContext(SessionContext)
+  if (!session) throw new Error('No SessionContext.Provider in the tree')
 
-  const steps: StepType[] = useStore(session, (s) => s.steps);
-  const lastAction = useStore(session, (s) => s.lastAction);
+  const steps: StepType[] = useStore(session, s => s.steps)
+  const lastAction = useStore(session, s => s.lastAction)
+
+  useEffect(() => {
+    console.table(steps)
+  }, [steps])
 
   const renderStepSwitch = (step: StepType) => {
     switch (step.type) {
-      case "correct":
+      case 'correct':
         return (
           <CorrectStep
             key={step.timestamp}
@@ -37,8 +41,8 @@ const Steps = () => {
             rawResponse={step.rawResponse}
             hintObject={step.hintObject}
           />
-        );
-      case "incorrect":
+        )
+      case 'incorrect':
         return (
           <IncorrectStep
             key={step.timestamp}
@@ -51,8 +55,8 @@ const Steps = () => {
             rawResponse={step.rawResponse}
             hintObject={step.hintObject}
           />
-        );
-      case "hint":
+        )
+      case 'hint':
         return (
           <HintStep
             key={step.timestamp}
@@ -62,10 +66,10 @@ const Steps = () => {
             status={step.status}
             hintObject={step.hintObject}
           />
-        );
-      case "showMe":
+        )
+      case 'showMe':
         // render only if the showMe is the last action
-        if (lastAction !== step.timestamp) return null;
+        if (lastAction !== step.timestamp) return null
         return (
           <ShowMeStep
             key={step.timestamp}
@@ -74,8 +78,8 @@ const Steps = () => {
             status={step.status}
             showMe={step.showMe}
           />
-        );
-      case "victory":
+        )
+      case 'victory':
         return (
           <VictoryStep
             key={step.timestamp}
@@ -88,8 +92,8 @@ const Steps = () => {
             rawResponse={step.rawResponse}
             hintObject={step.hintObject}
           />
-        );
-      case "mathComplete":
+        )
+      case 'mathComplete':
         return (
           <VictoryStep
             key={step.timestamp}
@@ -102,23 +106,23 @@ const Steps = () => {
             rawResponse={step.rawResponse}
             hintObject={step.hintObject}
           />
-        );
+        )
       default:
         // TODO: Finish exhaustive union as shown here: https://www.youtube.com/watch?v=CG3_Y9T03J4
-        return <div>Step type not implemented: {JSON.stringify(step)}</div>;
+        return <div>Step type not implemented: {JSON.stringify(step)}</div>
     }
-  };
+  }
 
   return (
     <Table className="h-full">
-      <TableCaption className="caption-top text-left mt-0 text-slate-900 dark:text-white text-base font-medium tracking-tight">
+      <TableCaption className="mt-0 caption-top text-left text-base font-medium tracking-tight text-slate-900 dark:text-white">
         Your solution
       </TableCaption>
       <TableBody className="">
-        {steps.map((step) => renderStepSwitch(step))}
+        {steps.map(step => renderStepSwitch(step))}
       </TableBody>
     </Table>
-  );
-};
+  )
+}
 
-export default Steps;
+export default Steps

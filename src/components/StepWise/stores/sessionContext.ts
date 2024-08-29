@@ -211,6 +211,11 @@ export const createSessionStore = (
         // RESUME SESSION
         //=====================================================
         resumeSession: async (session: Session) => {
+          let st = get().sessionToken
+          if (st.length > 20) {
+            return
+          }
+
           let logEntry: Log = {
             timestamp: Date.now(),
             action: 'resumeSession',
