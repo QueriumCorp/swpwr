@@ -15,6 +15,7 @@ import './MathEditor.css'
 import type { MathfieldElement, Selector } from 'mathlive'
 import { MathViewRef } from '../types/mathlive'
 import { Operator } from '../stores/solution'
+import { cn } from '@/lib/utils'
 
 /* eslint-disable */
 declare global {
@@ -40,6 +41,8 @@ const InputPanel = () => {
   const session = React.useContext(SessionContext)
   if (!session) throw new Error('No SessionContext.Provider in the tree')
   const enableShowMe = useStore(session, s => s.enableShowMe)
+  const displayHintButton = useStore(session, s => s.displayHintButton)
+  const displaySubmitButton = useStore(session, s => s.displaySubmitButton)
   const identifiers = useStore(session, s => s.identifiers)
   const operators = useStore(session, s => s.operators)
   const submitStep = useStore(session, s => s.submitStep)
@@ -117,9 +120,14 @@ const InputPanel = () => {
 
   return (
     <>
-      <div className="flex w-full items-center rounded-full bg-slate-300 py-2">
+      <div
+        className={cn(
+          'flex w-full items-center rounded-full bg-slate-300 py-2',
+          displayHintButton ? '' : 'px-4',
+        )}
+      >
         {enableShowMe ? <ShowMe className="ml-3"></ShowMe> : null}
-        <Hint className="ml-0"></Hint>
+        {displayHintButton ? <Hint className="ml-0"></Hint> : null}
         <math-field
           ref={mf}
           onInput={(evt: React.FormEvent<MathfieldElement>) =>
@@ -135,7 +143,7 @@ const InputPanel = () => {
         >
           {value}
         </math-field>
-        <Submit className="mr-3" value={value} />
+        {displaySubmitButton ? <Submit className="mr-3" value={value} /> : null}
       </div>
       <Keyboard
         identifiers={identifiers}

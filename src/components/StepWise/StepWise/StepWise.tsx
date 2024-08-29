@@ -25,7 +25,7 @@ export interface StepWiseProps {
   options?: Options
   ready?: boolean
   go?: boolean
-  assistant?: (msg: string) => void
+  assistant?: (msg: string, busy?: boolean) => void
   onComplete?: (steps: Step[], log: Log[]) => void
   className?: string
   style?: CSSProperties

@@ -57,7 +57,7 @@ export const createSessionStore = (
   problem?: Problem,
   server?: Server,
   options?: Options,
-  assistant?: (msg: string) => void,
+  assistant?: (msg: string, busy?: boolean) => void,
   onComplete?: (steps: Step[], log: Log[]) => void,
 ) => {
   initialState = initialState || 'GO'
@@ -279,9 +279,16 @@ export const createSessionStore = (
             set(state => ({
               log: [...state.log, logEntry],
             }))
+            if (typeof assistant === 'function')
+              assistant(
+                'Oh oh! We had a failure:' + JSON.stringify(logEntry),
+                false,
+              )
             return "I'm sorry. We don't have a sessionToken."
           }
 
+          if (typeof assistant === 'function')
+            assistant('Hmmm...  Let me see...', true)
           try {
             response = await fetch(`${server.serverURL}/getHint`, {
               method: 'POST',
@@ -302,6 +309,12 @@ export const createSessionStore = (
             set(state => ({
               log: [...state.log, logEntry],
             }))
+            if (typeof assistant === 'function') {
+              assistant(
+                'Oh oh! We had a failure:' + JSON.stringify(logEntry),
+                false,
+              )
+            }
             return JSON.stringify(logEntry)
           }
 
@@ -323,7 +336,7 @@ export const createSessionStore = (
               ],
               lastAction: Date.now(),
             }))
-            if (typeof assistant === 'function') assistant(body.hintText)
+            if (typeof assistant === 'function') assistant(body.hintText, false)
             return body.hintText
           }
 
@@ -332,6 +345,12 @@ export const createSessionStore = (
           set(state => ({
             log: [...state.log, logEntry],
           }))
+          if (typeof assistant === 'function') {
+            assistant(
+              'Oh oh! We had a failure:' + JSON.stringify(logEntry),
+              false,
+            )
+          }
           return logEntry.response
         },
 
@@ -507,9 +526,17 @@ export const createSessionStore = (
             set(state => ({
               log: [...state.log, logEntry],
             }))
+            if (typeof assistant === 'function') {
+              assistant(
+                'Oh oh! We had a failure:' + JSON.stringify(logEntry),
+                false,
+              )
+            }
             return logEntry.response
           }
 
+          if (typeof assistant === 'function')
+            assistant('Just a sec while I check your step...', true)
           try {
             response = await fetch(`${server.serverURL}/submitStep`, {
               method: 'POST',
@@ -534,6 +561,12 @@ export const createSessionStore = (
             set(state => ({
               log: [...state.log, logEntry],
             }))
+            if (typeof assistant === 'function') {
+              assistant(
+                'Oh oh! We had a failure:' + JSON.stringify(logEntry),
+                false,
+              )
+            }
             return logEntry.response
           }
 
@@ -573,8 +606,7 @@ export const createSessionStore = (
             }
 
             if (typeof assistant === 'function') {
-              assistant(body.message)
-              return body.message
+              assistant(body.message, false)
             }
 
             set(state => ({
@@ -582,6 +614,8 @@ export const createSessionStore = (
               steps: [...state.steps, resultingStep as Step],
               lastAction: now,
             }))
+
+            return body.message
           }
         },
 
