@@ -22,11 +22,13 @@ const Steps = () => {
   const steps: StepType[] = useStore(session, s => s.steps)
   const lastAction = useStore(session, s => s.lastAction)
 
-  useEffect(() => {
-    console.table(steps)
-  }, [steps])
+  const renderStepSwitch = (step: StepType, index: number) => {
+    let lastStepCorrect =
+      steps[steps.length - 1]?.type === 'correct' ||
+      steps[steps.length - 1]?.type === 'mathComplete' ||
+      steps[steps.length - 1]?.type === 'victory'
+    console.log(lastStepCorrect)
 
-  const renderStepSwitch = (step: StepType) => {
     switch (step.type) {
       case 'correct':
         return (
@@ -43,6 +45,9 @@ const Steps = () => {
           />
         )
       case 'incorrect':
+        if (lastStepCorrect) {
+          return null
+        }
         return (
           <IncorrectStep
             key={step.timestamp}
@@ -57,6 +62,9 @@ const Steps = () => {
           />
         )
       case 'hint':
+        if (lastStepCorrect) {
+          return null
+        }
         return (
           <HintStep
             key={step.timestamp}
@@ -119,7 +127,7 @@ const Steps = () => {
         Your solution
       </TableCaption>
       <TableBody className="">
-        {steps.map(step => renderStepSwitch(step))}
+        {steps.map((step, index) => renderStepSwitch(step, index))}
       </TableBody>
     </Table>
   )

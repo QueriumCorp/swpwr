@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { FC, ReactNode, useContext, useRef, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useRef, useState } from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -67,10 +67,6 @@ const RangerSolveTheEquation: FC<{
 
   const pageSpecificHints = page?.psHints || []
 
-  if (ybr[current - 1]?.id === page?.id) {
-    setTimeout(startStepWise, 1000)
-  }
-
   // Prepare problem data to work with StepWise
   type swProblemType = {
     appKey: string
@@ -105,6 +101,12 @@ const RangerSolveTheEquation: FC<{
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    if (ybr[current - 1]?.id === page?.id) {
+      setTimeout(startStepWise, 1000)
+    }
+  }, [current, page])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
