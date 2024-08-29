@@ -13,6 +13,7 @@ import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
+import { BabyFox } from '../StepWise/Steps/BabyFox'
 
 const RangerReadProblem: React.FC<{
   className?: string
@@ -94,7 +95,9 @@ const RangerReadProblem: React.FC<{
           stimulusText={problem.stimulus}
         ></StimulusSelector>
 
-        <div className="flex grow gap-2"></div>
+        <div className="flex grow gap-2">
+          <BabyFox className="h-[72px] w-[72px] bg-red-500" />
+        </div>
       </div>
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
