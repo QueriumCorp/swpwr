@@ -23,6 +23,8 @@ import { ChangeDecreaseEquationGraphic } from '../schemaEditors/changeDecrease/C
 import { ChangeIncreaseEquationGraphic } from '../schemaEditors/changeIncrease/ChangeIncreaseEquationGraphic'
 import { CompareEquationGraphic } from '../schemaEditors/compare/CompareEquationGraphic'
 import { NextButton } from '../qq/NextButton'
+import { Check } from 'lucide-react'
+import CheckStepButton from '../qq/CheckStepButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -63,8 +65,6 @@ const RangerSolveTheEquation: FC<{
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
-  const [aiHints, setAiHints] = useState<string[]>([])
-
   const pageSpecificHints = page?.psHints || []
 
   // Prepare problem data to work with StepWise
@@ -171,7 +171,7 @@ const RangerSolveTheEquation: FC<{
       )}
     >
       <div className="div relative mb-2 flex grow flex-col justify-stretch gap-2 p-2">
-        <div className="absolute bottom-0 left-0 right-0 top-0 flex flex-col overflow-y-auto">
+        <div className="absolute bottom-0 left-0 right-0 top-0 flex flex-col">
           <HdrBar
             highlightLetter={page?.phase}
             subTitle={page?.phaseLabel}
@@ -260,19 +260,12 @@ const RangerSolveTheEquation: FC<{
           wpHints={wpHints?.hints}
           getAiHints={getExternalHint}
         />
-        <Button
-          className="absolute left-0 z-10 bg-blue-400"
-          onClick={getExternalHint}
-        >
-          getHint
-        </Button>
-        <Button
-          className="EVALUATE absolute left-[100px] z-10 bg-green-400"
-          onClick={evaluateStep}
-        >
-          submit
-        </Button>
-        <NextButton busy={busy} onClick={evt => HandleNext(evt)}></NextButton>
+
+        {!complete ? (
+          <CheckStepButton onClick={evaluateStep} />
+        ) : (
+          <NextButton busy={busy} onClick={evt => HandleNext(evt)}></NextButton>
+        )}
 
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerSolveTheEquation

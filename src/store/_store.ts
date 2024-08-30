@@ -182,6 +182,16 @@ export const useProblemStore = create<State>((set, get) => ({
     }))
     return await submitOrganize(set, get, equation)
   },
+
+  setMathAnswer: async (latex: string) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        mathAnswer: latex,
+      },
+    }))
+  },
+
   submitMyOwnWords: async (myOwnWords: string) => {
     set(state => ({
       session: {

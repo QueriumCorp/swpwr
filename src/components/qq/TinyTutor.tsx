@@ -188,10 +188,6 @@ export const TinyTutor = ({
           hintPageChanged={hintPageChanged}
         />
       )}
-      <div className="absolute left-56 top-0 z-10">
-        <pre className="text-[8px]">{JSON.stringify(hintStages, null, 2)}</pre>
-        <pre className="text-[8px]">{hintStage}</pre>
-      </div>
     </div>
   )
 }

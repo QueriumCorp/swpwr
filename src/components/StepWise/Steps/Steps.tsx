@@ -130,11 +130,11 @@ const Steps = () => {
   }
 
   return (
-    <Table className="h-full">
-      <TableCaption className="mt-0 caption-top text-left text-base font-medium tracking-tight text-slate-900 dark:text-white">
+    <Table className="h-full max-w-[640px]">
+      <TableCaption className="mt-0 caption-top text-left text-base font-medium tracking-tight text-slate-900">
         Your solution
       </TableCaption>
-      <TableBody className="">
+      <TableBody>
         {steps.map((step, index) => renderStepSwitch(step, index))}
       </TableBody>
     </Table>
