@@ -90,15 +90,6 @@ const NewbFindFacts: FC<{
     }
   }
 
-  async function getAiHints() {
-    setBusy(true)
-    setMsg('Hmmm...  let me see.')
-    const hints: string[] = await getHint()
-    setMsg('')
-    setBusy(false)
-    setAiHints(hints)
-  }
-
   function hintChanged(hintStage: string, current: number, count: number) {
     if (hintStage === 'intro' && current === count) {
       setNavDisabled(false)
@@ -169,7 +160,6 @@ const NewbFindFacts: FC<{
           intro={page?.intro}
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
-          aiHints={aiHints}
           closeable={true}
           hintChanged={hintChanged}
         />

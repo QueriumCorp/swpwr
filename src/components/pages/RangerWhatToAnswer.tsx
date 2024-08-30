@@ -81,10 +81,8 @@ const RangerWhatToAnswer: FC<{
   async function getAiHints() {
     setBusy(true)
     setMsg('Hmmm...  let me see.')
-    const hints: string[] = await getHint()
-    setMsg('')
+    setMsg(await getHint())
     setBusy(false)
-    setAiHints(hints)
   }
 
   // JSX
