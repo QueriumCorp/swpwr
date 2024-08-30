@@ -138,7 +138,10 @@ const InputPanel = () => {
             boxSizing: 'border-box',
             background: 'white',
             border: '1px white solid',
-            borderRadius: '6px',
+            borderRadius: '9999px',
+            marginLeft: '-8px',
+            paddingLeft: '16px',
+            marginRight: '-8px',
           }}
         >
           {value}
