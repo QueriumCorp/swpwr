@@ -25,12 +25,17 @@ const Steps = () => {
   const renderStepSwitch = (step: StepType, index: number) => {
     // @ts-ignore: TS seems to think arrays dont support findLastIndex
     let lastCorrectStep = steps.findLastIndex(step => step.type === 'correct')
-    let lastStepCorrect =
+    let islastStepCorrect =
       steps[steps.length - 1]?.type === 'correct' ||
       steps[steps.length - 1]?.type === 'mathComplete' ||
       steps[steps.length - 1]?.type === 'victory'
 
-    console.info('lastCorrectStep', lastCorrectStep)
+    console.info(
+      'lastCorrectStep:',
+      lastCorrectStep,
+      '  islastStepCorrect:',
+      islastStepCorrect,
+    )
 
     switch (step.type) {
       case 'correct':
@@ -48,7 +53,7 @@ const Steps = () => {
           />
         )
       case 'incorrect':
-        if (lastStepCorrect || lastCorrectStep === index) {
+        if (islastStepCorrect || index <= lastCorrectStep) {
           return null
         }
         return (
@@ -65,7 +70,7 @@ const Steps = () => {
           />
         )
       case 'hint':
-        if (lastStepCorrect || lastCorrectStep === index) {
+        if (islastStepCorrect || index <= lastCorrectStep) {
           return null
         }
         return (
