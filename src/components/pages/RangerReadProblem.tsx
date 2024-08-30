@@ -94,10 +94,6 @@ const RangerReadProblem: React.FC<{
           )}
           stimulusText={problem.stimulus}
         ></StimulusSelector>
-
-        <div className="flex grow gap-2">
-          <BabyFox className="h-[72px] w-[72px] bg-red-500" />
-        </div>
       </div>
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
