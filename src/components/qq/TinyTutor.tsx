@@ -3,7 +3,7 @@ import { AnimeTutor } from '../AnimeTutor'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
 import { cn } from '@/lib/utils'
 
-type HintStage = 'intro' | 'psHints' | 'aiHints' | 'none'
+type HintStage = 'pre' | 'intro' | 'psHints' | 'aiHints' | 'post'
 
 export const TinyTutor = ({
   msg,
@@ -11,7 +11,6 @@ export const TinyTutor = ({
   intro,
   psHints,
   wpHints,
-  aiHints,
   getAiHints,
   hintChanged,
   closeable = true,
@@ -22,24 +21,11 @@ export const TinyTutor = ({
   intro?: string | string[]
   psHints?: string[]
   wpHints?: string[]
-  aiHints?: string[]
   getAiHints?: () => void
   hintChanged?: (newStage: HintStage, current: number, count: number) => void
   closeable?: boolean
   className?: string
 }) => {
-  ///////////////////////////////////////////////////////////////////
-  // Prepare messages
-  ///////////////////////////////////////////////////////////////////
-  let introMsgs = normalizeIntro(intro)
-  let psHintsMsgs = normalizePsHints(wpHints || psHints)
-  // let aiHintsMsgs = normalizePsHints(aiHints)
-  let hintStages: HintStage[] = []
-  if (introMsgs.length) hintStages.push('intro')
-  if (psHintsMsgs.length) hintStages.push('psHints')
-  if (getAiHints) hintStages.push('aiHints')
-  hintStages.push('none')
-
   ///////////////////////////////////////////////////////////////////
   // Store
   ///////////////////////////////////////////////////////////////////
@@ -48,17 +34,13 @@ export const TinyTutor = ({
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [hintStage, setHintStage] = useState<HintStage>(
-    msg
-      ? 'none'
-      : introMsgs
-        ? 'intro'
-        : psHints || wpHints
-          ? 'psHints'
-          : getAiHints
-            ? 'aiHints'
-            : 'none',
+  const [introMsgs, setIntroMsgs] = useState(normalizeIntro(intro))
+  const [psHintsMsgs, setPsHintsMsgs] = useState(
+    normalizePsHints(normalizePsHints(wpHints || psHints)),
   )
+  const [hintStages, setHintStages] = useState<HintStage[]>([])
+  const [hintStage, setHintStage] = useState<HintStage>('pre')
+
   const [bubbleShown, setBubbleShow] = useState(introMsgs.length ? true : false)
   const [currentHintMsgs, setCurrentHintMsgs] = useState<string[]>(
     msg ? [] : intro ? introMsgs : psHints || wpHints ? psHintsMsgs : [],
@@ -67,6 +49,17 @@ export const TinyTutor = ({
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    let hintStages: HintStage[] = []
+    hintStages.push('pre')
+    if (introMsgs.length) hintStages.push('intro')
+    if (psHintsMsgs.length) hintStages.push('psHints')
+    if (getAiHints) hintStages.push('aiHints')
+    hintStages.push('post')
+    setHintStages(hintStages)
+    setHintStage(hintStages[0])
+  }, [introMsgs, psHintsMsgs, getAiHints])
 
   // useEffect(() => {
   //   if (aiHints && aiHints?.length > 0) {
@@ -84,21 +77,38 @@ export const TinyTutor = ({
     setBubbleShow(false)
   }
 
-  function nextHintStage() {
-    console.info('nextHintStage', hintStage)
-
+  function KettuClicked() {
+    // If we are querying the AI, don't do anything
     if (busy) {
       return
     }
 
-    let stageIndex = hintStages.findIndex(stage => stage === hintStage)
-    stageIndex = stageIndex == hintStages.length - 1 ? 0 : stageIndex + 1
-    const nextStage = hintStages[stageIndex]
-    if (nextStage === 'aiHints' && getAiHints) {
-      getAiHints()
+    if (hintStage === 'post') {
+      setCurrentHintMsgs([
+        'Sorry, I have no more guidance for you. Please ask your teacher for help.',
+      ])
+
+      setBubbleShow(true)
+      return
     }
 
-    let current, count
+    // Once in aiHints, we don't change the stage
+    if (hintStage === 'aiHints') {
+      setBubbleShow(true)
+      if (typeof getAiHints === 'function') {
+        getAiHints()
+      }
+      return
+    }
+
+    // Manage Stage
+    let currentStageIndex = hintStages.findIndex(stage => stage === hintStage)
+    let nextStage = hintStages[currentStageIndex + 1]
+
+    setHintStage(nextStage)
+
+    let current = 0,
+      count = 0
     switch (nextStage) {
       case 'intro':
         current = 1
@@ -115,7 +125,7 @@ export const TinyTutor = ({
         count = 0
         setCurrentHintMsgs(['TinyTutor: AI Hints are not yet implemented'])
         break
-      case 'none':
+      case 'post':
         current = 0
         count = 0
         setCurrentHintMsgs([])
@@ -128,7 +138,7 @@ export const TinyTutor = ({
     }
 
     setHintStage(nextStage)
-    setBubbleShow(nextStage === 'none' ? false : true)
+    setBubbleShow(nextStage === 'post' ? false : true)
   }
 
   function hintPageChanged(current: number, count: number) {
@@ -160,7 +170,7 @@ export const TinyTutor = ({
           busy ? 'cursor-wait' : 'cursor-pointer',
         )}
         onClick={() => {
-          nextHintStage()
+          KettuClicked()
         }}
       ></div>
       {msg?.length ? (
@@ -180,6 +190,10 @@ export const TinyTutor = ({
           hintPageChanged={hintPageChanged}
         />
       )}
+      <div className="absolute left-56 top-0 z-10">
+        <pre className="text-[8px]">{JSON.stringify(hintStages, null, 2)}</pre>
+        <pre className="text-[8px]">{hintStage}</pre>
+      </div>
     </div>
   )
 }
