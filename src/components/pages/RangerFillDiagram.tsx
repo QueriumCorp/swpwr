@@ -55,7 +55,6 @@ const RangerFillDiagram: FC<{
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
-  const [aiHints, setAiHints] = useState<string[]>([])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -91,10 +90,8 @@ const RangerFillDiagram: FC<{
   async function getAiHints() {
     setBusy(true)
     setMsg('Hmmm...  let me see.')
-    const hints: string[] = await getHint()
-    setMsg('')
+    setMsg(await getHint())
     setBusy(false)
-    setAiHints(hints)
   }
 
   function HandleEquationChange(latex: string, values: string[]) {
@@ -177,7 +174,6 @@ const RangerFillDiagram: FC<{
           intro={page?.intro}
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
-          aiHints={aiHints}
           getAiHints={getAiHints}
         />
 

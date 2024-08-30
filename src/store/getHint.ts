@@ -19,7 +19,7 @@ const getHint = async (_set: SetFn, get: GetFn) => {
   const data = await response.json()
 
   get().logAction(`getHint: ${response.status} ${JSON.stringify(data)}`)
-  return data.hintsArray
+  return data.hintText
 }
 
 export default getHint

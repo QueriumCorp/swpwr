@@ -65,7 +65,6 @@ const RangerSelectDiagram: FC<{
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
-  const [aiHints, setAiHints] = useState<string[]>([])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -131,10 +130,8 @@ const RangerSelectDiagram: FC<{
   async function getAiHints() {
     setBusy(true)
     setMsg('Hmmm...  let me see.')
-    const hints: string[] = await getHint()
-    setMsg('')
+    setMsg(await getHint())
     setBusy(false)
-    setAiHints(hints)
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -329,7 +326,6 @@ const RangerSelectDiagram: FC<{
           intro={page?.intro}
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
-          aiHints={aiHints}
           getAiHints={getAiHints}
         />
         <NextButton

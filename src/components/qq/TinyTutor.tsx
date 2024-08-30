@@ -58,16 +58,11 @@ export const TinyTutor = ({
     if (getAiHints) hintStages.push('aiHints')
     hintStages.push('post')
     setHintStages(hintStages)
-    setHintStage(hintStages[0])
   }, [introMsgs, psHintsMsgs, getAiHints])
 
-  // useEffect(() => {
-  //   if (aiHints && aiHints?.length > 0) {
-  //     setHintStage('aiHints')
-  //     setCurrentHintMsgs(aiHintsMsgs)
-  //     setBubbleShow(true)
-  //   }
-  // }, [aiHints])
+  useEffect(() => {
+    console.log('hintStage:', hintStage)
+  }, [hintStage])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -105,6 +100,7 @@ export const TinyTutor = ({
     let currentStageIndex = hintStages.findIndex(stage => stage === hintStage)
     let nextStage = hintStages[currentStageIndex + 1]
 
+    console.log('hintStage:', hintStage, ' nextStage:', nextStage)
     setHintStage(nextStage)
 
     let current = 0,
@@ -121,9 +117,12 @@ export const TinyTutor = ({
         setCurrentHintMsgs(psHintsMsgs)
         break
       case 'aiHints':
-        current = 1
-        count = 0
-        setCurrentHintMsgs(['TinyTutor: AI Hints are not yet implemented'])
+        current = -1
+        count = -1
+        setBubbleShow(true)
+        if (typeof getAiHints === 'function') {
+          getAiHints()
+        }
         break
       case 'post':
         current = 0
@@ -137,7 +136,6 @@ export const TinyTutor = ({
       hintChanged(nextStage, current, count)
     }
 
-    setHintStage(nextStage)
     setBubbleShow(nextStage === 'post' ? false : true)
   }
 

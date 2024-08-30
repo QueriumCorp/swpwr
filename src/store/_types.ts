@@ -30,7 +30,7 @@ export interface State {
   submitOrganize: (equation: string, values: string[]) => Promise<any>
   submitMyOwnWords: (type: string) => Promise<any>
   submitExplanation: (type: string) => Promise<any>
-  getHint: () => Promise<string[]>
+  getHint: () => Promise<string>
   closeSession: () => Promise<string>
   saveTrace: (comment: string) => Promise<string>
   logAction: (action: string) => void
