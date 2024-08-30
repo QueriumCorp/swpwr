@@ -15,7 +15,7 @@ const Keyboard = (props: KeyboardProps) => {
   const { identifiers, operators: specialOperators, onKeyPress } = props
 
   return (
-    <div className="h-30 mt-2 flex w-full justify-between gap-1">
+    <div className="h-30 mt-2 flex w-full max-w-[640px] justify-between gap-1">
       <KeyboardHalve className="grid grow grid-cols-4 grid-rows-4 gap-1">
         <KeyboardNavigators
           className="col-span-4 grid grid-cols-4 gap-1"

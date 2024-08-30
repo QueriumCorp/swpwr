@@ -33,7 +33,7 @@ export const TinyTutor = ({
   ///////////////////////////////////////////////////////////////////
   let introMsgs = normalizeIntro(intro)
   let psHintsMsgs = normalizePsHints(wpHints || psHints)
-  let aiHintsMsgs = normalizePsHints(aiHints)
+  // let aiHintsMsgs = normalizePsHints(aiHints)
   let hintStages: HintStage[] = []
   if (introMsgs.length) hintStages.push('intro')
   if (psHintsMsgs.length) hintStages.push('psHints')
@@ -61,28 +61,20 @@ export const TinyTutor = ({
   )
   const [bubbleShown, setBubbleShow] = useState(introMsgs.length ? true : false)
   const [currentHintMsgs, setCurrentHintMsgs] = useState<string[]>(
-    msg
-      ? []
-      : intro
-        ? introMsgs
-        : psHints || wpHints
-          ? psHintsMsgs
-          : getAiHints
-            ? aiHintsMsgs
-            : [],
+    msg ? [] : intro ? introMsgs : psHints || wpHints ? psHintsMsgs : [],
   )
 
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
 
-  useEffect(() => {
-    if (aiHints && aiHints?.length > 0) {
-      setHintStage('aiHints')
-      setCurrentHintMsgs(aiHintsMsgs)
-      setBubbleShow(true)
-    }
-  }, [aiHints])
+  // useEffect(() => {
+  //   if (aiHints && aiHints?.length > 0) {
+  //     setHintStage('aiHints')
+  //     setCurrentHintMsgs(aiHintsMsgs)
+  //     setBubbleShow(true)
+  //   }
+  // }, [aiHints])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -120,8 +112,8 @@ export const TinyTutor = ({
         break
       case 'aiHints':
         current = 1
-        count = aiHintsMsgs.length
-        setCurrentHintMsgs(aiHintsMsgs)
+        count = 0
+        setCurrentHintMsgs(['TinyTutor: AI Hints are not yet implemented'])
         break
       case 'none':
         current = 0

@@ -258,11 +258,18 @@ const RangerSolveTheEquation: FC<{
           intro={page?.intro}
           psHints={pageSpecificHints}
           wpHints={wpHints?.hints}
+          getAiHints={getExternalHint}
         />
-        <Button className="z-10 bg-blue-400" onClick={getExternalHint}>
+        <Button
+          className="absolute left-0 z-10 bg-blue-400"
+          onClick={getExternalHint}
+        >
           getHint
         </Button>
-        <Button className="z-10 bg-green-400" onClick={evaluateStep}>
+        <Button
+          className="EVALUATE absolute left-[100px] z-10 bg-green-400"
+          onClick={evaluateStep}
+        >
           submit
         </Button>
         <NextButton busy={busy} onClick={evt => HandleNext(evt)}></NextButton>
