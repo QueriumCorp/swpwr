@@ -53,7 +53,10 @@ export const TinyTutor = ({
   useEffect(() => {
     let hintStages: HintStage[] = []
     hintStages.push('pre')
-    if (introMsgs.length) hintStages.push('intro')
+    if (introMsgs.length) {
+      hintStages.push('intro')
+      setHintStage('intro')
+    }
     if (psHintsMsgs.length) hintStages.push('psHints')
     if (getAiHints) hintStages.push('aiHints')
     hintStages.push('post')
