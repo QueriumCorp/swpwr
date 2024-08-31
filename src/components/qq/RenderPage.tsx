@@ -36,10 +36,13 @@ import DevSolveTheEquation from '../pages/DevSolveTheEquation'
 import NewbVictory from '../pages/NewbVictory'
 import RangerVictory from '../pages/RangerVictory'
 import NewbVideoTotal from '../pages/NewbVideoTotal'
+import CadetPrepForSolveMath from '../pages/CadetPrepForSolveMath'
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ':' + page.id) {
+    ///////////////////////////////////////////////////////////////////
     // DEV
+    ///////////////////////////////////////////////////////////////////
     case 'dev:FillDiagram':
       return <RangerFillDiagram page={page} index={index}></RangerFillDiagram>
     case 'dev:MeetTutor':
@@ -49,7 +52,10 @@ export function renderPage(page: YBRpage, index: number) {
         <DevSolveTheEquation page={page} index={index}></DevSolveTheEquation>
       )
 
+    ///////////////////////////////////////////////////////////////////
     // NEWB
+    ///////////////////////////////////////////////////////////////////
+
     case 'newb:MeetTutor':
       return <NewbMeetTutor page={page} index={index}></NewbMeetTutor>
     case 'newb:FeelThePower':
@@ -83,53 +89,49 @@ export function renderPage(page: YBRpage, index: number) {
     case 'newb:NewbVictory':
       return <NewbVictory page={page} index={index}></NewbVictory>
 
+    ///////////////////////////////////////////////////////////////////
     // CADET
+    ///////////////////////////////////////////////////////////////////
+
     case 'cadet:ReadProblem':
-      return <CadetReadProblem page={page} index={index}></CadetReadProblem>
+      return <RangerReadProblem page={page} index={index}></RangerReadProblem>
     case 'cadet:WhatToAnswer':
-      return <CadetWhatToAnswer page={page} index={index}></CadetWhatToAnswer>
+      return <RangerWhatToAnswer page={page} index={index}></RangerWhatToAnswer>
     case 'cadet:FindFacts':
-      return <CadetFindFacts page={page} index={index}></CadetFindFacts>
+      return <RangerFindFacts page={page} index={index}></RangerFindFacts>
     case 'cadet:SelectDiagram':
-      return <CadetSelectDiagram page={page} index={index}></CadetSelectDiagram>
-    case 'cadet:FillDiagram':
-      return <CadetFillDiagram page={page} index={index}></CadetFillDiagram>
-    case 'cadet:FillEquation':
-      return <CadetFillEquation page={page} index={index}></CadetFillEquation>
-    case 'cadet:GratzOnOrganize':
       return (
-        <CadetGratzOnOrganize page={page} index={index}></CadetGratzOnOrganize>
+        <RangerSelectDiagram page={page} index={index}></RangerSelectDiagram>
+      )
+    case 'cadet:FillDiagram':
+      return <RangerFillDiagram page={page} index={index}></RangerFillDiagram>
+    case 'cadet:FillEquation':
+      return <RangerFillEquation page={page} index={index}></RangerFillEquation>
+    case 'cadet:PrepForSolveMath':
+      return (
+        <CadetPrepForSolveMath
+          page={page}
+          index={index}
+        ></CadetPrepForSolveMath>
       )
     case 'cadet:SolveTheEquation':
       return (
-        <CadetSolveTheEquation
+        <RangerSolveTheEquation
           page={page}
           index={index}
-        ></CadetSolveTheEquation>
+        ></RangerSolveTheEquation>
       )
-    // case "cadet:GratzEquationSolved":
-    //   return (
-    //     <CadetGratzEquationSolved
-    //       page={page}
-    //       index={index}
-    //     ></CadetGratzEquationSolved>
-    //   );
-    case 'cadet:SolvedFor':
-      return <CadetSolvedFor page={page} index={index}></CadetSolvedFor>
+    case 'cadet:OwnWords':
+      return <RangerOwnWords page={page} index={index}></RangerOwnWords>
     case 'cadet:Reflect':
-      return <CadetReflect page={page} index={index}></CadetReflect>
-    case 'cadet:GratzOnLearner':
-      return (
-        <CadetGratzOnLearner page={page} index={index}></CadetGratzOnLearner>
-      )
-    case 'cadet:QuestIntro':
-      return <CadetQuestIntro page={page} index={index}></CadetQuestIntro>
-    case 'cadet:WhatIsPower':
-      return <CadetWhatIsPower page={page} index={index}></CadetWhatIsPower>
+      return <RangerReflect page={page} index={index}></RangerReflect>
+    case 'cadet:RangerVictory':
+      return <RangerVictory page={page} index={index}></RangerVictory>
 
-    //
+    ///////////////////////////////////////////////////////////////////
     // RANGER
-    //
+    ///////////////////////////////////////////////////////////////////
+
     case 'ranger:ReadProblem':
       return <RangerReadProblem page={page} index={index}></RangerReadProblem>
     case 'ranger:WhatToAnswer':

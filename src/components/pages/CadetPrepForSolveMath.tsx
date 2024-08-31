@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { FC, ReactNode, useContext } from 'react'
+import * as React from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -13,6 +13,7 @@ import {
 } from '@/components/AnimeTutor'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
+import { CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { Button } from '../ui/button'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
@@ -20,9 +21,9 @@ import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-const RangerVictory: FC<{
+const CadetPrepForSolveMath: React.FC<{
   className?: string
-  children?: ReactNode
+  children?: React.ReactNode
   page: YBRpage
   index: number
 }> = ({ className, page, index }) => {
@@ -30,27 +31,29 @@ const RangerVictory: FC<{
   // Contexts
   ///////////////////////////////////////////////////////////////////
 
-  const { current, api } = useContext(NavContext) as NavContextType
+  const { current, api } = React.useContext(NavContext) as NavContextType
   const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType
-
-  ///////////////////////////////////////////////////////////////////
-  // Refs
-  ///////////////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////////////////
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, heartbeat, onComplete, session, studentLog } =
-    useProblemStore()
+  const { logAction, heartbeat } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
+  const [nextDisabled, setNextDisabled] = React.useState(true)
+
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  React.useEffect(() => {
+    logAction('CadetPrepForSolveMath : Entered Application')
+    setTimeout(() => heartbeat(), 1000)
+  }, [])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -59,22 +62,20 @@ const RangerVictory: FC<{
   function handleDance() {
     sayMsg('Dance Dance Revolution', 'gratz')
   }
-
-  if (current === index + 1) {
-    onComplete(session, studentLog)
+  function finishedIntro() {
+    logAction('CadetPrepForSolveMath : Intro Finished')
+    setNextDisabled(false)
   }
 
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
-  if (current !== index + 1) return null
 
+  if (current !== index + 1) return null
   return (
     <div
       className={cn(
-        'RangerVictory',
-        'rounded-lg border bg-card text-card-foreground shadow-sm',
-        'm-0 flex h-full w-full flex-col justify-stretch p-0',
+        'CadetPrepForSolveMath m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
@@ -93,12 +94,12 @@ const RangerVictory: FC<{
             height: '100%',
             right: '-150px',
             width: '100%',
-            // border: "1px solid #000000",
           }}
         />
         <ChatBubble
           msgs={page.intro!}
-          className="absolute bottom-[50%] right-[50%] font-capriola"
+          className="absolute bottom-[50%] right-[50%] max-w-[45%] font-capriola"
+          introFinished={finishedIntro}
         />
       </div>
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
@@ -109,9 +110,22 @@ const RangerVictory: FC<{
             </Button>
           ))}
         </div>
+        <CarouselNext
+          disabled={nextDisabled}
+          className="relative right-0"
+          onClick={() => {
+            logAction('CadetPrepForSolveMath : Clicked Next')
+            api?.scrollNext()
+          }}
+        >
+          Next
+        </CarouselNext>
+        <h1 className="absolute bottom-0 left-0 text-slate-500">
+          CadetPrepForSolveMath
+        </h1>
       </NavBar>
     </div>
   )
 }
-RangerVictory.displayName = 'RangerVictory'
-export default RangerVictory
+CadetPrepForSolveMath.displayName = 'CadetPrepForSolveMath'
+export default CadetPrepForSolveMath

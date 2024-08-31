@@ -38,6 +38,10 @@ export const YellowBrickRoad: YBRpage[] = [
     aiHints: false,
   },
 
+  ///////////////////////////////////////////////////////////////////
+  // NEWB
+  ///////////////////////////////////////////////////////////////////
+
   {
     rank: 'newb',
     id: 'MeetTutor',
@@ -57,21 +61,6 @@ export const YellowBrickRoad: YBRpage[] = [
   Ready? Click →.`,
     ],
   },
-
-  // {
-  //   rank: "newb",
-  //   id: "FeelThePower",
-  //   title: "string",
-  //   phase: "I",
-  //   phaseLabel: "Instruction",
-  // },
-  // {
-  //   rank: "newb",
-  //   id: "GratzWatchedVideo",
-  //   title: "string",
-  //   phase: "I",
-  //   phaseLabel: "Instruction",
-  // },
   {
     rank: 'newb',
     id: 'FindTutor',
@@ -90,13 +79,6 @@ If you're ever stuck, click on me just like that. I'll do my best to give you a 
       Click → now to continue.`,
     ],
   },
-  // {
-  //   rank: "newb",
-  //   id: "GratzFoundTutor",
-  //   title: "string",
-  //   phase: "I",
-  //   phaseLabel: "Instruction",
-  // },
   {
     rank: 'newb',
     id: 'ReadProblem',
@@ -147,13 +129,6 @@ Press ▶️ to start the video.
 When the video finishes, click → to continue.`,
     ],
   },
-  // {
-  //   rank: "newb",
-  //   id: "GratzOnPrepare",
-  //   title: "string",
-  //   phase: "I",
-  //   phaseLabel: "Instruction",
-  // },
   {
     rank: 'newb',
     id: 'NewbProblemType',
@@ -188,104 +163,139 @@ Now you know the first POWER step, **P**repare.`,
 Click Next to practice and check your understanding.`,
     ],
   },
+
+  ///////////////////////////////////////////////////////////////////
+  // CADET
+  ///////////////////////////////////////////////////////////////////
+
   {
     rank: 'cadet',
     id: 'ReadProblem',
-    title: 'string',
+    title: 'Read the problem',
     phase: 'P',
     phaseLabel: 'Prepare',
+    intro: [
+      `You already know the first POWER step: Prepare.`,
+      `Remember, the first thing we do to Prepare is read the problem.`,
+      `Don't try to solve the problem. Just read it carefully. Click → when you're done reading.`,
+    ],
+    psHints: [`Click → when you're done reading.`],
+    aiHints: false,
   },
-  // {
-  //   rank: "cadet",
-  //   id: "WhatToAnswer",
-  //   title: "Read the Problem",
-  //   phase: "P",
-  //   phaseLabel: "str",
-  // },
   {
     rank: 'cadet',
     id: 'FindFacts',
-    title: 'What are the relevant facts?',
+    title: 'Pull apart the problem',
     phase: 'P',
+    intro: [
+      `Next, we pull apart the problem. Let's do it together. Click me when you're ready.`,
+    ],
     phaseLabel: 'Prepare',
+    aiHints: false,
   },
   {
     rank: 'cadet',
     id: 'SelectDiagram',
-    title: 'What type of problem is it?',
+    title: 'Pick the problem type',
+    phase: 'P',
+    intro: [
+      `You're doing great! Time to pick the problem type.
+
+I'll talk you through it. Just click me when you're ready.`,
+    ],
+    phaseLabel: 'Prepare',
+    aiHints: false,
+  },
+  {
+    rank: 'cadet',
+    id: 'FillDiagram',
+    title: 'Write an equation',
     phase: 'O',
+    intro: [
+      `Good job! Now you're ready to learn the second P**O**WER step...`,
+      `O is for **O**rganize!
+To organize the information, we write it in an equation. Click me to learn how.`,
+    ],
     phaseLabel: 'Organize',
-  },
-  // {
-  //   rank: "cadet",
-  //   id: "FillDiagram",
-  //   title: "Fill in the Diagram",
-  //   phase: "O",
-  //   phaseLabel: "str",
-  // },
-  {
-    rank: 'cadet',
-    id: 'FillEquation',
-    title: 'string',
-    phase: 'O',
-    phaseLabel: 'Fill in the Equation',
-  },
-  {
-    rank: 'cadet',
-    id: 'GratzOnOrganize',
-    title: 'string',
-    phase: 'I',
-    phaseLabel: '',
+    aiHints: false,
   },
   {
     rank: 'cadet',
     id: 'SolveTheEquation',
-    title: 'Solve the Equation',
+    title: 'Find the unknown amount',
     phase: 'W',
+    intro: [
+      `All right! You've made it to the next PO**W**ER step, **W**ork the Problem.`,
+      `This is where we use math to find the unknown amount. We'll go one step at a time. Anytime you need math help, click me.
+
+But not yet! First let me show you around.`,
+      `Do you see the box above all the buttons? That's the math entry box. It's where you'll type your math. You can use your device's keyboard or the keys on the screen.
+In the lower right corner of the page you will see a circular button with a [check mark].`,
+      `When you're done typing a math step, click [check mark] and I'll check it.`,
+      `Look above the math entry box. That's where all your correct math steps will go.
+And look! Step 1 is already there. You did Step 1 when you wrote the equation. The equation from O is always Step 1 in W.`,
+      `The equation is in the math entry box, too. The last step you did stays there until you change it.`,
+      `Whew! Let's stop and take a breath or two. Then we'll get back to our word problem! 
+      
+Click me when you're ready.`,
+    ],
     phaseLabel: 'Work the Problem',
+    aiHints: false,
   },
-  // {
-  //   rank: "cadet",
-  //   id: "GratzEquationSolved",
-  //   title: "Congratulations you solved the equation",
-  //   phase: "I",
-  //   phaseLabel: "Work the Problem",
-  // },
   {
     rank: 'cadet',
-    id: 'SolvedFor',
-    title: 'Do you remember what XXX is?',
+    id: 'OwnWords',
+    title: 'Answer the question',
     phase: 'E',
-    phaseLabel: 'Explain your Answer',
+    intro: [
+      `Yippee! It's time for the next POW**E**R step. E stands for **E**xplain the Answer.`,
+      `In W, you found the unknown amount. That's part of the answer. But it's not the *whole* answer. You have to tell what the answer *means*.`,
+      `Look back at the problem. Reread the question sentence. Write a complete sentence that answers the question.
+
+Give it a try! Click me if you need some help. Click → when your sentence is done.`,
+    ],
+    phaseLabel: 'Explain the Answer',
+    aiHints: false,
   },
   {
     rank: 'cadet',
     id: 'Reflect',
-    title: 'Why is this answer correct?',
+    title: 'Think about the answer',
     phase: 'R',
-    phaseLabel: 'Reflect on the Answer',
+    phaseLabel: 'Reflect',
+    intro: [
+      `This is it! The last POWE**R** step! Let's do this.`,
+      `**R**eflect means to look back. Think about the answer. Does it make sense? Use good math thinking to tell why it makes sense.`,
+      `Here are three possible reasons why the answer you found makes sense. Each one might be a good reason, or it might not be.`,
+      `Read each one carefully. Then choose the one you think is best. Click → to check your answer.`,
+    ],
+    psHints: [`Choose the reason you think is best. Then click →.`],
+    aiHints: true,
   },
   {
     rank: 'cadet',
-    id: 'GratzOnLearner',
-    title: '',
+    id: 'RangerVictory',
+    title: 'string',
     phase: 'I',
-    phaseLabel: '',
+    phaseLabel: 'Congratulations',
+    intro: [
+      `FANTASTIC!! You used all five POWER steps to solve a word problem!
+* [ ] **P**repare
+* [ ] **O**rganize
+* [ ] **W**ork the Problem
+* [ ] **E**xplain the Answer
+* [ ] **R**eflect`,
+      `Now let's practice that POWER on some more problems!`,
+      `I'll let you take the lead. I think you have enough POWER!
+
+Never fear, I'm still here for you. If you're not sure what to do, click me for help. Ok?`,
+      `I know you can do it! Click Next to get started.`,
+    ],
   },
-  {
-    rank: 'cadet',
-    id: 'QuestIntro',
-    title: '',
-    phase: 'I',
-    phaseLabel: '',
-  },
-  {
-    rank: 'cadet',
-    id: 'WhatIsPower',
-    title: '',
-    phase: 'I',
-    phaseLabel: '',
-  },
+
+  ///////////////////////////////////////////////////////////////////
+  // RANGER
+  ///////////////////////////////////////////////////////////////////
 
   {
     rank: 'ranger',

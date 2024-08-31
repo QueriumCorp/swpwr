@@ -193,7 +193,7 @@ export const ChatBubble = ({
       ref={latexRef}
       className={cn(
         'ChatBubble',
-        'relative ml-2 flex max-w-[90%] flex-row overflow-hidden',
+        'relative ml-2 flex max-w-[450px] flex-row overflow-hidden',
         'rounded-bl-2xl rounded-br-none rounded-tl-2xl rounded-tr-2xl',
         'bg-amber-400 px-4 py-[.5rem] text-cyan-700',
         'before:start-[99.9%]',
