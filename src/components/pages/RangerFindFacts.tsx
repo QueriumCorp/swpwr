@@ -17,6 +17,7 @@ import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
+import CheckStepButton from '../qq/CheckStepButton'
 
 const RangerFindFacts: FC<{
   className?: string
@@ -46,6 +47,7 @@ const RangerFindFacts: FC<{
   const [emote, setEmote] = useState<string>('gratz:02')
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
+  const [complete, setComplete] = useState(false)
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
@@ -86,7 +88,7 @@ const RangerFindFacts: FC<{
       setMsg(result.message)
       setEmote('pout:04')
       if (result.stepStatus == 'VALID') {
-        api?.scrollNext()
+        setComplete(true)
       }
     }
   }
@@ -168,14 +170,20 @@ const RangerFindFacts: FC<{
           wpHints={wpHints?.hints}
           getAiHints={getAiHints}
         />
-
-        <NextButton
-          busy={busy}
-          onClick={evt => HandleCheckFacts(evt)}
-        ></NextButton>
-
+        {!complete ? (
+          <CheckStepButton
+            busy={busy}
+            disabled={busy}
+            onClick={evt => HandleCheckFacts(evt)}
+          />
+        ) : (
+          <NextButton
+            busy={busy}
+            // onClick={evt => HandleCheckFacts(evt)}
+          ></NextButton>
+        )}
         <h1 className="absolute bottom-0 left-0 text-slate-500">
-          RangerFindFacts
+          RangerFindFacts: {msg}
         </h1>
       </NavBar>
     </div>

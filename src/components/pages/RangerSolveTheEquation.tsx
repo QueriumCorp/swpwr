@@ -128,11 +128,17 @@ const RangerSolveTheEquation: FC<{
     }
   }
 
-  function evaluateStep() {
-    if (stepwiseRef.current) {
-      setWorking(true)
-      // @ts-ignore: TS seems to think the ✓ above doesnt exist
-      stepwiseRef.current.evaluateStep()
+  async function evaluateStep(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    if (evt.metaKey) {
+      api?.scrollNext()
+    } else {
+      if (stepwiseRef.current) {
+        setWorking(true)
+        // @ts-ignore: TS seems to think the ✓ above doesnt exist
+        await stepwiseRef.current.evaluateStep()
+      }
     }
   }
 
@@ -262,7 +268,7 @@ const RangerSolveTheEquation: FC<{
         />
 
         {!complete ? (
-          <CheckStepButton onClick={evaluateStep} />
+          <CheckStepButton disabled={busy} onClick={evt => evaluateStep(evt)} />
         ) : (
           <NextButton busy={busy} onClick={evt => HandleNext(evt)}></NextButton>
         )}

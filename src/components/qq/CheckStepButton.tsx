@@ -1,44 +1,71 @@
-import { ComponentProps, forwardRef } from 'react'
+// React Imports
+import { ComponentProps, forwardRef, ReactNode } from 'react'
 
+// Third Party Imports
 import { Check } from 'lucide-react'
 
+// Querium Imports
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
+import BusyIndicator from './BusyIndicator/BusyIndicator'
 
-const CheckStepButton = forwardRef<
-  HTMLButtonElement,
-  ComponentProps<typeof Button>
->(
-  (
-    {
-      className,
-      disabled,
-      onClick,
-      variant = 'outline',
-      size = 'icon',
-      ...props
-    },
-    ref,
-  ) => {
-    return (
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+const CheckStepButton = ({
+  busy = false,
+  disabled = false,
+  onClick,
+}: {
+  busy?: boolean
+  disabled?: boolean
+  children?: ReactNode
+  className?: string
+  onClick?: (evt: any) => Promise<void>
+}) => {
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // Store
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // State
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // JSX
+  ///////////////////////////////////////////////////////////////////
+  return (
+    <div className="relative flex h-10 w-10 items-center justify-center bg-none">
+      <BusyIndicator busy={busy} className="BusyIndicator"></BusyIndicator>
       <Button
-        ref={ref}
-        variant={variant}
-        size={size}
         className={cn(
-          'absolute h-8 w-8 rounded-full border-white bg-green-500 text-white hover:bg-qqBrand hover:text-white disabled:border-slate-400 disabled:bg-slate-200 disabled:text-slate-400',
-          className,
+          'absolute h-8 w-8 rounded-full border-white bg-green-500 text-xl text-white',
+          'hover:bg-green-700 hover:text-white',
+          'disabled:border-slate-400 disabled:bg-slate-200 disabled:text-slate-400',
+          disabled
+            ? 'cursor-not-allowed border-slate-400 bg-slate-200 text-slate-400'
+            : 'cursor-pointer',
         )}
         disabled={disabled}
         onClick={onClick}
-        {...props}
       >
-        <Check className="h-4 w-4" />
-        <span className="sr-only">Check Step</span>
+        ✓<span className="sr-only">Check Step</span>
       </Button>
-    )
-  },
-)
+    </div>
+  )
+}
 
 export default CheckStepButton
 CheckStepButton.displayName = 'CheckStepButton'

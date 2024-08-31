@@ -67,6 +67,10 @@ export const TinyTutor = ({
     console.log('hintStage:', hintStage)
   }, [hintStage])
 
+  useEffect(() => {
+    setBubbleShow(true)
+  }, [msg])
+
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
@@ -152,6 +156,36 @@ export const TinyTutor = ({
   }
 
   ///////////////////////////////////////////////////////////////////
+  // JSX Components
+  ///////////////////////////////////////////////////////////////////
+
+  function ShowChatBubble() {
+    console.log(msg)
+    if (msg?.length) {
+      return (
+        // If we have a message, show it
+        <ChatBubble
+          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
+          msgs={bubbleShown ? [msg] : null}
+          closeable={closeable && !busy}
+          closeClicked={closeChatBubble}
+          hintPageChanged={hintPageChanged}
+        />
+      )
+    } else if (currentHintMsgs?.length) {
+      return (
+        // Otherwise show the hints
+        <ChatBubble
+          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
+          msgs={bubbleShown ? currentHintMsgs : null}
+          closeable={closeable && !busy}
+          closeClicked={closeChatBubble}
+          hintPageChanged={hintPageChanged}
+        />
+      )
+    }
+  }
+  ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
 
@@ -174,23 +208,7 @@ export const TinyTutor = ({
           KettuClicked()
         }}
       ></div>
-      {msg?.length ? (
-        <ChatBubble
-          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
-          msgs={[msg]}
-          closeable={closeable && !busy}
-          closeClicked={closeChatBubble}
-          hintPageChanged={hintPageChanged}
-        />
-      ) : (
-        <ChatBubble
-          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
-          msgs={bubbleShown ? currentHintMsgs : null}
-          closeable={closeable && !busy}
-          closeClicked={closeChatBubble}
-          hintPageChanged={hintPageChanged}
-        />
-      )}
+      <ShowChatBubble />
     </div>
   )
 }

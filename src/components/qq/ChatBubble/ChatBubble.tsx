@@ -222,7 +222,7 @@ export const ChatBubble = ({
       </div>
       <div className="absolute bottom-2 right-0 top-2 flex w-[30px] flex-col items-center justify-between bg-amber-400 text-right italic text-black">
         <SpeakButton></SpeakButton>
-        <RestartMsgs></RestartMsgs>
+        {messages.length > 1 ? <RestartMsgs></RestartMsgs> : null}
         <NavButton></NavButton>
       </div>
     </div>

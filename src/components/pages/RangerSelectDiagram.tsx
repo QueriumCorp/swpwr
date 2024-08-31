@@ -25,6 +25,7 @@ import { CompareEquationGraphic } from '../schemas/compare/equation'
 import { SchemaType } from '@/store/_types'
 import { TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
+import CheckStepButton from '../qq/CheckStepButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -62,6 +63,7 @@ const RangerSelectDiagram: FC<{
   const [schema, setSchema] = useState('')
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
+  const [complete, setComplete] = useState(false)
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
@@ -122,7 +124,7 @@ const RangerSelectDiagram: FC<{
       )
       setMsg(result.message)
       if (result.stepStatus == 'VALID') {
-        api?.scrollNext()
+        setComplete(true)
       }
     }
   }
@@ -328,12 +330,15 @@ const RangerSelectDiagram: FC<{
           wpHints={wpHints?.hints}
           getAiHints={getAiHints}
         />
-        <NextButton
-          busy={busy}
-          disabled={schema.length === 0}
-          onClick={evt => handleCheckSchema(evt)}
-        ></NextButton>
-
+        {!complete ? (
+          <CheckStepButton
+            busy={busy}
+            disabled={busy}
+            onClick={evt => handleCheckSchema(evt)}
+          />
+        ) : (
+          <NextButton busy={busy} disabled={schema.length === 0}></NextButton>
+        )}
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerSelectDiagram
         </h1>

@@ -21,6 +21,7 @@ import ChangeIncreaseEditor from '../schemaEditors/changeIncrease/ChangeIncrease
 import CompareEditor from '../schemaEditors/compare/CompareEditor'
 import { TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
+import CheckStepButton from '../qq/CheckStepButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -52,6 +53,7 @@ const RangerFillDiagram: FC<{
   const [values, setValues] = useState<string[]>([])
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
+  const [complete, setComplete] = useState(false)
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
@@ -82,7 +84,7 @@ const RangerFillDiagram: FC<{
       setBusy(false)
       setMsg(result.message)
       if (result.stepStatus == 'VALID') {
-        api?.scrollNext()
+        setComplete(true)
       }
     }
   }
@@ -176,12 +178,15 @@ const RangerFillDiagram: FC<{
           wpHints={wpHints?.hints}
           getAiHints={getAiHints}
         />
-
-        <NextButton
-          busy={busy}
-          onClick={evt => handleCheckEquation(evt)}
-        ></NextButton>
-
+        {!complete ? (
+          <CheckStepButton
+            busy={busy}
+            disabled={busy}
+            onClick={evt => handleCheckEquation(evt)}
+          />
+        ) : (
+          <NextButton busy={busy}></NextButton>
+        )}
         <h1 className="absolute bottom-0 left-0 text-slate-500">
           RangerFillDiagram
         </h1>
