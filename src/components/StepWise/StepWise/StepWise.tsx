@@ -34,8 +34,8 @@ export interface StepWiseProps {
 export interface StepWiseAPI {
   start?: () => void
   resume?: (session: Session) => void
-  getExternalHint?: () => void
-  evaluateStep?: () => void
+  getExternalHint?: () => Promise<void>
+  evaluateStep?: () => Promise<void>
 }
 
 //
@@ -67,11 +67,11 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
           // @ts-ignore: TS seems to think the ✓ above doesnt exist
           ActiveSessionRef.current!.resume(session)
         },
-        getExternalHint: () => {
-          ActiveSessionRef.current!.getExternalHint!()
+        async getExternalHint() {
+          await ActiveSessionRef.current!.getExternalHint!()
         },
-        evaluateStep: () => {
-          ActiveSessionRef.current!.evaluateStep!()
+        async evaluateStep() {
+          await ActiveSessionRef.current!.evaluateStep!()
         },
       }
     })

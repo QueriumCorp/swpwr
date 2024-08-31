@@ -120,11 +120,13 @@ const RangerSolveTheEquation: FC<{
     }
   }
 
-  function getExternalHint() {
+  async function getExternalHint() {
     if (stepwiseRef.current) {
       setWorking(true)
+      setBusy(true)
       // @ts-ignore: TS seems to think the ✓ above doesnt exist
-      stepwiseRef.current.getExternalHint()
+      await stepwiseRef.current.getExternalHint()
+      setBusy(false)
     }
   }
 
@@ -136,8 +138,10 @@ const RangerSolveTheEquation: FC<{
     } else {
       if (stepwiseRef.current) {
         setWorking(true)
+        setBusy(true)
         // @ts-ignore: TS seems to think the ✓ above doesnt exist
         await stepwiseRef.current.evaluateStep()
+        setBusy(false)
       }
     }
   }
@@ -268,7 +272,11 @@ const RangerSolveTheEquation: FC<{
         />
 
         {!complete ? (
-          <CheckStepButton disabled={busy} onClick={evt => evaluateStep(evt)} />
+          <CheckStepButton
+            busy={busy}
+            disabled={busy}
+            onClick={evt => evaluateStep(evt)}
+          />
         ) : (
           <NextButton busy={busy} onClick={evt => HandleNext(evt)}></NextButton>
         )}

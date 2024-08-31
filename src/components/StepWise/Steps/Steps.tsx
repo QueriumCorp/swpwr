@@ -30,13 +30,6 @@ const Steps = () => {
       steps[steps.length - 1]?.type === 'mathComplete' ||
       steps[steps.length - 1]?.type === 'victory'
 
-    console.info(
-      'lastCorrectStep:',
-      lastCorrectStep,
-      '  islastStepCorrect:',
-      islastStepCorrect,
-    )
-
     switch (step.type) {
       case 'correct':
         return (

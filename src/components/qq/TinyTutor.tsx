@@ -64,10 +64,6 @@ export const TinyTutor = ({
   }, [introMsgs, psHintsMsgs, getAiHints])
 
   useEffect(() => {
-    console.log('hintStage:', hintStage)
-  }, [hintStage])
-
-  useEffect(() => {
     setBubbleShow(true)
   }, [msg])
 
@@ -107,7 +103,6 @@ export const TinyTutor = ({
     let currentStageIndex = hintStages.findIndex(stage => stage === hintStage)
     let nextStage = hintStages[currentStageIndex + 1]
 
-    console.log('hintStage:', hintStage, ' nextStage:', nextStage)
     setHintStage(nextStage)
 
     let current = 0,
@@ -160,7 +155,6 @@ export const TinyTutor = ({
   ///////////////////////////////////////////////////////////////////
 
   function ShowChatBubble() {
-    console.log(msg)
     if (msg?.length) {
       return (
         // If we have a message, show it
