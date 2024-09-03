@@ -92,11 +92,13 @@ const InputPanel = () => {
         mf.current?.executeCommand(['insert', operator.latex])
         break
       case 'latex':
+        console.info(operator.latex)
         mf.current?.executeCommand([
           'insert',
           operator.latex,
           { focus: true, selectionMode: 'placeholder' },
         ])
+
         break
       case 'identifier':
         mf.current?.executeCommand(['insert', operator.operator])
