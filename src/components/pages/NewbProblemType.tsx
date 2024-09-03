@@ -85,7 +85,7 @@ const NewbProblemType: FC<{
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     console.log('handleCheckSchema')
-    if (evt.metaKey) {
+    if (evt.altKey) {
       onComplete(session, studentLog)
       api?.scrollNext()
     } else {

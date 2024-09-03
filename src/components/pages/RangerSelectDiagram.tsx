@@ -110,7 +110,7 @@ const RangerSelectDiagram: FC<{
         break
     }
 
-    const fake = evt.metaKey
+    const fake = evt.altKey
     logAction('RangerSelectDiagram : Checking Schema : ' + selectedSchema)
     const result = await submitPickSchema(selectedSchema, fake)
 

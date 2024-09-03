@@ -65,7 +65,7 @@ const RangerOwnWords: FC<{
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     console.log('handleCheckOwnWords')
-    if (evt.metaKey) {
+    if (evt.altKey) {
       api?.scrollNext()
     } else if (ownWords.length < 10) {
       setMsg('Please explain your answer in your own words')

@@ -149,10 +149,8 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
             <Stimulus />
             {children}
           </CardHeader>
-          <div className="CARDSTEPS flex grow justify-center px-2 py-1">
-            <div className="h-full w-full max-w-[640px] overflow-y-auto border-2">
-              <Steps />
-            </div>
+          <div className="CARDSTEPS flex grow justify-center bg-yellow-400 px-2 py-1">
+            <Steps />
           </div>
           <CardFooter className="flex flex-col px-2 pb-4">
             <InputPanel />

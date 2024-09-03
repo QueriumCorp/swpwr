@@ -69,7 +69,7 @@ const RangerFillDiagram: FC<{
   async function handleCheckEquation(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    if (evt.metaKey) {
+    if (evt.altKey) {
       api?.scrollNext()
     } else {
       setBusy(true)

@@ -133,7 +133,7 @@ const RangerSolveTheEquation: FC<{
   async function evaluateStep(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    if (evt.metaKey) {
+    if (evt.altKey) {
       api?.scrollNext()
     } else {
       if (stepwiseRef.current) {
@@ -149,7 +149,7 @@ const RangerSolveTheEquation: FC<{
   async function HandleNext(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    if (evt.metaKey || complete) {
+    if (evt.altKey || complete) {
       //If Cmd+Enter just scroll to next page
       api?.scrollNext()
     } else {
@@ -190,7 +190,7 @@ const RangerSolveTheEquation: FC<{
           <div className="flex grow flex-col items-center justify-center">
             <div
               className={cn(
-                'h-full w-full',
+                'absolute bottom-0 left-0 right-0 top-0',
                 working ? 'inline-block' : 'hidden',
               )}
             >
@@ -251,14 +251,6 @@ const RangerSolveTheEquation: FC<{
                 </div>
               </StepWise>
             </div>
-            <Button
-              className={cn('w-full', working ? 'hidden' : 'bg-orange-500')}
-              onClick={() => {
-                startStepWise()
-              }}
-            >
-              Let's Do This!
-            </Button>
           </div>
         </div>
       </div>

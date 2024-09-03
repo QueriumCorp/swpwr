@@ -72,7 +72,7 @@ const NewbFindFacts: FC<{
   async function HandleCheckFacts(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    if (evt.metaKey) {
+    if (evt.altKey) {
       //If Cmd+Enter just scroll to next page
       api?.scrollNext()
     } else {
