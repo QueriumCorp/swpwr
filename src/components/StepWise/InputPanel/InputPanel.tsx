@@ -65,6 +65,7 @@ const InputPanel = () => {
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
+    // submitStep on enter
     if (mf.current) {
       mf.current.mathVirtualKeyboardPolicy = 'manual'
       mf.current.addEventListener('beforeinput', evt => {
@@ -143,9 +144,7 @@ const InputPanel = () => {
             paddingLeft: '16px',
             marginRight: '-8px',
           }}
-        >
-          {value}
-        </math-field>
+        ></math-field>
         {displaySubmitButton ? <Submit className="mr-3" value={value} /> : null}
       </div>
       <Keyboard
