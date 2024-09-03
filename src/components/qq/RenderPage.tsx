@@ -43,13 +43,14 @@ export function renderPage(page: YBRpage, index: number) {
     ///////////////////////////////////////////////////////////////////
     // DEV
     ///////////////////////////////////////////////////////////////////
-    case 'dev:FillDiagram':
-      return <RangerFillDiagram page={page} index={index}></RangerFillDiagram>
-    case 'dev:MeetTutor':
-      return <DevMeetTutor page={page} index={index}></DevMeetTutor>
+    case 'dev:ReadProblem':
+      return <RangerReadProblem page={page} index={index}></RangerReadProblem>
     case 'dev:SolveTheEquation':
       return (
-        <DevSolveTheEquation page={page} index={index}></DevSolveTheEquation>
+        <RangerSolveTheEquation
+          page={page}
+          index={index}
+        ></RangerSolveTheEquation>
       )
 
     ///////////////////////////////////////////////////////////////////

@@ -10,31 +10,28 @@ export type YBRpage = {
 }
 
 export const YellowBrickRoad: YBRpage[] = [
+  ///////////////////////////////////////////////////////////////////
+  // DEV
+  ///////////////////////////////////////////////////////////////////
+
   {
     rank: 'dev',
-    id: 'MeetTutor',
-    title: 'string',
-    phase: 'I',
-    phaseLabel: 'str',
-  },
-  {
-    rank: 'dev',
-    id: 'FillDiagram',
-    title: 'Fill in the Diagram',
-    phase: 'O',
-    phaseLabel: 'Organize',
+    id: 'ReadProblem',
+    title: 'Read the problem',
+    phase: 'P',
+    phaseLabel: 'Prepare',
+    psHints: [
+      `Click → when you're done reading.`,
+      `Go ahead and click → to continue.`,
+    ],
+    aiHints: false,
   },
   {
     rank: 'dev',
     id: 'SolveTheEquation',
-    title: 'Solve the Equation',
+    title: 'Find the unknown amount',
     phase: 'W',
     phaseLabel: 'Work the Problem',
-    intro: 'Solve the equation above. Click the button to begin!',
-    psHints: [
-      'Use the + and - buttons to add and subtract numbers',
-      'Use the = button to solve the equation',
-    ],
     aiHints: false,
   },
 
