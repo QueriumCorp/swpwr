@@ -1,7 +1,7 @@
 'use client'
 
 //  React Imports
-import { FC, ReactNode, useContext, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useState } from 'react'
 
 // Third-party Imports
 import { cn } from '@/lib/utils'
@@ -53,6 +53,7 @@ const RangerFillDiagram: FC<{
   const [values, setValues] = useState<string[]>([])
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
+  const [disabled, setDisabled] = useState(true)
   const [complete, setComplete] = useState(false)
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
@@ -61,6 +62,14 @@ const RangerFillDiagram: FC<{
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    if (values.join('').length === 0) {
+      setDisabled(true)
+    } else {
+      setDisabled(false)
+    }
+  }, [equation, values])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -181,7 +190,7 @@ const RangerFillDiagram: FC<{
         {!complete ? (
           <CheckStepButton
             busy={busy}
-            disabled={busy}
+            disabled={disabled}
             onClick={evt => handleCheckEquation(evt)}
           />
         ) : (
