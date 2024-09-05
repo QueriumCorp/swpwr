@@ -1,11 +1,19 @@
-import React, { forwardRef, useContext, useImperativeHandle } from 'react'
+import React, {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react'
+
 import { SessionContext } from '../stores/sessionContext'
 import { useStore } from 'zustand'
 
 import Steps from '../Steps/Steps'
+import type { Step as StepType } from '../stores/solution'
 import InputPanel from '../InputPanel/InputPanel'
 import Stimulus from '../Stimulus/Stimulus'
-import { Card, CardContent, CardFooter, CardHeader } from '../components/Card'
+import { Card } from '../components/Card'
 import TitleBar from '../TitleBar/TitleBar'
 import { cn } from '../utils'
 import { Slab } from 'react-loading-indicators'
@@ -24,19 +32,55 @@ export type ActiveSessionAPI = {
   evaluateStep?: () => Promise<string>
 }
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
 export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
   ({ className, children }, ref) => {
+    ///////////////////////////////////////////////////////////////////
+    // Contexts
+    ///////////////////////////////////////////////////////////////////
+
     const session = useContext(SessionContext)
     if (!session) throw new Error('No SessionContext.Provider in the tree')
+
+    ///////////////////////////////////////////////////////////////////
+    // Refs
+    ///////////////////////////////////////////////////////////////////
+
+    const stepsRef = useRef<HTMLDivElement>(null)
+
+    ///////////////////////////////////////////////////////////////////
+    // Store
+    ///////////////////////////////////////////////////////////////////
 
     const sessionInitialState = useStore(session, s => s.initialState)
     const problemLatex = useStore(session, s => s.latex)
     const sessionToken = useStore(session, s => s.sessionToken)
-
-    // State
+    const steps: StepType[] = useStore(session, s => s.steps)
     const resumeSession = useStore(session, s => s.resumeSession)
 
-    // Solution Commands for TESTING
+    ///////////////////////////////////////////////////////////////////
+    // State
+    ///////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////
+    // Effects
+    ///////////////////////////////////////////////////////////////////
+    const scrollToBottom = () => {
+      stepsRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+
+    useEffect(() => {
+      console.log('New value of steps:', steps)
+      scrollToBottom()
+    }, [steps])
+
+    ///////////////////////////////////////////////////////////////////
+    // Component API
+    ///////////////////////////////////////////////////////////////////
+
     const startSession = useStore(session, s => s.startSession)
     const handleStartSessionClick = () => {
       startSession()
@@ -80,9 +124,9 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
       [],
     )
 
-    //=============================================
+    ///////////////////////////////////////////////////////////////////
     // JSX
-    //=============================================
+    ///////////////////////////////////////////////////////////////////
 
     // STARTING
     if (sessionToken === 'starting') {
@@ -150,8 +194,10 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
             <Stimulus />
             {children}
           </div>
-          <div className="STEPS_CONTAINER borderg-slate-300 mx-2 mb-1 flex grow justify-center overflow-y-auto rounded-md border-2 px-2 py-1">
+          <div className="STEPS_CONTAINER borderg-slate-300 mx-2 mb-1 flex grow flex-col justify-center overflow-y-auto rounded-md border-2 px-2 py-1">
             <Steps />
+            <div ref={stepsRef}></div>{' '}
+            {/* empty div for scrolling to bottom of container. */}
           </div>
           <div className="flex flex-col px-2 pb-4">
             <InputPanel />
