@@ -52,6 +52,7 @@ const RangerReflect: FC<{
   const [explanation, setExplanation] = useState<Explanation | null>(null)
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
+  const [disabled, setDisabled] = useState(true)
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
@@ -63,6 +64,14 @@ const RangerReflect: FC<{
   useEffect(() => {
     setExplanations(session.explanations)
   }, [session.explanations])
+
+  useEffect(() => {
+    if (explanation) {
+      setDisabled(false)
+    } else {
+      setDisabled(true)
+    }
+  }, [explanation])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -159,6 +168,7 @@ const RangerReflect: FC<{
 
         <NextButton
           busy={busy}
+          disabled={disabled}
           onClick={evt => HandleCheckExplanation(evt)}
         ></NextButton>
 
