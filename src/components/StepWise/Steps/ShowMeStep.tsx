@@ -1,39 +1,39 @@
-import React from "react";
-import type { ShowMeStep, Step } from "../stores/solution";
-import MathStatic from "../MathStatic/MathStatic";
-import { TableCell, TableRow } from "../components/Table";
-import { StepIcon } from "./StepIcon";
+import React from 'react'
+import type { ShowMeStep, Step } from '../stores/solution'
+import MathStatic from '../MathStatic/MathStatic'
+import { TableCell, TableRow } from '../components/Table'
+import { StepIcon } from './StepIcon'
 
 const ShowMeSteps = (props: Step) => {
-  if (props.type === "showMe") {
+  if (props.type === 'showMe') {
     return (
       <>
         {props.showMe.map((item: ShowMeStep) => {
           return (
-            <TableRow
+            <div
               key={item.key}
-              className="flex text-slate-500 dark:text-slate-400 m-0 text-sm even:bg-[#f7f7f7] odd:bg-white"
+              className="m-0 flex text-sm text-slate-500 odd:bg-white even:bg-[#f7f7f7] dark:text-slate-400"
             >
-              <TableCell>
+              <div>
                 <StepIcon>☞</StepIcon>
-              </TableCell>
+              </div>
 
-              <TableCell>
+              <div>
                 <div className="font-serif">{item.instruction}</div>
                 <div className="">
                   <MathStatic
                     latex={item.suggestedStep}
-                    style={{ background: "none" }}
+                    style={{ background: 'none' }}
                   ></MathStatic>
                 </div>
-              </TableCell>
-            </TableRow>
-          );
+              </div>
+            </div>
+          )
         })}
       </>
-    );
+    )
   }
-  return null;
-};
+  return null
+}
 
-export default ShowMeSteps;
+export default ShowMeSteps

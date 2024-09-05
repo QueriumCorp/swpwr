@@ -17,16 +17,16 @@ const HintStep = (props: Step) => {
 
   if (props.type === 'hint') {
     return (
-      <TableRow className="mt-2 flex text-sm text-slate-500 dark:text-slate-400">
-        <TableCell>
+      <div className="mt-2 flex items-center text-sm text-slate-500 dark:text-slate-400">
+        <div>
           <StepIcon>
             <BabyFox className="h-6 w-6" />
           </StepIcon>
-        </TableCell>
-        <TableCell>
+        </div>
+        <div>
           <div ref={latexRef}>{props.hintText}</div>
-        </TableCell>
-      </TableRow>
+        </div>
+      </div>
     )
   }
   return null

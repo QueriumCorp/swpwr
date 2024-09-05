@@ -1,30 +1,30 @@
-import React from "react";
-import type { Step } from "../stores/solution";
-import { TableCell, TableRow } from "../components/Table";
-import { StepIcon } from "./StepIcon";
-import MathStatic from "../MathStatic/MathStatic";
+import React from 'react'
+import type { Step } from '../stores/solution'
+import { TableCell, TableRow } from '../components/Table'
+import { StepIcon } from './StepIcon'
+import MathStatic from '../MathStatic/MathStatic'
 
 const CorrectStep = (props: Step) => {
-  if (props.type === "correct") {
-    const { latex } = props;
+  if (props.type === 'correct') {
+    const { latex } = props
 
     return (
-      <TableRow className="flex text-slate-500 dark:text-slate-400 m-0 text-sm even:bg-[#f7f7f7] odd:bg-white">
-        <TableCell>
-          <StepIcon>✓</StepIcon>
-        </TableCell>
-        <TableCell>
+      <div className="m-0 flex items-center text-sm text-slate-500 odd:bg-white even:bg-[#f7f7f7] dark:text-slate-400">
+        <div>
+          <StepIcon className="text-green-600">✓</StepIcon>
+        </div>
+        <div>
           <div className="">
             <MathStatic
               latex={latex}
-              style={{ background: "none" }}
+              style={{ background: 'none' }}
             ></MathStatic>
           </div>
-        </TableCell>
-      </TableRow>
-    );
+        </div>
+      </div>
+    )
   }
-  return null;
-};
+  return null
+}
 
-export default CorrectStep;
+export default CorrectStep

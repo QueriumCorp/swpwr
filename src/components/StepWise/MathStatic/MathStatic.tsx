@@ -1,19 +1,19 @@
-import React, { useEffect, useRef } from "react";
-import { MathViewRef } from "../types/mathlive";
+import React, { useEffect, useRef } from 'react'
+import { MathViewRef } from '../types/mathlive'
 
 export interface MathStaticProps {
-  latex: string;
-  style?: object;
+  latex: string
+  style?: object
 }
 
 const MathStatic = (props: MathStaticProps) => {
-  const mf = useRef<MathViewRef>(null);
+  const mf = useRef<MathViewRef>(null)
 
   useEffect(() => {
     if (mf.current) {
-      mf.current.applyStyle({ backgroundColor: "red" });
+      mf.current.applyStyle({ backgroundColor: 'red' })
     }
-  }, []);
+  }, [])
 
   return (
     <math-field
@@ -21,7 +21,7 @@ const MathStatic = (props: MathStaticProps) => {
       ref={mf}
       read-only
     >{`${props.latex}`}</math-field>
-  );
-};
+  )
+}
 
-export default MathStatic;
+export default MathStatic
