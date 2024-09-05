@@ -140,21 +140,22 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
         <Card
           id="ActiveSession"
           className={cn(
-            'flex flex-col rounded-lg bg-white p-1 text-slate-800 shadow-xl ring-1 ring-slate-900/5',
+            'ActiveSession',
+            'mx-auto flex max-w-[640px] flex-col justify-stretch rounded-lg bg-white p-1 text-slate-800 shadow-xl ring-1 ring-slate-900/5',
             className,
           )}
         >
-          <CardHeader className="px-2 pb-2 pt-4">
+          <div className="px-2 pb-2 pt-4">
             <TitleBar />
             <Stimulus />
             {children}
-          </CardHeader>
-          <div className="CARDSTEPS flex grow justify-center bg-yellow-400 px-2 py-1">
+          </div>
+          <div className="STEPS_CONTAINER borderg-slate-300 mx-2 mb-1 flex grow justify-center overflow-y-auto rounded-md border-2 px-2 py-1">
             <Steps />
           </div>
-          <CardFooter className="flex flex-col px-2 pb-4">
+          <div className="flex flex-col px-2 pb-4">
             <InputPanel />
-          </CardFooter>
+          </div>
         </Card>
       )
     }

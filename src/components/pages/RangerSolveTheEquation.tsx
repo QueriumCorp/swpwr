@@ -180,16 +180,18 @@ const RangerSolveTheEquation: FC<{
         className,
       )}
     >
-      <div className="div relative mb-2 flex grow flex-col justify-stretch gap-2 p-2">
+      <div className="PageContents relative mb-2 flex grow flex-col justify-stretch gap-2 p-2">
         <div className="absolute bottom-0 left-0 right-0 top-0 flex flex-col">
           <HdrBar
             highlightLetter={page?.phase}
             subTitle={page?.phaseLabel}
             instructions={page?.title}
           ></HdrBar>
-          <div className="flex grow flex-col items-center justify-center">
+
+          <div className="StepWiseGrowthContainer relative mt-1 grow">
             <div
               className={cn(
+                'StepWiseContainer',
                 'absolute bottom-0 left-0 right-0 top-0',
                 working ? 'inline-block' : 'hidden',
               )}
@@ -197,7 +199,7 @@ const RangerSolveTheEquation: FC<{
               <StepWise
                 ready
                 ref={stepwiseRef}
-                className={'h-full w-full'}
+                className={'absolute bottom-0 left-0 right-0 top-0'}
                 server={{ serverURL: swapiUrl }}
                 problem={swProblem}
                 student={student}

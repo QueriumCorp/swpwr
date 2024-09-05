@@ -8,126 +8,12 @@ import IncorrectStep from './IncorrectStep'
 import VictoryStep from './VictoryStep'
 import HintStep from './HintStep'
 import ShowMeStep from './ShowMeStep'
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableHeader,
-} from '../components/Table'
 
 const Steps = () => {
   const session = React.useContext(SessionContext)
   if (!session) throw new Error('No SessionContext.Provider in the tree')
 
-  const steps: StepType[] = [
-    {
-      timestamp: 1,
-      type: 'correct',
-      latex: 'x^2',
-      message: 'Correct!',
-      status: 'success',
-      stepStatus: 'VALID',
-      rawResponse: 'x^2',
-      hintObject: {
-        hint: 'hint',
-        hintText: 'hintText',
-        hintType: 'hintType',
-        hintStatus: 'hintStatus',
-        hintTimestamp: 1,
-      },
-    },
-    {
-      timestamp: 2,
-      type: 'incorrect',
-      latex: 'x^2',
-      message: 'Incorrect!',
-      status: 'error',
-      stepStatus: 'INVALID',
-      rawResponse: 'x^2',
-      hintObject: {
-        hintText: 'hintText',
-        hintType: 'hintType',
-        hintStatus: 'hintStatus',
-        hintTimestamp: 1,
-      },
-    },
-    {
-      timestamp: 3,
-      type: 'incorrect',
-      latex: 'x^2',
-      message: 'Incorrect!',
-      status: 'error',
-      stepStatus: 'INVALID',
-      rawResponse: 'x^2',
-      hintObject: {
-        hintText: 'hintText',
-        hintType: 'hintType',
-        hintStatus: 'hintStatus',
-        hintTimestamp: 1,
-      },
-    },
-    {
-      timestamp: 4,
-      type: 'incorrect',
-      latex: 'x^2',
-      message: 'Incorrect!',
-      status: 'error',
-      stepStatus: 'INVALID',
-      rawResponse: 'x^2',
-      hintObject: {
-        hintText: 'hintText',
-        hintType: 'hintType',
-        hintStatus: 'hintStatus',
-        hintTimestamp: 1,
-      },
-    },
-    {
-      timestamp: 5,
-      type: 'incorrect',
-      latex: 'x^2',
-      message: 'Incorrect!',
-      status: 'error',
-      stepStatus: 'INVALID',
-      rawResponse: 'x^2',
-      hintObject: {
-        hintText: 'hintText',
-        hintType: 'hintType',
-        hintStatus: 'hintStatus',
-        hintTimestamp: 1,
-      },
-    },
-    {
-      timestamp: 6,
-      type: 'incorrect',
-      latex: 'x^2',
-      message: 'Incorrect!',
-      status: 'error',
-      stepStatus: 'INVALID',
-      rawResponse: 'x^2',
-      hintObject: {
-        hintText: 'hintText',
-        hintType: 'hintType',
-        hintStatus: 'hintStatus',
-        hintTimestamp: 1,
-      },
-    },
-    {
-      timestamp: 7,
-      type: 'incorrect',
-      latex: 'x^2',
-      message: 'Incorrect!',
-      status: 'error',
-      stepStatus: 'INVALID',
-      rawResponse: 'x^2',
-      hintObject: {
-        hintText: 'hintText',
-        hintType: 'hintType',
-        hintStatus: 'hintStatus',
-        hintTimestamp: 1,
-      },
-    },
-  ]
-  // const steps: StepType[] = useStore(session, s => s.steps)
+  const steps: StepType[] = useStore(session, s => s.steps)
   const lastAction = useStore(session, s => s.lastAction)
 
   const renderStepSwitch = (step: StepType, index: number) => {
@@ -231,7 +117,7 @@ const Steps = () => {
   }
 
   return (
-    <div className="h-full w-full max-w-[640px] overflow-y-auto border-4 border-slate-900 bg-green-400">
+    <div className="h-full w-full max-w-[640px]">
       {steps.map((step, index) => renderStepSwitch(step, index))}
     </div>
   )
