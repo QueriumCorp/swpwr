@@ -27,6 +27,7 @@ export interface StepWiseProps {
   go?: boolean
   assistant?: (msg: string, busy?: boolean) => void
   onComplete?: (steps: Step[], log: Log[]) => void
+  onStepChange?: (step: string) => void
   className?: string
   style?: CSSProperties
   children?: React.ReactNode // best, accepts everything React can render
@@ -48,6 +49,7 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
       problem,
       assistant,
       onComplete,
+      onStepChange,
       server,
       options,
       className,
@@ -102,7 +104,11 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
     // Active Session
     return (
       <SessionContext.Provider value={storeRef.current}>
-        <ActiveSession ref={ActiveSessionRef} className={className}>
+        <ActiveSession
+          ref={ActiveSessionRef}
+          className={className}
+          onStepChange={onStepChange}
+        >
           {children}
         </ActiveSession>
       </SessionContext.Provider>

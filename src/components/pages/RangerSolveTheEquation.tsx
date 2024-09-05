@@ -62,6 +62,7 @@ const RangerSolveTheEquation: FC<{
   const [msg, setMsg] = useState('')
   const [complete, setComplete] = useState(false)
   const [busy, setBusy] = useState(false)
+  const [disabled, setDisabled] = useState(true)
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
@@ -165,6 +166,10 @@ const RangerSolveTheEquation: FC<{
     setComplete(true)
   }
 
+  function handleStepChange(step: string) {
+    step.length === 0 ? setDisabled(true) : setDisabled(false)
+  }
+
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
@@ -205,6 +210,7 @@ const RangerSolveTheEquation: FC<{
                 student={student}
                 assistant={setMsg}
                 onComplete={onComplete}
+                onStepChange={handleStepChange}
               >
                 <div className="mt-2">
                   {session.schema === 'additiveTotalSchema' ? (
@@ -268,7 +274,7 @@ const RangerSolveTheEquation: FC<{
         {!complete ? (
           <CheckStepButton
             busy={busy}
-            disabled={busy}
+            disabled={disabled}
             onClick={evt => evaluateStep(evt)}
           />
         ) : (

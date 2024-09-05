@@ -51,6 +51,8 @@ import { Options } from './options'
 
 export type SessionStore = ReturnType<typeof createSessionStore>
 
+type ScratchPadStep = Partial<Step>
+
 export const createSessionStore = (
   initialState?: 'READY' | 'SET' | 'GO',
   student?: Student,
@@ -540,8 +542,38 @@ export const createSessionStore = (
             return logEntry.response
           }
 
-          if (typeof assistant === 'function')
+          // If we dont have a step, log and exit
+          if (!step || typeof step !== 'string' || step.length == 0) {
+            logEntry.response = `No step. ${step}`
+            set(state => ({
+              log: [...state.log, logEntry],
+            }))
+            if (typeof assistant === 'function') {
+              assistant('Please enter a step.', false)
+            }
+            const resultingStep: ScratchPadStep = {
+              timestamp: now,
+              status: '',
+              stepStatus: 'INVALID',
+              type: 'incorrect',
+              message: 'Please enter a step.',
+              rawResponse: '',
+              latex: step,
+            }
+
+            set(state => ({
+              log: [...state.log, logEntry],
+              steps: [...state.steps, resultingStep as Step],
+              lastAction: now,
+            }))
+            return logEntry.response
+          }
+
+          if (typeof assistant === 'function') {
             assistant('Just a sec while I check your step...', true)
+          }
+
+          // Send the step to the server
           try {
             response = await fetch(`${server.serverURL}/submitStep`, {
               method: 'POST',
@@ -580,7 +612,6 @@ export const createSessionStore = (
             const body = await response.json()
             logEntry.response = body.rawResponse
 
-            type ScratchPadStep = Partial<Step>
             const resultingStep: ScratchPadStep = {
               timestamp: now,
               status: body.status,

@@ -1,5 +1,5 @@
 // React Imports
-import React, { useEffect, useRef, useState, ChangeEvent } from 'react'
+import React, { useEffect, useRef, useState, ChangeEvent, FC } from 'react'
 
 // Querium Imports
 import { SessionContext } from '../stores/sessionContext'
@@ -30,11 +30,14 @@ declare global {
 }
 /* eslint-enable */
 
+export interface InputPanelProps {
+  onStepChange?: (step: string) => void
+}
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 
-const InputPanel = () => {
+const InputPanel: FC<InputPanelProps> = ({ onStepChange }) => {
   ///////////////////////////////////////////////////////////////////
   // Contexts
   ///////////////////////////////////////////////////////////////////
@@ -79,6 +82,9 @@ const InputPanel = () => {
 
   useEffect(() => {
     setEditingStep(value)
+    if (typeof onStepChange === 'function') {
+      onStepChange(value)
+    }
   }, [value])
 
   ///////////////////////////////////////////////////////////////////
@@ -92,7 +98,6 @@ const InputPanel = () => {
         mf.current?.executeCommand(['insert', operator.latex])
         break
       case 'latex':
-        console.info(operator.latex)
         mf.current?.executeCommand([
           'insert',
           operator.latex,

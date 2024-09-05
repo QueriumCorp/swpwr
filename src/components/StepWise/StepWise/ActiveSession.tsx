@@ -24,6 +24,7 @@ import { Session } from '../stores/session'
 export type ActiveSessionProps = {
   className?: string
   children?: React.ReactNode
+  onStepChange?: (step: string) => void
 }
 export type ActiveSessionAPI = {
   start: () => void
@@ -37,7 +38,7 @@ export type ActiveSessionAPI = {
 ///////////////////////////////////////////////////////////////////
 
 export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
-  ({ className, children }, ref) => {
+  ({ className, children, onStepChange }, ref) => {
     ///////////////////////////////////////////////////////////////////
     // Contexts
     ///////////////////////////////////////////////////////////////////
@@ -68,12 +69,11 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
     ///////////////////////////////////////////////////////////////////
     // Effects
     ///////////////////////////////////////////////////////////////////
+
     const scrollToBottom = () => {
       stepsRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
-
     useEffect(() => {
-      console.log('New value of steps:', steps)
       scrollToBottom()
     }, [steps])
 
@@ -200,7 +200,7 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
             {/* empty div for scrolling to bottom of container. */}
           </div>
           <div className="flex flex-col px-2 pb-4">
-            <InputPanel />
+            <InputPanel onStepChange={onStepChange} />
           </div>
         </Card>
       )
