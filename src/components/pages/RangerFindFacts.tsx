@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { FC, ReactNode, useContext, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useState } from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -47,6 +47,7 @@ const RangerFindFacts: FC<{
   const [emote, setEmote] = useState<string>('gratz:02')
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
+  const [disabled, setDisabled] = useState(true)
   const [complete, setComplete] = useState(false)
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
@@ -55,6 +56,14 @@ const RangerFindFacts: FC<{
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    if (knowns.length === 0 && unknowns.length === 0) {
+      setDisabled(true)
+    } else {
+      setDisabled(false)
+    }
+  }, [knowns, unknowns])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -173,17 +182,14 @@ const RangerFindFacts: FC<{
         {!complete ? (
           <CheckStepButton
             busy={busy}
-            disabled={busy}
+            disabled={disabled}
             onClick={evt => HandleCheckFacts(evt)}
           />
         ) : (
-          <NextButton
-            busy={busy}
-            // onClick={evt => HandleCheckFacts(evt)}
-          ></NextButton>
+          <NextButton busy={busy}></NextButton>
         )}
         <h1 className="absolute bottom-0 left-0 text-slate-500">
-          RangerFindFacts: {msg}
+          RangerFindFacts
         </h1>
       </NavBar>
     </div>

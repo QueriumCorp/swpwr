@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { FC, ReactNode, useContext, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useState } from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -63,6 +63,7 @@ const RangerSelectDiagram: FC<{
   const [schema, setSchema] = useState('')
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
+  const [disabled, setDisabled] = useState(true)
   const [complete, setComplete] = useState(false)
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
@@ -71,6 +72,14 @@ const RangerSelectDiagram: FC<{
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    if (schema === '') {
+      setDisabled(true)
+    } else {
+      setDisabled(false)
+    }
+  }, [schema])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -333,7 +342,7 @@ const RangerSelectDiagram: FC<{
         {!complete ? (
           <CheckStepButton
             busy={busy}
-            disabled={busy}
+            disabled={disabled}
             onClick={evt => handleCheckSchema(evt)}
           />
         ) : (
