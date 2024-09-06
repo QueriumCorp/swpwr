@@ -34,6 +34,7 @@ export interface State {
   closeSession: () => Promise<string>
   saveTrace: (comment: string) => Promise<string>
   logAction: (action: string) => void
+  setMathAnswer: (answer: string) => void
 
   setOnComplete: (onComplete: () => void) => void
 }

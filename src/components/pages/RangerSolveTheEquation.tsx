@@ -11,7 +11,6 @@ import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
-import { Button } from '../ui/button'
 import { StepWiseAPI } from '../StepWise/StepWise/StepWise'
 import { TinyTutor } from '../qq/TinyTutor'
 import { Log, Step } from '../StepWise/stores/solution'
@@ -23,7 +22,6 @@ import { ChangeDecreaseEquationGraphic } from '../schemaEditors/changeDecrease/C
 import { ChangeIncreaseEquationGraphic } from '../schemaEditors/changeIncrease/ChangeIncreaseEquationGraphic'
 import { CompareEquationGraphic } from '../schemaEditors/compare/CompareEquationGraphic'
 import { NextButton } from '../qq/NextButton'
-import { Check } from 'lucide-react'
 import CheckStepButton from '../qq/CheckStepButton'
 
 ///////////////////////////////////////////////////////////////////
@@ -51,8 +49,16 @@ const RangerSolveTheEquation: FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { problem, student, session, ybr, rank, swapiUrl, logAction } =
-    useProblemStore()
+  const {
+    problem,
+    student,
+    session,
+    ybr,
+    rank,
+    swapiUrl,
+    setMathAnswer,
+    logAction,
+  } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -167,6 +173,14 @@ const RangerSolveTheEquation: FC<{
       'RangerSolveTheEquation : ' +
         JSON.stringify({ studentSolution: steps, log: log }),
     )
+    const lastStep = steps[steps.length - 1]
+    if (lastStep.type === 'mathComplete' || lastStep.type === 'victory') {
+      if (lastStep.latex) {
+        setMathAnswer(lastStep.latex)
+      } else {
+        setMathAnswer('LaTeX for last step was not found')
+      }
+    }
     setComplete(true)
   }
 

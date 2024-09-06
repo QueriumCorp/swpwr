@@ -636,7 +636,10 @@ export const createSessionStore = (
                 resultingStep.type = 'mathComplete'
                 if (typeof onComplete === 'function') {
                   const log = get().log
-                  onComplete(get().steps, log)
+                  onComplete(
+                    [...get().steps, resultingStep as Step],
+                    [...log, logEntry],
+                  )
                 }
                 break
             }
