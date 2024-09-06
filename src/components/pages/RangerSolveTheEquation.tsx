@@ -237,6 +237,7 @@ const RangerSolveTheEquation: FC<{
                       p1={session.schemaValues[0]}
                       p2={session.schemaValues[1]}
                       t={session.schemaValues[2]}
+                      showSchema={false}
                     ></TotalEquationGraphic>
                   ) : null}
                   {session.schema === 'multiplicativeEqualGroupsSchema' ? (
@@ -253,6 +254,7 @@ const RangerSolveTheEquation: FC<{
                       l={session.schemaValues[0]}
                       d={session.schemaValues[1]}
                       g={session.schemaValues[2]}
+                      showSchema={false}
                     ></DifferenceEquationGraphic>
                   ) : null}
                   {session.schema === 'subtractiveChangeSchema' ? (
@@ -261,6 +263,7 @@ const RangerSolveTheEquation: FC<{
                       e={session.schemaValues[0]}
                       c={session.schemaValues[1]}
                       s={session.schemaValues[2]}
+                      showSchema={false}
                     ></ChangeDecreaseEquationGraphic>
                   ) : null}
                   {session.schema === 'additiveChangeSchema' ? (
@@ -269,6 +272,7 @@ const RangerSolveTheEquation: FC<{
                       e={session.schemaValues[0]}
                       c={session.schemaValues[1]}
                       s={session.schemaValues[2]}
+                      showSchema={false}
                     ></ChangeIncreaseEquationGraphic>
                   ) : null}
                   {session.schema === 'multiplicativeCompareSchema' ? (

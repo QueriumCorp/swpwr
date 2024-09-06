@@ -9,11 +9,13 @@ export const ChangeDecreaseEquationGraphic = ({
   c,
   s,
   className,
+  showSchema = true,
 }: {
   e?: string
   c?: string
   s?: string
   className?: string
+  showSchema?: boolean
 }) => {
   ///////////////////////////////////////////////////////////////////
   // State
@@ -60,31 +62,12 @@ export const ChangeDecreaseEquationGraphic = ({
       {/*
         SCHEMA
       */}
-      <div className="flex min-w-[480px] max-w-[768px] grow flex-col">
-        <Droppable
-          id="S"
-          className={cn(
-            'relative flex min-h-16 flex-col items-center justify-start',
-          )}
-        >
-          <div
-            className={cn(
-              'select-none text-xl text-slate-300',
-              'flex items-center justify-start',
-            )}
-          >
-            <div className={cn(sValue ? 'text-xs' : 'text-xl')}>Start</div>
-          </div>
-          <div className={cn(sValue ? 'text-xl' : 'text-xs', className)}>
-            {s}
-          </div>
-        </Droppable>
-
-        <div className="flex">
+      {showSchema ? (
+        <div className="flex min-w-[480px] max-w-[768px] grow flex-col">
           <Droppable
-            id="C"
+            id="S"
             className={cn(
-              'relative flex min-h-16 grow flex-col items-center justify-start',
+              'relative flex min-h-16 flex-col items-center justify-start',
             )}
           >
             <div
@@ -93,33 +76,54 @@ export const ChangeDecreaseEquationGraphic = ({
                 'flex items-center justify-start',
               )}
             >
-              <div className={cn(cValue ? 'text-xs' : 'text-xl')}>Change</div>
+              <div className={cn(sValue ? 'text-xs' : 'text-xl')}>Start</div>
             </div>
-            <div className={cn(cValue ? 'text-xl' : 'text-xs', className)}>
-              {c}
+            <div className={cn(sValue ? 'text-xl' : 'text-xs', className)}>
+              {s}
             </div>
           </Droppable>
 
-          <Droppable
-            id="E"
-            className={cn(
-              'relative flex min-h-16 grow flex-col items-center justify-start',
-            )}
-          >
-            <div
+          <div className="flex">
+            <Droppable
+              id="C"
               className={cn(
-                'select-none text-xl text-slate-300',
-                'flex items-center justify-start',
+                'relative flex min-h-16 grow flex-col items-center justify-start',
               )}
             >
-              <div className={cn(eValue ? 'text-xs' : 'text-xl')}>End</div>
-            </div>
-            <div className={cn(eValue ? 'text-xl' : 'text-xs', className)}>
-              {e}
-            </div>
-          </Droppable>
+              <div
+                className={cn(
+                  'select-none text-xl text-slate-300',
+                  'flex items-center justify-start',
+                )}
+              >
+                <div className={cn(cValue ? 'text-xs' : 'text-xl')}>Change</div>
+              </div>
+              <div className={cn(cValue ? 'text-xl' : 'text-xs', className)}>
+                {c}
+              </div>
+            </Droppable>
+
+            <Droppable
+              id="E"
+              className={cn(
+                'relative flex min-h-16 grow flex-col items-center justify-start',
+              )}
+            >
+              <div
+                className={cn(
+                  'select-none text-xl text-slate-300',
+                  'flex items-center justify-start',
+                )}
+              >
+                <div className={cn(eValue ? 'text-xs' : 'text-xl')}>End</div>
+              </div>
+              <div className={cn(eValue ? 'text-xl' : 'text-xs', className)}>
+                {e}
+              </div>
+            </Droppable>
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {/*
         EQUATION

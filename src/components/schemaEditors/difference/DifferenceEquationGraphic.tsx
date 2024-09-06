@@ -9,11 +9,13 @@ export const DifferenceEquationGraphic = ({
   d,
   g,
   className,
+  showSchema = true,
 }: {
   l?: string
   d?: string
   g?: string
   className?: string
+  showSchema?: boolean
 }) => {
   ///////////////////////////////////////////////////////////////////
   // State
@@ -60,32 +62,12 @@ export const DifferenceEquationGraphic = ({
       {/*
         SCHEMA
       */}
-      <div className="flex min-w-[480px] max-w-[768px] grow flex-col">
-        <Droppable
-          id="G"
-          className={cn(
-            'relative flex min-h-16 flex-col items-center justify-start',
-            gValue ? '!border-4 !border-qqAccent' : '',
-          )}
-        >
-          <div
-            className={cn(
-              'select-none text-xl text-slate-300',
-              'flex items-center justify-start',
-            )}
-          >
-            <div className={cn(gValue ? 'text-xs' : 'text-xl')}>Greater</div>
-          </div>
-          <div className={cn(gValue ? 'text-xl' : 'text-xs', className)}>
-            {g}
-          </div>
-        </Droppable>
-
-        <div className="flex">
+      {showSchema ? (
+        <div className="flex min-w-[480px] max-w-[768px] grow flex-col">
           <Droppable
-            id="L"
+            id="G"
             className={cn(
-              'relative flex min-h-16 grow flex-col items-center justify-start',
+              'relative flex min-h-16 flex-col items-center justify-start',
               gValue ? '!border-4 !border-qqAccent' : '',
             )}
           >
@@ -95,36 +77,58 @@ export const DifferenceEquationGraphic = ({
                 'flex items-center justify-start',
               )}
             >
-              <div className={cn(gValue ? 'text-xs' : 'text-xl')}>Less</div>
+              <div className={cn(gValue ? 'text-xs' : 'text-xl')}>Greater</div>
             </div>
             <div className={cn(gValue ? 'text-xl' : 'text-xs', className)}>
-              {l}
+              {g}
             </div>
           </Droppable>
 
-          <Droppable
-            id="D"
-            className={cn(
-              'relative flex min-h-16 grow flex-col items-center justify-start',
-              gValue ? '!border-4 !border-qqAccent' : '',
-            )}
-          >
-            <div
+          <div className="flex">
+            <Droppable
+              id="L"
               className={cn(
-                'select-none text-xl text-slate-300',
-                'flex items-center justify-start',
+                'relative flex min-h-16 grow flex-col items-center justify-start',
+                gValue ? '!border-4 !border-qqAccent' : '',
               )}
             >
-              <div className={cn(gValue ? 'text-xs' : 'text-xl')}>
-                Difference
+              <div
+                className={cn(
+                  'select-none text-xl text-slate-300',
+                  'flex items-center justify-start',
+                )}
+              >
+                <div className={cn(gValue ? 'text-xs' : 'text-xl')}>Less</div>
               </div>
-            </div>
-            <div className={cn(gValue ? 'text-xl' : 'text-xs', className)}>
-              {d}
-            </div>
-          </Droppable>
+              <div className={cn(gValue ? 'text-xl' : 'text-xs', className)}>
+                {l}
+              </div>
+            </Droppable>
+
+            <Droppable
+              id="D"
+              className={cn(
+                'relative flex min-h-16 grow flex-col items-center justify-start',
+                gValue ? '!border-4 !border-qqAccent' : '',
+              )}
+            >
+              <div
+                className={cn(
+                  'select-none text-xl text-slate-300',
+                  'flex items-center justify-start',
+                )}
+              >
+                <div className={cn(gValue ? 'text-xs' : 'text-xl')}>
+                  Difference
+                </div>
+              </div>
+              <div className={cn(gValue ? 'text-xl' : 'text-xs', className)}>
+                {d}
+              </div>
+            </Droppable>
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {/*
         EQUATION

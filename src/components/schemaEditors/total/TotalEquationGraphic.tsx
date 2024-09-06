@@ -9,11 +9,13 @@ export const TotalEquationGraphic = ({
   p2,
   t,
   className,
+  showSchema = true,
 }: {
   p1?: string
   p2?: string
   t?: string
   className?: string
+  showSchema?: boolean
 }) => {
   ///////////////////////////////////////////////////////////////////
   // State
@@ -60,33 +62,13 @@ export const TotalEquationGraphic = ({
       {/*
         SCHEMA
       */}
-      <div className="flex min-w-[480px] max-w-[768px] grow flex-col">
-        <Droppable
-          id="T"
-          className={cn(
-            'relative flex min-h-16 flex-col items-center justify-start',
-            tValue ? '!border-4 !border-qqAccent' : '',
-          )}
-        >
-          <div
-            className={cn(
-              'select-none text-xl text-slate-300',
-              'flex items-center justify-start',
-            )}
-          >
-            <div className={cn(tValue ? 'text-xs' : 'text-xl')}>Total</div>
-          </div>
-          <div className={cn(tValue ? 'text-xl' : 'text-xs', className)}>
-            {t}
-          </div>
-        </Droppable>
-
-        <div className="flex">
+      {showSchema ? (
+        <div className="flex min-w-[480px] max-w-[768px] grow flex-col">
           <Droppable
-            id="P1"
+            id="T"
             className={cn(
-              'relative flex min-h-16 grow flex-col items-center justify-start',
-              p1Value ? '!border-4 !border-qqAccent' : '',
+              'relative flex min-h-16 flex-col items-center justify-start',
+              tValue ? '!border-4 !border-qqAccent' : '',
             )}
           >
             <div
@@ -95,34 +77,60 @@ export const TotalEquationGraphic = ({
                 'flex items-center justify-start',
               )}
             >
-              <div className={cn(p1Value ? 'text-xs' : 'text-xl')}>Part 1</div>
+              <div className={cn(tValue ? 'text-xs' : 'text-xl')}>Total</div>
             </div>
-            <div className={cn(p1Value ? 'text-xl' : 'text-xs', className)}>
-              {p1}
+            <div className={cn(tValue ? 'text-xl' : 'text-xs', className)}>
+              {t}
             </div>
           </Droppable>
 
-          <Droppable
-            id="P2"
-            className={cn(
-              'relative flex min-h-16 grow flex-col items-center justify-start',
-              p2Value ? '!border-4 !border-qqAccent' : '',
-            )}
-          >
-            <div
+          <div className="flex">
+            <Droppable
+              id="P1"
               className={cn(
-                'select-none text-xl text-slate-300',
-                'flex items-center justify-start',
+                'relative flex min-h-16 grow flex-col items-center justify-start',
+                p1Value ? '!border-4 !border-qqAccent' : '',
               )}
             >
-              <div className={cn(p2Value ? 'text-xs' : 'text-xl')}>Part 2</div>
-            </div>
-            <div className={cn(p2Value ? 'text-xl' : 'text-xs', className)}>
-              {p2}
-            </div>
-          </Droppable>
+              <div
+                className={cn(
+                  'select-none text-xl text-slate-300',
+                  'flex items-center justify-start',
+                )}
+              >
+                <div className={cn(p1Value ? 'text-xs' : 'text-xl')}>
+                  Part 1
+                </div>
+              </div>
+              <div className={cn(p1Value ? 'text-xl' : 'text-xs', className)}>
+                {p1}
+              </div>
+            </Droppable>
+
+            <Droppable
+              id="P2"
+              className={cn(
+                'relative flex min-h-16 grow flex-col items-center justify-start',
+                p2Value ? '!border-4 !border-qqAccent' : '',
+              )}
+            >
+              <div
+                className={cn(
+                  'select-none text-xl text-slate-300',
+                  'flex items-center justify-start',
+                )}
+              >
+                <div className={cn(p2Value ? 'text-xs' : 'text-xl')}>
+                  Part 2
+                </div>
+              </div>
+              <div className={cn(p2Value ? 'text-xl' : 'text-xs', className)}>
+                {p2}
+              </div>
+            </Droppable>
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {/*
         EQUATION
