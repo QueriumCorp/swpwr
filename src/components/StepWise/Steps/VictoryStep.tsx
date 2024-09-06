@@ -1,42 +1,29 @@
-import React from "react";
-import type { Step } from "../stores/solution";
+import React from 'react'
+import type { Step } from '../stores/solution'
+import { StepIcon } from './StepIcon'
+import MathStatic from '../MathStatic/MathStatic'
 
 const VictoryStep = (props: Step) => {
-  if (props.type === "victory") {
+  if (props.type === 'victory' || props.type === 'mathComplete') {
+    const { latex } = props
+
     return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            minWidth: 32,
-            minHeight: 32,
-            maxWidth: 32,
-            maxHeight: 32,
-            fontSize: 24,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          🏁
+      <div className="m-0 flex items-center text-sm text-slate-500 odd:bg-white even:bg-[#f7f7f7] dark:text-slate-400">
+        <div>
+          <StepIcon className="text-yellow-600">🏁</StepIcon>
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexGrow: 2,
-          }}
-        >
-          {props.latex}
+        <div>
+          <div className="">
+            <MathStatic
+              latex={latex}
+              style={{ background: 'none' }}
+            ></MathStatic>
+          </div>
         </div>
       </div>
-    );
+    )
   }
-  return null;
-};
+  return null
+}
 
-export default VictoryStep;
+export default VictoryStep
