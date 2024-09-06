@@ -122,6 +122,10 @@ const RangerSolveTheEquation: FC<{
   }
 
   async function getExternalHint() {
+    if (complete) {
+      setMsg('You have solved the math portion! Continue to the next page.')
+      return
+    }
     if (stepwiseRef.current) {
       setWorking(true)
       setBusy(true)
