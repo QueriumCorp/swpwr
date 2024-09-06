@@ -1,7 +1,18 @@
 'use client'
 
 //  React Imports
-import { FC, ReactNode, useContext, useEffect, useState } from 'react'
+import {
+  FC,
+  ReactNode,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
+
+// Third Party Imports
+import { renderMathInElement } from 'mathlive'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -38,6 +49,12 @@ const RangerOwnWords: FC<{
     useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
+  // Ref
+  ///////////////////////////////////////////////////////////////////
+
+  const latexRef = useRef(null)
+
+  ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
@@ -56,6 +73,24 @@ const RangerOwnWords: FC<{
   useEffect(() => {
     ownWords.length > 10 ? setDisabled(false) : setDisabled(true)
   }, [ownWords])
+
+  // on initial render, tell MathLive to render the latex
+  useLayoutEffect(() => {
+    if (latexRef.current) {
+      renderMathInElement(latexRef.current, {
+        TeX: {
+          delimiters: {
+            // Allow math formulas surrounded by $$...$$ for display or \(...\) for inline
+            inline: [['\\(', '\\)']],
+            display: [
+              ['$$', '$$'],
+              ['\\[', '\\]'],
+            ],
+          },
+        },
+      })
+    }
+  }, [])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -125,7 +160,10 @@ const RangerOwnWords: FC<{
           )}
           stimulusText={problem.stimulus}
         ></StimulusSelector>
-        <div>{session.mathAnswer}</div>
+        <div
+          className="ml-2 mt-2"
+          ref={latexRef}
+        >{`$$${session.mathAnswer}$$`}</div>
         <div className="grow">
           <Textarea
             value={ownWords}
