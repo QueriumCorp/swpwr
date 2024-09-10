@@ -25,6 +25,7 @@ import { useProblemStore } from '@/store/_store'
 import { Textarea } from '../ui/textarea'
 import { TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
+import MathStatic from '../qq/MathStatic'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -52,8 +53,6 @@ const RangerOwnWords: FC<{
   // Ref
   ///////////////////////////////////////////////////////////////////
 
-  const latexRef = useRef(null)
-
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
@@ -73,24 +72,6 @@ const RangerOwnWords: FC<{
   useEffect(() => {
     ownWords.length > 10 ? setDisabled(false) : setDisabled(true)
   }, [ownWords])
-
-  // on initial render, tell MathLive to render the latex
-  useLayoutEffect(() => {
-    if (latexRef.current) {
-      renderMathInElement(latexRef.current, {
-        TeX: {
-          delimiters: {
-            // Allow math formulas surrounded by $$...$$ for display or \(...\) for inline
-            inline: [['\\(', '\\)']],
-            display: [
-              ['$$', '$$'],
-              ['\\[', '\\]'],
-            ],
-          },
-        },
-      })
-    }
-  }, [])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -160,10 +141,9 @@ const RangerOwnWords: FC<{
           )}
           stimulusText={problem.stimulus}
         ></StimulusSelector>
-        <div
-          className="ml-2 mt-2"
-          ref={latexRef}
-        >{`$$${session.mathAnswer}$$`}</div>
+
+        <MathStatic latex={session.mathAnswer}></MathStatic>
+
         <div className="grow">
           <Textarea
             value={ownWords}
