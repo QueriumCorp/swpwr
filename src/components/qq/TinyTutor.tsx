@@ -1,4 +1,7 @@
+// React Imports
 import { useEffect, useState } from 'react'
+
+// Querium Imports
 import { AnimeTutor } from '../AnimeTutor'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
 import { cn } from '@/lib/utils'
@@ -61,6 +64,7 @@ export const TinyTutor = ({
     if (getAiHints) hintStages.push('aiHints')
     hintStages.push('post')
     setHintStages(hintStages)
+    console.info('hintStages', hintStages)
   }, [introMsgs, psHintsMsgs, getAiHints])
 
   useEffect(() => {
@@ -179,6 +183,7 @@ export const TinyTutor = ({
       )
     }
   }
+  
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////

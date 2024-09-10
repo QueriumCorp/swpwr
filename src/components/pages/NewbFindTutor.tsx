@@ -12,17 +12,6 @@ import { CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor } from '../qq/TinyTutor'
 
-const introMsg = `I’m right here if you need me, just click my cute self to get my attention 😊.
-
-
-Try it now.`
-const gratzMsg = `
-Perfect! You found me!
-
-If you ever get stuck, click on me just like that. I'll do my best to give you a hand.
-      
-Now click →.`
-
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -49,8 +38,6 @@ const NewbFindTutor: React.FC<{
   ///////////////////////////////////////////////////////////////////
 
   const [navDisabled, setNavDisabled] = useState(true)
-  const [msg, setMsg] = useState('')
-  const [hintStage, setHintStage] = useState('')
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
@@ -63,11 +50,8 @@ const NewbFindTutor: React.FC<{
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
 
-  function newStage(newStage: string) {
-    setHintStage(newStage)
-  }
-
   function hintChanged(hintStage: string, current: number, count: number) {
+    console.info('hintChanged', hintStage, current, count)
     if (hintStage === 'psHints' && current === count) {
       setNavDisabled(false)
     }
@@ -92,7 +76,6 @@ const NewbFindTutor: React.FC<{
       {children}
       <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
-          msg={msg}
           intro={page?.intro}
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
