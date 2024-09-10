@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { StimulusSelector } from '../qq/StimulusSelector'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { HdrBar } from '../qq/HdrBar'
@@ -25,6 +24,8 @@ import { EqualGroupsEquationGraphic } from '../schemas/equalGroups/equation'
 import { CompareEquationGraphic } from '../schemas/compare/equation'
 import { SchemaType } from '@/store/_types'
 import { TinyTutor } from '../qq/TinyTutor'
+import { NextButton } from '../qq/NextButton'
+import CheckStepButton from '../qq/CheckStepButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -38,6 +39,7 @@ const NewbProblemType: FC<{
   ///////////////////////////////////////////////////////////////////
   // Contexts
   ///////////////////////////////////////////////////////////////////
+
   const { api, current } = useContext(NavContext) as NavContextType
 
   ///////////////////////////////////////////////////////////////////
@@ -64,10 +66,10 @@ const NewbProblemType: FC<{
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
   const [disabled, setDisabled] = useState(true)
+  const [complete, setComplete] = useState(false)
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
-  const [aiHints, setAiHints] = useState<string[]>([])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -93,43 +95,47 @@ const NewbProblemType: FC<{
   async function handleCheckSchema(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    console.log('handleCheckSchema')
-    if (evt.altKey) {
-      onComplete(session, studentLog)
+    setMsg('Just a moment while I verify your choice')
+    setBusy(true)
+    logAction('RangerSelectDiagram : Clicked Next')
+
+    let selectedSchema: SchemaType = 'additiveChangeSchema'
+    switch (schema) {
+      case 'TOTAL':
+        selectedSchema = 'additiveTotalSchema'
+        break
+      case 'DIFFERENCE':
+        selectedSchema = 'additiveDifferenceSchema'
+        break
+      case 'CHANGEINCREASE':
+        selectedSchema = 'additiveChangeSchema'
+        break
+      case 'CHANGEDECREASE':
+        selectedSchema = 'subtractiveChangeSchema'
+        break
+      case 'EQUALGROUPS':
+        selectedSchema = 'multiplicativeEqualGroupsSchema'
+        break
+      case 'COMPARE':
+        selectedSchema = 'multiplicativeCompareSchema'
+        break
+    }
+
+    const fake = evt.altKey
+    logAction('NewbSelectDiagram : Checking Schema : ' + selectedSchema)
+    const result = await submitPickSchema(selectedSchema, fake)
+
+    setBusy(false)
+    if (fake) {
+      // Bypass qEval validation
       api?.scrollNext()
     } else {
-      setMsg('Just a moment while I verify your choice')
-      logAction('NewbProblemType : Clicked Next')
-
-      let selectedSchema: SchemaType = 'additiveChangeSchema'
-      switch (schema) {
-        case 'TOTAL':
-          selectedSchema = 'additiveTotalSchema'
-          break
-        case 'DIFFERENCE':
-          selectedSchema = 'additiveDifferenceSchema'
-          break
-        case 'CHANGEINCREASE':
-          selectedSchema = 'additiveChangeSchema'
-          break
-        case 'CHANGEDECREASE':
-          selectedSchema = 'subtractiveChangeSchema'
-          break
-        case 'EQUALGROUPS':
-          selectedSchema = 'multiplicativeEqualGroupsSchema'
-          break
-        case 'COMPARE':
-          selectedSchema = 'multiplicativeCompareSchema'
-          break
-      }
-
-      logAction('NewbProblemType : Checking Schema : ' + selectedSchema)
-      const result = await submitPickSchema(selectedSchema)
-      logAction('NewbProblemType : Checked Schema : ' + JSON.stringify(result))
+      logAction(
+        'NewbSelectDiagram : Checked Schema : ' + JSON.stringify(result),
+      )
       setMsg(result.message)
       if (result.stepStatus == 'VALID') {
-        api?.scrollNext()
-        onComplete(session, studentLog)
+        setComplete(true)
       }
     }
   }
@@ -146,11 +152,12 @@ const NewbProblemType: FC<{
   ///////////////////////////////////////////////////////////////////
 
   if (current !== index + 1) return null
-
   return (
     <div
       className={cn(
-        'NewbProblemType m-0 mb-2 flex h-full w-full flex-col justify-stretch rounded-lg bg-card pl-2 pr-2 pt-2 text-card-foreground shadow-sm',
+        'NewbSelectDiagram',
+        'rounded-lg bg-card text-card-foreground shadow-sm',
+        'm-0 mb-2 flex h-full w-full flex-col justify-stretch pl-2 pr-2 pt-2',
         className,
       )}
     >
@@ -161,9 +168,7 @@ const NewbProblemType: FC<{
             subTitle={page?.phaseLabel}
             instructions={page?.title}
           ></HdrBar>
-          <div>
-            <h1>Stimulus</h1>
-          </div>
+
           <StimulusSelector
             className={cn(
               'mb-2 flex w-full rounded-md border border-input bg-slate-300 px-3 py-2 text-sm',
@@ -171,8 +176,9 @@ const NewbProblemType: FC<{
             )}
             stimulusText={problem.stimulus}
           ></StimulusSelector>
+
           <div className="grid grow grid-cols-2 gap-2">
-            <Card>
+            <Card className="bg-slate-300">
               <CardHeader className="pb-2">
                 <CardTitle>Knowns</CardTitle>
               </CardHeader>
@@ -186,7 +192,7 @@ const NewbProblemType: FC<{
                 ) : null}
               </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-slate-300">
               <CardHeader className="pb-2">
                 <CardTitle>Unknowns</CardTitle>
               </CardHeader>
@@ -201,7 +207,7 @@ const NewbProblemType: FC<{
               </CardContent>
             </Card>
           </div>
-          <h2 className="ml-1 mr-1 mt-3">
+          <h2 className="ml-1 mr-1 mt-3 select-none">
             Click on the type of problem you think this is
           </h2>
           <div className="mb-4 flex grow flex-wrap justify-center gap-2">
@@ -326,7 +332,7 @@ const NewbProblemType: FC<{
           </div>
         </div>
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           busy={busy}
@@ -335,16 +341,15 @@ const NewbProblemType: FC<{
           wpHints={wpHints?.hints}
           getAiHints={getAiHints}
         />
-
-        <CarouselNext
-          disabled={busy}
-          className="relative right-0"
-          onClick={evt => {
-            handleCheckSchema(evt)
-          }}
-        >
-          Next
-        </CarouselNext>
+        {!complete ? (
+          <CheckStepButton
+            busy={busy}
+            disabled={disabled}
+            onClick={evt => handleCheckSchema(evt)}
+          />
+        ) : (
+          <NextButton busy={busy} disabled={schema.length === 0}></NextButton>
+        )}
       </NavBar>
     </div>
   )

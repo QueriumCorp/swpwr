@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, ReactNode, useContext, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
@@ -15,6 +15,8 @@ import { CarouselNext } from '../ui/carousel'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor } from '../qq/TinyTutor'
+import CheckStepButton from '../qq/CheckStepButton'
+import { NextButton } from '../qq/NextButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -41,21 +43,29 @@ const NewbFindFacts: FC<{
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [navDisabled, setNavDisabled] = useState(true)
   const [knowns, setKnowns] = useState<string[]>([])
   const [unknowns, setUnknowns] = useState<string[]>([])
   const [currentFact, setCurrentFact] = useState<string>('')
   const [emote, setEmote] = useState<string>('gratz:02')
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
+  const [disabled, setDisabled] = useState(true)
+  const [complete, setComplete] = useState(false)
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
   )
-  const [aiHints, setAiHints] = useState<string[]>([])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    if (knowns.length === 0 && unknowns.length === 0) {
+      setDisabled(true)
+    } else {
+      setDisabled(false)
+    }
+  }, [knowns, unknowns])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -77,23 +87,26 @@ const NewbFindFacts: FC<{
       api?.scrollNext()
     } else {
       setMsg('Give me a sec to review your knowns and unknowns')
+      setBusy(true)
       setEmote('direct:02')
       logAction('NewbFindFacts : Clicked Next')
 
       logAction('NewbFindFacts : Checking Facts')
       const result = await submitTTable(knowns, unknowns)
+      setBusy(false)
       setMsg(result.message)
       setEmote('pout:04')
       if (result.stepStatus == 'VALID') {
-        api?.scrollNext()
+        setComplete(true)
       }
     }
   }
 
-  function hintChanged(hintStage: string, current: number, count: number) {
-    if (hintStage === 'intro' && current === count) {
-      setNavDisabled(false)
-    }
+  async function getAiHints() {
+    setBusy(true)
+    setMsg('Hmmm...  let me see.')
+    setMsg(await getHint())
+    setBusy(false)
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -101,11 +114,12 @@ const NewbFindFacts: FC<{
   ///////////////////////////////////////////////////////////////////
 
   if (current !== index + 1) return null
-
   return (
     <div
       className={cn(
-        'NewbFindFacts m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
+        'NewbFindFacts',
+        'rounded-lg border bg-card text-card-foreground shadow-sm',
+        'm-0 flex h-full w-full flex-col justify-stretch p-0',
         className,
       )}
     >
@@ -120,7 +134,10 @@ const NewbFindFacts: FC<{
             interactive={true}
             onChangeFact={setCurrentFact}
             className={cn(
-              'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+              'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm',
+              'ring-offset-background placeholder:text-muted-foreground',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+              'disabled:cursor-not-allowed disabled:opacity-50',
               className,
               'inline',
             )}
@@ -153,23 +170,24 @@ const NewbFindFacts: FC<{
           </div>
         </DndContext>
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
           busy={busy}
           intro={page?.intro}
           psHints={page?.psHints}
           wpHints={wpHints?.hints}
-          closeable={true}
-          hintChanged={hintChanged}
+          getAiHints={getAiHints}
         />
-        <CarouselNext
-          disabled={navDisabled}
-          className="relative right-0"
-          onClick={evt => HandleCheckFacts(evt)}
-        >
-          Next
-        </CarouselNext>
+        {!complete ? (
+          <CheckStepButton
+            busy={busy}
+            disabled={disabled}
+            onClick={evt => HandleCheckFacts(evt)}
+          />
+        ) : (
+          <NextButton busy={busy}></NextButton>
+        )}
       </NavBar>
     </div>
   )
