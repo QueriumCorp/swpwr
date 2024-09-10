@@ -171,10 +171,6 @@ const RangerReflect: FC<{
           disabled={disabled}
           onClick={evt => HandleCheckExplanation(evt)}
         ></NextButton>
-
-        <h1 className="absolute bottom-0 left-0 text-slate-500">
-          RangerReflect
-        </h1>
       </NavBar>
     </div>
   )

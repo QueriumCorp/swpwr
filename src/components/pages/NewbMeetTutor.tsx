@@ -120,9 +120,6 @@ const NewbMeetTutor: React.FC<{
         >
           Next
         </CarouselNext>
-        <h1 className="absolute bottom-0 left-0 text-slate-500">
-          NewbMeetTutor
-        </h1>
       </NavBar>
     </div>
   )

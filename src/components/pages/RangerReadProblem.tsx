@@ -104,10 +104,6 @@ const RangerReadProblem: React.FC<{
           wpHints={wpHints?.hints}
         />
         <NextButton busy={busy}></NextButton>
-
-        <h1 className="absolute bottom-0 left-0 text-slate-500">
-          RangerReadProblem
-        </h1>
       </NavBar>
     </div>
   )

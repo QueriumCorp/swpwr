@@ -348,9 +348,6 @@ const RangerSelectDiagram: FC<{
         ) : (
           <NextButton busy={busy} disabled={schema.length === 0}></NextButton>
         )}
-        <h1 className="absolute bottom-0 left-0 text-slate-500">
-          RangerSelectDiagram
-        </h1>
       </NavBar>
     </div>
   )

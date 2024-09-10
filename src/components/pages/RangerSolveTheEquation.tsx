@@ -302,10 +302,6 @@ const RangerSolveTheEquation: FC<{
         ) : (
           <NextButton busy={busy} onClick={evt => HandleNext(evt)}></NextButton>
         )}
-
-        <h1 className="absolute bottom-0 left-0 text-slate-500">
-          RangerSolveTheEquation
-        </h1>
       </NavBar>
     </div>
   )

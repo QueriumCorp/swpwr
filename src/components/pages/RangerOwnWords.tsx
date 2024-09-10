@@ -187,10 +187,6 @@ const RangerOwnWords: FC<{
           disabled={disabled}
           onClick={evt => handleCheckOwnWords(evt)}
         ></NextButton>
-
-        <h1 className="absolute bottom-0 left-0 text-slate-500">
-          RangerOwnWords
-        </h1>
       </NavBar>
     </div>
   )

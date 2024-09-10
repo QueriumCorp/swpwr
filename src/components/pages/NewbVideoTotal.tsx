@@ -86,9 +86,6 @@ const NewbVideoTotal: FC<{
         >
           Next
         </CarouselNext>
-        <h1 className="absolute bottom-0 left-0 text-slate-500">
-          NewbVideoTotal
-        </h1>
       </NavBar>
     </div>
   )

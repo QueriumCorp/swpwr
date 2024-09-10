@@ -23,6 +23,7 @@ import { cn } from './lib/utils'
 import { OptionsSchema, ProblemSchema, StudentSchema } from './store/_types'
 
 import { useProblemStore } from './store/_store'
+import buildInfo from './buildInfo.json'
 
 // ShadCN/UI Components
 import { Button } from './components/ui/button'
@@ -81,7 +82,7 @@ const StepWisePower = forwardRef<
   const [closeMsg, setCloseMsg] = useState('')
   const [traceComment, setTraceComment] = useState('')
   const [traceMsg, setTraceMsg] = useState('')
-  const [enableDebugger, setEnableDebugger] = useState(true)
+  const [enableDebugger, setEnableDebugger] = useState(false)
   const [propError, setPropError] = useState('')
 
   //
@@ -192,9 +193,15 @@ const StepWisePower = forwardRef<
           <Drawer>
             <DrawerTrigger asChild>
               {enableDebugger && (
-                <button className="fixed bottom-0 right-[50%] z-10 m-1 cursor-pointer rounded-full bg-transparent text-xs">
-                  <BsBugFill className="text-lg text-red-500" />
-                </button>
+                <div className="fixed bottom-0 left-2 z-10 m-1 flex cursor-pointer gap-2 rounded-full bg-transparent text-xs">
+                  <button className="cursor-pointer rounded-full bg-transparent text-xs">
+                    <BsBugFill className="text-lg text-red-500" />
+                  </button>
+                  <div>{buildInfo.version}</div>
+                  <div>{formattedDate(buildInfo.buildDate)}</div>
+                  <div>{ybr[current - 1]?.rank}</div>
+                  <div>{ybr[current - 1]?.id}</div>
+                </div>
               )}
             </DrawerTrigger>
             <DrawerContent>
@@ -389,3 +396,8 @@ const StepWisePower = forwardRef<
 })
 
 export default StepWisePower
+
+function formattedDate(timestamp: number) {
+  const date = new Date(timestamp)
+  return date.toLocaleString()
+}
