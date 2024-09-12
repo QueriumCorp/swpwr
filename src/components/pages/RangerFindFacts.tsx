@@ -89,7 +89,6 @@ const RangerFindFacts: FC<{
       setMsg('Give me a sec to review your knowns and unknowns')
       setBusy(true)
       setEmote('direct:02')
-      logAction('RangerFindFacts : Clicked Next')
 
       logAction('RangerFindFacts : Checking Facts')
       const result = await submitTTable(knowns, unknowns)

@@ -82,7 +82,7 @@ const StepWisePower = forwardRef<
   const [closeMsg, setCloseMsg] = useState('')
   const [traceComment, setTraceComment] = useState('')
   const [traceMsg, setTraceMsg] = useState('')
-  const [enableDebugger, setEnableDebugger] = useState(false)
+  const [enableDebugger, setEnableDebugger] = useState(true)
   const [propError, setPropError] = useState('')
 
   //
@@ -174,7 +174,7 @@ const StepWisePower = forwardRef<
   //
   // Hotkeys
   //
-  useHotkeys('shift+ctrl+alt+d', () => {
+  useHotkeys('shift+ctrl+alt+q', () => {
     setEnableDebugger(!!!enableDebugger)
   })
 

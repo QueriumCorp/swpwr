@@ -26,6 +26,7 @@ import { Textarea } from '../ui/textarea'
 import { TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
 import MathStatic from '../qq/MathStatic'
+import CheckStepButton from '../qq/CheckStepButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -59,7 +60,8 @@ const RangerOwnWords: FC<{
 
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(true)
+  const [complete, setComplete] = useState(false)
   const [ownWords, setOwnWords] = useState<string>('')
   const wpHints = problem.wpHints?.find(
     wpHint => wpHint.page === `${rank}${page.id}`,
@@ -80,7 +82,6 @@ const RangerOwnWords: FC<{
   async function handleCheckOwnWords(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
-    console.log('handleCheckOwnWords')
     if (evt.altKey) {
       api?.scrollNext()
     } else if (ownWords.length < 10) {
@@ -96,8 +97,8 @@ const RangerOwnWords: FC<{
 
       setBusy(false)
       setMsg(result.message)
-      if (result.stepStatus == 'VALID') {
-        api?.scrollNext()
+      if (result.stepStatus == 'COMPLETE') {
+        setComplete(true)
       }
     }
   }
@@ -162,11 +163,15 @@ const RangerOwnWords: FC<{
           wpHints={wpHints?.hints}
           getAiHints={getAiHints}
         />
-        <NextButton
-          busy={busy}
-          disabled={disabled}
-          onClick={evt => handleCheckOwnWords(evt)}
-        ></NextButton>
+        {!complete ? (
+          <CheckStepButton
+            busy={busy}
+            disabled={disabled}
+            onClick={evt => handleCheckOwnWords(evt)}
+          />
+        ) : (
+          <NextButton busy={busy}></NextButton>
+        )}
       </NavBar>
     </div>
   )

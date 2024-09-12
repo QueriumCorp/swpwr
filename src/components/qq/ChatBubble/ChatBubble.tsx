@@ -214,11 +214,9 @@ export const ChatBubble = ({
                   key={i}
                   className="mr-[15px] flex select-none flex-col gap-1"
                 >
-                  <p>
-                    <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>
-                      {m}
-                    </Markdown>
-                  </p>
+                  <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                    {m}
+                  </Markdown>
                 </div>
               </CarouselItem>
             ))}
