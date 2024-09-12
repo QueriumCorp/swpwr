@@ -5,6 +5,7 @@ import { useRef, useLayoutEffect, useState, useEffect } from 'react'
 import { renderMathInElement } from 'mathlive'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
 import { HiMiniSpeakerWave } from 'react-icons/hi2'
 import { VscDebugRestart } from 'react-icons/vsc'
 import { IoCloseSharp } from 'react-icons/io5'
@@ -213,7 +214,11 @@ export const ChatBubble = ({
                   key={i}
                   className="mr-[15px] flex select-none flex-col gap-1"
                 >
-                  <Markdown remarkPlugins={[remarkGfm]}>{m}</Markdown>
+                  <p>
+                    <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                      {m}
+                    </Markdown>
+                  </p>
                 </div>
               </CarouselItem>
             ))}
