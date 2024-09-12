@@ -174,7 +174,7 @@ const StepWisePower = forwardRef<
   //
   // Hotkeys
   //
-  useHotkeys('shift+ctrl+d', () => {
+  useHotkeys('shift+ctrl+alt+d', () => {
     setEnableDebugger(!!!enableDebugger)
   })
 
