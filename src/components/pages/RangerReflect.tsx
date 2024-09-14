@@ -139,7 +139,7 @@ const RangerReflect: FC<{
         ></StimulusSelector>
         <p className="select-none">{session.myOwnWords}</p>
         <h2>Why does your answer make sense? Choose the best reason.</h2>
-        <div className="relative flex grow flex-col items-center justify-center gap-2 p-2">
+        <div className="relative flex grow flex-col items-center justify-center gap-2 overflow-y-auto p-2">
           {explanations.map(exp => (
             <Card
               key={exp.type}
