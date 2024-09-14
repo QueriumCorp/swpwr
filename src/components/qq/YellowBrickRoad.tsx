@@ -343,7 +343,7 @@ Never fear, I'm still here for you. If you're not sure what to do, click me for 
   {
     rank: 'ranger',
     id: 'FillDiagram',
-    title: 'Define the equation',
+    title: 'Write an equation',
     phase: 'O',
     phaseLabel: 'Organize',
     aiHints: false,
