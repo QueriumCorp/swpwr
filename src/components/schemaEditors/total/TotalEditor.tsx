@@ -99,7 +99,7 @@ const TotalEditor: FC<{
         <div className="grid grow grid-cols-2 gap-2">
           <Card className="">
             <CardHeader className="pb-2">
-              <CardTitle>Knowns</CardTitle>
+              <CardTitle>Known</CardTitle>
             </CardHeader>
             <CardContent>
               {session.knowns ? (
@@ -113,7 +113,7 @@ const TotalEditor: FC<{
           </Card>
           <Card className="">
             <CardHeader className="pb-2">
-              <CardTitle>Unknowns</CardTitle>
+              <CardTitle>Unknown</CardTitle>
             </CardHeader>
             <CardContent>
               {session.unknowns ? (

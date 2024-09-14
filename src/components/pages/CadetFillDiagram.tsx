@@ -70,7 +70,7 @@ const CadetFillDiagram: React.FC<{
           <div className="grid grow grid-cols-2 gap-2">
             <Card>
               <CardHeader>
-                <CardTitle>Knowns</CardTitle>
+                <CardTitle>Known</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul>
@@ -82,7 +82,7 @@ const CadetFillDiagram: React.FC<{
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Unknowns</CardTitle>
+                <CardTitle>Unknown</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul>

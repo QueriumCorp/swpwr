@@ -180,7 +180,7 @@ const NewbProblemType: FC<{
           <div className="grid grow grid-cols-2 gap-2">
             <Card className="bg-slate-300">
               <CardHeader className="pb-2">
-                <CardTitle>Knowns</CardTitle>
+                <CardTitle>Known</CardTitle>
               </CardHeader>
               <CardContent>
                 {session.knowns ? (
@@ -194,7 +194,7 @@ const NewbProblemType: FC<{
             </Card>
             <Card className="bg-slate-300">
               <CardHeader className="pb-2">
-                <CardTitle>Unknowns</CardTitle>
+                <CardTitle>Unknown</CardTitle>
               </CardHeader>
               <CardContent>
                 {session.unknowns ? (
