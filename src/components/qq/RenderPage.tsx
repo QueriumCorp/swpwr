@@ -27,6 +27,8 @@ export function renderPage(page: YBRpage, index: number) {
     ///////////////////////////////////////////////////////////////////
     // DEV
     ///////////////////////////////////////////////////////////////////
+    case 'dev:FindTutor':
+      return <NewbFindTutor page={page} index={index}></NewbFindTutor>
     case 'dev:ReadProblem':
       return <RangerReadProblem page={page} index={index}></RangerReadProblem>
     case 'dev:SolveTheEquation':

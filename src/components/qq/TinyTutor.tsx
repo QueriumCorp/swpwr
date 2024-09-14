@@ -64,7 +64,6 @@ export const TinyTutor = ({
     if (getAiHints) hintStages.push('aiHints')
     hintStages.push('post')
     setHintStages(hintStages)
-    console.info('hintStages', hintStages)
   }, [introMsgs, psHintsMsgs, getAiHints])
 
   useEffect(() => {
@@ -183,7 +182,7 @@ export const TinyTutor = ({
       )
     }
   }
-  
+
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -37,22 +37,33 @@ const NewbFindTutor: React.FC<{
   // State
   ///////////////////////////////////////////////////////////////////
 
+  const [msg, setMsg] = useState('')
   const [navDisabled, setNavDisabled] = useState(true)
-  const wpHints = problem.wpHints?.find(
-    wpHint => wpHint.page === `${rank}${page.id}`,
-  )
+  const [pageHints, setPageHints] = useState<string[]>([])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    let wpHints = problem.wpHints?.find(
+      wpHint => wpHint.page === `${rank}${page.id}`,
+    )
+
+    if (wpHints?.hints) {
+      setPageHints(wpHints.hints)
+    } else if (page.psHints) {
+      setPageHints(page.psHints)
+    }
+  }, [])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
 
   function hintChanged(hintStage: string, current: number, count: number) {
-    console.info('hintChanged', hintStage, current, count)
     if (hintStage === 'psHints' && current === count) {
+      setMsg(pageHints[pageHints.length - 1])
       setNavDisabled(false)
     }
   }
@@ -76,9 +87,9 @@ const NewbFindTutor: React.FC<{
       {children}
       <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
+          msg={msg}
           intro={page?.intro}
-          psHints={page?.psHints}
-          wpHints={wpHints?.hints}
+          psHints={pageHints}
           hintChanged={hintChanged}
           closeable={false}
         />
