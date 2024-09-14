@@ -137,6 +137,7 @@ const RangerReflect: FC<{
           )}
           stimulusText={problem.stimulus}
         ></StimulusSelector>
+        <p className="select-none">{session.myOwnWords}</p>
         <h2>Why does your answer make sense? Choose the best reason.</h2>
         <div className="relative flex grow flex-col items-center justify-center gap-2 p-2">
           {explanations.map(exp => (
@@ -146,7 +147,7 @@ const RangerReflect: FC<{
                 setExplanation(exp)
               }}
               className={cn(
-                'min-h-28 w-96 px-4 py-2 ring-qqBrand',
+                'w-96 px-4 py-2 ring-qqBrand',
                 exp.type === explanation?.type ? 'ring-4' : 'ring-0',
                 'cursor-pointer hover:bg-qqAccent hover:text-white',
               )}
