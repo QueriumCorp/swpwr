@@ -85,9 +85,6 @@ const CadetSelectDiagram: React.FC<{
               </CardContent>
             </Card>
           </div>
-          <h2 className="ml-1 mr-1 mt-3">
-            Click on the type of problem you think this is
-          </h2>
         </div>
       </div>
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">

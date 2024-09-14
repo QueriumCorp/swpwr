@@ -205,9 +205,7 @@ const RangerSelectDiagram: FC<{
               </CardContent>
             </Card>
           </div>
-          <h2 className="ml-1 mr-1 mt-3 select-none">
-            Click on the type of problem you think this is
-          </h2>
+
           <div className="mb-4 flex grow flex-wrap justify-center gap-2">
             <Card
               className={cn(
