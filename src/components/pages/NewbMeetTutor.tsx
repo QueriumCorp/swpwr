@@ -62,9 +62,11 @@ const NewbMeetTutor: React.FC<{
   function handleDance() {
     sayMsg('Dance Dance Revolution', 'gratz')
   }
-  function finishedIntro() {
-    logAction('NewbMeetTutor : Intro Finished')
-    setNextDisabled(false)
+  function finishedIntro(current: number, count: number) {
+    if (count > 0 && current === count) {
+      logAction('NewbMeetTutor : Intro Finished')
+      setNextDisabled(false)
+    }
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -99,7 +101,7 @@ const NewbMeetTutor: React.FC<{
         <ChatBubble
           msgs={page.intro!}
           className="absolute bottom-[50%] right-[50%] max-w-[45%] font-capriola"
-          introFinished={finishedIntro}
+          hintPageChanged={finishedIntro}
         />
       </div>
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">

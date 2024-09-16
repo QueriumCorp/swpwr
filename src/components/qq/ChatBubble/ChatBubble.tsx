@@ -28,14 +28,14 @@ export const ChatBubble = ({
   className,
   closeable,
   closeClicked,
-  introFinished,
+
   hintPageChanged,
 }: {
   msgs: string | string[] | null
   className?: string
   closeable?: boolean
   closeClicked?: () => void
-  introFinished?: () => void
+
   hintPageChanged?: (current: number, count: number) => void
 }) => {
   ///////////////////////////////////////////////////////////////////
@@ -110,7 +110,6 @@ export const ChatBubble = ({
 
   // Chat Paging Button
   function handleShowMeMore() {
-    if (current === count - 1) introFinished?.()
     api?.scrollNext()
   }
   function handleStartOver() {
@@ -149,7 +148,7 @@ export const ChatBubble = ({
       return <div></div>
     }
     return (
-      <button className="border-none text-xs" onClick={handleShowMeMore}>
+      <button className="border-none text-base" onClick={handleShowMeMore}>
         <TbPlayerTrackNext />
       </button>
     )
@@ -174,7 +173,7 @@ export const ChatBubble = ({
   }
   function SpeakButton() {
     return (
-      <button className="border-none text-xs" onClick={handleSpeak}>
+      <button className="border-none text-base" onClick={handleSpeak}>
         <HiMiniSpeakerWave className="text-cyan-900" />
       </button>
     )
