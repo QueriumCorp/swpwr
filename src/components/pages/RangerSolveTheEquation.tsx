@@ -276,7 +276,12 @@ const RangerSolveTheEquation: FC<{
                     ></ChangeIncreaseEquationGraphic>
                   ) : null}
                   {session.schema === 'multiplicativeCompareSchema' ? (
-                    <CompareEquationGraphic className="text-2xl text-qqBrand"></CompareEquationGraphic>
+                    <CompareEquationGraphic
+                      className="text-2xl text-qqBrand"
+                      s={session.schemaValues[0]}
+                      m={session.schemaValues[1]}
+                      p={session.schemaValues[2]}
+                    ></CompareEquationGraphic>
                   ) : null}
                 </div>
               </StepWise>
