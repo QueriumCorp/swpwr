@@ -15,13 +15,14 @@ import { NavBar } from '../qq/NavBar'
 import { CarouselPrevious, CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { Button } from '../ui/button'
+import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
 
 const NewbVictory: React.FC<{
   className?: string
   children?: React.ReactNode
   page: YBRpage
   index: number
-}> = ({ className, index }) => {
+}> = ({ className, page, index }) => {
   // Context
   const { current, api } = React.useContext(NavContext) as NavContextType
   const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType
@@ -66,10 +67,8 @@ const NewbVictory: React.FC<{
             // border: "1px solid #000000",
           }}
         />
-        <Chat
-          msg={`**Congratulations!**
-You are no longer a newbie!
-`}
+        <ChatBubble
+          msgs={page.intro ? page.intro : ''}
           className="absolute bottom-[50%] right-[50%] font-capriola"
         />
       </div>

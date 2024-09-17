@@ -137,7 +137,7 @@ export const TinyTutor = ({
     }
 
     // If parent wants to know when the hint stage or msg changed
-    if (hintChanged) {
+    if (hintChanged && current !== 0 && count !== 0) {
       hintChanged(nextStage, current, count)
     }
 

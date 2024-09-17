@@ -35,6 +35,7 @@ const NewbReadProblem: React.FC<{
   ///////////////////////////////////////////////////////////////////
 
   const [navDisabled, setNavDisabled] = useState(true)
+  const [msg, setMsg] = useState('')
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -44,8 +45,21 @@ const NewbReadProblem: React.FC<{
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
 
-  function hintChanged(_hintStage: string, current: number, count: number) {
-    if (current === count) {
+  function hintChanged(hintStage: string, current: number, count: number) {
+    if (count > 0 && current === count) {
+      console.info('hintChanged', hintStage, current, count)
+      let newMsg = ''
+
+      switch (hintStage) {
+        case 'intro':
+          newMsg = page?.intro![page.intro!.length - 1]
+          break
+        case 'psHints':
+          newMsg = page?.psHints![page.psHints!.length - 1]
+          break
+      }
+
+      setMsg(newMsg)
       setNavDisabled(false)
     }
   }
@@ -80,6 +94,7 @@ const NewbReadProblem: React.FC<{
       </div>
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
+          msg={msg}
           intro={page?.intro}
           psHints={page?.psHints}
           hintChanged={hintChanged}
