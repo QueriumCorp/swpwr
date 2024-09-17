@@ -260,9 +260,9 @@ const RangerSolveTheEquation: FC<{
                   {session.schema === 'subtractiveChangeSchema' ? (
                     <ChangeDecreaseEquationGraphic
                       className="text-2xl text-qqBrand"
-                      e={session.schemaValues[0]}
+                      e={session.schemaValues[2]}
                       c={session.schemaValues[1]}
-                      s={session.schemaValues[2]}
+                      s={session.schemaValues[0]}
                       showSchema={false}
                     ></ChangeDecreaseEquationGraphic>
                   ) : null}
