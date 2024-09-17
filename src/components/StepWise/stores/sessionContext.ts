@@ -110,11 +110,12 @@ export const createSessionStore = (
         // START SESSION
         //=====================================================
         startSession: async () => {
-          if (
-            problemStatus.problemValid === false ||
-            studentStatus.studentValid === false
-          ) {
-            console.error('Invalid problem or student')
+          if (studentStatus.studentValid === false) {
+            console.error('Invalid student', studentStatus.studentStatusMsg)
+            return
+          }
+          if (problemStatus.problemValid === false) {
+            console.error('Invalid problem ', problemStatus.problemStatusMsg)
             return
           }
 
@@ -224,23 +225,29 @@ export const createSessionStore = (
             response: '',
           }
 
-          if (
-            problemStatus.problemValid === false ||
-            studentStatus.studentValid === false
-          ) {
-            console.error('Invalid problem or student')
-            logEntry.response = `Trying to resume Session but problem or student is invalid.`
+          if (studentStatus.studentValid === false) {
+            console.error('Invalid student', studentStatus.studentStatusMsg)
+            logEntry.response = studentStatus.studentStatusMsg
             set(state => ({
               log: [...state.log, logEntry],
             }))
             return
           }
+          if (problemStatus.problemValid === false) {
+            console.error('Invalid problem ', problemStatus.problemStatusMsg)
+            logEntry.response = problemStatus.problemStatusMsg
+            set(state => ({
+              log: [...state.log, logEntry],
+            }))
+            return
+          }
+
           if (
             !session ||
             !session.sessionToken ||
             session.sessionToken.length < 20
           ) {
-            console.error('Invalid problem or student')
+            console.error('session is invalid', session)
             logEntry.response = `Provided sessionToken is invalid ${session?.sessionToken}`
             set(state => ({
               log: [...state.log, logEntry],
