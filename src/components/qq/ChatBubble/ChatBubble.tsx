@@ -138,7 +138,7 @@ export const ChatBubble = ({
 
   // Navigation Button
   function NavButton() {
-    if (!msgs || msgs.length < 2) return null
+    if (typeof msgs === 'string') return null
 
     if (count === 1 && !closeable) return null
 

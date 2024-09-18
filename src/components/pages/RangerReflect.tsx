@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { FC, ReactNode, useContext, useEffect, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -11,7 +11,7 @@ import { useProblemStore } from '@/store/_store'
 import { HdrBar } from '../qq/HdrBar'
 import { NavBar } from '../qq/NavBar'
 import { StimulusSelector } from '../qq/StimulusSelector'
-import { TinyTutor } from '../qq/TinyTutor'
+import { HintStage, TinyTutor } from '../qq/TinyTutor'
 import { Card } from '../ui/card'
 import { NextButton } from '../qq/NextButton'
 
@@ -53,9 +53,39 @@ const RangerReflect: FC<{
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
   const [disabled, setDisabled] = useState(true)
-  const wpHints = problem.wpHints?.find(
-    wpHint => wpHint.page === `${rank}${page.id}`,
-  )
+
+  const hintList = useMemo(() => {
+    // get page hints
+    let pageHints: string[] = []
+    let wpHints = problem.wpHints?.find(
+      wpHint => wpHint.page === `${rank}${page.id}`,
+    )
+    if (wpHints?.hints) {
+      pageHints = wpHints.hints
+    } else if (page.psHints) {
+      pageHints = page.psHints
+    }
+
+    // define hint stages
+    let hintStages: HintStage[] = []
+    if (page.intro?.length) {
+      hintStages.push('intro')
+    } else {
+      hintStages.push('pre')
+    }
+    if (pageHints?.length) {
+      hintStages.push('psHints')
+    }
+    if (page.aiHints) {
+      hintStages.push('aiHints')
+    }
+
+    return {
+      stages: hintStages,
+      intro: page.intro,
+      psHints: pageHints,
+    }
+  }, [])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -159,13 +189,7 @@ const RangerReflect: FC<{
       </div>
 
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
-        <TinyTutor
-          msg={msg}
-          busy={busy}
-          intro={page?.intro}
-          psHints={page?.psHints}
-          wpHints={wpHints?.hints}
-        />
+        <TinyTutor msg={msg} busy={busy} hintList={hintList} />
 
         <NextButton
           busy={busy}

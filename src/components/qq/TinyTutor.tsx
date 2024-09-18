@@ -54,7 +54,18 @@ export const TinyTutor = ({
   }
 
   function KettuClicked() {
-    setHintStage('psHints')
+    const currentStageIndex = hintList.stages.findIndex(
+      (stage: string) => stage === hintStage,
+    )
+
+    let newStage: HintStage = hintStage
+    if (currentStageIndex < hintList.stages.length - 1) {
+      newStage = hintList.stages[currentStageIndex + 1]
+      setHintStage(newStage)
+    }
+    if (newStage === 'aiHints' && getAiHints) {
+      getAiHints()
+    }
   }
 
   function hintPageChanged(current: number, count: number) {
@@ -90,13 +101,15 @@ export const TinyTutor = ({
           KettuClicked()
         }}
       ></div>
-      <ChatBubble
-        className="CHATBUBBLE absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
-        msgs={msg ? msg : hintList[hintStage]}
-        closeable={closeable && !busy}
-        closeClicked={closeChatBubble}
-        hintPageChanged={hintPageChanged}
-      />
+      {bubbleShown ? (
+        <ChatBubble
+          className="CHATBUBBLE absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
+          msgs={msg ? msg : hintList[hintStage]}
+          closeable={closeable && !busy}
+          closeClicked={closeChatBubble}
+          hintPageChanged={hintPageChanged}
+        />
+      ) : null}
     </div>
   )
 }

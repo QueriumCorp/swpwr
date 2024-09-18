@@ -1,7 +1,15 @@
 'use client'
 
 // React Imports
-import { FC, ReactNode, useContext, useEffect, useRef, useState } from 'react'
+import {
+  FC,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -12,7 +20,7 @@ import { NavBar } from '../qq/NavBar'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { StepWiseAPI } from '../StepWise/StepWise/StepWise'
-import { TinyTutor } from '../qq/TinyTutor'
+import { HintStage, TinyTutor } from '../qq/TinyTutor'
 import { Log, Step } from '../StepWise/stores/solution'
 
 import { TotalEquationGraphic } from '../schemaEditors/total/TotalEquationGraphic'
@@ -69,10 +77,39 @@ const RangerSolveTheEquation: FC<{
   const [complete, setComplete] = useState(false)
   const [busy, setBusy] = useState(false)
   const [disabled, setDisabled] = useState(true)
-  const wpHints = problem.wpHints?.find(
-    wpHint => wpHint.page === `${rank}${page.id}`,
-  )
-  const pageSpecificHints = page?.psHints || []
+
+  const hintList = useMemo(() => {
+    // get page hints
+    let pageHints: string[] = []
+    let wpHints = problem.wpHints?.find(
+      wpHint => wpHint.page === `${rank}${page.id}`,
+    )
+    if (wpHints?.hints) {
+      pageHints = wpHints.hints
+    } else if (page.psHints) {
+      pageHints = page.psHints
+    }
+
+    // define hint stages
+    let hintStages: HintStage[] = []
+    if (page.intro?.length) {
+      hintStages.push('intro')
+    } else {
+      hintStages.push('pre')
+    }
+    if (pageHints?.length) {
+      hintStages.push('psHints')
+    }
+    if (page.aiHints) {
+      hintStages.push('aiHints')
+    }
+
+    return {
+      stages: hintStages,
+      intro: page.intro,
+      psHints: pageHints,
+    }
+  }, [])
 
   // Prepare problem data to work with StepWise
   type swProblemType = {
@@ -290,13 +327,7 @@ const RangerSolveTheEquation: FC<{
         </div>
       </div>
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
-        <TinyTutor
-          msg={msg}
-          intro={page?.intro}
-          psHints={pageSpecificHints}
-          wpHints={wpHints?.hints}
-          getAiHints={getExternalHint}
-        />
+        <TinyTutor msg={msg} hintList={hintList} getAiHints={getExternalHint} />
 
         {!complete ? (
           <CheckStepButton

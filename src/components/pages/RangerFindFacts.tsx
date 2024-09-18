@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { FC, ReactNode, useContext, useEffect, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -15,7 +15,7 @@ import UnknownFacts from '../qq/UnknownFacts'
 import { NavBar } from '../qq/NavBar'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
-import { TinyTutor } from '../qq/TinyTutor'
+import { HintStage, TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
 import CheckStepButton from '../qq/CheckStepButton'
 
@@ -49,9 +49,38 @@ const RangerFindFacts: FC<{
   const [busy, setBusy] = useState(false)
   const [disabled, setDisabled] = useState(true)
   const [complete, setComplete] = useState(false)
-  const wpHints = problem.wpHints?.find(
-    wpHint => wpHint.page === `${rank}${page.id}`,
-  )
+  const hintList = useMemo(() => {
+    // get page hints
+    let pageHints: string[] = []
+    let wpHints = problem.wpHints?.find(
+      wpHint => wpHint.page === `${rank}${page.id}`,
+    )
+    if (wpHints?.hints) {
+      pageHints = wpHints.hints
+    } else if (page.psHints) {
+      pageHints = page.psHints
+    }
+
+    // define hint stages
+    let hintStages: HintStage[] = []
+    if (page.intro?.length) {
+      hintStages.push('intro')
+    } else {
+      hintStages.push('pre')
+    }
+    if (pageHints?.length) {
+      hintStages.push('psHints')
+    }
+    if (page.aiHints) {
+      hintStages.push('aiHints')
+    }
+
+    return {
+      stages: hintStages,
+      intro: page.intro,
+      psHints: pageHints,
+    }
+  }, [])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -173,9 +202,7 @@ const RangerFindFacts: FC<{
         <TinyTutor
           msg={msg}
           busy={busy}
-          intro={page?.intro}
-          psHints={page?.psHints}
-          wpHints={wpHints?.hints}
+          hintList={hintList}
           getAiHints={getAiHints}
         />
         {!complete ? (

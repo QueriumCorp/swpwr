@@ -45,7 +45,8 @@ const NewbVictory: React.FC<{
   return (
     <div
       className={cn(
-        'NewbVictory m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
+        'NewbVictory',
+        'm-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >

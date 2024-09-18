@@ -6,7 +6,6 @@ const NavBar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  console.log('RENDER: NavBar')
   // JSX
   return (
     <div

@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, ReactNode, useContext, useState } from 'react'
+import { FC, ReactNode, useContext, useMemo, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
@@ -14,7 +14,7 @@ import { NavBar } from '../qq/NavBar'
 import { CarouselPrevious, CarouselNext } from '../ui/carousel'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
-import { TinyTutor } from '../qq/TinyTutor'
+import { HintStage, TinyTutor } from '../qq/TinyTutor'
 
 const RangerWhatToAnswer: FC<{
   className?: string
@@ -41,10 +41,43 @@ const RangerWhatToAnswer: FC<{
   const [emote, setEmote] = useState<string>('gratz:02')
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
-  const wpHints = problem.wpHints?.find(
-    wpHint => wpHint.page === `${rank}${page.id}`,
-  )
-  const [aiHints, setAiHints] = useState<string[]>([])
+  const hintList = useMemo(() => {
+    // get page hints
+    let pageHints: string[] = []
+    let wpHints = problem.wpHints?.find(
+      wpHint => wpHint.page === `${rank}${page.id}`,
+    )
+    if (wpHints?.hints) {
+      pageHints = wpHints.hints
+    } else if (page.psHints) {
+      pageHints = page.psHints
+    }
+
+    // define hint stages
+    let hintStages: HintStage[] = []
+    if (page.intro?.length) {
+      hintStages.push('intro')
+    } else {
+      hintStages.push('pre')
+    }
+    if (pageHints?.length) {
+      hintStages.push('psHints')
+    }
+    if (page.aiHints) {
+      hintStages.push('aiHints')
+    }
+
+    console.log('hintList', {
+      stages: hintStages,
+      intro: page.intro,
+      psHints: pageHints,
+    })
+    return {
+      stages: hintStages,
+      intro: page.intro,
+      psHints: pageHints,
+    }
+  }, [])
 
   //
   // Event Handlers
@@ -139,13 +172,7 @@ const RangerWhatToAnswer: FC<{
         </DndContext>
       </div>
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
-        <TinyTutor
-          msg={msg}
-          busy={busy}
-          intro={page?.intro}
-          psHints={page?.psHints}
-          wpHints={wpHints?.hints}
-        />
+        <TinyTutor msg={msg} busy={busy} hintList={hintList} />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

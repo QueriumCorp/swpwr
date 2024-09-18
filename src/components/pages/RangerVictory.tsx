@@ -73,32 +73,28 @@ const RangerVictory: FC<{
     <div
       className={cn(
         'RangerVictory',
-        'rounded-lg border bg-card text-card-foreground shadow-sm',
-        'm-0 flex h-full w-full flex-col justify-stretch p-0',
+        'm-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
       <div
-        className="relative grow"
-        style={{
-          background:
-            'linear-gradient(0deg, rgba(30,106,8,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)',
-        }}
+        className={cn(
+          'RangerVictoryBODY',
+          'relative grow',
+          'bg-gradient-to-b from-blue-300 via-blue-900 via-70% to-green-700',
+        )}
       >
         <AnimeTutor
           emote={'celebrate:01'}
           closeUp
-          style={{
-            position: 'absolute',
-            height: '100%',
-            right: '-150px',
-            width: '100%',
-            // border: "1px solid #000000",
-          }}
+          className={cn(
+            'AnimeTutor',
+            'absolute left-[30%] aspect-square h-full',
+          )}
         />
         <ChatBubble
           msgs={page.intro!}
-          className="absolute bottom-[50%] right-[50%] font-capriola"
+          className="absolute bottom-[50%] right-[50%] max-w-[350px] font-capriola"
         />
       </div>
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
