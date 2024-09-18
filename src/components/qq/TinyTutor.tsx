@@ -6,14 +6,12 @@ import { AnimeTutor } from '../AnimeTutor'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
 import { cn } from '@/lib/utils'
 
-type HintStage = 'pre' | 'intro' | 'psHints' | 'aiHints' | 'post'
+export type HintStage = 'pre' | 'intro' | 'psHints' | 'aiHints' | 'post'
 
 export const TinyTutor = ({
   msg,
   busy,
-  intro,
-  psHints,
-  wpHints,
+  hintList,
   getAiHints,
   hintChanged,
   closeable = true,
@@ -21,9 +19,7 @@ export const TinyTutor = ({
 }: {
   msg?: string
   busy?: boolean
-  intro?: string | string[]
-  psHints?: string[]
-  wpHints?: string[]
+  hintList?: any
   getAiHints?: () => void
   hintChanged?: (newStage: HintStage, current: number, count: number) => void
   closeable?: boolean
@@ -37,34 +33,13 @@ export const TinyTutor = ({
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [introMsgs, setIntroMsgs] = useState(normalizeIntro(intro))
-  const [psHintsMsgs, setPsHintsMsgs] = useState(
-    normalizePsHints(normalizePsHints(wpHints || psHints)),
-  )
-  const [hintStages, setHintStages] = useState<HintStage[]>([])
-  const [hintStage, setHintStage] = useState<HintStage>('pre')
+  const [hintStage, setHintStage] = useState<HintStage>(hintList.stages[0])
 
-  const [bubbleShown, setBubbleShow] = useState(introMsgs.length ? true : false)
-  const [currentHintMsgs, setCurrentHintMsgs] = useState<string[]>(
-    msg ? [] : intro ? introMsgs : psHints || wpHints ? psHintsMsgs : [],
-  )
+  const [bubbleShown, setBubbleShow] = useState(true)
 
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
-
-  useEffect(() => {
-    let hintStages: HintStage[] = []
-    hintStages.push('pre')
-    if (introMsgs.length) {
-      hintStages.push('intro')
-      setHintStage('intro')
-    }
-    if (psHintsMsgs.length) hintStages.push('psHints')
-    if (getAiHints) hintStages.push('aiHints')
-    hintStages.push('post')
-    setHintStages(hintStages)
-  }, [introMsgs, psHintsMsgs, getAiHints])
 
   useEffect(() => {
     setBubbleShow(true)
@@ -79,69 +54,7 @@ export const TinyTutor = ({
   }
 
   function KettuClicked() {
-    // If we are querying the AI, don't do anything
-    if (busy) {
-      return
-    }
-
-    if (hintStage === 'post') {
-      setCurrentHintMsgs([
-        'Sorry, I have no more guidance for you. Please ask your teacher for help.',
-      ])
-
-      setBubbleShow(true)
-      return
-    }
-
-    // Once in aiHints, we don't change the stage
-    if (hintStage === 'aiHints') {
-      setBubbleShow(true)
-      if (typeof getAiHints === 'function') {
-        getAiHints()
-      }
-      return
-    }
-
-    // Manage Stage
-    let currentStageIndex = hintStages.findIndex(stage => stage === hintStage)
-    let nextStage = hintStages[currentStageIndex + 1]
-
-    setHintStage(nextStage)
-
-    let current = 0,
-      count = 0
-    switch (nextStage) {
-      case 'intro':
-        current = 1
-        count = introMsgs.length
-        setCurrentHintMsgs(introMsgs)
-        break
-      case 'psHints':
-        current = 1
-        count = psHintsMsgs.length
-        setCurrentHintMsgs(psHintsMsgs)
-        break
-      case 'aiHints':
-        current = -1
-        count = -1
-        setBubbleShow(true)
-        if (typeof getAiHints === 'function') {
-          getAiHints()
-        }
-        break
-      case 'post':
-        current = 0
-        count = 0
-        setCurrentHintMsgs([])
-        break
-    }
-
-    // If parent wants to know when the hint stage or msg changed
-    if (hintChanged && current !== 0 && count !== 0) {
-      hintChanged(nextStage, current, count)
-    }
-
-    setBubbleShow(nextStage === 'post' ? false : true)
+    setHintStage('psHints')
   }
 
   function hintPageChanged(current: number, count: number) {
@@ -157,80 +70,33 @@ export const TinyTutor = ({
   // JSX Components
   ///////////////////////////////////////////////////////////////////
 
-  function ShowChatBubble() {
-    if (msg?.length) {
-      return (
-        // If we have a message, show it
-        <ChatBubble
-          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
-          msgs={bubbleShown ? [msg] : null}
-          closeable={closeable && !busy}
-          closeClicked={closeChatBubble}
-          hintPageChanged={hintPageChanged}
-        />
-      )
-    } else if (currentHintMsgs?.length) {
-      return (
-        // Otherwise show the hints
-        <ChatBubble
-          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
-          msgs={bubbleShown ? currentHintMsgs : null}
-          closeable={closeable && !busy}
-          closeClicked={closeChatBubble}
-          hintPageChanged={hintPageChanged}
-        />
-      )
-    }
-  }
-
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
 
   return (
-    <div className={className}>
+    <div className={cn('TINYTUTOR', className)}>
       <AnimeTutor
         emote={'wave:01'}
-        style={{
-          bottom: '0px',
-          right: '0px',
-          height: '100%',
-        }}
+        className={cn('ANIMETUTOR', 'bottom-0 right-0 h-[100px] w-[100px]')}
       />
       <div
         className={cn(
-          'absolute bottom-0 right-[100px] z-10 h-full w-[100px]',
+          'KETTUCLICKY',
+          'absolute bottom-0 right-[100px] z-10 h-[100px] w-[100px]',
           busy ? 'cursor-wait' : 'cursor-pointer',
         )}
         onClick={() => {
           KettuClicked()
         }}
       ></div>
-      <ShowChatBubble />
+      <ChatBubble
+        className="CHATBUBBLE absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
+        msgs={msg ? msg : hintList[hintStage]}
+        closeable={closeable && !busy}
+        closeClicked={closeChatBubble}
+        hintPageChanged={hintPageChanged}
+      />
     </div>
   )
-}
-
-///////////////////////////////////////////////////////////////////
-// Support Functions
-///////////////////////////////////////////////////////////////////
-
-function normalizeIntro(intro: string | string[] | undefined): string[] {
-  if (typeof intro === 'string') {
-    return [intro]
-  } else if (Array.isArray(intro)) {
-    return intro
-  } else {
-    return []
-  }
-}
-
-function normalizePsHints(psHints: string | string[] | undefined): string[] {
-  if (typeof psHints === 'string') {
-    return [psHints]
-  } else if (Array.isArray(psHints)) {
-    return psHints
-  } else {
-    return []
-  }
 }

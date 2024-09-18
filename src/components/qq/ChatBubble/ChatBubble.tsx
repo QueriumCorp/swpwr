@@ -19,6 +19,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel'
+import { set } from 'zod'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -78,6 +79,8 @@ export const ChatBubble = ({
       return
     }
     setCount(messages.length)
+    setCurrent(0)
+    api?.scrollTo(0)
   }, [msgs])
 
   // on initial render, tell MathLive to render the latex
@@ -135,6 +138,8 @@ export const ChatBubble = ({
 
   // Navigation Button
   function NavButton() {
+    if (!msgs || msgs.length < 2) return null
+
     if (count === 1 && !closeable) return null
 
     if (current === count && closeable) {

@@ -20,17 +20,8 @@ export const YellowBrickRoad: YBRpage[] = [
     title: 'string',
     phase: 'I',
     phaseLabel: 'Instruction',
-    intro: [
-      'We’ll work together. I’ll be right here if you need me. Just click my cute self to get my attention. 🥰 Try it now.',
-    ],
-    psHints: [
-      `Perfect! You found me!
-
-If you're ever stuck, click on me just like that. I'll do my best to give you a hand.`,
-      `Look next to me. Do you see the →? When it's blue, you can click it. If you've done any work, I'll check it before we move on. If something isn't right, I can help you fix it.
-
-      Click → now to continue.`,
-    ],
+    intro: ['Intro 1', 'Intro 2', 'Intro 3'],
+    psHints: ['psHint 1', 'psHint 2', 'psHint 3'],
   },
   {
     rank: 'dev',

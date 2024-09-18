@@ -21,6 +21,7 @@ import NewbVictory from '../pages/NewbVictory'
 import RangerVictory from '../pages/RangerVictory'
 import NewbVideoTotal from '../pages/NewbVideoTotal'
 import CadetPrepForSolveMath from '../pages/CadetPrepForSolveMath'
+import DevFindTutor from '../pages/DevFindTutor'
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ':' + page.id) {
@@ -28,7 +29,7 @@ export function renderPage(page: YBRpage, index: number) {
     // DEV
     ///////////////////////////////////////////////////////////////////
     case 'dev:FindTutor':
-      return <NewbFindTutor page={page} index={index}></NewbFindTutor>
+      return <DevFindTutor page={page} index={index}></DevFindTutor>
     case 'dev:ReadProblem':
       return <RangerReadProblem page={page} index={index}></RangerReadProblem>
     case 'dev:SolveTheEquation':

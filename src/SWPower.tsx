@@ -183,191 +183,191 @@ const StepWisePower = forwardRef<
   //
   return (
     <NavContext.Provider value={{ current, setCurrent, api }}>
-      <AvatarAPIProvider>
-        <div
-          className={cn(
-            'StepWisePower relative min-h-24 w-full border-none',
-            props.className,
-          )}
-        >
-          <Drawer>
-            <DrawerTrigger asChild>
-              {enableDebugger && (
-                <div className="fixed bottom-0 left-2 z-10 m-1 flex cursor-pointer gap-2 rounded-full bg-transparent text-xs">
-                  <button className="cursor-pointer rounded-full bg-transparent text-xs">
-                    <BsBugFill className="text-lg text-red-500" />
-                  </button>
-                  <div>{buildInfo.version}</div>
-                  <div>{formattedDate(buildInfo.buildDate)}</div>
-                  <div>{ybr[current - 1]?.rank}</div>
-                  <div>{ybr[current - 1]?.id}</div>
-                </div>
-              )}
-            </DrawerTrigger>
-            <DrawerContent>
-              <div className="relative mx-auto h-[400px] w-full">
-                <Tabs defaultValue="speech" className="h-[95%] w-full">
-                  <TabsList className="w-full">
-                    <TabsTrigger value="props">Props</TabsTrigger>
-                    <TabsTrigger value="log">Log</TabsTrigger>
-                    <TabsTrigger value="store">Store</TabsTrigger>
-                    <TabsTrigger value="ybr">YBR</TabsTrigger>
-                    <TabsTrigger value="cmds">Commands</TabsTrigger>
-                    <TabsTrigger value="errors">Errors</TabsTrigger>
-                    <TabsTrigger value="speech">Speech</TabsTrigger>
-                  </TabsList>
-
-                  {/* PROPS */}
-                  <TabsContent value="props" className="h-[90%] w-full">
-                    <div className="h-full w-full p-4 pb-0">
-                      <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
-                        <pre>{JSON.stringify(props, null, 2)}</pre>
-                      </div>
-                    </div>
-                  </TabsContent>
-
-                  {/* LOG */}
-                  <TabsContent value="log" className="h-[90%] w-full">
-                    <div className="h-full w-full p-4 pb-0">
-                      <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
-                        <div className="table w-full">
-                          <div className="table-row w-full select-text p-2">
-                            {studentLog.map((item, index) => {
-                              return (
-                                <div
-                                  key={index}
-                                  className="table-row w-full border-b-2 border-b-slate-600 p-2"
-                                >
-                                  <div className="table-cell min-w-[100px] text-xs">
-                                    {item.timestamp.toLocaleString('en-us', {
-                                      hour: 'numeric',
-                                      minute: '2-digit',
-                                      second: '2-digit',
-                                    })}
-                                  </div>
-                                  <div className="table-cell">
-                                    <pre className="select-text text-xs">
-                                      {item.action}
-                                    </pre>
-                                  </div>
-                                </div>
-                              )
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </TabsContent>
-
-                  {/* STORE */}
-                  <TabsContent value="store" className="h-[90%] w-full">
-                    <div className="h-full w-full p-4 pb-0">
-                      <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
-                        <h3 className="bg-qqAccent font-sans font-black">
-                          Student
-                        </h3>
-                        <pre className="select-text font-mono text-xs">
-                          {JSON.stringify(student, null, 2)}
-                        </pre>
-                        <h3 className="bg-qqAccent font-sans font-black">
-                          Problem
-                        </h3>
-                        <pre className="select-text font-mono text-xs">
-                          {JSON.stringify(problem, null, 2)}
-                        </pre>
-                        <h3 className="bg-qqAccent font-sans font-black">
-                          Session
-                        </h3>
-                        <pre className="select-text font-mono text-xs">
-                          {JSON.stringify(session, null, 2)}
-                        </pre>
-                        <h3 className="bg-qqAccent font-sans font-black">
-                          Options
-                        </h3>
-                        <pre className="select-text font-mono text-xs">
-                          {JSON.stringify(
-                            { swapiUrl, gltfUrl, rank, disabledSchemas },
-                            null,
-                            2,
-                          )}
-                        </pre>
-                      </div>
-                    </div>
-                  </TabsContent>
-
-                  {/* YellowBrickRoad */}
-                  <TabsContent value="ybr" className="h-[90%] w-full">
-                    <div className="h-full w-full p-4 pb-0">
-                      <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
-                        <pre>{JSON.stringify(ybr, null, 2)}</pre>
-                      </div>
-                    </div>
-                  </TabsContent>
-
-                  {/* COMMANDS */}
-                  <TabsContent value="cmds" className="h-[90%] w-full">
-                    <div className="h-full w-full p-4 pb-0">
-                      <div className="flex w-full items-center justify-start border-b-2 border-b-slate-600">
-                        <Button
-                          className="mr-2 w-48"
-                          onClick={() => handleCloseSession()}
-                        >
-                          Close Session
-                        </Button>
-                        <p className="select-text text-xs">{closeMsg}</p>
-                      </div>
-                      <div className="mt-4 flex w-full items-center justify-start border-b-2 border-b-slate-600">
-                        <Button
-                          className="mr-2 w-48"
-                          onClick={() => handleSaveTrace()}
-                        >
-                          Save Trace
-                        </Button>
-                        <div className="flex flex-col">
-                          <Input
-                            type="text"
-                            className="w-full"
-                            value={traceComment}
-                            onChange={e => setTraceComment(e.target.value)}
-                            placeholder="Enter your Comment"
-                          />
-                          <p className="select-text text-xs">{traceMsg}</p>
-                        </div>
-                      </div>
-                      <div className="mt-4 flex w-full items-center justify-start border-b-2 border-b-slate-600">
-                        <Button
-                          className="mr-2 w-48"
-                          onClick={() => handleCompleteProblem()}
-                        >
-                          Complete Problem
-                        </Button>
-                        <p className="select-text text-xs">{closeMsg}</p>
-                      </div>
-                    </div>
-                  </TabsContent>
-
-                  {/* ERRORS */}
-                  <TabsContent value="errors" className="h-[90%] w-full">
-                    <div className="h-full w-full p-4 pb-0">
-                      <h1>Errors</h1>
-                      <div>{propError}</div>
-                    </div>
-                  </TabsContent>
-
-                  {/* SPEECH */}
-                  <TabsContent value="speech" className="h-[90%] w-full">
-                    <VoiceTester />
-                  </TabsContent>
-                </Tabs>
+      <div
+        className={cn(
+          'StepWisePower relative min-h-24 w-full border-none',
+          props.className,
+        )}
+      >
+        <Drawer>
+          <DrawerTrigger asChild>
+            {enableDebugger && (
+              <div className="fixed bottom-0 left-2 z-10 m-1 flex cursor-pointer gap-2 rounded-full bg-transparent text-xs">
+                <button className="cursor-pointer rounded-full bg-transparent text-xs">
+                  <BsBugFill className="text-lg text-red-500" />
+                </button>
+                <div>{buildInfo.version}</div>
+                <div>{formattedDate(buildInfo.buildDate)}</div>
+                <div>{ybr[current - 1]?.rank}</div>
+                <div>{ybr[current - 1]?.id}</div>
               </div>
-            </DrawerContent>
-          </Drawer>
+            )}
+          </DrawerTrigger>
+          <DrawerContent>
+            <div className="relative mx-auto h-[400px] w-full">
+              <Tabs defaultValue="speech" className="h-[95%] w-full">
+                <TabsList className="w-full">
+                  <TabsTrigger value="props">Props</TabsTrigger>
+                  <TabsTrigger value="log">Log</TabsTrigger>
+                  <TabsTrigger value="store">Store</TabsTrigger>
+                  <TabsTrigger value="ybr">YBR</TabsTrigger>
+                  <TabsTrigger value="cmds">Commands</TabsTrigger>
+                  <TabsTrigger value="errors">Errors</TabsTrigger>
+                  <TabsTrigger value="speech">Speech</TabsTrigger>
+                </TabsList>
 
-          <Carousel
-            setApi={setApi}
-            opts={{ watchDrag: false }}
-            className="Carousel flex flex-grow flex-col"
-          >
+                {/* PROPS */}
+                <TabsContent value="props" className="h-[90%] w-full">
+                  <div className="h-full w-full p-4 pb-0">
+                    <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
+                      <pre>{JSON.stringify(props, null, 2)}</pre>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                {/* LOG */}
+                <TabsContent value="log" className="h-[90%] w-full">
+                  <div className="h-full w-full p-4 pb-0">
+                    <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
+                      <div className="table w-full">
+                        <div className="table-row w-full select-text p-2">
+                          {studentLog.map((item, index) => {
+                            return (
+                              <div
+                                key={index}
+                                className="table-row w-full border-b-2 border-b-slate-600 p-2"
+                              >
+                                <div className="table-cell min-w-[100px] text-xs">
+                                  {item.timestamp.toLocaleString('en-us', {
+                                    hour: 'numeric',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                  })}
+                                </div>
+                                <div className="table-cell">
+                                  <pre className="select-text text-xs">
+                                    {item.action}
+                                  </pre>
+                                </div>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                {/* STORE */}
+                <TabsContent value="store" className="h-[90%] w-full">
+                  <div className="h-full w-full p-4 pb-0">
+                    <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
+                      <h3 className="bg-qqAccent font-sans font-black">
+                        Student
+                      </h3>
+                      <pre className="select-text font-mono text-xs">
+                        {JSON.stringify(student, null, 2)}
+                      </pre>
+                      <h3 className="bg-qqAccent font-sans font-black">
+                        Problem
+                      </h3>
+                      <pre className="select-text font-mono text-xs">
+                        {JSON.stringify(problem, null, 2)}
+                      </pre>
+                      <h3 className="bg-qqAccent font-sans font-black">
+                        Session
+                      </h3>
+                      <pre className="select-text font-mono text-xs">
+                        {JSON.stringify(session, null, 2)}
+                      </pre>
+                      <h3 className="bg-qqAccent font-sans font-black">
+                        Options
+                      </h3>
+                      <pre className="select-text font-mono text-xs">
+                        {JSON.stringify(
+                          { swapiUrl, gltfUrl, rank, disabledSchemas },
+                          null,
+                          2,
+                        )}
+                      </pre>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                {/* YellowBrickRoad */}
+                <TabsContent value="ybr" className="h-[90%] w-full">
+                  <div className="h-full w-full p-4 pb-0">
+                    <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
+                      <pre>{JSON.stringify(ybr, null, 2)}</pre>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                {/* COMMANDS */}
+                <TabsContent value="cmds" className="h-[90%] w-full">
+                  <div className="h-full w-full p-4 pb-0">
+                    <div className="flex w-full items-center justify-start border-b-2 border-b-slate-600">
+                      <Button
+                        className="mr-2 w-48"
+                        onClick={() => handleCloseSession()}
+                      >
+                        Close Session
+                      </Button>
+                      <p className="select-text text-xs">{closeMsg}</p>
+                    </div>
+                    <div className="mt-4 flex w-full items-center justify-start border-b-2 border-b-slate-600">
+                      <Button
+                        className="mr-2 w-48"
+                        onClick={() => handleSaveTrace()}
+                      >
+                        Save Trace
+                      </Button>
+                      <div className="flex flex-col">
+                        <Input
+                          type="text"
+                          className="w-full"
+                          value={traceComment}
+                          onChange={e => setTraceComment(e.target.value)}
+                          placeholder="Enter your Comment"
+                        />
+                        <p className="select-text text-xs">{traceMsg}</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex w-full items-center justify-start border-b-2 border-b-slate-600">
+                      <Button
+                        className="mr-2 w-48"
+                        onClick={() => handleCompleteProblem()}
+                      >
+                        Complete Problem
+                      </Button>
+                      <p className="select-text text-xs">{closeMsg}</p>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                {/* ERRORS */}
+                <TabsContent value="errors" className="h-[90%] w-full">
+                  <div className="h-full w-full p-4 pb-0">
+                    <h1>Errors</h1>
+                    <div>{propError}</div>
+                  </div>
+                </TabsContent>
+
+                {/* SPEECH */}
+                <TabsContent value="speech" className="h-[90%] w-full">
+                  <VoiceTester />
+                </TabsContent>
+              </Tabs>
+            </div>
+          </DrawerContent>
+        </Drawer>
+
+        <Carousel
+          setApi={setApi}
+          opts={{ watchDrag: false }}
+          className="Carousel flex flex-grow flex-col"
+        >
+          <AvatarAPIProvider>
             <CarouselContent
               className="CarouselContent relative m-0 flex-grow pr-0"
               style={{ paddingRight: '0px' }}
@@ -388,9 +388,9 @@ const StepWisePower = forwardRef<
                 </CarouselItem>
               ))}
             </CarouselContent>
-          </Carousel>
-        </div>
-      </AvatarAPIProvider>
+          </AvatarAPIProvider>
+        </Carousel>
+      </div>
     </NavContext.Provider>
   )
 })

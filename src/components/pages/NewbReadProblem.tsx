@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
@@ -10,7 +10,7 @@ import { CarouselNext } from '../ui/carousel'
 import { StimulusSelector } from '../qq/StimulusSelector'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
-import { TinyTutor } from '../qq/TinyTutor'
+import { HintStage, TinyTutor } from '../qq/TinyTutor'
 
 const NewbReadProblem: React.FC<{
   className?: string
@@ -28,7 +28,7 @@ const NewbReadProblem: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, problem } = useProblemStore()
+  const { logAction, problem, rank } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -36,6 +36,39 @@ const NewbReadProblem: React.FC<{
 
   const [navDisabled, setNavDisabled] = useState(true)
   const [msg, setMsg] = useState('')
+
+  const hintList = useMemo(() => {
+    // get page hints
+    let pageHints: string[] = []
+    let wpHints = problem.wpHints?.find(
+      wpHint => wpHint.page === `${rank}${page.id}`,
+    )
+    if (wpHints?.hints) {
+      pageHints = wpHints.hints
+    } else if (page.psHints) {
+      pageHints = page.psHints
+    }
+
+    // define hint stages
+    let hintStages: HintStage[] = []
+    if (page.intro?.length) {
+      hintStages.push('intro')
+    } else {
+      hintStages.push('pre')
+    }
+    if (pageHints?.length) {
+      hintStages.push('psHints')
+    }
+    if (page.aiHints) {
+      hintStages.push('aiHints')
+    }
+
+    return {
+      stages: hintStages,
+      intro: page.intro,
+      psHints: pageHints,
+    }
+  }, [])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -95,8 +128,7 @@ const NewbReadProblem: React.FC<{
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
           msg={msg}
-          intro={page?.intro}
-          psHints={page?.psHints}
+          hintList={hintList}
           hintChanged={hintChanged}
           closeable={false}
         />

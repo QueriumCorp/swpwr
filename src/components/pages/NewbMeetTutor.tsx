@@ -82,21 +82,19 @@ const NewbMeetTutor: React.FC<{
       )}
     >
       <div
-        className="relative grow"
-        style={{
-          background:
-            'linear-gradient(0deg, rgba(30,106,8,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)',
-        }}
+        className={cn(
+          'NewbMeetTutorBODY',
+          'relative grow',
+          'bg-gradient-to-b from-blue-300 via-blue-900 via-70% to-green-700',
+        )}
       >
         <AnimeTutor
           emote={'celebrate:01'}
           closeUp
-          style={{
-            position: 'absolute',
-            height: '100%',
-            right: '-150px',
-            width: '100%',
-          }}
+          className={cn(
+            'AnimeTutor',
+            'absolute left-[40%] aspect-square h-full',
+          )}
         />
         <ChatBubble
           msgs={page.intro!}

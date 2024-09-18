@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { FC, ReactNode, useContext, useState } from 'react'
+import { FC, ReactNode, useContext, useMemo, useState } from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -11,7 +11,7 @@ import { NavBar } from '../qq/NavBar'
 import { CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { VideoPlayer } from '../qq/VideoPlayer'
-import { TinyTutor } from '../qq/TinyTutor'
+import { HintStage, TinyTutor } from '../qq/TinyTutor'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -35,13 +35,46 @@ const NewbVideoTotal: FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction } = useProblemStore()
+  const { logAction, problem, rank } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
   const [watchedVideo, setWatchedVideo] = useState(false)
+
+  const hintList = useMemo(() => {
+    // get page hints
+    let pageHints: string[] = []
+    let wpHints = problem.wpHints?.find(
+      wpHint => wpHint.page === `${rank}${page.id}`,
+    )
+    if (wpHints?.hints) {
+      pageHints = wpHints.hints
+    } else if (page.psHints) {
+      pageHints = page.psHints
+    }
+
+    // define hint stages
+    let hintStages: HintStage[] = []
+    if (page.intro?.length) {
+      hintStages.push('intro')
+    } else {
+      hintStages.push('pre')
+    }
+    if (pageHints?.length) {
+      hintStages.push('psHints')
+    }
+    if (page.aiHints) {
+      hintStages.push('aiHints')
+    }
+
+    return {
+      stages: hintStages,
+      intro: page.intro,
+      psHints: pageHints,
+    }
+  }, [])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -74,7 +107,7 @@ const NewbVideoTotal: FC<{
         </div>
       </div>
       <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
-        <TinyTutor intro={page?.intro} psHints={page?.psHints || []} />
+        <TinyTutor hintList={hintList} />
 
         <CarouselNext
           className="relative right-0"

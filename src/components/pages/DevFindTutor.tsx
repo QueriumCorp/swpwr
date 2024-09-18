@@ -15,13 +15,13 @@ import { TinyTutor, type HintStage } from '../qq/TinyTutor'
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-const NewbFindTutor: React.FC<{
+const DevFindTutor: React.FC<{
   className?: string
   children?: React.ReactNode
   page: YBRpage
   index: number
 }> = ({ className, children, page, index }) => {
-  console.log('RENDER: NewbFindTutor')
+  console.log('RENDER: DevFindTutor')
   ///////////////////////////////////////////////////////////////////
   // Contexts
   ///////////////////////////////////////////////////////////////////
@@ -46,6 +46,8 @@ const NewbFindTutor: React.FC<{
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
+
+  const [test, setTest] = useState('initialTestData')
 
   const [msg, setMsg] = useState('')
   const [navDisabled, setNavDisabled] = useState(true)
@@ -99,6 +101,10 @@ const NewbFindTutor: React.FC<{
     }
   }
 
+  const inputChange = evt => {
+    setTest(evt.target.value)
+  }
+
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
@@ -108,13 +114,16 @@ const NewbFindTutor: React.FC<{
   return (
     <div
       className={cn(
-        'NewbFindTutor',
+        'DevFindTutor',
         'm-0 flex h-full w-full flex-col justify-stretch',
         'rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
         className,
       )}
     >
-      <div className="relative grow"></div>
+      <div className="relative grow bg-yellow-200">
+        <input value={test} onChange={inputChange}></input>
+        <div>{test}</div>
+      </div>
       {children}
       <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor
@@ -127,7 +136,7 @@ const NewbFindTutor: React.FC<{
           disabled={navDisabled}
           className="relative right-0"
           onClick={() => {
-            logAction('NewbFindTutor : Clicked Next')
+            logAction('DevFindTutor : Clicked Next')
             api?.scrollNext()
           }}
         >
@@ -137,5 +146,5 @@ const NewbFindTutor: React.FC<{
     </div>
   )
 }
-NewbFindTutor.displayName = 'NewbFindTutor'
-export default NewbFindTutor
+DevFindTutor.displayName = 'DevFindTutor'
+export default DevFindTutor
