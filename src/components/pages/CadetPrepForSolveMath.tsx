@@ -99,7 +99,6 @@ const CadetPrepForSolveMath: React.FC<{
         <ChatBubble
           msgs={page.intro!}
           className="absolute bottom-[50%] right-[50%] max-w-[45%] font-capriola"
-          introFinished={finishedIntro}
         />
       </div>
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">

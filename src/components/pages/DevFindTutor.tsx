@@ -101,10 +101,6 @@ const DevFindTutor: React.FC<{
     }
   }
 
-  const inputChange = evt => {
-    setTest(evt.target.value)
-  }
-
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
@@ -120,10 +116,7 @@ const DevFindTutor: React.FC<{
         className,
       )}
     >
-      <div className="relative grow bg-yellow-200">
-        <input value={test} onChange={inputChange}></input>
-        <div>{test}</div>
-      </div>
+      <div className="relative grow bg-yellow-200"></div>
       {children}
       <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor

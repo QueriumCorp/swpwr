@@ -94,7 +94,7 @@ const DevSolveTheEquation: FC<{
         />
       </div>
       <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
-        <TinyTutor intro={page?.intro} psHints={pageSpecificHints} />
+        <TinyTutor />
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>
