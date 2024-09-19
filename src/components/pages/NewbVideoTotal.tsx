@@ -23,7 +23,7 @@ const NewbVideoTotal: FC<{
   index: number
 }> = ({ className, page, index }) => {
   const ybr = YellowBrickRoad
-  const src = 'https://querium.wistia.com/medias/oyfe3sqhwb'
+  const src = 'https://querium.wistia.com/medias/sjxgx93yp3'
 
   ///////////////////////////////////////////////////////////////////
   // Contexts
