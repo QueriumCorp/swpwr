@@ -123,6 +123,10 @@ const RangerOwnWords: FC<{
   }
 
   async function getAiHints() {
+    if (complete) {
+      setMsg('You have solved part! Continue to the next page.')
+      return
+    }
     setBusy(true)
     setMsg('Hmmm...  let me see.')
     setMsg(await getHint())
