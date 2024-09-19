@@ -10,6 +10,7 @@ import {
 } from './contexts/AvatarAPI'
 import { OrbitControls, View } from '@react-three/drei'
 import type { AvatarImperativeHandle } from './avatars/FoxyFuka'
+import FoxyImage from './avatars/foxyImage'
 
 type AnimeTutorProps = {
   emote?: string
@@ -30,8 +31,7 @@ const AnimeTutor = ({ emote, closeUp, className, style }: AnimeTutorProps) => {
 
   return (
     <div className={className}>
-      <Canvas shadows>
-        {/* <axesHelper></axesHelper> */}
+      {/* <Canvas shadows>
         <OrbitControls
           enableRotate={false}
           enablePan={false}
@@ -39,7 +39,8 @@ const AnimeTutor = ({ emote, closeUp, className, style }: AnimeTutorProps) => {
         />
         <ambientLight intensity={0.4} />
         <Stage closeUp={closeUp} emote={emote || 'idle:01'} />
-      </Canvas>
+      </Canvas> */}
+      <FoxyImage />
     </div>
   )
 }
