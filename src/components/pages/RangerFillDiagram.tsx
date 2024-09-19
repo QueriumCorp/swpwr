@@ -130,7 +130,7 @@ const RangerFillDiagram: FC<{
 
   async function getAiHints() {
     if (complete) {
-      setMsg('You have solved part! Continue to the next page.')
+      setMsg('You have solved this part! Continue to the next page.')
       return
     }
     setBusy(true)
