@@ -218,7 +218,7 @@ const NewbProblemType: FC<{
               </CardHeader>
               <CardContent>
                 {session.knowns ? (
-                  <ul>
+                  <ul className="flex flex-wrap gap-2">
                     {session.knowns.map(known => (
                       <li key={known}>{known}</li>
                     ))}
@@ -232,7 +232,7 @@ const NewbProblemType: FC<{
               </CardHeader>
               <CardContent>
                 {session.unknowns ? (
-                  <ul>
+                  <ul className="flex flex-wrap gap-2">
                     {session.unknowns.map(unknown => (
                       <li key={unknown}>{unknown}</li>
                     ))}

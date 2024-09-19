@@ -3,8 +3,11 @@
 // React Imports
 import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
+// Third Party Imports
+import { HiMiniSpeakerWave } from 'react-icons/hi2'
+
 // Querium Imports
-import { cn } from '@/lib/utils'
+import { cn, makeVocalizable } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { useProblemStore } from '@/store/_store'
@@ -12,8 +15,9 @@ import { HdrBar } from '../qq/HdrBar'
 import { NavBar } from '../qq/NavBar'
 import { StimulusSelector } from '../qq/StimulusSelector'
 import { HintStage, TinyTutor } from '../qq/TinyTutor'
-import { Card } from '../ui/card'
+import { Card, CardContent, CardHeader } from '../ui/card'
 import { NextButton } from '../qq/NextButton'
+import CheckStepButton from '../qq/CheckStepButton'
 
 interface Explanation {
   type: string
@@ -53,6 +57,7 @@ const RangerReflect: FC<{
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
   const [disabled, setDisabled] = useState(true)
+  const [complete, setComplete] = useState(false)
 
   const hintList = useMemo(() => {
     // get page hints
@@ -113,31 +118,53 @@ const RangerReflect: FC<{
     if (evt.altKey) {
       //If Cmd+Enter just scroll to next page
       api?.scrollNext()
-    } else if (
-      explanation?.type === 'schema' ||
-      explanation?.type === 'estimation'
-    ) {
-      api?.scrollNext()
-    } else {
-      setBusy(true)
-      logAction('RangerReflect : Clicked Next')
-      logAction('RangerReflect : Checking Explanation')
-      switch (explanation?.type) {
-        case 'schema':
-          setMsg(schemaMsgs[Math.floor(Math.random() * schemaMsgs.length)])
-          break
-        case 'estimation':
-          setMsg(
-            estimationMsgs[Math.floor(Math.random() * estimationMsgs.length)],
-          )
-          break
-        case 'bad':
-          setMsg(badMsgs[Math.floor(Math.random() * badMsgs.length)])
-          break
-      }
-      submitExplanation(explanation?.type || '')
-      setBusy(false)
+      return
     }
+
+    logAction('RangerReflect : Checking Explanation')
+    switch (explanation?.type) {
+      case 'schema':
+        setMsg(schemaMsgs[Math.floor(Math.random() * schemaMsgs.length)])
+        setComplete(true)
+        break
+      case 'estimation':
+        setMsg(
+          estimationMsgs[Math.floor(Math.random() * estimationMsgs.length)],
+        )
+        setComplete(true)
+        break
+      case 'bad':
+        setMsg(badMsgs[Math.floor(Math.random() * badMsgs.length)])
+        setComplete(false)
+        break
+    }
+    submitExplanation(explanation?.type || '')
+  }
+
+  function handleSpeak(text: string) {
+    if (!text) {
+      return
+    }
+
+    const msg2Vocalize = text
+    const utterance = new SpeechSynthesisUtterance(
+      makeVocalizable(msg2Vocalize),
+    )
+    utterance.lang = 'en-US'
+    utterance.voice = speechSynthesis.getVoices()[159]
+    utterance.rate = 1
+    utterance.pitch = 1
+    utterance.volume = 1
+    speechSynthesis.speak(utterance)
+  }
+  const SpeakButton: FC<{
+    msg: string
+  }> = ({ msg }) => {
+    return (
+      <button className="border-none text-xs" onClick={() => handleSpeak(msg)}>
+        <HiMiniSpeakerWave className="text-cyan-900" />
+      </button>
+    )
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -173,16 +200,23 @@ const RangerReflect: FC<{
           {explanations.map(exp => (
             <Card
               key={exp.type}
-              onClick={() => {
-                setExplanation(exp)
-              }}
               className={cn(
-                'w-96 px-4 py-2 ring-qqBrand',
+                'w-96 px-2 py-0 ring-qqBrand',
                 exp.type === explanation?.type ? 'ring-4' : 'ring-0',
-                'cursor-pointer hover:bg-qqAccent hover:text-white',
+                'hover:bg-qqAccent hover:text-white',
               )}
             >
-              {exp.text}
+              <CardHeader className="flex flex-row items-center justify-end p-1">
+                <SpeakButton msg={exp.text}></SpeakButton>
+              </CardHeader>
+              <CardContent
+                className="cursor-pointer"
+                onClick={() => {
+                  setExplanation(exp)
+                }}
+              >
+                {exp.text}
+              </CardContent>
             </Card>
           ))}
         </div>
@@ -191,11 +225,21 @@ const RangerReflect: FC<{
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
         <TinyTutor msg={msg} busy={busy} hintList={hintList} />
 
-        <NextButton
+        {/* <NextButton
           busy={busy}
           disabled={disabled}
           onClick={evt => HandleCheckExplanation(evt)}
-        ></NextButton>
+        ></NextButton> */}
+
+        {!complete ? (
+          <CheckStepButton
+            busy={busy}
+            disabled={disabled}
+            onClick={evt => HandleCheckExplanation(evt)}
+          />
+        ) : (
+          <NextButton busy={busy}></NextButton>
+        )}
       </NavBar>
     </div>
   )

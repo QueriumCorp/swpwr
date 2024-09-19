@@ -51,7 +51,7 @@ const CheckStepButton = ({
       <BusyIndicator busy={busy} className="BusyIndicator"></BusyIndicator>
       <Button
         className={cn(
-          'absolute h-8 w-8 p-0',
+          'absolute h-8 w-8 !p-0',
           'rounded-full border-white bg-green-500 text-xl text-white',
           'hover:bg-green-700 hover:text-white',
           'disabled:border-slate-400 disabled:bg-slate-200 disabled:text-slate-400',

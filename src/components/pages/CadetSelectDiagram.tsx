@@ -65,7 +65,7 @@ const CadetSelectDiagram: React.FC<{
                 <CardTitle>Known</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul>
+                <ul className="flex flex-wrap gap-2">
                   {fakeKnowns.map(known => (
                     <li key={known}>{known}</li>
                   ))}
@@ -77,7 +77,7 @@ const CadetSelectDiagram: React.FC<{
                 <CardTitle>Unknown</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul>
+                <ul className="flex flex-wrap gap-2">
                   {fakeUnknowns.map(unknown => (
                     <li key={unknown}>{unknown}</li>
                   ))}

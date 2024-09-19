@@ -89,7 +89,10 @@ export const TinyTutor = ({
     <div className={cn('TINYTUTOR', className)}>
       <AnimeTutor
         emote={'wave:01'}
-        className={cn('ANIMETUTOR', 'bottom-0 right-0 h-[100px] w-[100px]')}
+        className={cn(
+          'ANIMETUTOR',
+          'absolute bottom-0 right-[100px] h-[100px] w-[100px]',
+        )}
       />
       <div
         className={cn(

@@ -103,7 +103,7 @@ const TotalEditor: FC<{
             </CardHeader>
             <CardContent>
               {session.knowns ? (
-                <ul>
+                <ul className="flex flex-wrap gap-2">
                   {session.knowns.map(known => (
                     <FactChicklet key={known} fact={known}></FactChicklet>
                   ))}
@@ -117,7 +117,7 @@ const TotalEditor: FC<{
             </CardHeader>
             <CardContent>
               {session.unknowns ? (
-                <ul>
+                <ul className="flex flex-wrap gap-2">
                   {session.unknowns.map(unknown => (
                     <FactChicklet key={unknown} fact={unknown}></FactChicklet>
                   ))}
