@@ -28,6 +28,7 @@ const AnimeTutor = ({ emote, closeUp, className, style }: AnimeTutorProps) => {
     width: '300px',
     ...style,
   }
+  console.info(emote, closeUp)
 
   return (
     <div className={className}>
