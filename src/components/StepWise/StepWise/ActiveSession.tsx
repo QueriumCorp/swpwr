@@ -189,7 +189,7 @@ export const ActiveSession = forwardRef<ActiveSessionAPI, ActiveSessionProps>(
             className,
           )}
         >
-          <div className="px-2 pb-2 pt-4">
+          <div className="mx-2 mb-1 rounded-md bg-slate-200 px-2 pb-2 pt-4">
             {true ? null : <TitleBar />}
             <Stimulus />
             {children}
