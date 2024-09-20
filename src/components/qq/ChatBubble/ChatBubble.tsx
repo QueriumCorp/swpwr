@@ -165,7 +165,10 @@ export const ChatBubble = ({
       return
     }
 
-    const msg2Vocalize = messages[api!.selectedScrollSnap()]
+    const msg2Vocalize = messages[api!.selectedScrollSnap()].replace(
+      /\*\*/g,
+      '',
+    )
     const utterance = new SpeechSynthesisUtterance(
       makeVocalizable(msg2Vocalize),
     )
@@ -216,7 +219,7 @@ export const ChatBubble = ({
               <CarouselItem key={i}>
                 <div
                   key={i}
-                  className="mr-[15px] flex select-none flex-col gap-1"
+                  className="mr-[15px] flex select-none flex-col gap-1 !font-capriola text-base"
                 >
                   <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>
                     {m}

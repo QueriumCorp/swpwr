@@ -1,7 +1,15 @@
 'use client'
 
 //  React Imports
-import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
+import {
+  FC,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -42,6 +50,8 @@ const RangerOwnWords: FC<{
   ///////////////////////////////////////////////////////////////////
   // Ref
   ///////////////////////////////////////////////////////////////////
+
+  const inputRef = useRef<HTMLTextAreaElement>(null)
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -91,8 +101,14 @@ const RangerOwnWords: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    ownWords.length > 10 ? setDisabled(false) : setDisabled(true)
+    ownWords.length > 3 ? setDisabled(false) : setDisabled(true)
   }, [ownWords])
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -170,6 +186,7 @@ const RangerOwnWords: FC<{
 
         <div className="grow">
           <Textarea
+            ref={inputRef}
             value={ownWords}
             onChange={e => setOwnWords(e.target.value)}
             placeholder="Type your answer here"
