@@ -217,7 +217,7 @@ const NewbFindFacts: FC<{
             onClick={evt => HandleCheckFacts(evt)}
           />
         ) : (
-          <NextButton busy={busy}></NextButton>
+          <NextButton className="scale-[200%]" busy={busy}></NextButton>
         )}
       </NavBar>
     </div>

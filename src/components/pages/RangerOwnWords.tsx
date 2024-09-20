@@ -177,22 +177,24 @@ const RangerOwnWords: FC<{
         </div>
       </div>
 
-      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
         <TinyTutor
           msg={msg}
           busy={busy}
           hintList={hintList}
           getAiHints={getAiHints}
         />
-        {!complete ? (
-          <CheckStepButton
-            busy={busy}
-            disabled={disabled}
-            onClick={evt => handleCheckOwnWords(evt)}
-          />
-        ) : (
-          <NextButton busy={busy}></NextButton>
-        )}
+        <div className="flex h-20 w-20 items-center justify-center">
+          {!complete ? (
+            <CheckStepButton
+              busy={busy}
+              disabled={disabled}
+              onClick={evt => handleCheckOwnWords(evt)}
+            />
+          ) : (
+            <NextButton className="scale-[200%]" busy={busy}></NextButton>
+          )}
+        </div>
       </NavBar>
     </div>
   )

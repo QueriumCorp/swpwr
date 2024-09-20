@@ -326,18 +326,22 @@ const RangerSolveTheEquation: FC<{
           </div>
         </div>
       </div>
-      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
         <TinyTutor msg={msg} hintList={hintList} getAiHints={getExternalHint} />
-
-        {!complete ? (
-          <CheckStepButton
-            busy={busy}
-            disabled={disabled}
-            onClick={evt => evaluateStep(evt)}
-          />
-        ) : (
-          <NextButton busy={busy} onClick={evt => HandleNext(evt)}></NextButton>
-        )}
+        <div className="flex h-20 w-20 items-center justify-center">
+          {!complete ? (
+            <CheckStepButton
+              busy={busy}
+              disabled={disabled}
+              onClick={evt => evaluateStep(evt)}
+            />
+          ) : (
+            <NextButton
+              busy={busy}
+              onClick={evt => HandleNext(evt)}
+            ></NextButton>
+          )}
+        </div>
       </NavBar>
     </div>
   )

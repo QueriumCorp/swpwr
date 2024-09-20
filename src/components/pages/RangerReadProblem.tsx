@@ -36,39 +36,25 @@ const RangerReadProblem: React.FC<{
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [busy, setBusy] = useState(true)
+  const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<string>(
-    'Please read the problem while I get things ready to go.',
+    rank === 'ranger'
+      ? "Here's your next problem. I'll give you a some time to read it."
+      : page.intro![0],
   )
+
   const hintList = useMemo(() => {
     // get page hints
     let pageHints: string[] = []
-    let wpHints = problem.wpHints?.find(
-      wpHint => wpHint.page === `${rank}${page.id}`,
-    )
-    if (wpHints?.hints) {
-      pageHints = wpHints.hints
-    } else if (page.psHints) {
-      pageHints = page.psHints
-    }
 
     // define hint stages
     let hintStages: HintStage[] = []
-    if (page.intro?.length) {
-      hintStages.push('intro')
-    } else {
-      hintStages.push('pre')
-    }
-    if (pageHints?.length) {
-      hintStages.push('psHints')
-    }
-    if (page.aiHints) {
-      hintStages.push('aiHints')
-    }
+
+    hintStages.push('pre')
 
     return {
       stages: hintStages,
-      intro: page.intro,
+      intro: [],
       psHints: pageHints,
     }
   }, [])
@@ -80,7 +66,7 @@ const RangerReadProblem: React.FC<{
   useEffect(() => {
     if (session.sessionToken.length > 0) {
       setBusy(false)
-      setMsg('')
+      setMsg(rank === 'ranger' ? '' : page.intro![1])
     }
   }, [session])
 
@@ -122,9 +108,11 @@ const RangerReadProblem: React.FC<{
           stimulusText={problem.stimulus}
         ></StimulusSelector>
       </div>
-      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-2">
-        <TinyTutor msg={msg} busy={busy} hintList={hintList} />
-        <NextButton busy={busy}></NextButton>
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
+        <TinyTutor msg={msg} busy={busy} hintList={hintList}></TinyTutor>
+        <div className="flex h-20 w-20 items-center justify-center">
+          <NextButton className="scale-[200%]" busy={busy}></NextButton>
+        </div>
       </NavBar>
     </div>
   )

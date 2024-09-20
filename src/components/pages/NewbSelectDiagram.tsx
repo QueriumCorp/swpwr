@@ -378,7 +378,11 @@ const NewbProblemType: FC<{
             onClick={evt => handleCheckSchema(evt)}
           />
         ) : (
-          <NextButton busy={busy} disabled={schema.length === 0}></NextButton>
+          <NextButton
+            className="scale-[200%]"
+            busy={busy}
+            disabled={schema.length === 0}
+          ></NextButton>
         )}
       </NavBar>
     </div>
