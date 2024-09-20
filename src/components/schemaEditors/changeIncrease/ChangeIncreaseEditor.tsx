@@ -13,7 +13,10 @@ import { ChangeIncreaseEquationGraphic } from './ChangeIncreaseEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
 
 const ChangeIncreaseEditor: FC<{
-  onChange?: (latex: string, values: string[]) => void
+  onChange?: (
+    latex: string,
+    values: { variable: string; value: string | null }[],
+  ) => void
   className?: string
   children?: ReactNode
 }> = ({ onChange, className }) => {
@@ -44,7 +47,11 @@ const ChangeIncreaseEditor: FC<{
     if (s.length === 0 || c.length === 0 || e.length === 0) onChange('', [])
 
     console.log(`${s}\\plus${c}\=${e}`)
-    onChange(`${s}\\plus${c}\=${e}`, [s, c, e])
+    onChange(`${s}\\plus${c}\=${e}`, [
+      { variable: 'S', value: s },
+      { variable: 'C', value: c },
+      { variable: 'E', value: e },
+    ])
   }, [s, c, e])
 
   //

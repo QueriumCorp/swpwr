@@ -13,7 +13,10 @@ import { CompareEquationGraphic } from './CompareEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
 
 const CompareEditor: FC<{
-  onChange?: (latex: string, values: string[]) => void
+  onChange?: (
+    latex: string,
+    values: { variable: string; value: string | null }[],
+  ) => void
   className?: string
   children?: ReactNode
 }> = ({ onChange, className }) => {
@@ -43,7 +46,11 @@ const CompareEditor: FC<{
     // If any are blank, equation is blank and disable Next
     if (s.length === 0 || m.length === 0 || p.length === 0) onChange('', [])
     console.info(`${s}\\times${m}=${p}`)
-    onChange(`${s}\\times${m}=${p}`, [s, m, p])
+    onChange(`${s}\\times${m}=${p}`, [
+      { variable: 'S', value: s },
+      { variable: 'M', value: m },
+      { variable: 'P', value: p },
+    ])
   }, [s, m, p])
 
   //

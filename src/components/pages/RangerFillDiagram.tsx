@@ -50,7 +50,9 @@ const RangerFillDiagram: FC<{
   ///////////////////////////////////////////////////////////////////
 
   const [equation, setEquation] = useState<string>('')
-  const [values, setValues] = useState<string[]>([])
+  const [values, setValues] = useState<
+    { variable: string; value: string | null }[]
+  >([])
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
   const [disabled, setDisabled] = useState(true)
@@ -139,7 +141,10 @@ const RangerFillDiagram: FC<{
     setBusy(false)
   }
 
-  function HandleEquationChange(latex: string, values: string[]) {
+  function HandleEquationChange(
+    latex: string,
+    values: { variable: string; value: string | null }[],
+  ) {
     setEquation(latex)
     setValues(values)
   }

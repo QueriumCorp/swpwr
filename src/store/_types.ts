@@ -27,7 +27,10 @@ export interface State {
   initSession: () => void
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
   submitPickSchema: (schema: string, fake?: boolean) => Promise<any>
-  submitOrganize: (equation: string, values: string[]) => Promise<any>
+  submitOrganize: (
+    equation: string,
+    values: { variable: string; value: string | null }[],
+  ) => Promise<any>
   submitMyOwnWords: (type: string) => Promise<any>
   submitExplanation: (type: string) => Promise<any>
   getHint: () => Promise<string>
@@ -101,7 +104,7 @@ export type Session = {
   knowns: string[]
   unknowns: string[]
   schema: string
-  schemaValues: string[]
+  schemaValues: { variable: string; value: string | null }[]
   mathAnswer: string
   myOwnWords: string
   selectedExplanation: string

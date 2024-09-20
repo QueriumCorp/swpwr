@@ -172,7 +172,10 @@ export const useProblemStore = create<State>((set, get) => ({
     return await submitPickSchema(set, get, schema)
   },
 
-  submitOrganize: async (equation: string, values: string[]) => {
+  submitOrganize: async (
+    equation: string,
+    values: { variable: string; value: string | null }[],
+  ) => {
     set(state => ({
       session: {
         ...state.session,

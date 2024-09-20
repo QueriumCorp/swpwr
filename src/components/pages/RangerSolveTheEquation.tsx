@@ -271,53 +271,53 @@ const RangerSolveTheEquation: FC<{
                   {session.schema === 'additiveTotalSchema' ? (
                     <TotalEquationGraphic
                       className="text-2xl text-qqBrand"
-                      p1={session.schemaValues[0]}
-                      p2={session.schemaValues[1]}
-                      t={session.schemaValues[2]}
+                      p1={getSchemaValue(session.schemaValues, 'P1')}
+                      p2={getSchemaValue(session.schemaValues, 'P2')}
+                      t={getSchemaValue(session.schemaValues, 'T')}
                       showSchema={false}
                     ></TotalEquationGraphic>
                   ) : null}
                   {session.schema === 'multiplicativeEqualGroupsSchema' ? (
                     <EqualGroupsEquationGraphic
                       className="text-2xl text-qqBrand"
-                      g={session.schemaValues[0]}
-                      n={session.schemaValues[1]}
-                      p={session.schemaValues[2]}
+                      g={getSchemaValue(session.schemaValues, 'G')}
+                      n={getSchemaValue(session.schemaValues, 'N')}
+                      p={getSchemaValue(session.schemaValues, 'P')}
                     ></EqualGroupsEquationGraphic>
                   ) : null}
                   {session.schema === 'additiveDifferenceSchema' ? (
                     <DifferenceEquationGraphic
                       className="text-2xl text-qqBrand"
-                      l={session.schemaValues[0]}
-                      d={session.schemaValues[1]}
-                      g={session.schemaValues[2]}
+                      l={getSchemaValue(session.schemaValues, 'L')}
+                      d={getSchemaValue(session.schemaValues, 'D')}
+                      g={getSchemaValue(session.schemaValues, 'G')}
                       showSchema={false}
                     ></DifferenceEquationGraphic>
                   ) : null}
                   {session.schema === 'subtractiveChangeSchema' ? (
                     <ChangeDecreaseEquationGraphic
                       className="text-2xl text-qqBrand"
-                      e={session.schemaValues[2]}
-                      c={session.schemaValues[1]}
-                      s={session.schemaValues[0]}
+                      e={getSchemaValue(session.schemaValues, 'E')}
+                      c={getSchemaValue(session.schemaValues, 'C')}
+                      s={getSchemaValue(session.schemaValues, 'S')}
                       showSchema={false}
                     ></ChangeDecreaseEquationGraphic>
                   ) : null}
                   {session.schema === 'additiveChangeSchema' ? (
                     <ChangeIncreaseEquationGraphic
                       className="text-2xl text-qqBrand"
-                      e={session.schemaValues[0]}
-                      c={session.schemaValues[1]}
-                      s={session.schemaValues[2]}
+                      e={getSchemaValue(session.schemaValues, 'E')}
+                      c={getSchemaValue(session.schemaValues, 'C')}
+                      s={getSchemaValue(session.schemaValues, 'S')}
                       showSchema={false}
                     ></ChangeIncreaseEquationGraphic>
                   ) : null}
                   {session.schema === 'multiplicativeCompareSchema' ? (
                     <CompareEquationGraphic
                       className="text-2xl text-qqBrand"
-                      s={session.schemaValues[0]}
-                      m={session.schemaValues[1]}
-                      p={session.schemaValues[2]}
+                      s={getSchemaValue(session.schemaValues, 'S')}
+                      m={getSchemaValue(session.schemaValues, 'M')}
+                      p={getSchemaValue(session.schemaValues, 'P')}
                     ></CompareEquationGraphic>
                   ) : null}
                 </div>
@@ -344,3 +344,11 @@ const RangerSolveTheEquation: FC<{
 }
 RangerSolveTheEquation.displayName = 'RangerSolveTheEquation'
 export default RangerSolveTheEquation
+
+function getSchemaValue(
+  schemaValues: { variable: string; value: string | null }[],
+  variable: string,
+) {
+  const value = schemaValues.find(v => v.variable === variable)?.value
+  return value ? value : undefined
+}

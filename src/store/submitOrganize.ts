@@ -8,25 +8,12 @@ type varAss = {
 const submitOrganize = async (_set: SetFn, get: GetFn, equation: string) => {
   const problem = get().problem
   const session = get().session
-  const varAssignments: varAss[] = []
-  session.identifiers.map((variable, index) => {
-    varAssignments.push({
-      variable: variable,
-      value:
-        session.identifiers[index] == session.schemaValues[index]
-          ? null
-          : session.schemaValues[index],
-    })
-  })
-
-  console.log(varAssignments)
-  console.log(JSON.stringify(varAssignments))
 
   const body = {
     appKey: problem.appKey,
     sessionToken: session.sessionToken,
     equation: equation,
-    varAssignments: varAssignments,
+    varAssignments: session.schemaValues,
   }
 
   const response = await fetch(get().swapiUrl + '/submitOrganize/', {

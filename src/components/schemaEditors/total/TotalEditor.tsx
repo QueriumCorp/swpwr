@@ -13,7 +13,10 @@ import { TotalEquationGraphic } from './TotalEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
 
 const TotalEditor: FC<{
-  onChange?: (latex: string, values: string[]) => void
+  onChange?: (
+    latex: string,
+    values: { variable: string; value: string | null }[],
+  ) => void
   className?: string
   children?: ReactNode
 }> = ({ onChange, className }) => {
@@ -43,7 +46,11 @@ const TotalEditor: FC<{
     // If any are blank, equation is blank and disable Next
     if (p1.length === 0 || p2.length === 0 || t.length === 0) onChange('', [])
 
-    onChange(`${p1}\\plus${p2}=${t}`, [p1, p2, t])
+    onChange(`${p1}\\plus${p2}=${t}`, [
+      { variable: 'P1', value: p1 },
+      { variable: 'P2', value: p2 },
+      { variable: 'T', value: t },
+    ])
   }, [p1, p2, t])
 
   //
