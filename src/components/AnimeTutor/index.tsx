@@ -19,7 +19,7 @@ type AnimeTutorProps = {
   className?: string
 }
 
-const AnimeTutor = ({ emote, closeUp, className, style }: AnimeTutorProps) => {
+const AnimeTutor = ({ className, style }: AnimeTutorProps) => {
   const avatarRef = useRef<AvatarImperativeHandle>(null)
 
   const theStyle: CSSProperties = {
