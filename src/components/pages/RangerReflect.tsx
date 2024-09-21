@@ -274,6 +274,6 @@ const schemaMsgs = [
 
 const badMsgs = [
   "No, that reason doesn't use good math thinking to tell why the answer makes sense. Try again.",
-  "Oh my whiskers! I think we can do better than that! Let's try again and use our super sharp fox brains to figure out why the answer makes sense, okay?",
-  "Hmmm, sweetie, I think we need to dig deeper into the mathy goodness to make sure it really adds up! Can you try again and use your super clever fox mind to find a reason that's as smooth as my fur? Let's get those numbers working together like a pack of happy foxes!",
+  "No, that's not a good reason. Let's try again. Use good math reasoning to think about why the answer makes sense.",
+  'Hmmm, no, Try again to find a reason that uses good math thinking.',
 ]
