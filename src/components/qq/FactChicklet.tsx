@@ -51,7 +51,7 @@ const FactChicklet = React.forwardRef<HTMLDivElement, FactChickletProps>(
         className={cn(
           factchickletVariants({ variant }),
           className,
-          'h-5 select-none',
+          'min-h-5 select-none',
         )}
         {...props}
       >
