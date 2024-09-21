@@ -264,7 +264,6 @@ function getFeedback(type: string) {
 const estimationMsgs = [
   "Right on! I also think that's the best reason.",
   "Oooh, yay! I totally agree with you, cutie pie! Your reason is as clever as my tail is fluffy! It's definitely the most paw-some explanation we've seen so far!",
-  "Aww, absolutely sweetie! I think your reasoning is just as sharp as my little fox teeth! You're absolutely right on track - that's the best reason yet!",
 ]
 const schemaMsgs = [
   "Ok! That's not the reason I like best, but it's a good one.",
