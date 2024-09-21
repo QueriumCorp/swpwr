@@ -78,7 +78,7 @@ export const ChangeIncreaseEquationGraphic = ({
                   'flex items-center justify-start',
                 )}
               >
-                <div className={cn(sValue ? 'text-xs' : 'text-xl')}>Start</div>
+                <div className={cn(sValue ? 'text-xs' : 'text-xl')}>S</div>
               </div>
               <div className={cn(sValue ? 'text-xl' : 'text-xs', className)}>
                 {s}
@@ -97,7 +97,7 @@ export const ChangeIncreaseEquationGraphic = ({
                   'flex items-center justify-start',
                 )}
               >
-                <div className={cn(cValue ? 'text-xs' : 'text-xl')}>Change</div>
+                <div className={cn(cValue ? 'text-xs' : 'text-xl')}>C</div>
               </div>
               <div className={cn(cValue ? 'text-xl' : 'text-xs', className)}>
                 {c}
@@ -117,7 +117,7 @@ export const ChangeIncreaseEquationGraphic = ({
                 'flex items-center justify-start',
               )}
             >
-              <div className={cn(eValue ? 'text-xs' : 'text-xl')}>End</div>
+              <div className={cn(eValue ? 'text-xs' : 'text-xl')}>E</div>
             </div>
             <div className={cn(eValue ? 'text-xl' : 'text-xs', className)}>
               {e}
@@ -143,7 +143,7 @@ export const ChangeIncreaseEquationGraphic = ({
               'flex items-center justify-start',
             )}
           >
-            <div className={cn(sValue ? 'text-xs' : 'text-xl')}>Start</div>
+            <div className={cn(sValue ? 'text-xs' : 'text-xl')}>S</div>
           </div>
           <div className={cn(sValue ? 'text-xl' : 'text-xs', className)}>
             {s}
@@ -166,7 +166,7 @@ export const ChangeIncreaseEquationGraphic = ({
               'flex items-center justify-start',
             )}
           >
-            <div className={cn(cValue ? 'text-xs' : 'text-xl')}>Change</div>
+            <div className={cn(cValue ? 'text-xs' : 'text-xl')}>C</div>
           </div>
           <div className={cn(cValue ? 'text-xl' : 'text-xs', className)}>
             {c}
@@ -190,7 +190,7 @@ export const ChangeIncreaseEquationGraphic = ({
               'flex items-center justify-start',
             )}
           >
-            <div className={cn(eValue ? 'text-xs' : 'text-xl')}>End</div>
+            <div className={cn(eValue ? 'text-xs' : 'text-xl')}>E</div>
           </div>
           <div className={cn(eValue ? 'text-xl' : 'text-xs', className)}>
             {e}
