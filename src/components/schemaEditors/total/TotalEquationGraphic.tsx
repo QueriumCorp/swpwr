@@ -77,7 +77,7 @@ export const TotalEquationGraphic = ({
                 'flex items-center justify-start',
               )}
             >
-              <div className={cn(tValue ? 'text-xs' : 'text-xl')}>Total</div>
+              <div className={cn(tValue ? 'text-xs' : 'text-xl')}>T</div>
             </div>
             <div className={cn(tValue ? 'text-xl' : 'text-xs', className)}>
               {t}
@@ -98,9 +98,7 @@ export const TotalEquationGraphic = ({
                   'flex items-center justify-start',
                 )}
               >
-                <div className={cn(p1Value ? 'text-xs' : 'text-xl')}>
-                  Part 1
-                </div>
+                <div className={cn(p1Value ? 'text-xs' : 'text-xl')}>P1</div>
               </div>
               <div className={cn(p1Value ? 'text-xl' : 'text-xs', className)}>
                 {p1}
@@ -120,9 +118,7 @@ export const TotalEquationGraphic = ({
                   'flex items-center justify-start',
                 )}
               >
-                <div className={cn(p2Value ? 'text-xs' : 'text-xl')}>
-                  Part 2
-                </div>
+                <div className={cn(p2Value ? 'text-xs' : 'text-xl')}>P2</div>
               </div>
               <div className={cn(p2Value ? 'text-xl' : 'text-xs', className)}>
                 {p2}
@@ -150,7 +146,7 @@ export const TotalEquationGraphic = ({
             )}
           >
             <div className={cn(p1Value ? 'text-xs' : 'text-xl', className)}>
-              Part 1
+              P1
             </div>
           </div>
           <div className={cn(p1Value ? 'text-xl' : 'text-xs', className)}>
@@ -176,7 +172,7 @@ export const TotalEquationGraphic = ({
             )}
           >
             <div className={cn(p2Value ? 'text-xs' : 'text-xl', className)}>
-              Part 2
+              P2
             </div>
           </div>
           <div className={cn(p2Value ? 'text-xl' : 'text-xs', className)}>
@@ -201,7 +197,7 @@ export const TotalEquationGraphic = ({
             )}
           >
             <div className={cn(tValue ? 'text-xs' : 'text-xl', className)}>
-              Total
+              T
             </div>
           </div>
           <div className={cn(tValue ? 'text-xl' : 'text-xs', className)}>
