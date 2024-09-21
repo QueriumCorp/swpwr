@@ -146,6 +146,10 @@ const RangerReflect: FC<{
       return
     }
 
+    // cancel any previous speech
+    const synth = window.speechSynthesis
+    synth.cancel()
+
     const msg2Vocalize = text
     const utterance = new SpeechSynthesisUtterance(
       makeVocalizable(msg2Vocalize),

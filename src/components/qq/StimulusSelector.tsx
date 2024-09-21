@@ -101,10 +101,15 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
         return
       }
 
+      // cancel speech if it's already in progress
+      const synth = window.speechSynthesis
+      synth.cancel()
+
       const msg2Vocalize = stimulusText
       const utterance = new SpeechSynthesisUtterance(
         makeVocalizable(msg2Vocalize),
       )
+
       utterance.lang = 'en-US'
       utterance.voice = speechSynthesis.getVoices()[159]
       utterance.rate = 1
