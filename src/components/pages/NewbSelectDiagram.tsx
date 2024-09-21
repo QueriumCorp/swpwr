@@ -220,7 +220,9 @@ const NewbProblemType: FC<{
                 {session.knowns ? (
                   <ul className="flex list-none flex-wrap gap-2">
                     {session.knowns.map(known => (
-                      <li key={known}>{known}</li>
+                      <li className="list-none" key={known}>
+                        {known}
+                      </li>
                     ))}
                   </ul>
                 ) : null}
@@ -234,7 +236,9 @@ const NewbProblemType: FC<{
                 {session.unknowns ? (
                   <ul className="flex list-none flex-wrap gap-2">
                     {session.unknowns.map(unknown => (
-                      <li key={unknown}>{unknown}</li>
+                      <li className="list-none" key={unknown}>
+                        {unknown}
+                      </li>
                     ))}
                   </ul>
                 ) : null}
