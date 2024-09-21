@@ -119,7 +119,7 @@ const RangerOwnWords: FC<{
   ) {
     if (evt.altKey) {
       api?.scrollNext()
-    } else if (ownWords.length < 10) {
+    } else if (ownWords.length < 3) {
       setMsg('Please explain your answer in your own words')
     } else {
       setMsg("I'm thinking...")
