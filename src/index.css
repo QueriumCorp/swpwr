@@ -3,6 +3,23 @@
 @tailwind utilities;
 
 @layer base {
+  html,
+  body,
+  h1,
+  p,
+  div,
+  span,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  option,
+  label,
+  ul,
+  li {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
