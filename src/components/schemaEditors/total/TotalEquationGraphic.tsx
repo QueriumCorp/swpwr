@@ -208,30 +208,3 @@ export const TotalEquationGraphic = ({
     </div>
   )
 }
-
-/*
-  return (
-    <div
-      className={cn(
-        "w-full h-full flex justify-around items-center bg-pink-400",
-        className,
-      )}
-    >
-      <div className="flex justify-center items-center border-4 border-slate-500 w-[30%] h-full">
-        Part1:{p1}
-      </div>
-      <div className="mx-2">
-        <ImPlus />
-      </div>
-      <div className="flex justify-center items-center border-4 border-slate-500 w-[30%] h-full">
-        Part2:{p2}
-      </div>
-      <div className="mx-2">
-        <FaEquals />
-      </div>
-      <div className="flex justify-center items-center border-4 border-slate-500 w-[30%] h-full">
-        Total:{t}
-      </div>
-    </div>
-  );
-*/

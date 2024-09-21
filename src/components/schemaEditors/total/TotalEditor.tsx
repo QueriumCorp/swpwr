@@ -68,6 +68,17 @@ const TotalEditor: FC<{
     let value
     if (!values) {
       value = event.over.id as string
+      switch (event.over.id) {
+        case 'PART1':
+          value = 'P1'
+          break
+        case 'PART2':
+          value = 'P2'
+          break
+        case 'TOTAL':
+          value = 'T'
+          break
+      }
     } else {
       value = values[0]
     }
