@@ -39,7 +39,7 @@ const RangerReadProblem: React.FC<{
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<string>(
     rank === 'ranger'
-      ? "Here's your next problem. I'll give you a some time to read it."
+      ? "Here's your next problem. I'll give you some time to read it."
       : page.intro![0],
   )
 
