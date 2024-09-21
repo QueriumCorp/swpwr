@@ -47,9 +47,9 @@ const TotalEditor: FC<{
     if (p1.length === 0 || p2.length === 0 || t.length === 0) onChange('', [])
 
     onChange(`${p1}\\plus${p2}=${t}`, [
-      { variable: 'P1', value: p1 },
-      { variable: 'P2', value: p2 },
-      { variable: 'T', value: t },
+      { variable: 'P1', value: p1 === 'P1' ? null : p1 },
+      { variable: 'P2', value: p2 === 'P2' ? null : p2 },
+      { variable: 'T', value: t === 'T' ? null : t },
     ])
   }, [p1, p2, t])
 

@@ -48,9 +48,9 @@ const DifferenceEditor: FC<{
 
     console.log(`${g}\\minus${l}\=${d}`)
     onChange(`${g}\\minus${l}\=${d}`, [
-      { variable: 'L', value: l },
-      { variable: 'D', value: d },
-      { variable: 'G', value: g },
+      { variable: 'L', value: l == 'L' ? null : l },
+      { variable: 'D', value: d == 'D' ? null : d },
+      { variable: 'G', value: g == 'G' ? null : g },
     ])
   }, [l, d, g])
 

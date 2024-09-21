@@ -47,9 +47,9 @@ const EqualGroupsEditor: FC<{
     if (g.length === 0 || n.length === 0 || p.length === 0) onChange('', [])
 
     onChange(`${g}\\times${n}=${p}`, [
-      { variable: 'G', value: g },
-      { variable: 'N', value: n },
-      { variable: 'P', value: p },
+      { variable: 'G', value: g === 'G' ? null : g },
+      { variable: 'N', value: n === 'N' ? null : n },
+      { variable: 'P', value: p === 'P' ? null : p },
     ])
   }, [g, n, p])
 

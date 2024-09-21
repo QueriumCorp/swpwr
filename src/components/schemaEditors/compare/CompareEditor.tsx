@@ -47,9 +47,9 @@ const CompareEditor: FC<{
     if (s.length === 0 || m.length === 0 || p.length === 0) onChange('', [])
     console.info(`${s}\\times${m}=${p}`)
     onChange(`${s}\\times${m}=${p}`, [
-      { variable: 'S', value: s },
-      { variable: 'M', value: m },
-      { variable: 'P', value: p },
+      { variable: 'S', value: s === 'S' ? null : s },
+      { variable: 'M', value: m === 'M' ? null : m },
+      { variable: 'P', value: p === 'P' ? null : p },
     ])
   }, [s, m, p])
 

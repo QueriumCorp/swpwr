@@ -48,9 +48,9 @@ const ChangeIncreaseEditor: FC<{
 
     console.log(`${s}\\plus${c}\=${e}`)
     onChange(`${s}\\plus${c}\=${e}`, [
-      { variable: 'S', value: s },
-      { variable: 'C', value: c },
-      { variable: 'E', value: e },
+      { variable: 'S', value: s === 'S' ? null : s },
+      { variable: 'C', value: c === 'C' ? null : c },
+      { variable: 'E', value: e === 'E' ? null : e },
     ])
   }, [s, c, e])
 
