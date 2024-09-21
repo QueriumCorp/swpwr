@@ -1,7 +1,7 @@
 // Based on https://github.com/arvind-iyer-2001/zepto-chip
 
-import { ReactNode, useState } from "react";
-import { cn } from "../../lib/utils";
+import { ReactNode, useState } from 'react'
+import { cn } from '../../lib/utils'
 
 const Chip = ({
   selected,
@@ -12,21 +12,21 @@ const Chip = ({
   hoveredCardContent,
   className,
 }: {
-  id: string;
-  selected?: boolean;
-  avatarUrl?: string;
-  label: string;
-  onDelete?: (id: string) => Promise<void> | void;
-  hoveredCardContent?: ReactNode;
-  className?: string;
+  id: string
+  selected?: boolean
+  avatarUrl?: string
+  label: string
+  onDelete?: (id: string) => Promise<void> | void
+  hoveredCardContent?: ReactNode
+  className?: string
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <div
       className={cn(
-        selected ? "bg-gray-500" : "bg-gray-300",
-        "w-auto inline-flex min-h-8 items-center rounded-full shadow relative cursor-pointer align-middle mx-1 my-1",
+        selected ? 'bg-gray-500' : 'bg-gray-300',
+        'relative mx-1 my-1 !mb-0 inline-flex min-h-8 w-auto cursor-pointer items-center rounded-full align-middle shadow',
         className,
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -36,29 +36,29 @@ const Chip = ({
         <img
           src={avatarUrl}
           alt="avatar"
-          className="ring-purple-500 ring-2 w-8 h-8 scale-102 translate-x-[-1px] rounded-full mr-2"
+          className="scale-102 mr-2 h-8 w-8 translate-x-[-1px] rounded-full ring-2 ring-purple-500"
         />
       )}
-      <p className="flex-grow text-sm pl-4 pr-4  text-black select-none">
+      <p className="flex-grow select-none pl-4 pr-4 text-sm text-black">
         {label}
       </p>
 
       {onDelete && (
         <button
           onClick={() => onDelete(id)}
-          className="hover:border-transparent hover:scale-90 flex align-middle rounded-full p-0 bg-transparent text-lg text-gray-400 hover:text-red-500 hover:bg-white"
+          className="flex rounded-full !border-none bg-transparent p-0 align-middle text-lg text-gray-400 hover:scale-90 hover:border-transparent hover:bg-white hover:text-red-500"
         >
           <span className="px-2">×</span>
         </button>
       )}
 
       {isHovered && hoveredCardContent && (
-        <div className="absolute bottom-10 left-0 bg-white rounded shadow-lg text-sm">
+        <div className="absolute bottom-10 left-0 rounded bg-white text-sm shadow-lg">
           {hoveredCardContent}
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Chip;
+export default Chip
