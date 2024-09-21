@@ -337,6 +337,7 @@ const RangerSolveTheEquation: FC<{
             />
           ) : (
             <NextButton
+              className="scale-[200%]"
               busy={busy}
               onClick={evt => HandleNext(evt)}
             ></NextButton>
