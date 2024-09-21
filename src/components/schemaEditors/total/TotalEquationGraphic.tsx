@@ -77,7 +77,7 @@ export const TotalEquationGraphic = ({
                 'flex items-center justify-start',
               )}
             >
-              <div className={cn(tValue ? 'text-xs' : 'text-xl')}>T</div>
+              <div className={cn(tValue ? 'text-xs' : 'text-xl')}>Total</div>
             </div>
             <div className={cn(tValue ? 'text-xl' : 'text-xs', className)}>
               {t}
@@ -98,7 +98,7 @@ export const TotalEquationGraphic = ({
                   'flex items-center justify-start',
                 )}
               >
-                <div className={cn(p1Value ? 'text-xs' : 'text-xl')}>P1</div>
+                <div className={cn(p1Value ? 'text-xs' : 'text-xl')}>Part1</div>
               </div>
               <div className={cn(p1Value ? 'text-xl' : 'text-xs', className)}>
                 {p1}
@@ -118,7 +118,7 @@ export const TotalEquationGraphic = ({
                   'flex items-center justify-start',
                 )}
               >
-                <div className={cn(p2Value ? 'text-xs' : 'text-xl')}>P2</div>
+                <div className={cn(p2Value ? 'text-xs' : 'text-xl')}>Part2</div>
               </div>
               <div className={cn(p2Value ? 'text-xl' : 'text-xs', className)}>
                 {p2}

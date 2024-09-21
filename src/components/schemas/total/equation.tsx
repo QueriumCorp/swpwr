@@ -22,19 +22,19 @@ export const TotalEquationGraphic = ({
       )}
     >
       <div className="flex h-full w-[30%] items-center justify-center border-4 border-slate-500">
-        Part1
+        P1
       </div>
       <div className="mx-2">
         <ImPlus />
       </div>
       <div className="flex h-full w-[30%] items-center justify-center border-4 border-slate-500">
-        Part2
+        P2
       </div>
       <div className="mx-2">
         <FaEquals />
       </div>
       <div className="flex h-full w-[30%] items-center justify-center border-4 border-slate-500">
-        Total
+        T
       </div>
     </div>
   )
