@@ -98,7 +98,7 @@ const NewbMeetTutor: React.FC<{
         />
         <ChatBubble
           msgs={page.intro!}
-          className="absolute bottom-[50%] right-[50%] max-w-[45%] font-capriola"
+          className="absolute bottom-[50%] right-[50%] max-w-[45%] !font-capriola"
           hintPageChanged={finishedIntro}
         />
       </div>

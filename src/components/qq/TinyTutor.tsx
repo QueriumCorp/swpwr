@@ -106,7 +106,7 @@ export const TinyTutor = ({
       ></div>
       {bubbleShown ? (
         <ChatBubble
-          className="CHATBUBBLE absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola text-sm"
+          className="CHATBUBBLE absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit !font-capriola text-sm"
           msgs={msg ? msg : hintList[hintStage]}
           closeable={closeable && !busy}
           closeClicked={closeChatBubble}
