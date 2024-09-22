@@ -355,5 +355,5 @@ function getSchemaValue(
   variable: string,
 ) {
   const value = schemaValues.find(v => v.variable === variable)?.value
-  return value ? value : undefined
+  return value ? value : variable
 }
