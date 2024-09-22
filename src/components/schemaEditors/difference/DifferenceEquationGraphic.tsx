@@ -147,7 +147,7 @@ export const DifferenceEquationGraphic = ({
               'flex items-center justify-start',
             )}
           >
-            <div className={cn(gValue ? 'text-xs' : 'text-xl')}>Greater</div>
+            <div className={cn(gValue ? 'text-xs' : 'text-xl')}>G</div>
           </div>
           <div className={cn(gValue ? 'text-xl' : 'text-xs', className)}>
             {g}
@@ -171,7 +171,7 @@ export const DifferenceEquationGraphic = ({
               'flex items-center justify-start',
             )}
           >
-            <div className={cn(gValue ? 'text-xs' : 'text-xl')}>Less</div>
+            <div className={cn(gValue ? 'text-xs' : 'text-xl')}>L</div>
           </div>
           <div className={cn(gValue ? 'text-xl' : 'text-xs', className)}>
             {l}
@@ -195,7 +195,7 @@ export const DifferenceEquationGraphic = ({
               'flex items-center justify-start',
             )}
           >
-            <div className={cn(gValue ? 'text-xs' : 'text-xl')}>Difference</div>
+            <div className={cn(gValue ? 'text-xs' : 'text-xl')}>D</div>
           </div>
           <div className={cn(gValue ? 'text-xl' : 'text-xs', className)}>
             {d}
