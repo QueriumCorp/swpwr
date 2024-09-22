@@ -263,16 +263,17 @@ function getFeedback(type: string) {
 
 const estimationMsgs = [
   "Right on! I also think that's the best reason.",
-  "Oooh, yay! I totally agree with you, cutie pie! Your reason is as clever as my tail is fluffy! It's definitely the most paw-some explanation we've seen so far!",
+  "Yes! I totally agree with you. I think that's the best reason, too.",
+  "I'm with you! That's the reason I like best, too.",
 ]
 const schemaMsgs = [
-  "Ok! That's not the reason I like best, but it's a good one.",
-  "Hmm, okay! While it's not my top pick, I do think that's a pretty cool reason! You're getting close to finding the perfect answer!",
-  "Alrighty then! That's a great try, but there is an even better reason.",
+  "Ok. That's not the reason I like best, but it's a good one.",
+  "Yeah, ok. It's not my top pick, but it's a good reason.",
+  "Sure! That's not my favorite reason, but it's a good one.",
 ]
 
 const badMsgs = [
   "No, that reason doesn't use good math thinking to tell why the answer makes sense. Try again.",
   "No, that's not a good reason. Let's try again. Use good math reasoning to think about why the answer makes sense.",
-  'Hmmm, no, Try again to find a reason that uses good math thinking.',
+  'Hmmm, no. Try again to find a reason that uses good math thinking.',
 ]
