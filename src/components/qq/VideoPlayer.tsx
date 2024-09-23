@@ -15,7 +15,11 @@ export const VideoPlayer = ({
       url={src}
       onEnded={() => onEnded()}
       className={className}
-      controls={true}
+      controls={
+        (document.getElementById('chigger') as HTMLButtonElement) === null
+          ? false
+          : true
+      }
     />
   )
 }

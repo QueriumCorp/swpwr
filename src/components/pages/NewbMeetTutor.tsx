@@ -13,10 +13,10 @@ import {
 } from '@/components/AnimeTutor'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { Button } from '../ui/button'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
+import { NextButton } from '../qq/NextButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -102,7 +102,7 @@ const NewbMeetTutor: React.FC<{
           hintPageChanged={finishedIntro}
         />
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
         <div className="m-1 flex grow flex-col gap-1">
           {emotes.map(emote => (
             <Button key={emote.name} onClick={handleDance} className="w-full">
@@ -110,16 +110,12 @@ const NewbMeetTutor: React.FC<{
             </Button>
           ))}
         </div>
-        <CarouselNext
-          disabled={nextDisabled}
-          className="relative right-0"
-          onClick={() => {
-            logAction('NewbMeetTutor : Clicked Next')
-            api?.scrollNext()
-          }}
-        >
-          Next
-        </CarouselNext>
+        <div className="flex h-20 w-20 items-center justify-center">
+          <NextButton
+            className="scale-[200%]"
+            disabled={nextDisabled}
+          ></NextButton>
+        </div>
       </NavBar>
     </div>
   )

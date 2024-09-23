@@ -8,10 +8,10 @@ import { cn } from '@/lib/utils'
 import { YellowBrickRoad, type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { VideoPlayer } from '../qq/VideoPlayer'
 import { HintStage, TinyTutor } from '../qq/TinyTutor'
+import { NextButton } from '../qq/NextButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -106,19 +106,14 @@ const NewbVideoTotal: FC<{
           />
         </div>
       </div>
-      <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
         <TinyTutor hintList={hintList} />
-
-        <CarouselNext
-          className="relative right-0"
-          onClick={() => {
-            logAction('NewbVideoTotal : Clicked Next')
-            api?.scrollNext()
-          }}
-          disabled={!watchedVideo}
-        >
-          Next
-        </CarouselNext>
+        <div className="flex h-20 w-20 items-center justify-center">
+          <NextButton
+            className="scale-[200%]"
+            disabled={!watchedVideo}
+          ></NextButton>
+        </div>
       </NavBar>
     </div>
   )

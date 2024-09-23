@@ -6,11 +6,11 @@ import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { StimulusSelector } from '../qq/StimulusSelector'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { HintStage, TinyTutor } from '../qq/TinyTutor'
+import { NextButton } from '../qq/NextButton'
 
 const NewbReadProblem: React.FC<{
   className?: string
@@ -125,23 +125,20 @@ const NewbReadProblem: React.FC<{
 
         <div className="flex grow gap-2"></div>
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
         <TinyTutor
           msg={msg}
           hintList={hintList}
           hintChanged={hintChanged}
           closeable={false}
         />
-        <CarouselNext
-          disabled={navDisabled}
-          className="relative right-0"
-          onClick={() => {
-            logAction('NewbReadProblem : Clicked Next')
-            api?.scrollNext()
-          }}
-        >
-          Next
-        </CarouselNext>
+
+        <div className="flex h-20 w-20 items-center justify-center">
+          <NextButton
+            className="scale-[200%]"
+            disabled={navDisabled}
+          ></NextButton>
+        </div>
       </NavBar>
     </div>
   )

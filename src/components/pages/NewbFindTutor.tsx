@@ -8,9 +8,9 @@ import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor, type HintStage } from '../qq/TinyTutor'
+import { NextButton } from '../qq/NextButton'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -116,23 +116,20 @@ const NewbFindTutor: React.FC<{
     >
       <div className="relative grow"></div>
       {children}
-      <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
         <TinyTutor
           msg={msg}
           hintList={hintList}
           hintChanged={hintChanged}
           closeable={false}
         />
-        <CarouselNext
-          disabled={navDisabled}
-          className="relative right-0"
-          onClick={() => {
-            logAction('NewbFindTutor : Clicked Next')
-            api?.scrollNext()
-          }}
-        >
-          Next
-        </CarouselNext>
+
+        <div className="flex h-20 w-20 items-center justify-center">
+          <NextButton
+            className="scale-[200%]"
+            disabled={navDisabled}
+          ></NextButton>
+        </div>
       </NavBar>
     </div>
   )
