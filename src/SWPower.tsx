@@ -82,7 +82,7 @@ const StepWisePower = forwardRef<
   const [closeMsg, setCloseMsg] = useState('')
   const [traceComment, setTraceComment] = useState('')
   const [traceMsg, setTraceMsg] = useState('')
-  const [enableDebugger, setEnableDebugger] = useState(true)
+  const [enableDebugger, setEnableDebugger] = useState(false)
   const [propError, setPropError] = useState('')
 
   //
