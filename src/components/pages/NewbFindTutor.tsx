@@ -21,7 +21,6 @@ const NewbFindTutor: React.FC<{
   page: YBRpage
   index: number
 }> = ({ className, children, page, index }) => {
-  console.log('RENDER: NewbFindTutor')
   ///////////////////////////////////////////////////////////////////
   // Contexts
   ///////////////////////////////////////////////////////////////////
@@ -33,15 +32,6 @@ const NewbFindTutor: React.FC<{
   ///////////////////////////////////////////////////////////////////
 
   const { logAction, problem, rank } = useProblemStore()
-  useEffect(() => {
-    console.info('logAction changed')
-  }, [logAction])
-  useEffect(() => {
-    console.info('problem changed')
-  }, [problem])
-  useEffect(() => {
-    console.info('rank changed')
-  }, [rank])
 
   ///////////////////////////////////////////////////////////////////
   // State

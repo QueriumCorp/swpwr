@@ -62,7 +62,13 @@ const EqualGroupsEditor: FC<{
     const rawValue = event.active.id as string
     if (!rawValue) return
 
-    let values = rawValue.match(/(-?\d+(\.\d+)?)/)
+    // Find fractional number or whole number
+    const fractionRegex = /\d+\s\d+\/\d+/
+    const wholeNumberRegex = /(-?\d+(\.\d+)?)/
+    let values = rawValue.match(fractionRegex)
+    if (!values) {
+      values = rawValue.match(wholeNumberRegex)
+    }
 
     // if no value found, use the box identifier
     let value
