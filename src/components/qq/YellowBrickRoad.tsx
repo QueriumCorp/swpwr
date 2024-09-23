@@ -126,6 +126,7 @@ An amount in a word problem can be known or unknown.`,
 
 Let's find known amounts in the story above. Click me and I'll show you how.`,
     ],
+    aiHints: true,
   },
   {
     rank: 'newb',
@@ -157,6 +158,7 @@ The only type we know for now is Total. Have we got a Total story here?
       
 Yes! Click me for more details.`,
     ],
+    aiHints: true,
   },
   {
     rank: 'newb',
