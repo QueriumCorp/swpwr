@@ -36,7 +36,7 @@ const RangerReadProblem: React.FC<{
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [busy, setBusy] = useState(false)
+  const [busy, setBusy] = useState(true)
   const [msg, setMsg] = useState<string>(
     rank === 'ranger'
       ? "Here's your next problem. I'll give you some time to read it."
@@ -77,7 +77,6 @@ const RangerReadProblem: React.FC<{
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
-
   if (current !== index + 1) return null
   return (
     <div
@@ -111,7 +110,10 @@ const RangerReadProblem: React.FC<{
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
         <TinyTutor msg={msg} busy={busy} hintList={hintList}></TinyTutor>
         <div className="flex h-20 w-20 items-center justify-center">
-          <NextButton className="scale-[200%]" busy={busy}></NextButton>
+          <NextButton
+            className={cn(busy ? 'scale-[100%]' : 'scale-[200%]')}
+            busy={busy}
+          ></NextButton>
         </div>
       </NavBar>
     </div>
