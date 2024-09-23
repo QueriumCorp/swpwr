@@ -127,7 +127,10 @@ export const ChatBubble = ({
   function RestartMsgs() {
     if (current === count && count) {
       return (
-        <button className="border-none text-xs" onClick={handleStartOver}>
+        <button
+          style={{ all: 'unset', cursor: 'pointer' }}
+          onClick={handleStartOver}
+        >
           <VscDebugRestart />
         </button>
       )
@@ -153,7 +156,10 @@ export const ChatBubble = ({
       return <div></div>
     }
     return (
-      <button className="border-none text-base" onClick={handleShowMeMore}>
+      <button
+        style={{ all: 'unset', cursor: 'pointer' }}
+        onClick={handleShowMeMore}
+      >
         <TbPlayerTrackNext />
       </button>
     )
@@ -181,8 +187,8 @@ export const ChatBubble = ({
   }
   function SpeakButton() {
     return (
-      <button className="border-none text-base" onClick={handleSpeak}>
-        <HiMiniSpeakerWave className="text-cyan-900" />
+      <button style={{ all: 'unset', cursor: 'pointer' }} onClick={handleSpeak}>
+        <HiMiniSpeakerWave />
       </button>
     )
   }
@@ -219,9 +225,12 @@ export const ChatBubble = ({
               <CarouselItem key={i}>
                 <div
                   key={i}
-                  className="mr-[15px] flex select-none flex-col gap-1 !font-capriola text-base"
+                  className="ChatMsgContainer mr-[15px] flex select-none flex-col gap-1 !font-capriola text-base"
                 >
-                  <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                  <Markdown
+                    remarkPlugins={[remarkGfm, remarkBreaks]}
+                    className="Markdown !font-capriola !text-base"
+                  >
                     {m}
                   </Markdown>
                 </div>

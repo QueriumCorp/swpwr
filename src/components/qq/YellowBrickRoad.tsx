@@ -30,8 +30,8 @@ export const YellowBrickRoad: YBRpage[] = [
     phase: 'P',
     phaseLabel: 'Prepare',
     psHints: [
-      `Click → when you're done reading.`,
-      `Go ahead and click → to continue.`,
+      `Click ➜ when you're done reading.`,
+      `Go ahead and click ➜ to continue.`,
     ],
     aiHints: false,
   },
@@ -57,10 +57,10 @@ export const YellowBrickRoad: YBRpage[] = [
     intro: [
       `Hi! My name is Kettu. Welcome to StepWise for Word Problems!
       
-  Look below these words. Do you see ⯈⯈? That button means I have more to tell you. Click it to find out what.`,
+  Look below these words. Do you see ⫸⫸? That button means I have more to tell you. Click it to find out what.`,
       `Great job!
 
-  Here's a pro tip: Always click ⯈⯈ if it's there. If you don't, you might miss something important. Ok?`,
+  Here's a pro tip: Always click ⫸⫸ if it's there. If you don't, you might miss something important. Ok?`,
       `All right!
       
   Together, we're going to get the POWER to solve math word problems.
@@ -70,7 +70,7 @@ export const YellowBrickRoad: YBRpage[] = [
 
   **P** is the first step. **P** stands for **P**repare.
 
-  Ready? Find the → under my feet and click it to get started.`,
+  Ready? Find the ➜ under my feet and click it to get started.`,
     ],
   },
   {
@@ -85,10 +85,10 @@ export const YellowBrickRoad: YBRpage[] = [
     psHints: [
       `Perfect! You found me!
 
-Anytime you're not sure what to do, you can click me just like that. I'll do my best to help. Now click ⯈⯈.`,
-      `See the → next to me? When it's blue, you can click it to move on.
+Anytime you're not sure what to do, you can click me just like that. I'll do my best to help. Now click ⫸⫸.`,
+      `See the ➜ next to me? When it's blue, you can click it to move on.
 
-Go ahead and click → now.`,
+Go ahead and click ➜ now.`,
     ],
   },
   {
@@ -102,15 +102,15 @@ Go ahead and click → now.`,
 
 There are three things we do to Prepare. The first one is Read.
 
-Click ⯈⯈ to learn more.`,
+Click ⫸⫸ to learn more.`,
 
       `Read the story in the box above. 
 
 Take your time, and read every word carefully.
 
-Click → when you're done.`,
+Click ➜ when you're done.`,
     ],
-    psHints: [`Click → when you're done reading.`],
+    psHints: [`Click ➜ when you're done reading.`],
   },
   {
     rank: 'newb',
@@ -142,7 +142,7 @@ A word problem tells a story. Before you solve a word problem, it helps to know 
 
 Press ▶️ to start the video.
 
-When it finishes, click → to continue.`,
+When it finishes, click ➜ to continue.`,
     ],
   },
   {
@@ -196,9 +196,9 @@ Click Next to practice and check your understanding.`,
 Remember, the first thing we do to Prepare is read the problem.`,
       `Don't try to solve the problem. Just read it carefully.
 
-Click → when you're done reading.`,
+Click ➜ when you're done reading.`,
     ],
-    psHints: [`Click → when you're done reading.`],
+    psHints: [`Click ➜ when you're done reading.`],
     aiHints: false,
   },
   {
@@ -246,14 +246,14 @@ To organize the information, we write an equation. Click me to learn how.`,
     title: 'Find the unknown amount',
     phase: 'W',
     intro: [
-      `The next PO**W**ER step is **W**ork the Problem. Click ⯈⯈ to learn more.`,
+      `The next PO**W**ER step is **W**ork the Problem. Click ⫸⫸ to learn more.`,
       `Here, we use math to find the unknown amount, one step at a time.`,
-      `If you ever need math help, click me. But not now! Let me show you around. Click ⯈⯈.`,
+      `If you ever need math help, click me. But not now! Let me show you around. Click ⫸⫸.`,
       `Find the long oval above all the buttons That's the math entry box. It's where you'll type in math.`,
       `You can use your keyboard or the keys on the screen.`,
       `When you're done typing a math step, click ✔ and I'll check it.`,
       `Then your step will appear above the math entry box.`,
-      `Wanna see? Let's do the first math step together. Click ⯈⯈.`,
+      `Wanna see? Let's do the first math step together. Click ⫸⫸.`,
       `Pro tip: The first math step in W is always the equation from O.`,
       `If you don't remember the equation, it's up at the top. See it? Type it into the math entry box. Then click ✔.`,
     ],
@@ -268,7 +268,7 @@ To organize the information, we write an equation. Click me to learn how.`,
     intro: [
       `Yippee! It's time for the next POW**E**R step.
 
-**E** stands for **E**xplain the Answer. Click ⯈⯈ to learn more.`,
+**E** stands for **E**xplain the Answer. Click ⫸⫸ to learn more.`,
       `In W, you found the unknown amount. That's part of the answer.
 
 But it's not the *whole* answer. You have to tell what it *means*.`,
@@ -287,13 +287,13 @@ Click ✔ when your sentence is done.`,
     phase: 'R',
     phaseLabel: 'Reflect',
     intro: [
-      `This is it! The last POWE**R** step! Click ⯈⯈ and let's do this!`,
+      `This is it! The last POWE**R** step! Click ⫸⫸ and let's do this!`,
       `**R**eflect means to look back. Think about the answer.`,
       `Does the answer make sense? Use good math thinking to give a reason why.`,
       `A good reason does not mean you just restate the answer.`,
       `A good reason does not mean you explain how to find the answer.`,
       `Here are three possible reasons why your answer makes sense.`,
-      `Each one might be a good reason, or it might not be. Read them carefully. Then click ⯈⯈.`,
+      `Each one might be a good reason, or it might not be. Read them carefully. Then click ⫸⫸.`,
       `Choose the reason you think is best. Click ✔ to check your answer.`,
     ],
     psHints: [`Choose the reason you think is best. Then click ✔.`],
@@ -330,7 +330,7 @@ I know you can do it! Click Next to get started.`,
     title: 'Read the problem',
     phase: 'P',
     phaseLabel: 'Prepare',
-    psHints: [`Click → when you're done reading.`],
+    psHints: [`Click ➜ when you're done reading.`],
     aiHints: false,
   },
   {

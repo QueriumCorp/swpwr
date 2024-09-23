@@ -115,8 +115,18 @@
     }
   }
 
-  div.ChatBubble p {
+  /* .ChatBubble p {
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
+    color: 'magenta' !important;
+  } */
+
+  .ChatBubble .Markdown p {
+    font-family: Capriola;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .ChatBubble .Markdown p:last-child {
+    margin-bottom: 0rem;
   }
 }
