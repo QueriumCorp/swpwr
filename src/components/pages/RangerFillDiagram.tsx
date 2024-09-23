@@ -96,12 +96,16 @@ const RangerFillDiagram: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    if (values.join('').length === 0) {
-      setDisabled(true)
-    } else {
+    console.log('values', values)
+    if (valuesComplete(values)) {
+      console.log('setting disabled to false')
+
       setDisabled(false)
+    } else {
+      console.log('setting disabled to true')
+      setDisabled(true)
     }
-  }, [equation, values])
+  }, [values])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -118,14 +122,19 @@ const RangerFillDiagram: FC<{
       logAction('RangerFillDiagram : Clicked Next')
 
       logAction('RangerFillDiagram : Checking Schema : ' + equation)
-      const result = await submitOrganize(equation, values)
-      logAction(
-        'RangerFillDiagram : Checked Equation : ' + JSON.stringify(result),
-      )
-      setBusy(false)
-      setMsg(result.message)
-      if (result.stepStatus == 'VALID') {
-        setComplete(true)
+      if (valuesComplete(values)) {
+        const result = await submitOrganize(equation, values)
+        logAction(
+          'RangerFillDiagram : Checked Equation : ' + JSON.stringify(result),
+        )
+        setBusy(false)
+        setMsg(result.message)
+        if (result.stepStatus == 'VALID') {
+          setComplete(true)
+        }
+      } else {
+        setBusy(false)
+        setMsg('Please enter all values')
       }
     }
   }
@@ -242,3 +251,8 @@ const RangerFillDiagram: FC<{
 
 RangerFillDiagram.displayName = 'RangerFillDiagram'
 export default RangerFillDiagram
+
+function valuesComplete(values: { variable: string; value: string | null }[]) {
+  if (!Array.isArray(values) || values.length == 0) return false
+  return values.every(v => v.value !== '')
+}
