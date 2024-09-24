@@ -76,6 +76,9 @@ export const useProblemStore = create<State>((set, get) => ({
   onComplete: () => {
     console.info('onComplete called but not customized.')
   },
+  onStep: () => {
+    console.info('onComplete called but not customized.')
+  },
 
   ///////////////////////////////////////////////////////////////////
   // METHODS
@@ -239,6 +242,11 @@ export const useProblemStore = create<State>((set, get) => ({
   setOnComplete: (onComplete: () => void) => {
     set(_state => ({
       onComplete: onComplete,
+    }))
+  },
+  setOnStep: (onStep: () => void) => {
+    set(_state => ({
+      onStep: onStep,
     }))
   },
 }))

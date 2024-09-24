@@ -29,7 +29,6 @@ import buildInfo from './buildInfo.json'
 import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import VoiceTester from './components/qq/ChatBubble/VoiceTester'
-import initSession from './store/initSession'
 
 // Props
 const StepWisePowerProps = z.object({
@@ -37,6 +36,7 @@ const StepWisePowerProps = z.object({
   student: StudentSchema,
   options: OptionsSchema.optional(),
   onComplete: z.function().optional(),
+  onStep: z.function().optional(),
 })
 export type StepWisePowerProps = z.infer<typeof StepWisePowerProps> | undefined
 
@@ -72,6 +72,8 @@ const StepWisePower = forwardRef<
     saveTrace,
     onComplete,
     setOnComplete,
+    onStep,
+    setOnStep,
   } = useProblemStore()
 
   //
@@ -119,6 +121,9 @@ const StepWisePower = forwardRef<
 
     if (props.onComplete) {
       setOnComplete(props.onComplete)
+    }
+    if (props.onStep) {
+      setOnStep(props.onStep)
     }
   }, [props])
 

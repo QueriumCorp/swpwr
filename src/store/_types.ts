@@ -13,6 +13,7 @@ export interface State {
   ybr: YBRpage[]
   studentLog: LogItem[]
   onComplete: (session: Session, studentLog: LogItem[]) => void
+  onStep: (session: Session, studentLog: LogItem[]) => void
 
   setSwapiUrl: (url: string) => void
   setGltfUrl: (url: string) => void
@@ -40,6 +41,7 @@ export interface State {
   setMathAnswer: (answer: string) => void
 
   setOnComplete: (onComplete: () => void) => void
+  setOnStep: (onStep: () => void) => void
 }
 
 // WORD PROBLEM HINTS
