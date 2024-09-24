@@ -21,7 +21,7 @@ export function initSpeechSystem() {
 
   // Find English Female Voice on Chrome OS
   let ChromeOsVoices = voices.filter(voice => {
-    if (voice.name.includes('Chrome OS UK English 2')) {
+    if (voice.name.includes('Chrome OS US English 1')) {
       return voice
     }
   })
@@ -32,7 +32,7 @@ export function initSpeechSystem() {
 
   // Find English Female Voice on Chrome OS
   ChromeOsVoices = voices.filter(voice => {
-    if (voice.name.includes('Chrome OS US English 5')) {
+    if (voice.name.includes('Chrome OS US English 3')) {
       return voice
     }
   })
