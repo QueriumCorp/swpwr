@@ -18,6 +18,7 @@ import { HintStage, TinyTutor } from '../qq/TinyTutor'
 import { Card, CardContent, CardHeader } from '../ui/card'
 import { NextButton } from '../qq/NextButton'
 import CheckStepButton from '../qq/CheckStepButton'
+import vocalize from '@/lib/speech'
 
 interface Explanation {
   type: string
@@ -142,24 +143,7 @@ const RangerReflect: FC<{
   }
 
   function handleSpeak(text: string) {
-    if (!text) {
-      return
-    }
-
-    // cancel any previous speech
-    const synth = window.speechSynthesis
-    synth.cancel()
-
-    const msg2Vocalize = text
-    const utterance = new SpeechSynthesisUtterance(
-      makeVocalizable(msg2Vocalize),
-    )
-    utterance.lang = 'en-US'
-    utterance.voice = speechSynthesis.getVoices()[159]
-    utterance.rate = 1
-    utterance.pitch = 1
-    utterance.volume = 1
-    speechSynthesis.speak(utterance)
+    vocalize(text)
   }
   const SpeakButton: FC<{
     msg: string

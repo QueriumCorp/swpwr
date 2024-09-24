@@ -7,6 +7,7 @@ import { HiMiniSpeakerWave } from 'react-icons/hi2'
 // Querium Imports
 import { cn, makeVocalizable } from '@/lib/utils'
 import { FactChicklet } from './FactChicklet'
+import vocalize from '@/lib/speech'
 
 // Type Definitions
 export interface StimulusSelectorProps
@@ -97,25 +98,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     // Handlers
     //
     function handleSpeak() {
-      if (!stimulusText) {
-        return
-      }
-
-      // cancel speech if it's already in progress
-      const synth = window.speechSynthesis
-      synth.cancel()
-
-      const msg2Vocalize = stimulusText
-      const utterance = new SpeechSynthesisUtterance(
-        makeVocalizable(msg2Vocalize),
-      )
-
-      utterance.lang = 'en-US'
-      utterance.voice = speechSynthesis.getVoices()[159]
-      utterance.rate = 1
-      utterance.pitch = 1
-      utterance.volume = 1
-      speechSynthesis.speak(utterance)
+      vocalize(stimulusText)
     }
     function SpeakButton() {
       return (

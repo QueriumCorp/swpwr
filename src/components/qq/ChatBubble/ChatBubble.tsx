@@ -20,6 +20,7 @@ import {
   type CarouselApi,
 } from '@/components/ui/carousel'
 import { set } from 'zod'
+import vocalize from '@/lib/speech'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -170,20 +171,7 @@ export const ChatBubble = ({
     if (!messages) {
       return
     }
-
-    const msg2Vocalize = messages[api!.selectedScrollSnap()].replace(
-      /\*\*/g,
-      '',
-    )
-    const utterance = new SpeechSynthesisUtterance(
-      makeVocalizable(msg2Vocalize),
-    )
-    utterance.lang = 'en-US'
-    utterance.voice = speechSynthesis.getVoices()[159]
-    utterance.rate = 1
-    utterance.pitch = 1
-    utterance.volume = 1
-    speechSynthesis.speak(utterance)
+    vocalize(messages[api!.selectedScrollSnap()])
   }
   function SpeakButton() {
     return (

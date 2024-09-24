@@ -1,39 +1,39 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from 'react'
 
 type VoiceSelectorProps = {
-  selected: number;
-  setSelected: (selectedIndex: number) => void;
-};
+  selected: number
+  setSelected: (selectedIndex: number) => void
+}
 
-const synth = window.speechSynthesis;
+const synth = window.speechSynthesis
 
 const VoiceSelector = ({ selected = 0, setSelected }: VoiceSelectorProps) => {
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
 
   const populateVoiceList = useCallback(() => {
-    const newVoices = synth.getVoices();
-    setVoices(newVoices);
-  }, []);
+    const newVoices = synth.getVoices()
+    setVoices(newVoices)
+  }, [])
 
   useEffect(() => {
-    populateVoiceList();
+    populateVoiceList()
     if (synth.onvoiceschanged !== undefined) {
-      synth.onvoiceschanged = populateVoiceList;
+      synth.onvoiceschanged = populateVoiceList
     }
-  }, [populateVoiceList]);
+  }, [populateVoiceList])
 
   return (
     <select
       value={selected}
-      onChange={(e) => setSelected(parseInt(e.target.value))}
+      onChange={e => setSelected(parseInt(e.target.value))}
     >
       {voices.map((voice, index) => (
         <option key={index} value={index}>
-          {voice.name} ({voice.lang}) #{index} {voice.default && " [Default]"}
+          {voice.name} | ({voice.lang}) #{index} {voice.default && ' [Default]'}
         </option>
       ))}
     </select>
-  );
-};
+  )
+}
 
-export default VoiceSelector;
+export default VoiceSelector
