@@ -96,13 +96,9 @@ const RangerFillDiagram: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    console.log('values', values)
     if (valuesComplete(values)) {
-      console.log('setting disabled to false')
-
       setDisabled(false)
     } else {
-      console.log('setting disabled to true')
       setDisabled(true)
     }
   }, [values])
