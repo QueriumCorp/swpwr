@@ -163,50 +163,56 @@ const RangerReflect: FC<{
   return (
     <div
       className={cn(
-        'NewbFindFacts m-0 flex h-full w-full flex-col justify-stretch rounded-lg border bg-card p-0 text-card-foreground shadow-sm',
+        'RangerReflect',
+        'rounded-lg bg-card text-card-foreground shadow-sm',
+        'm-0 mb-2 flex h-full w-full flex-col justify-stretch pl-2 pr-2 pt-2',
         className,
       )}
     >
-      <HdrBar
-        highlightLetter={page?.phase}
-        subTitle={page?.phaseLabel}
-        instructions={page?.title}
-      ></HdrBar>
+      <div className="div relative mb-2 flex grow flex-col justify-stretch gap-2 p-2">
+        <div className="absolute bottom-0 left-0 right-0 top-0 overflow-y-scroll">
+          <HdrBar
+            highlightLetter={page?.phase}
+            subTitle={page?.phaseLabel}
+            instructions={page?.title}
+          ></HdrBar>
 
-      <div className="relative flex grow flex-col items-center justify-stretch gap-2 p-2">
-        <StimulusSelector
-          className={cn(
-            'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-            className,
-            'inline',
-          )}
-          stimulusText={problem.stimulus}
-        ></StimulusSelector>
-        <p className="select-none">{session.myOwnWords}</p>
-        <h2>Why does your answer make sense? Choose the best reason.</h2>
-        <div className="relative flex grow flex-col items-center justify-center gap-2 overflow-y-auto p-2">
-          {explanations.map(exp => (
-            <Card
-              key={exp.type}
+          <div className="relative flex grow flex-col items-center justify-stretch gap-2 p-2">
+            <StimulusSelector
               className={cn(
-                'w-96 px-2 py-0 ring-qqBrand',
-                exp.type === explanation?.type ? 'ring-4' : 'ring-0',
-                'hover:bg-qqAccent hover:text-white',
+                'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+                className,
+                'inline',
               )}
-            >
-              <CardHeader className="flex flex-row items-center justify-end p-1">
-                <SpeakButton msg={exp.text}></SpeakButton>
-              </CardHeader>
-              <CardContent
-                className="cursor-pointer"
-                onClick={() => {
-                  setExplanation(exp)
-                }}
-              >
-                {exp.text}
-              </CardContent>
-            </Card>
-          ))}
+              stimulusText={problem.stimulus}
+            ></StimulusSelector>
+            <p className="select-none">{session.myOwnWords}</p>
+            <h2>Why does your answer make sense? Choose the best reason.</h2>
+            <div className="relative flex grow flex-col items-center justify-center gap-2 overflow-y-auto p-2">
+              {explanations.map(exp => (
+                <Card
+                  key={exp.type}
+                  className={cn(
+                    'w-96 px-2 py-0 ring-qqBrand',
+                    exp.type === explanation?.type ? 'ring-4' : 'ring-0',
+                    'hover:bg-qqAccent hover:text-white',
+                  )}
+                >
+                  <CardHeader className="flex flex-row items-center justify-end p-1">
+                    <SpeakButton msg={exp.text}></SpeakButton>
+                  </CardHeader>
+                  <CardContent
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setExplanation(exp)
+                    }}
+                  >
+                    {exp.text}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
