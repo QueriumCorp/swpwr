@@ -32,7 +32,7 @@ const NewbFindTutor: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, problem, rank, session, studentLog } = useProblemStore()
+  const { logAction, problem, rank } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State

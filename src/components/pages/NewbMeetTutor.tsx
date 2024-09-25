@@ -38,7 +38,7 @@ const NewbMeetTutor: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, heartbeat, session, studentLog } = useProblemStore()
+  const { logAction, heartbeat } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
