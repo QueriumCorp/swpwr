@@ -31,9 +31,6 @@ const NewbVictory: React.FC<{
   const { logAction, heartbeat } = useProblemStore()
 
   // Side Effects
-  React.useEffect(() => {
-    logAction('NewbVictory : Finished path')
-  }, [])
 
   // Handlers
   function handleDance() {

@@ -65,15 +65,23 @@ const NewbMeetTutor: React.FC<{
   }
   function finishedIntro(current: number, count: number) {
     if (count > 0 && current === count) {
-      logAction('NewbMeetTutor : Intro Finished')
       setNextDisabled(false)
     }
   }
 
-  function handleNext() {
-    logAction('NewbMeetTutor : Next Button Pressed')
-    onStep(session, studentLog)
-    api?.scrollNext()
+  async function handleNext(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    if (evt.altKey) {
+      //If Option+Enter just scroll to next page
+      logAction('NewbMeetTutor : Skipped to next page')
+      onStep(session, studentLog)
+      api?.scrollNext()
+    } else {
+      logAction('NewbMeetTutor : Next Button Pressed')
+      onStep(session, studentLog)
+      api?.scrollNext()
+    }
   }
 
   ///////////////////////////////////////////////////////////////////
