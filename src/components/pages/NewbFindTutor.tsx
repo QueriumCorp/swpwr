@@ -11,6 +11,7 @@ import { NavBar } from '../qq/NavBar'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor, type HintStage } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
+import { log } from 'console'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -31,7 +32,7 @@ const NewbFindTutor: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, problem, rank } = useProblemStore()
+  const { logAction, problem, rank, session, studentLog } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -84,11 +85,23 @@ const NewbFindTutor: React.FC<{
 
   function hintChanged(hintStage: string, current: number, count: number) {
     if (hintStage === 'psHints' && current === count) {
+      logAction('NewbFindTutor : Clicked on Kettu')
       setMsg(pageHints[pageHints.length - 1])
       setNavDisabled(false)
     }
   }
-
+  async function handleNext(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    if (evt.altKey) {
+      //If Option+Enter just scroll to next page
+      logAction('NewbFindTutor : Skipped to next page')
+      api?.scrollNext()
+    } else {
+      logAction('NewbFindTutor : Next Button Pressed')
+      api?.scrollNext()
+    }
+  }
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
@@ -118,6 +131,7 @@ const NewbFindTutor: React.FC<{
           <NextButton
             className="scale-[200%]"
             disabled={navDisabled}
+            onClick={handleNext}
           ></NextButton>
         </div>
       </NavBar>

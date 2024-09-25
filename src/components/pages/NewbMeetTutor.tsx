@@ -38,8 +38,7 @@ const NewbMeetTutor: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, heartbeat, onStep, session, studentLog } =
-    useProblemStore()
+  const { logAction, heartbeat, session, studentLog } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -75,11 +74,9 @@ const NewbMeetTutor: React.FC<{
     if (evt.altKey) {
       //If Option+Enter just scroll to next page
       logAction('NewbMeetTutor : Skipped to next page')
-      onStep(session, studentLog)
       api?.scrollNext()
     } else {
       logAction('NewbMeetTutor : Next Button Pressed')
-      onStep(session, studentLog)
       api?.scrollNext()
     }
   }

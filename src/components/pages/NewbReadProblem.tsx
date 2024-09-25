@@ -28,7 +28,7 @@ const NewbReadProblem: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, problem, rank } = useProblemStore()
+  const { logAction, problem, rank, session, studentLog } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -96,6 +96,20 @@ const NewbReadProblem: React.FC<{
       setNavDisabled(false)
     }
   }
+
+  async function handleNext(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    if (evt.altKey) {
+      //If Option+Enter just scroll to next page
+      logAction('NewbReadProblem : Skipped to next page')
+      api?.scrollNext()
+    } else {
+      logAction('NewbReadProblem : Next Button Pressed')
+      api?.scrollNext()
+    }
+  }
+
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
@@ -137,6 +151,7 @@ const NewbReadProblem: React.FC<{
           <NextButton
             className="scale-[200%]"
             disabled={navDisabled}
+            onClick={handleNext}
           ></NextButton>
         </div>
       </NavBar>

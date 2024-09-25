@@ -78,6 +78,7 @@ export const useProblemStore = create<State>((set, get) => ({
   },
   onStep: () => {
     console.info('onStep called but not customized.')
+    console.table(get().studentLog)
   },
 
   ///////////////////////////////////////////////////////////////////
@@ -238,6 +239,7 @@ export const useProblemStore = create<State>((set, get) => ({
     set(state => ({
       studentLog: [...state.studentLog, actionLog],
     }))
+    get().onStep(get().session, get().studentLog)
   },
   setOnComplete: (onComplete: () => void) => {
     set(_state => ({
