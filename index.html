@@ -159,6 +159,11 @@
               console.info('session', session)
               console.info('studentLog', studentLog)
             },
+            onStep: (session, studentLog) => {
+              console.info("I'm an external onStep Handler")
+              console.info('session', session)
+              console.info('studentLog', studentLog)
+            },
           },
         }
       } else {
@@ -193,6 +198,11 @@
           handlers: {
             onComplete: (session, studentLog) => {
               console.info("I'm an external onComplete Handler")
+              console.info('session', session)
+              console.info('studentLog', studentLog)
+            },
+            onStep: (session, studentLog) => {
+              console.info("I'm an external onStep Handler")
               console.info('session', session)
               console.info('studentLog', studentLog)
             },

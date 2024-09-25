@@ -59,6 +59,7 @@ if (window.swpwr) {
   options.disabledSchemas = window.swpwr.options.disabledSchemas
 
   handlers.onComplete = window.swpwr.handlers.onComplete
+  handlers.onStep = window.swpwr.handlers.onStep
 } else {
   problem = {
     appKey: 'JiraTestPage',
@@ -111,6 +112,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         student={student}
         options={options}
         onComplete={handlers.onComplete}
+        onStep={handlers.onStep}
       />
     </div>
   </React.StrictMode>,

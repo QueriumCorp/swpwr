@@ -73,7 +73,6 @@ const StepWisePower = forwardRef<
     saveTrace,
     onComplete,
     setOnComplete,
-    onStep,
     setOnStep,
   } = useProblemStore()
 

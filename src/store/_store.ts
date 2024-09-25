@@ -77,7 +77,7 @@ export const useProblemStore = create<State>((set, get) => ({
     console.info('onComplete called but not customized.')
   },
   onStep: () => {
-    console.info('onComplete called but not customized.')
+    console.info('onStep called but not customized.')
   },
 
   ///////////////////////////////////////////////////////////////////

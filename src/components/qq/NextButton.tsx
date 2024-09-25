@@ -19,7 +19,7 @@ const NextButton = ({
   disabled?: boolean
   children?: ReactNode
   className?: string
-  onClick?: (evt: any) => Promise<void>
+  onClick?: (evt?: any) => Promise<void>
 }) => {
   ///////////////////////////////////////////////////////////////////
   // Contexts

@@ -38,7 +38,8 @@ const NewbMeetTutor: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, heartbeat } = useProblemStore()
+  const { logAction, heartbeat, onStep, session, studentLog } =
+    useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -67,6 +68,12 @@ const NewbMeetTutor: React.FC<{
       logAction('NewbMeetTutor : Intro Finished')
       setNextDisabled(false)
     }
+  }
+
+  function handleNext() {
+    logAction('NewbMeetTutor : Next Button Pressed')
+    onStep(session, studentLog)
+    api?.scrollNext()
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -114,6 +121,7 @@ const NewbMeetTutor: React.FC<{
           <NextButton
             className="scale-[200%]"
             disabled={nextDisabled}
+            onClick={handleNext}
           ></NextButton>
         </div>
       </NavBar>
