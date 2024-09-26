@@ -101,11 +101,11 @@ const NewbFindFacts: FC<{
   ///////////////////////////////////////////////////////////////////
 
   const delKnown = (fact: string) => {
-    logAction(`NewbFindFacts : Deleted '${fact}' from KnownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setKnowns(knowns.filter(thisFact => thisFact !== fact))
   }
   const delUnknown = (fact: string) => {
-    logAction(`NewbFindFacts : Deleted '${fact}' from UnknownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setUnknowns(unknowns.filter(thisFact => thisFact !== fact))
   }
   async function HandleCheckFacts(
@@ -118,9 +118,9 @@ const NewbFindFacts: FC<{
       setMsg('Give me a sec to review your knowns and unknowns')
       setBusy(true)
       setEmote('direct:02')
-      logAction('NewbFindFacts : Clicked Next')
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
 
-      logAction('NewbFindFacts : Checking Facts')
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       const result = await submitTTable(knowns, unknowns)
       setBusy(false)
       setMsg(result.message)
@@ -231,11 +231,11 @@ const NewbFindFacts: FC<{
 
     if (event.over && event.over.id === 'KnownFacts') {
       setKnowns([...knowns, currentFact])
-      logAction(`NewbFindFacts : Dropped '${currentFact}' on KnownFacts`)
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     }
     if (event.over && event.over.id === 'UnknownFacts') {
       setUnknowns([...unknowns, currentFact])
-      logAction(`NewbFindFacts : Dropped '${currentFact}' on UnknownFacts`)
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     }
     setCurrentFact('')
   }
@@ -244,14 +244,14 @@ const NewbFindFacts: FC<{
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (knowns.includes(currentFact)) return
 
-    logAction(`NewbFindFacts : Added '${currentFact}' to KnownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setKnowns([...knowns, currentFact])
     setCurrentFact('')
   }
   function addUnknown() {
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (unknowns.includes(currentFact)) return
-    logAction(`NewbFindFacts : Added '${currentFact}' to UnknownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setUnknowns([...unknowns, currentFact])
     setCurrentFact('')
   }

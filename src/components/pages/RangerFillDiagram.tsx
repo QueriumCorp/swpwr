@@ -115,9 +115,9 @@ const RangerFillDiagram: FC<{
     } else {
       setBusy(true)
       setMsg('Just a moment while I verify your equation')
-      logAction('RangerFillDiagram : Clicked Next')
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
 
-      logAction('RangerFillDiagram : Checking Schema : ' + equation)
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       if (valuesComplete(values)) {
         const result = await submitOrganize(equation, values)
         logAction(

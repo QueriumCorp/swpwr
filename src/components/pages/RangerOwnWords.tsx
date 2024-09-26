@@ -124,7 +124,7 @@ const RangerOwnWords: FC<{
     } else {
       setMsg("I'm thinking...")
       setBusy(true)
-      logAction('RangerOwnWords : Checking Own Words : ' + ownWords)
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       const result = await submitMyOwnWords(ownWords)
       logAction(
         `RangerOwnWords : Checked OwnWords : ${ownWords} : ${JSON.stringify(result)}`,

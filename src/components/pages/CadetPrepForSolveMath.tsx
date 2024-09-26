@@ -51,7 +51,7 @@ const CadetPrepForSolveMath: React.FC<{
   ///////////////////////////////////////////////////////////////////
 
   React.useEffect(() => {
-    logAction('CadetPrepForSolveMath : Entered Application')
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setTimeout(() => heartbeat(), 1000)
   }, [])
 
@@ -63,7 +63,7 @@ const CadetPrepForSolveMath: React.FC<{
     sayMsg('Dance Dance Revolution', 'gratz')
   }
   function finishedIntro() {
-    logAction('CadetPrepForSolveMath : Intro Finished')
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setNextDisabled(false)
   }
 
@@ -113,7 +113,7 @@ const CadetPrepForSolveMath: React.FC<{
           disabled={nextDisabled}
           className="relative right-0"
           onClick={() => {
-            logAction('CadetPrepForSolveMath : Clicked Next')
+            logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
             api?.scrollNext()
           }}
         >

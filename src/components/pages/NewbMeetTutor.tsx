@@ -50,16 +50,6 @@ const NewbMeetTutor: React.FC<{
   // Effects
   ///////////////////////////////////////////////////////////////////
 
-  React.useEffect(() => {
-    logAction(
-      'NewbMeetTutor : Entered Application',
-      'newb',
-      page.id,
-      'heartbeat',
-    )
-    setTimeout(() => heartbeat(), 1000)
-  }, [])
-
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
@@ -78,10 +68,10 @@ const NewbMeetTutor: React.FC<{
   ) {
     if (evt.altKey) {
       //If Option+Enter just scroll to next page
-      logAction('NewbMeetTutor : Skipped to next page')
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       api?.scrollNext()
     } else {
-      logAction('NewbMeetTutor : Next Button Pressed')
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       api?.scrollNext()
     }
   }

@@ -55,7 +55,7 @@ const NewbGratzWatchedVideo: React.FC<{
         <CarouselNext
           className="relative right-0"
           onClick={() => {
-            logAction('NewbGratzWatchedVideo : Clicked Next')
+            logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
             api?.scrollNext()
           }}
         >

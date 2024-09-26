@@ -51,7 +51,7 @@ const DevMeetTutor: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    logAction('DevMeetTutor : Entered Application')
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setTimeout(() => heartbeat(), 1000)
   }, [])
   useEffect(() => {
@@ -118,7 +118,7 @@ Paragraph3
           className="relative right-0"
           disabled={navDisabled}
           onClick={() => {
-            logAction('DevMeetTutor : Clicked Next')
+            logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
             api?.scrollNext()
           }}
         >

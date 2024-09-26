@@ -129,7 +129,7 @@ const DevFindTutor: React.FC<{
           disabled={navDisabled}
           className="relative right-0"
           onClick={() => {
-            logAction('DevFindTutor : Clicked Next')
+            logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
             api?.scrollNext()
           }}
         >

@@ -18,7 +18,11 @@ const getHint = async (_set: SetFn, get: GetFn) => {
   })
   const data = await response.json()
 
-  get().logAction(`getHint: ${response.status} ${JSON.stringify(data)}`)
+  get().logAction({
+    page: 'none',
+    activity: 'getHint',
+    data: data,
+  })
   return data.hintText
 }
 

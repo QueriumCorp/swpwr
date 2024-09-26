@@ -122,7 +122,7 @@ const RangerReflect: FC<{
       return
     }
 
-    logAction('RangerReflect : Checking Explanation')
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     switch (explanation?.type) {
       case 'schema':
         setMsg(schemaMsgs[Math.floor(Math.random() * schemaMsgs.length)])

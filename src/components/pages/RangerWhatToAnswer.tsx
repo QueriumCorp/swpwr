@@ -83,11 +83,11 @@ const RangerWhatToAnswer: FC<{
   // Event Handlers
   //
   const delKnown = (fact: string) => {
-    logAction(`RangerWhatToAnswer : Deleted '${fact}' from KnownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setKnowns(knowns.filter(thisFact => thisFact !== fact))
   }
   const delUnknown = (fact: string) => {
-    logAction(`RangerWhatToAnswer : Deleted '${fact}' from UnknownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setUnknowns(unknowns.filter(thisFact => thisFact !== fact))
   }
   async function HandleCheckFacts(
@@ -99,9 +99,9 @@ const RangerWhatToAnswer: FC<{
     } else {
       setMsg('Give me a sec to review your knowns and unknowns')
       setEmote('direct:02')
-      logAction('RangerWhatToAnswer : Clicked Next')
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
 
-      logAction('RangerWhatToAnswer : Checking Facts')
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       const result = await submitTTable(knowns, unknowns)
       setMsg(result.message)
       setEmote('pout:04')
@@ -192,11 +192,11 @@ const RangerWhatToAnswer: FC<{
 
     if (event.over && event.over.id === 'KnownFacts') {
       setKnowns([...knowns, currentFact])
-      logAction(`RangerWhatToAnswer : Dropped '${currentFact}' on KnownFacts`)
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     }
     if (event.over && event.over.id === 'UnknownFacts') {
       setUnknowns([...unknowns, currentFact])
-      logAction(`RangerWhatToAnswer : Dropped '${currentFact}' on UnknownFacts`)
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     }
     setCurrentFact('')
   }
@@ -205,14 +205,14 @@ const RangerWhatToAnswer: FC<{
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (knowns.includes(currentFact)) return
 
-    logAction(`RangerWhatToAnswer : Added '${currentFact}' to KnownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setKnowns([...knowns, currentFact])
     setCurrentFact('')
   }
   function addUnknown() {
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (unknowns.includes(currentFact)) return
-    logAction(`RangerWhatToAnswer : Added '${currentFact}' to UnknownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setUnknowns([...unknowns, currentFact])
     setCurrentFact('')
   }

@@ -102,10 +102,10 @@ const NewbReadProblem: React.FC<{
   ) {
     if (evt.altKey) {
       //If Option+Enter just scroll to next page
-      logAction('NewbReadProblem : Skipped to next page')
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       api?.scrollNext()
     } else {
-      logAction('NewbReadProblem : Next Button Pressed')
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       api?.scrollNext()
     }
   }

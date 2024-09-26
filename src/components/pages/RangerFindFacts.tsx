@@ -99,12 +99,12 @@ const RangerFindFacts: FC<{
   ///////////////////////////////////////////////////////////////////
 
   const delKnown = (fact: string) => {
-    logAction(`RangerFindFacts : Deleted '${fact}' from KnownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setKnowns(knowns.filter(thisFact => thisFact !== fact))
   }
 
   const delUnknown = (fact: string) => {
-    logAction(`RangerFindFacts : Deleted '${fact}' from UnknownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setUnknowns(unknowns.filter(thisFact => thisFact !== fact))
   }
 
@@ -119,7 +119,7 @@ const RangerFindFacts: FC<{
       setBusy(true)
       setEmote('direct:02')
 
-      logAction('RangerFindFacts : Checking Facts')
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       const result = await submitTTable(knowns, unknowns)
       setBusy(false)
       setMsg(result.message)
@@ -230,11 +230,11 @@ const RangerFindFacts: FC<{
 
     if (event.over && event.over.id === 'KnownFacts') {
       setKnowns([...knowns, currentFact])
-      logAction(`RangerFindFacts : Dropped '${currentFact}' on KnownFacts`)
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     }
     if (event.over && event.over.id === 'UnknownFacts') {
       setUnknowns([...unknowns, currentFact])
-      logAction(`RangerFindFacts : Dropped '${currentFact}' on UnknownFacts`)
+      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     }
     setCurrentFact('')
   }
@@ -243,14 +243,14 @@ const RangerFindFacts: FC<{
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (knowns.includes(currentFact)) return
 
-    logAction(`RangerFindFacts : Added '${currentFact}' to KnownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setKnowns([...knowns, currentFact])
     setCurrentFact('')
   }
   function addUnknown() {
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (unknowns.includes(currentFact)) return
-    logAction(`RangerFindFacts : Added '${currentFact}' to UnknownFacts`)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setUnknowns([...unknowns, currentFact])
     setCurrentFact('')
   }

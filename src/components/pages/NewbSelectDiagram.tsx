@@ -118,7 +118,7 @@ const NewbProblemType: FC<{
   ///////////////////////////////////////////////////////////////////
 
   async function handleSelectSchema(schema: string) {
-    logAction('NewbProblemType : Selected Schema : ' + schema)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     setSchema(schema)
   }
 
@@ -127,7 +127,7 @@ const NewbProblemType: FC<{
   ) {
     setMsg('Just a moment while I verify your choice')
     setBusy(true)
-    logAction('RangerSelectDiagram : Clicked Next')
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
 
     let selectedSchema: SchemaType = 'additiveChangeSchema'
     switch (schema) {
@@ -152,7 +152,7 @@ const NewbProblemType: FC<{
     }
 
     const fake = evt.altKey
-    logAction('NewbSelectDiagram : Checking Schema : ' + selectedSchema)
+    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     const result = await submitPickSchema(selectedSchema, fake)
 
     setBusy(false)

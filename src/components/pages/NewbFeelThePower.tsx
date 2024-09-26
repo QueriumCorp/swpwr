@@ -71,7 +71,7 @@ const NewbFeelThePower: React.FC<{
         <CarouselNext
           className="relative right-0"
           onClick={() => {
-            logAction('NewbFeelThePower : Clicked Next')
+            logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
             api?.scrollNext()
           }}
           disabled={!watchedVideo}

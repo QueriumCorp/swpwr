@@ -25,7 +25,7 @@ const submitOrganize = async (_set: SetFn, get: GetFn, equation: string) => {
   })
   const data = await response.json()
 
-  get().logAction(`submitOrganize: ${response.status} ${JSON.stringify(data)}`)
+  get().logAction({ page: 'none', activity: 'submitOrganize', data: data })
   return data
 }
 

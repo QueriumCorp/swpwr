@@ -79,7 +79,7 @@ const NewbVictory: React.FC<{
         <CarouselNext
           className="relative right-0"
           onClick={() => {
-            logAction('NewbVictory : Clicked Next')
+            logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
             api?.scrollNext()
           }}
         >
