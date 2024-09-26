@@ -80,6 +80,31 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
         endSel = endSel + htmlOffset
       }
 
+      // Get whole words
+      // front of selection
+      let curPos = startSel
+      while (curPos >= 0) {
+        console.log('curPos', curPos)
+        if (stimulusText.charAt(curPos) == ' ') {
+          break
+        }
+        curPos--
+      }
+      startSel = curPos + 1
+      // end of selection
+      curPos = endSel
+      while (curPos < stimulusText.length) {
+        console.log('curPos', curPos)
+        if (stimulusText.charAt(curPos) == ' ') {
+          break
+        }
+        curPos++
+      }
+      if (stimulusText.charAt(curPos) == ' ') {
+        curPos--
+      }
+      endSel = ++curPos
+
       setPreText(stimulusText.substring(0, startSel))
       setTheText(stimulusText.substring(startSel, endSel))
       setPostText(stimulusText.substring(endSel))
