@@ -115,14 +115,16 @@ const RangerFillDiagram: FC<{
     } else {
       setBusy(true)
       setMsg('Just a moment while I verify your equation')
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
 
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       if (valuesComplete(values)) {
         const result = await submitOrganize(equation, values)
-        logAction(
-          'RangerFillDiagram : Checked Equation : ' + JSON.stringify(result),
-        )
+        logAction({
+          page: page.id,
+          activity: 'checkStep',
+          data: { result },
+          action:
+            'RangerFillDiagram : Checked Equation : ' + JSON.stringify(result),
+        })
         setBusy(false)
         setMsg(result.message)
         if (result.stepStatus == 'VALID') {
@@ -152,6 +154,11 @@ const RangerFillDiagram: FC<{
   ) {
     setEquation(latex)
     setValues(values)
+    logAction({
+      page: page.id,
+      activity: 'changedValues',
+      data: { latex, values },
+    })
   }
 
   ///////////////////////////////////////////////////////////////////

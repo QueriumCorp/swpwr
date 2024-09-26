@@ -23,9 +23,11 @@ const submitMyOwnWords = async (
   })
   const data = await response.json()
 
-  get().logAction(
-    `submitMyOwnWords: ${response.status} ${JSON.stringify(data)}`,
-  )
+  get().logAction({
+    page: 'none',
+    activity: 'submitMyOwnWords',
+    data: { body, response, data },
+  })
   return data
 }
 

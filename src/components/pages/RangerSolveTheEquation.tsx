@@ -206,10 +206,7 @@ const RangerSolveTheEquation: FC<{
   }
 
   function onComplete(steps: Step[], log: Log[]) {
-    logAction(
-      'RangerSolveTheEquation : ' +
-        JSON.stringify({ studentSolution: steps, log: log }),
-    )
+    logAction({ page: page.id, activity: 'completedMath', data: log })
     const lastStep = steps[steps.length - 1]
     if (lastStep.type === 'mathComplete' || lastStep.type === 'victory') {
       if (lastStep.latex) {

@@ -19,7 +19,7 @@ const NewbFeelThePower: React.FC<{
   children?: React.ReactNode
   page: YBRpage
   index: number
-}> = ({ className, index }) => {
+}> = ({ className, page, index }) => {
   const ybr = YellowBrickRoad
   const src = 'https://querium.wistia.com/medias/oyfe3sqhwb'
 

@@ -126,9 +126,12 @@ const RangerOwnWords: FC<{
       setBusy(true)
       logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       const result = await submitMyOwnWords(ownWords)
-      logAction(
-        `RangerOwnWords : Checked OwnWords : ${ownWords} : ${JSON.stringify(result)}`,
-      )
+      logAction({
+        page: page.id,
+        activity: 'checkStep',
+        data: { ownWords },
+        action: `RangerOwnWords : Checked OwnWords : ${ownWords} : ${JSON.stringify(result)}`,
+      })
 
       setBusy(false)
       setMsg(result.message)

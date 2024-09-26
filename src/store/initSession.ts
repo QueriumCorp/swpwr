@@ -1,19 +1,19 @@
-import { shuffle } from "@/lib/utils";
-import type { SetFn, GetFn } from "./_types";
+import { shuffle } from '@/lib/utils'
+import type { SetFn, GetFn } from './_types'
 
 const initSession = async (set: SetFn, get: GetFn) => {
-  const problem = get().problem;
-  const student = get().student;
+  const problem = get().problem
+  const student = get().student
 
-  const theHints = [];
+  const theHints = []
   if (problem.qs1) {
-    theHints.push(problem.qs1);
+    theHints.push(problem.qs1)
   }
   if (problem.qs2) {
-    theHints.push(problem.qs2);
+    theHints.push(problem.qs2)
   }
   if (problem.qs3) {
-    theHints.push(problem.qs3);
+    theHints.push(problem.qs3)
   }
 
   const theProblem = {
@@ -25,7 +25,7 @@ const initSession = async (set: SetFn, get: GetFn) => {
     stimulus: problem.stimulus,
     topic: problem.class,
     hints: theHints,
-  };
+  }
 
   // Abort if Hot Module Reload (HMR) wipes the store
   if (
@@ -35,33 +35,35 @@ const initSession = async (set: SetFn, get: GetFn) => {
     !theProblem.definition ||
     !theProblem.topic
   ) {
-    console.error("Missing required fields in problem: ", theProblem);
-    return;
+    console.error('Missing required fields in problem: ', theProblem)
+    return
   }
 
-  const response = await fetch(get().swapiUrl + "/start/", {
-    method: "POST",
+  const response = await fetch(get().swapiUrl + '/start/', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(theProblem),
-  });
+  })
 
-  const data = await response.json();
+  const data = await response.json()
 
-  set((state) => ({
+  set(state => ({
     session: {
       ...state.session,
       sessionToken: data.sessionToken,
       identifiers: data.identifiers,
       operators: data.operators,
       explanations: shuffle(data.explanation),
-      selectedExplanation: "",
+      selectedExplanation: '',
     },
-  }));
-  get().logAction(
-    `initSession: ${response.status} ${JSON.stringify(data, null, 2)}`,
-  );
-};
+  }))
+  get().logAction({
+    page: 'none',
+    activity: 'initSession',
+    data: { theProblem, response, data },
+  })
+}
 
-export default initSession;
+export default initSession

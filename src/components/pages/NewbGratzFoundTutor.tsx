@@ -15,7 +15,7 @@ const NewbGratzFoundTutor: React.FC<{
   children?: React.ReactNode
   page?: YBRpage
   index: number
-}> = ({ className, index }) => {
+}> = ({ className, page, index }) => {
   //
   // Contexts
   //
@@ -65,7 +65,7 @@ const NewbGratzFoundTutor: React.FC<{
         <CarouselNext
           className="relative right-0"
           onClick={() => {
-            logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+            logAction({ page: page?.id, activity: 'ACTIVITY', data: {} })
             api?.scrollNext()
           }}
         >

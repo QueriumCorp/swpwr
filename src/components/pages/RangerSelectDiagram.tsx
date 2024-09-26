@@ -158,9 +158,11 @@ const RangerSelectDiagram: FC<{
       // Bypass qEval validation
       api?.scrollNext()
     } else {
-      logAction(
-        'RangerSelectDiagram : Checked Schema : ' + JSON.stringify(result),
-      )
+      logAction({
+        page: page.id,
+        activity: 'checkStep',
+        data: { selectedSchema },
+      })
       setMsg(result.message)
       if (result.stepStatus == 'VALID') {
         setComplete(true)

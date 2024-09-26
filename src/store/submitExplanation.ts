@@ -23,9 +23,11 @@ const submitExplanation = async (
   })
   const data = await response.json()
 
-  get().logAction(
-    `submitExplanation: ${response.status} ${JSON.stringify(data)}`,
-  )
+  get().logAction({
+    page: 'none',
+    activity: 'submitExplanation',
+    data: { body, response, data },
+  })
   return data
 }
 
