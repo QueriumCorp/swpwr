@@ -37,7 +37,7 @@ export interface State {
   getHint: () => Promise<string>
   closeSession: () => Promise<string>
   saveTrace: (comment: string) => Promise<string>
-  logAction: (action: string) => void
+  logAction: (props: LogActionProps) => void
   setMathAnswer: (answer: string) => void
 
   setOnComplete: (onComplete: () => void) => void
@@ -130,7 +130,16 @@ export const OptionsSchema = z.object({
 // LOGS
 export type LogItem = {
   timestamp: Date
-  action: string
+  action?: string
+  page?: string
+  activity?: string
+  data?: any
+}
+export type LogActionProps = {
+  action?: string
+  page?: string
+  activity?: string
+  data?: any
 }
 
 export type SchemaType =

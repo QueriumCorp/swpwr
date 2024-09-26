@@ -8,6 +8,7 @@ import {
   Student,
   Session,
   LogItem,
+  LogActionProps,
   State,
   ProblemSchema,
 } from './_types'
@@ -231,21 +232,26 @@ export const useProblemStore = create<State>((set, get) => ({
     return await saveTrace(set, get, comment)
   },
 
-  logAction: (action: string) => {
+  logAction: (props: LogActionProps) => {
     const actionLog: LogItem = {
       timestamp: new Date(),
-      action: action,
+      page: props.page,
+      activity: props.activity,
+      data: props.data,
+      action: props.action,
     }
     set(state => ({
       studentLog: [...state.studentLog, actionLog],
     }))
     get().onStep(get().session, get().studentLog)
   },
+
   setOnComplete: (onComplete: () => void) => {
     set(_state => ({
       onComplete: onComplete,
     }))
   },
+
   setOnStep: (onStep: () => void) => {
     set(_state => ({
       onStep: onStep,

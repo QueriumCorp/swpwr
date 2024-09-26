@@ -51,7 +51,12 @@ const NewbMeetTutor: React.FC<{
   ///////////////////////////////////////////////////////////////////
 
   React.useEffect(() => {
-    logAction('NewbMeetTutor : Entered Application')
+    logAction(
+      'NewbMeetTutor : Entered Application',
+      'newb',
+      page.id,
+      'heartbeat',
+    )
     setTimeout(() => heartbeat(), 1000)
   }, [])
 
