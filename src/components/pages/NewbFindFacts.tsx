@@ -111,22 +111,24 @@ const NewbFindFacts: FC<{
   async function HandleCheckFacts(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
+    setMsg('Give me a sec to review your knowns and unknowns')
+    setBusy(true)
+    setEmote('direct:02')
+    const result = await submitTTable(knowns, unknowns)
+    setBusy(false)
+
     if (evt.altKey) {
       //If Option+Enter just scroll to next page
       logAction({
         page: page.id,
         activity: 'checkStep',
-        data: {},
+        data: { result },
         action: 'skipped validation',
       })
       api?.scrollNext()
     } else {
-      setMsg('Give me a sec to review your knowns and unknowns')
-      setBusy(true)
-      setEmote('direct:02')
-      const result = await submitTTable(knowns, unknowns)
       logAction({ page: page.id, activity: 'checkStep', data: { result } })
-      setBusy(false)
+
       setMsg(result.message)
       setEmote('pout:04')
       if (result.stepStatus == 'VALID') {

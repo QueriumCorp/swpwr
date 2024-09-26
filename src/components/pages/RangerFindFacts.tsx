@@ -111,19 +111,26 @@ const RangerFindFacts: FC<{
   async function HandleCheckFacts(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
+    setMsg('Give me a sec to review your knowns and unknowns')
+    setBusy(true)
+    setEmote('direct:02')
+
+    const result = await submitTTable(knowns, unknowns)
+    setBusy(false)
     if (evt.altKey) {
       //If Cmd+Enter just scroll to next page
+      logAction({
+        page: page.id,
+        activity: 'checkStep',
+        data: { result },
+        action: 'skipped validation',
+      })
       api?.scrollNext()
     } else {
-      setMsg('Give me a sec to review your knowns and unknowns')
-      setBusy(true)
-      setEmote('direct:02')
-
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
-      const result = await submitTTable(knowns, unknowns)
-      setBusy(false)
       setMsg(result.message)
       setEmote('pout:04')
+      logAction({ page: page.id, activity: 'checkStep', data: { result } })
+
       if (result.stepStatus == 'VALID') {
         setComplete(true)
       }

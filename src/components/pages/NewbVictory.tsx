@@ -56,11 +56,11 @@ const NewbVictory: React.FC<{
   }
 
   if (current === index + 1) {
-    logAction({
-      page: page.id,
-      activity: 'achievedVictory',
-      data: {},
-    })
+    // logAction({
+    //   page: page.id,
+    //   activity: 'achievedVictory',
+    //   data: {},
+    // })
     onComplete(session, studentLog)
   }
 

@@ -57,19 +57,24 @@ const CompareEditor: FC<{
   // Event Handlers
   //
   function handleDragEnd(event: DragEndEvent) {
-    console.log('handleDragEnd', event)
     if (!event.over) return
 
     const rawValue = event.active.id as string
     if (!rawValue) return
 
     // Find fractional number or whole number
-    const fractionRegex = /\d+\s\d+\/\d+/
+    const mixedFractionRegex = /\d+\s\d+\/\d+/
+    const mixedFractionMatches = rawValue.match(mixedFractionRegex)
+
+    const fractionRegex = /\d+\/\d+/
+    const fractionMatches = rawValue.match(fractionRegex)
+
     const wholeNumberRegex = /(-?\d+(\.\d+)?)/
-    let values = rawValue.match(fractionRegex)
-    if (!values) {
-      values = rawValue.match(wholeNumberRegex)
-    }
+    const wholeNumberMatches = rawValue.match(wholeNumberRegex)
+
+    let values = mixedFractionMatches ? mixedFractionMatches : null // mixed fraction
+    values = values ? values : fractionMatches // fraction
+    values = values ? values : wholeNumberMatches // whole number
 
     // if no value found, use the box identifier
     let value
