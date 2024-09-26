@@ -101,31 +101,40 @@ const NewbFindFacts: FC<{
   ///////////////////////////////////////////////////////////////////
 
   const delKnown = (fact: string) => {
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+    logAction({ page: page.id, activity: 'deleteKnown', data: { fact } })
     setKnowns(knowns.filter(thisFact => thisFact !== fact))
   }
   const delUnknown = (fact: string) => {
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+    logAction({ page: page.id, activity: 'deleteUnknown', data: { fact } })
     setUnknowns(unknowns.filter(thisFact => thisFact !== fact))
   }
   async function HandleCheckFacts(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     if (evt.altKey) {
-      //If Cmd+Enter just scroll to next page
+      //If Option+Enter just scroll to next page
+      logAction({
+        page: page.id,
+        activity: 'checkStep',
+        data: {},
+        action: 'skipped validation',
+      })
       api?.scrollNext()
     } else {
       setMsg('Give me a sec to review your knowns and unknowns')
       setBusy(true)
       setEmote('direct:02')
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
-
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
       const result = await submitTTable(knowns, unknowns)
+      logAction({ page: page.id, activity: 'checkStep', data: { result } })
       setBusy(false)
       setMsg(result.message)
       setEmote('pout:04')
       if (result.stepStatus == 'VALID') {
+        logAction({
+          page: page.id,
+          activity: 'enableNext',
+          data: {},
+        })
         setComplete(true)
       }
     }
@@ -231,11 +240,15 @@ const NewbFindFacts: FC<{
 
     if (event.over && event.over.id === 'KnownFacts') {
       setKnowns([...knowns, currentFact])
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+      logAction({ page: page.id, activity: 'dndAddKnownFact', data: { event } })
     }
     if (event.over && event.over.id === 'UnknownFacts') {
       setUnknowns([...unknowns, currentFact])
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+      logAction({
+        page: page.id,
+        activity: 'dndAddUnknownFact',
+        data: { event },
+      })
     }
     setCurrentFact('')
   }
@@ -244,14 +257,22 @@ const NewbFindFacts: FC<{
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (knowns.includes(currentFact)) return
 
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+    logAction({
+      page: page.id,
+      activity: 'clickAddKnownFact',
+      data: { currentFact },
+    })
     setKnowns([...knowns, currentFact])
     setCurrentFact('')
   }
   function addUnknown() {
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (unknowns.includes(currentFact)) return
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+    logAction({
+      page: page.id,
+      activity: 'clickAddUnknownFact',
+      data: { currentFact },
+    })
     setUnknowns([...unknowns, currentFact])
     setCurrentFact('')
   }

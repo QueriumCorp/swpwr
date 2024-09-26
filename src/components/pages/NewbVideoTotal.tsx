@@ -102,7 +102,14 @@ const NewbVideoTotal: FC<{
           <VideoPlayer
             videoUrl={src}
             className="h-full w-full"
-            onEnded={() => setWatchedVideo(true)}
+            onEnded={() => {
+              logAction({
+                page: page.id,
+                activity: 'watchedVideo',
+                data: { videoUrl: src },
+              })
+              setWatchedVideo(true)
+            }}
           />
         </div>
       </div>

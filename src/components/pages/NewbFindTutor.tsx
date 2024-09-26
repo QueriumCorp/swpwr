@@ -85,7 +85,11 @@ const NewbFindTutor: React.FC<{
 
   function hintChanged(hintStage: string, current: number, count: number) {
     if (hintStage === 'psHints' && current === count) {
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+      logAction({
+        page: page.id,
+        activity: 'hintChanged',
+        data: { hintStage, current, count },
+      })
       setMsg(pageHints[pageHints.length - 1])
       setNavDisabled(false)
     }
@@ -95,10 +99,15 @@ const NewbFindTutor: React.FC<{
   ) {
     if (evt.altKey) {
       //If Option+Enter just scroll to next page
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+      logAction({
+        page: page.id,
+        activity: 'clickNext',
+        data: {},
+        action: 'used option to skip',
+      })
       api?.scrollNext()
     } else {
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+      logAction({ page: page.id, activity: 'clickNext', data: {} })
       api?.scrollNext()
     }
   }

@@ -7,12 +7,11 @@ import { type YBRpage } from '../qq/YellowBrickRoad'
 import {
   AnimeTutor,
   AvatarAPIType,
-  Chat,
   useAvatarAPI,
 } from '@/components/AnimeTutor'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselPrevious, CarouselNext } from '../ui/carousel'
+import { CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { Button } from '../ui/button'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
@@ -23,21 +22,51 @@ const NewbVictory: React.FC<{
   page: YBRpage
   index: number
 }> = ({ className, page, index }) => {
-  // Context
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
   const { current, api } = React.useContext(NavContext) as NavContextType
   const { emotes, sayMsg } = useAvatarAPI() as AvatarAPIType
 
+  ///////////////////////////////////////////////////////////////////
+  // Refs
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
   // Store
-  const { logAction, heartbeat } = useProblemStore()
+  ///////////////////////////////////////////////////////////////////
 
-  // Side Effects
+  const { logAction, session, studentLog, onComplete } = useProblemStore()
 
-  // Handlers
+  ///////////////////////////////////////////////////////////////////
+  // State
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
   function handleDance() {
     sayMsg('Dance Dance Revolution', 'gratz')
   }
 
+  if (current === index + 1) {
+    logAction({
+      page: page.id,
+      activity: 'achievedVictory',
+      data: {},
+    })
+    onComplete(session, studentLog)
+  }
+
+  ///////////////////////////////////////////////////////////////////
   // JSX
+  ///////////////////////////////////////////////////////////////////
   if (current !== index + 1) return null
   return (
     <div

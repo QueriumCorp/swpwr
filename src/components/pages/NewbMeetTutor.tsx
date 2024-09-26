@@ -68,10 +68,10 @@ const NewbMeetTutor: React.FC<{
   ) {
     if (evt.altKey) {
       //If Option+Enter just scroll to next page
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+      logAction({ page: page.id, activity: 'clickNext', data: {} })
       api?.scrollNext()
     } else {
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+      logAction({ page: page.id, activity: 'clickNext', data: {} })
       api?.scrollNext()
     }
   }

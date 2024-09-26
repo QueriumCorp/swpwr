@@ -118,7 +118,7 @@ const NewbProblemType: FC<{
   ///////////////////////////////////////////////////////////////////
 
   async function handleSelectSchema(schema: string) {
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+    logAction({ page: page.id, activity: 'selectedSchema', data: { schema } })
     setSchema(schema)
   }
 
@@ -127,7 +127,6 @@ const NewbProblemType: FC<{
   ) {
     setMsg('Just a moment while I verify your choice')
     setBusy(true)
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
 
     let selectedSchema: SchemaType = 'additiveChangeSchema'
     switch (schema) {
@@ -152,17 +151,26 @@ const NewbProblemType: FC<{
     }
 
     const fake = evt.altKey
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     const result = await submitPickSchema(selectedSchema, fake)
 
     setBusy(false)
     if (fake) {
       // Bypass qEval validation
+      logAction({
+        page: page.id,
+        activity: 'checkStep',
+        data: {},
+        action: 'skipped validation',
+      })
+
       api?.scrollNext()
     } else {
-      logAction(
-        'NewbSelectDiagram : Checked Schema : ' + JSON.stringify(result),
-      )
+      logAction({
+        page: page.id,
+        activity: 'checkStep',
+        data: { result },
+      })
+
       setMsg(result.message)
       if (result.stepStatus == 'VALID') {
         setComplete(true)
