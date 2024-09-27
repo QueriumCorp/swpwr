@@ -31,13 +31,13 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
         )}
         {...props}
       >
-        <div>
-          <div className="flex select-none font-inter font-black">
+        <div className="PowerContainer">
+          <div className="PowerLetters flex select-none font-inter font-black">
             <div
               className={cn(
                 highlightLetter === 'P'
-                  ? 'text-6xl text-qqAccent'
-                  : 'text-5xl text-slate-500',
+                  ? 'text-3xl text-qqAccent sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl'
+                  : 'text-3xl text-slate-500 sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl',
               )}
             >
               P
@@ -45,8 +45,8 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
             <div
               className={cn(
                 highlightLetter === 'O'
-                  ? 'text-6xl text-qqAccent'
-                  : 'text-5xl text-slate-500',
+                  ? 'text-3xl text-qqAccent sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl'
+                  : 'text-3xl text-slate-500 sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl',
               )}
             >
               O
@@ -54,8 +54,8 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
             <div
               className={cn(
                 highlightLetter === 'W'
-                  ? 'text-6xl text-qqAccent'
-                  : 'text-5xl text-slate-500',
+                  ? 'text-3xl text-qqAccent sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl'
+                  : 'text-3xl text-slate-500 sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl',
               )}
             >
               W
@@ -63,8 +63,8 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
             <div
               className={cn(
                 highlightLetter === 'E'
-                  ? 'text-6xl text-qqAccent'
-                  : 'text-5xl text-slate-500',
+                  ? 'text-3xl text-qqAccent sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl'
+                  : 'text-3xl text-slate-500 sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl',
               )}
             >
               E
@@ -72,8 +72,8 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
             <div
               className={cn(
                 highlightLetter === 'R'
-                  ? 'text-6xl text-qqAccent'
-                  : 'text-5xl text-slate-500',
+                  ? 'text-3xl text-qqAccent sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl'
+                  : 'text-3xl text-slate-500 sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl',
               )}
             >
               R
@@ -83,7 +83,13 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
             {subTitle}
           </div>
         </div>
-        <div className="flex select-none items-center justify-center font-capriola text-2xl text-qqBrand">
+        <div
+          className={cn(
+            'flex items-center justify-center',
+            'select-none text-center font-capriola text-qqBrand',
+            'sm:text-lg md:text-xl xl:text-2xl',
+          )}
+        >
           {instructions}
         </div>
         <div className="flex select-none items-center justify-end font-capriola text-2xl text-black">
