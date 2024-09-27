@@ -85,12 +85,12 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
         </div>
         <div
           className={cn(
-            'flex items-center justify-center',
+            'flex items-end justify-center',
             'select-none text-center font-capriola text-qqBrand',
             'sm:text-lg md:text-xl xl:text-2xl',
           )}
         >
-          {instructions}
+          <div>{instructions}</div>
         </div>
         <div className="flex select-none items-center justify-end font-capriola text-2xl text-black">
           <SpeakerLoudIcon className="mr-2 inline-block h-6 w-6" />
