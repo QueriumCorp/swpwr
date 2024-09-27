@@ -63,6 +63,12 @@ const RangerOwnWords: FC<{
   const [complete, setComplete] = useState(false)
   const [ownWords, setOwnWords] = useState<string>('')
 
+  const mathAnswer = useMemo(() => {
+    return isNumber(session.mathAnswer)
+      ? `${session.identifiers[0]}=${session.mathAnswer}`
+      : session.mathAnswer
+  }, [session.mathAnswer])
+
   const hintList = useMemo(() => {
     // get page hints
     let pageHints: string[] = []
@@ -185,7 +191,7 @@ const RangerOwnWords: FC<{
           stimulusText={problem.stimulus}
         ></StimulusSelector>
 
-        <MathStatic latex={session.mathAnswer}></MathStatic>
+        <MathStatic latex={mathAnswer}></MathStatic>
 
         <div className="grow">
           <Textarea
@@ -218,6 +224,11 @@ const RangerOwnWords: FC<{
       </NavBar>
     </div>
   )
+}
+
+function isNumber(input: string) {
+  const regex = /^[0-9 .\/-]+$/
+  return regex.test(input)
 }
 
 RangerOwnWords.displayName = 'RangerOwnWords'
