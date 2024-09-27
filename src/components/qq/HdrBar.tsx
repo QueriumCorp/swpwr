@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
-import { PiSpeakerHighFill, PiSpeakerXFill } from 'react-icons/pi'
+import { PiSpeakerHighFill, PiSpeakerXThin } from 'react-icons/pi'
 import { useProblemStore } from '@/store/_store'
 
 export interface HdrBarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -100,7 +100,7 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
             {session.chatty ? (
               <PiSpeakerHighFill className="mr-2 inline-block h-6 w-6" />
             ) : (
-              <PiSpeakerXFill className="mr-2 inline-block h-6 w-6" />
+              <PiSpeakerXThin className="mr-2 inline-block h-6 w-6" />
             )}
           </div>
         </div>

@@ -17,6 +17,7 @@ import { useProblemStore } from '@/store/_store'
 import { Button } from '../ui/button'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
 import { NextButton } from '../qq/NextButton'
+import { PiSpeakerHighFill, PiSpeakerXThin } from 'react-icons/pi'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -38,7 +39,7 @@ const NewbMeetTutor: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, heartbeat } = useProblemStore()
+  const { logAction, session, toggleChatty } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -108,6 +109,16 @@ const NewbMeetTutor: React.FC<{
           className="absolute bottom-[50%] right-[50%] max-w-[45%] !font-capriola"
           hintPageChanged={finishedIntro}
         />
+      </div>
+      <div
+        className="fixed right-0 top-0 cursor-pointer"
+        onClick={toggleChatty}
+      >
+        {session.chatty ? (
+          <PiSpeakerHighFill className="mr-2 inline-block h-12 w-12" />
+        ) : (
+          <PiSpeakerXThin className="mr-2 inline-block h-12 w-12" />
+        )}
       </div>
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
         <div className="m-1 flex grow flex-col gap-1">

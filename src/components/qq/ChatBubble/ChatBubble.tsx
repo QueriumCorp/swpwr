@@ -19,8 +19,8 @@ import {
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel'
-import { set } from 'zod'
 import vocalize from '@/lib/speech'
+import { useProblemStore } from '@/store/_store'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -52,6 +52,12 @@ export const ChatBubble = ({
   const messages = typeof msgs === 'string' ? [msgs] : msgs
 
   ///////////////////////////////////////////////////////////////////
+  // Store
+  ///////////////////////////////////////////////////////////////////
+
+  const { session } = useProblemStore()
+
+  ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
   const [api, setApi] = useState<CarouselApi>()
@@ -76,12 +82,14 @@ export const ChatBubble = ({
   }, [api])
 
   useEffect(() => {
+    console.log('msgs changed:', msgs)
     if (!messages) {
       return
     }
     setCount(messages.length)
     setCurrent(0)
     api?.scrollTo(0)
+    // vocalize(api.selectedScrollSnap())
   }, [msgs])
 
   // on initial render, tell MathLive to render the latex
@@ -106,7 +114,10 @@ export const ChatBubble = ({
     if (hintPageChanged) {
       hintPageChanged(current, count)
     }
-  }, [count, current])
+    if (session.chatty && api) {
+      vocalize(messages![api!.selectedScrollSnap()])
+    }
+  }, [count, current, session.chatty])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -174,6 +185,8 @@ export const ChatBubble = ({
     vocalize(messages[api!.selectedScrollSnap()])
   }
   function SpeakButton() {
+    if (session.chatty) return null
+
     return (
       <button style={{ all: 'unset', cursor: 'pointer' }} onClick={handleSpeak}>
         <HiMiniSpeakerWave />

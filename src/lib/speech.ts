@@ -52,7 +52,11 @@ function vocalize(message: string) {
   }
 
   // remove crap from message
-  const msg2Vocalize = message.replace(/\*\*/g, '') // double asterisks
+  const msg2Vocalize = message
+    .replace(/\*\*/g, '') // double asterisks
+    .replace(/➜/g, 'circular arrow')
+    .replace(/read/g, 'reed')
+    .replace(/🥰/g, '')
 
   const utterance = new SpeechSynthesisUtterance(makeVocalizable(msg2Vocalize))
   utterance.lang = 'en-US'
