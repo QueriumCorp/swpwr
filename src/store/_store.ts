@@ -69,6 +69,7 @@ export const useProblemStore = create<State>((set, get) => ({
     myOwnWords: '',
     selectedExplanation: '',
     finalAnswer: '',
+    chatty: false,
   },
 
   ybr: [],
@@ -146,6 +147,18 @@ export const useProblemStore = create<State>((set, get) => ({
     set(_state => ({
       ybr: ybr,
     }))
+  },
+
+  toggleChatty: () => {
+    let chatty = !get().session.chatty
+
+    set(state => ({
+      session: {
+        ...state.session,
+        chatty: chatty,
+      },
+    }))
+    return chatty
   },
 
   heartbeat: async () => {

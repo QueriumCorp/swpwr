@@ -24,6 +24,7 @@ export interface State {
   setStudent: (student: Student) => void
   setSession: (session: Session) => void
   setYBR: (ybr: YBRpage[]) => void
+  toggleChatty: () => boolean
   heartbeat: () => Promise<void>
   initSession: () => void
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
@@ -111,6 +112,7 @@ export type Session = {
   myOwnWords: string
   selectedExplanation: string
   finalAnswer: string
+  chatty?: boolean
 }
 
 // OPTIONS
