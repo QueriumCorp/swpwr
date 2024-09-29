@@ -82,14 +82,12 @@ export const ChatBubble = ({
   }, [api])
 
   useEffect(() => {
-    console.log('msgs changed:', msgs)
     if (!messages) {
       return
     }
     setCount(messages.length)
     setCurrent(0)
     api?.scrollTo(0)
-    // vocalize(api.selectedScrollSnap())
   }, [msgs])
 
   // on initial render, tell MathLive to render the latex
@@ -114,10 +112,11 @@ export const ChatBubble = ({
     if (hintPageChanged) {
       hintPageChanged(current, count)
     }
+
     if (session.chatty && api) {
       vocalize(messages![api!.selectedScrollSnap()])
     }
-  }, [count, current, session.chatty])
+  }, [msgs, count, current, session.chatty, api])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers

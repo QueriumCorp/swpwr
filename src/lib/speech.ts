@@ -43,7 +43,6 @@ export function initSpeechSystem() {
 }
 
 function vocalize(message: string) {
-  console.info('selectedVoice', selectedVoice)
   // cancel any current speech
   speechSynthesis.cancel()
 
