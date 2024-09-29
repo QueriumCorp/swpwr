@@ -63,6 +63,7 @@ export const ChatBubble = ({
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
+  const [speaking, setSpeaking] = useState(false)
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -114,7 +115,8 @@ export const ChatBubble = ({
     }
 
     if (session.chatty && api) {
-      vocalize(messages![api!.selectedScrollSnap()])
+      setSpeaking(true)
+      vocalize(messages![api!.selectedScrollSnap()], () => setSpeaking(false))
     }
   }, [msgs, count, current, session.chatty, api])
 
@@ -242,7 +244,7 @@ export const ChatBubble = ({
       <div className="absolute bottom-2 right-0 top-2 flex w-[30px] flex-col items-center justify-between bg-amber-400 text-right italic text-black">
         <SpeakButton></SpeakButton>
         {messages.length > 1 ? <RestartMsgs></RestartMsgs> : null}
-        <NavButton></NavButton>
+        {speaking ? null : <NavButton></NavButton>}
       </div>
     </div>
   )

@@ -42,9 +42,9 @@ export function initSpeechSystem() {
   }
 }
 
-function vocalize(message: string) {
+function vocalize(message: string, finishedCallback?: () => void) {
   // cancel any current speech
-  speechSynthesis.cancel()
+  synth.cancel()
 
   if (!message) {
     return
@@ -64,6 +64,11 @@ function vocalize(message: string) {
   utterance.pitch = 1
   utterance.volume = 1
 
-  speechSynthesis.speak(utterance)
+  utterance.onend = () => {
+    if (finishedCallback) {
+      finishedCallback()
+    }
+  }
+  synth.speak(utterance)
 }
 export default vocalize
