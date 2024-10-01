@@ -1,10 +1,10 @@
 import { debounce, makeVocalizable } from './utils'
 
-window.speaking = false
+let speaking = false
 
 async function vocalize(message: string, finishedCallback?: () => void) {
   console.log('vocalize speaking:', speaking)
-  if (window.speaking) {
+  if (speaking) {
     return
   }
   const swapiUrl =
@@ -26,11 +26,11 @@ async function vocalize(message: string, finishedCallback?: () => void) {
 
   const audio = new Audio()
   audio.src = 'data:audio/mp3;base64,' + resp.audio
-  window.speaking = true
+  speaking = true
   audio.play()
   audio.onended = () => {
     if (finishedCallback) {
-      window.speaking = false
+      speaking = false
       finishedCallback()
     }
   }
