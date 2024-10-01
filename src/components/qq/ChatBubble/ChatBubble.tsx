@@ -114,7 +114,7 @@ export const ChatBubble = ({
       hintPageChanged(current, count)
     }
 
-    if (session.chatty && api) {
+    if (session.chatty && api && !speaking) {
       setSpeaking(true)
       vocalize(messages![api!.selectedScrollSnap()], () => setSpeaking(false))
     }

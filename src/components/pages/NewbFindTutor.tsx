@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -11,7 +11,6 @@ import { NavBar } from '../qq/NavBar'
 import { useProblemStore } from '@/store/_store'
 import { TinyTutor, type HintStage } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
-import { log } from 'console'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////

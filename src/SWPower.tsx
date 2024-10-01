@@ -29,7 +29,6 @@ import buildInfo from './buildInfo.json'
 import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import VoiceTester from './components/qq/ChatBubble/VoiceTester'
-import { initSpeechSystem } from './lib/speech'
 
 // Props
 const StepWisePowerProps = z.object({
@@ -147,8 +146,6 @@ const StepWisePower = forwardRef<
       ybr = YellowBrickRoad
     }
     setYBR(ybr)
-
-    initSpeechSystem()
   }, [])
 
   // Not sure why I did this
