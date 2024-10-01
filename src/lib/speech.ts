@@ -42,33 +42,31 @@ export function initSpeechSystem() {
   }
 }
 
-function vocalize(message: string, finishedCallback?: () => void) {
-  // cancel any current speech
-  synth.cancel()
+async function vocalize(message: string, finishedCallback?: () => void) {
+  const swapiUrl =
+    import.meta.env.VITE_SWAPI ||
+    window.swpwr.options.swapiUrl ||
+    'https://swapi2.onrender.com'
 
-  if (!message) {
-    return
-  }
+  const data = await fetch(`${swapiUrl}/getVocalization`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      appKey: 'JiraTestPage',
+      text: message,
+    }),
+  })
+  const resp = await data.json()
+  console.log(resp)
 
-  // remove crap from message
-  const msg2Vocalize = message
-    .replace(/\*\*/g, '') // double asterisks
-    .replace(/➜/g, 'circular arrow')
-    .replace(/read/g, 'reed')
-    .replace(/🥰/g, '')
-
-  const utterance = new SpeechSynthesisUtterance(makeVocalizable(msg2Vocalize))
-  utterance.lang = 'en-US'
-  utterance.voice = selectedVoice
-  utterance.rate = 1
-  utterance.pitch = 1
-  utterance.volume = 1
-
-  utterance.onend = () => {
+  const audio = new Audio('data:audio/mp3;base64,' + resp.audio)
+  audio.play()
+  audio.onended = () => {
     if (finishedCallback) {
       finishedCallback()
     }
   }
-  synth.speak(utterance)
 }
 export default vocalize
