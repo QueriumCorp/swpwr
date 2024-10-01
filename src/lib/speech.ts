@@ -59,7 +59,6 @@ async function vocalize(message: string, finishedCallback?: () => void) {
     }),
   })
   const resp = await data.json()
-  console.log(resp)
 
   const audio = new Audio('data:audio/mp3;base64,' + resp.audio)
   audio.play()
