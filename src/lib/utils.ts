@@ -133,7 +133,7 @@ export function randomThinkingMsg() {
     'Let me check with April...',
     'Let me check with Maria...',
     'Let me check with Evan...',
-    'Let me check with Kent...',
+    'Zugg Zugg...',
   ]
   return thinkingMsgs[Math.floor(Math.random() * thinkingMsgs.length)]
 }
