@@ -2,7 +2,7 @@
 
 import { FC, ReactNode, useContext, useMemo, useState } from 'react'
 
-import { cn } from '@/lib/utils'
+import { cn, randomThinkingMsg } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
@@ -113,7 +113,7 @@ const RangerWhatToAnswer: FC<{
 
   async function getAiHints() {
     setBusy(true)
-    setMsg('Hmmm...  let me see.')
+    setMsg(randomThinkingMsg())
     setMsg(await getHint())
     setBusy(false)
   }

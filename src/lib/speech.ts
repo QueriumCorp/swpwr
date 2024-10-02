@@ -12,6 +12,7 @@ async function vocalize(message: string, finishedCallback?: () => void) {
     window.swpwr.options.swapiUrl ||
     'https://swapi2.onrender.com'
 
+  const msgText = makeVocalizable(message)
   const data = await fetch(`${swapiUrl}/getVocalization`, {
     method: 'POST',
     headers: {
@@ -19,7 +20,7 @@ async function vocalize(message: string, finishedCallback?: () => void) {
     },
     body: JSON.stringify({
       appKey: 'JiraTestPage',
-      text: message,
+      text: msgText,
     }),
   })
   const resp = await data.json()

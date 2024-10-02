@@ -4,7 +4,7 @@
 import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
 // Querium Imports
-import { cn } from '@/lib/utils'
+import { cn, randomThinkingMsg } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
@@ -143,7 +143,7 @@ const RangerFindFacts: FC<{
       return
     }
     setBusy(true)
-    setMsg('Hmmm...  let me see.')
+    setMsg(randomThinkingMsg())
     setMsg(await getHint())
     setBusy(false)
   }

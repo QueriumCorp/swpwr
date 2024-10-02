@@ -12,7 +12,7 @@ import {
 } from 'react'
 
 // Querium Imports
-import { cn } from '@/lib/utils'
+import { cn, randomThinkingMsg } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
@@ -153,7 +153,7 @@ const RangerOwnWords: FC<{
       return
     }
     setBusy(true)
-    setMsg('Hmmm...  let me see.')
+    setMsg(randomThinkingMsg())
     setMsg(await getHint())
     setBusy(false)
   }

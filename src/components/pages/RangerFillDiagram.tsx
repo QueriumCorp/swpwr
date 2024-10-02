@@ -4,7 +4,7 @@
 import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
 // Third-party Imports
-import { cn } from '@/lib/utils'
+import { cn, randomThinkingMsg } from '@/lib/utils'
 
 // Querium Imports
 import { type YBRpage } from '../qq/YellowBrickRoad'
@@ -143,7 +143,7 @@ const RangerFillDiagram: FC<{
       return
     }
     setBusy(true)
-    setMsg('Hmmm...  let me see.')
+    setMsg(randomThinkingMsg())
     setMsg(await getHint())
     setBusy(false)
   }

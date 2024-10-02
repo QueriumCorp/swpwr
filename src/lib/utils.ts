@@ -57,8 +57,20 @@ export function makeVocalizable(text: string) {
       break
     }
   }
+  const noLatex = chunks.join('')
 
-  return chunks.join('')
+  // Remove Markdown
+  const noMarkdown = noLatex.replace(/\*\*/g, '')
+
+  // Substitute labels for icons
+  const noIcons = noMarkdown
+    .replace(/▶︎▶︎/g, 'April')
+    .replace(/▶️/g, 'play')
+    .replace(/➜/g, 'circled arrow')
+    .replace(/\\"/g, '')
+    .replace(/Read\s/g, 'Reed ')
+
+  return noIcons
 }
 
 function regexIndexOf(string: string, regex: RegExp, startpos: number) {
@@ -90,6 +102,9 @@ function regexLastIndexOf(string: string, regex: RegExp, startpos: number) {
 }
 
 export function shuffle<T>(array: T[]): T[] {
+  if (!Array.isArray(array)) {
+    return array
+  }
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1))
     ;[array[i], array[j]] = [array[j], array[i]]
@@ -110,4 +125,15 @@ export const debounce = <T extends (...args: any[]) => any>(
     }, waitFor)
     return result
   }
+}
+
+export function randomThinkingMsg() {
+  const thinkingMsgs = [
+    'Hmmm...  Let me see...',
+    'Let me check with April...',
+    'Let me check with Maria...',
+    'Let me check with Evan...',
+    'Let me check with Kent...',
+  ]
+  return thinkingMsgs[Math.floor(Math.random() * thinkingMsgs.length)]
 }
