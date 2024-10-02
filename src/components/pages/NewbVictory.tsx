@@ -93,7 +93,7 @@ const NewbVictory: React.FC<{
         />
         <ChatBubble
           msgs={page.intro ? page.intro : ''}
-          className="absolute bottom-[50%] right-[50%] !font-capriola"
+          className="absolute bottom-[50%] right-[50%] max-w-[45%] !font-capriola"
         />
       </div>
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">

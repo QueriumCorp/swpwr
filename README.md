@@ -8,3 +8,12 @@ Example...
 For some unknown reason, the generated tailwind classes from animeTutor and swReact aren't getting packaged. To work around it, run `npm run tw` in swReact or animeTutor; whichever you've modified. That will scan all the source and generate a `tailwind.css` file. Copy that to swPower `/src/swReact.css` or `/src/animeTutor.css`.
 
 useImperativeHandle - https://www.youtube.com/watch?v=xUjREPbMrsc
+
+DEPLOYING TO GITHUB
+You may get the error:
+
+`RPC failed; HTTP 400 curl 22 The requested URL returned error: 400 Bad Request`
+
+To fix it, run:
+
+`git config --global http.postBuffer 157286400`

@@ -1,12 +1,6 @@
 import { debounce, makeVocalizable } from './utils'
 
-let speaking = false
-
 async function vocalize(message: string, finishedCallback?: () => void) {
-  console.log('vocalize speaking:', speaking)
-  if (speaking) {
-    return
-  }
   const swapiUrl =
     import.meta.env.VITE_SWAPI ||
     window.swpwr.options.swapiUrl ||
@@ -27,13 +21,42 @@ async function vocalize(message: string, finishedCallback?: () => void) {
 
   const audio = new Audio()
   audio.src = 'data:audio/mp3;base64,' + resp.audio
-  speaking = true
   audio.play()
   audio.onended = () => {
     if (finishedCallback) {
-      speaking = false
       finishedCallback()
     }
   }
 }
 export default vocalize
+
+const AudioManager = (function () {
+  let instance: {
+    play: (src: string) => void
+    pause: () => void
+  }
+
+  function createInstance() {
+    const audio = new Audio()
+    return {
+      play: (src: string) => {
+        audio.src = src
+        audio.play()
+      },
+      pause: () => audio.pause(),
+      // ... other audio control methods
+    }
+  }
+
+  return {
+    getInstance: () => {
+      if (!instance) {
+        instance = createInstance()
+      }
+      return instance
+    },
+  }
+})()
+
+const audioManager = AudioManager.getInstance()
+// audioManager.play('path/to/audio.mp3')
