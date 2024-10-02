@@ -5,7 +5,7 @@ import { forwardRef, useEffect, useRef, useState } from 'react'
 import { HiMiniSpeakerWave } from 'react-icons/hi2'
 
 // Querium Imports
-import { cn, makeVocalizable } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import { FactChicklet } from './FactChicklet'
 import vocalize from '@/lib/speech'
 
@@ -109,7 +109,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
       setTheText(stimulusText.substring(startSel, endSel))
       setPostText(stimulusText.substring(endSel))
 
-      if (onChangeFact) onChangeFact(sel.toString())
+      if (onChangeFact) onChangeFact(stimulusText.substring(startSel, endSel))
     }
 
     //

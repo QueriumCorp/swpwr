@@ -256,6 +256,7 @@ const NewbFindFacts: FC<{
   }
 
   function addKnown() {
+    console.log('currentFact', currentFact)
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (knowns.includes(currentFact)) return
 
@@ -268,6 +269,8 @@ const NewbFindFacts: FC<{
     setCurrentFact('')
   }
   function addUnknown() {
+    console.log('currentFact', currentFact)
+
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (unknowns.includes(currentFact)) return
     logAction({
