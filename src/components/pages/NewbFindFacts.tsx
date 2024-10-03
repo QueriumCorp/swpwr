@@ -242,7 +242,11 @@ const NewbFindFacts: FC<{
 
     if (event.over && event.over.id === 'KnownFacts') {
       setKnowns([...knowns, currentFact])
-      logAction({ page: page.id, activity: 'dndAddKnownFact', data: { event } })
+      logAction({
+        page: page.id,
+        activity: 'dndAddKnownFact',
+        data: { fact: currentFact },
+      })
     }
     if (event.over && event.over.id === 'UnknownFacts') {
       setUnknowns([...unknowns, currentFact])
@@ -263,7 +267,7 @@ const NewbFindFacts: FC<{
     logAction({
       page: page.id,
       activity: 'clickAddKnownFact',
-      data: { currentFact },
+      data: { fact: currentFact },
     })
     setKnowns([...knowns, currentFact])
     setCurrentFact('')
@@ -276,7 +280,7 @@ const NewbFindFacts: FC<{
     logAction({
       page: page.id,
       activity: 'clickAddUnknownFact',
-      data: { currentFact },
+      data: { fact: currentFact },
     })
     setUnknowns([...unknowns, currentFact])
     setCurrentFact('')

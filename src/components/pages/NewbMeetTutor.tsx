@@ -39,7 +39,7 @@ const NewbMeetTutor: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, session, toggleChatty } = useProblemStore()
+  const { logAction } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -110,16 +110,7 @@ const NewbMeetTutor: React.FC<{
           hintPageChanged={finishedIntro}
         />
       </div>
-      <div
-        className="fixed right-0 top-0 cursor-pointer"
-        onClick={toggleChatty}
-      >
-        {session.chatty ? (
-          <PiSpeakerHighFill className="mr-2 inline-block h-12 w-12" />
-        ) : (
-          <PiSpeakerXThin className="mr-2 inline-block h-12 w-12" />
-        )}
-      </div>
+
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
         <div className="m-1 flex grow flex-col gap-1">
           {emotes.map(emote => (

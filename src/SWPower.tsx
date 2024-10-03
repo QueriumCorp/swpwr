@@ -278,7 +278,9 @@ const StepWisePower = forwardRef<
                                 </td>
                                 <td className="select-text border border-slate-300 p-4 align-text-top text-xs text-slate-50">
                                   <pre>
-                                    {JSON.stringify(item.data, null, 2)}
+                                    {item.data
+                                      ? JSON.stringify(item.data, null, 2)
+                                      : ''}
                                   </pre>
                                 </td>
                                 <td className="select-text border border-slate-300 p-4 align-text-top text-xs text-slate-50">
