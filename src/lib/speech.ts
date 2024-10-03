@@ -27,7 +27,6 @@ async function vocalize(message: string, finishedCallback?: () => void) {
     playPromise
       .then(_ => {
         // Audio started playing
-        console.info('Audio started playing')
       })
       .catch(error => {
         // Audio failed to play
