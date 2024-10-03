@@ -1,8 +1,6 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
-import { PiSpeakerHighFill, PiSpeakerXThin } from 'react-icons/pi'
-import { useProblemStore } from '@/store/_store'
 
 export interface HdrBarProps extends React.HTMLAttributes<HTMLDivElement> {
   highlightLetter?: string
@@ -21,8 +19,6 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
     },
     ref,
   ) => {
-    const { session, toggleChatty } = useProblemStore()
-
     return (
       <div
         ref={ref}
@@ -95,15 +91,7 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
         >
           <div>{instructions}</div>
         </div>
-        <div className="flex select-none items-center justify-end font-capriola text-2xl text-black">
-          <div className="cursor-pointer" onClick={toggleChatty}>
-            {session.chatty ? (
-              <PiSpeakerHighFill className="mr-2 inline-block h-6 w-6" />
-            ) : (
-              <PiSpeakerXThin className="mr-2 inline-block h-6 w-6" />
-            )}
-          </div>
-        </div>
+        <div className="flex select-none items-center justify-end font-capriola text-2xl text-black"></div>
       </div>
     )
   },
