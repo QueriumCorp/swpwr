@@ -35,6 +35,7 @@ export interface State {
   ) => Promise<any>
   submitMyOwnWords: (type: string) => Promise<any>
   submitExplanation: (type: string) => Promise<any>
+  setThinksGoodAnswer: (type: boolean) => void
   getHint: () => Promise<string>
   closeSession: () => Promise<string>
   saveTrace: (comment: string) => Promise<string>
@@ -111,6 +112,7 @@ export type Session = {
   mathAnswer: string
   myOwnWords: string
   selectedExplanation: string
+  thinksGoodAnswer?: boolean
   finalAnswer: string
   chatty?: boolean
 }

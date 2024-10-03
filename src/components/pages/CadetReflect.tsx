@@ -1,115 +1,242 @@
-"use client";
+'use client'
 
-import * as React from "react";
+// React Imports
+import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
-import { cn } from "@/lib/utils";
-import { YellowBrickRoad, type YBRpage } from "../qq/YellowBrickRoad";
-import { NavContext, NavContextType } from "@/NavContext";
-import {
-  useAvatarAPI,
-  AvatarAPIType,
-  AnimeTutor,
-} from "@/components/AnimeTutor";
-import { NavBar } from "../qq/NavBar";
-import { StimulusSelector } from "../qq/StimulusSelector";
-import { CarouselPrevious, CarouselNext } from "../ui/carousel";
-import { RadioGroup, RadioGroupItem } from "../ui/radio";
-import { Label } from "../ui/label";
-import { useProblemStore } from "@/store/_store";
+// Third Party Imports
+import { HiMiniSpeakerWave } from 'react-icons/hi2'
 
-const CadetReflect: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-  page?: YBRpage;
-  index: number;
-}> = ({ className, index }) => {
-  const { current } = React.useContext(NavContext) as NavContextType;
+// Querium Imports
+import { cn, makeVocalizable } from '@/lib/utils'
+import { type YBRpage } from '../qq/YellowBrickRoad'
+import { NavContext, NavContextType } from '@/NavContext'
+import { useProblemStore } from '@/store/_store'
+import { HdrBar } from '../qq/HdrBar'
+import { NavBar } from '../qq/NavBar'
+import { StimulusSelector } from '../qq/StimulusSelector'
+import { HintStage, TinyTutor } from '../qq/TinyTutor'
+import { Card, CardContent, CardHeader } from '../ui/card'
+import { NextButton } from '../qq/NextButton'
+import CheckStepButton from '../qq/CheckStepButton'
+import vocalize from '@/lib/speech'
 
+interface Explanation {
+  type: string
+  text: string
+}
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+const CadetReflect: FC<{
+  className?: string
+  children?: ReactNode
+  page: YBRpage
+  index: number
+}> = ({ className, page, index }) => {
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
+  const { api, current } = useContext(NavContext) as NavContextType
+
+  ///////////////////////////////////////////////////////////////////
   // Store
-  const { problem } = useProblemStore();
+  ///////////////////////////////////////////////////////////////////
 
-  const [answer, setAnswer] = React.useState<string>("");
+  const {
+    problem,
+    logAction,
+    session,
+    rank,
+    submitExplanation,
+    setThinksGoodAnswer,
+  } = useProblemStore()
 
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType;
+  ///////////////////////////////////////////////////////////////////
+  // State
+  ///////////////////////////////////////////////////////////////////
 
-  React.useEffect(() => {
-    sayMsg("You've prepared and organized...'!", "idle:02");
-  }, []);
+  const [explanation, setExplanation] = useState<Explanation>()
+  const [answer, setAnswer] = useState<-1 | 0 | 1>(-1) // -1 = not answered, 0 = false, 1 = true
+  const [msg, setMsg] = useState<string>('')
+  const [busy, setBusy] = useState(false)
+  const [disabled, setDisabled] = useState(true)
+  const [complete, setComplete] = useState(false)
 
-  const fakeAnswer = "Something... something... DarkSide";
+  const hintList = useMemo(() => {
+    // get page hints
+    let pageHints: string[] = []
+    let wpHints = problem.wpHints?.find(
+      wpHint => wpHint.page === `${rank}${page.id}`,
+    )
+    if (wpHints?.hints) {
+      pageHints = wpHints.hints
+    } else if (page.psHints) {
+      pageHints = page.psHints
+    }
 
+    // define hint stages
+    let hintStages: HintStage[] = []
+    if (page.intro?.length) {
+      hintStages.push('intro')
+    } else {
+      hintStages.push('pre')
+    }
+    if (pageHints?.length) {
+      hintStages.push('psHints')
+    }
+    if (page.aiHints) {
+      hintStages.push('aiHints')
+    }
+
+    return {
+      stages: hintStages,
+      intro: page.intro,
+      psHints: pageHints,
+    }
+  }, [])
+
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    setExplanation(estimationOrBad(session.explanations))
+  }, [session.explanations])
+
+  ///////////////////////////////////////////////////////////////////
+  // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
+  async function HandleCheckThinksGoodAnswer(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    if (evt.altKey) {
+      //If Cmd+Enter just scroll to next page
+      api?.scrollNext()
+      return
+    }
+
+    logAction({
+      page: page.id,
+      activity: 'CheckThinksGoodAnswer',
+      data: { explanation: explanation, answer: answer },
+    })
+    setThinksGoodAnswer(answer == 1 ? true : false)
+    submitExplanation(explanation?.type || '')
+    api?.scrollNext()
+  }
+
+  function handleSpeak(text: string) {
+    vocalize(text)
+  }
+  const SpeakButton: FC<{
+    msg: string
+  }> = ({ msg }) => {
+    return (
+      <button className="border-none text-xs" onClick={() => handleSpeak(msg)}>
+        <HiMiniSpeakerWave className="text-cyan-900" />
+      </button>
+    )
+  }
+
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  if (current !== index + 1) return null; // Dont render if page not active
+  ///////////////////////////////////////////////////////////////////
+
+  if (current !== index + 1) return null
   return (
     <div
       className={cn(
-        "CadetReflect",
-        "rounded-lg  bg-card text-card-foreground shadow-sm w-full h-full m-0 mb-2 pl-2 pt-2 pr-2 flex flex-col justify-stretch ",
+        'CadetReflect',
+        'rounded-lg bg-card text-card-foreground shadow-sm',
+        'm-0 mb-2 flex h-full w-full flex-col justify-stretch pl-2 pr-2 pt-2',
         className,
       )}
     >
-      <div className="div flex flex-col p-2 gap-2 justify-stretch grow relative  mb-2">
-        <div className="absolute top-0 left-0 bottom-0 right-0  overflow-y-scroll">
-          <h1>CadetReflect</h1>
-          <div>
-            <h1>Why is this answer correct?</h1>
+      <div className="div relative mb-2 flex grow flex-col justify-stretch gap-2 p-2">
+        <div className="absolute bottom-0 left-0 right-0 top-0 overflow-y-scroll">
+          <HdrBar
+            highlightLetter={page?.phase}
+            subTitle={page?.phaseLabel}
+            instructions={page?.title}
+          ></HdrBar>
+
+          <div className="relative flex grow flex-col items-center justify-stretch gap-2 p-2">
+            <StimulusSelector
+              className={cn(
+                'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+                className,
+                'inline',
+              )}
+              stimulusText={problem.stimulus}
+            ></StimulusSelector>
+            <p className="select-none">{session.myOwnWords}</p>
+            <h2>Why does your answer make sense? Here is a possible reason.</h2>
+            <div className="relative flex grow flex-col items-center justify-center gap-2 overflow-y-auto p-2">
+              {explanation ? (
+                <Card key={explanation.type} className={cn('w-96 px-2 py-0')}>
+                  <CardHeader className="flex flex-row items-center justify-end p-1">
+                    <SpeakButton msg={explanation.text}></SpeakButton>
+                  </CardHeader>
+                  <CardContent>{explanation.text}</CardContent>
+                </Card>
+              ) : null}
+            </div>
+            <h2>
+              What do you think? Is it a good reason why the answer makes sense?
+            </h2>
+            <div className="flex flex-row items-center justify-center gap-10">
+              <div
+                onClick={() => setAnswer(1)}
+                className={cn(
+                  'YES',
+                  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+                  'border border-input bg-background hover:bg-qqAccent hover:text-white',
+                  'h-11 rounded-md px-8',
+                  answer === 1 ? 'ring-2 ring-qqBrand' : '',
+                )}
+              >
+                Yes
+              </div>
+              <div
+                onClick={() => setAnswer(0)}
+                className={cn(
+                  'NO',
+                  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+                  'border border-input bg-background hover:bg-qqAccent hover:text-white',
+                  'h-11 rounded-md px-8',
+                  answer === 0 ? 'ring-2 ring-qqBrand' : '',
+                )}
+              >
+                No
+              </div>
+            </div>
           </div>
-          <StimulusSelector
-            className={cn(
-              "flex w-full rounded-md border border-input px-3 py-2 mb-2 text-sm bg-slate-300",
-              className,
-            )}
-            stimulusText={problem.stimulus || ""}
-          ></StimulusSelector>
-          <h1>
-            What is the best answer for why does "{fakeAnswer}" make sense as
-            the correct solution?
-          </h1>
-          <RadioGroup
-            defaultValue=""
-            onValueChange={(v) => {
-              setAnswer(v);
-            }}
-          >
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="default" id="r1" />
-              <Label htmlFor="r1">Default</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="comfortable" id="r2" />
-              <Label htmlFor="r2">Comfortable</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="compact" id="r3" />
-              <Label htmlFor="r3">Compact</Label>
-            </div>
-          </RadioGroup>
         </div>
       </div>
 
-      <NavBar className="flex justify-end pr-2 space-x-3 bg-slate-300">
-        {/* Tiny Avatar */}
-        {YellowBrickRoad[current].phase !== "I" ? (
-          <AnimeTutor
-            style={{
-              bottom: "0px",
-              right: "0px",
-              height: "100%",
-            }}
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
+        <TinyTutor msg={msg} busy={busy} hintList={hintList} />
+
+        <div className="flex h-20 w-20 items-center justify-center">
+          <NextButton
+            busy={busy}
+            disabled={answer === -1}
+            onClick={evt => HandleCheckThinksGoodAnswer(evt)}
           />
-        ) : null}
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
-        <CarouselNext
-          disabled={answer.length === 0}
-          className="relative right-0"
-        >
-          Next
-        </CarouselNext>
+        </div>
       </NavBar>
     </div>
-  );
-};
-CadetReflect.displayName = "CadetReflect";
-export default CadetReflect;
+  )
+}
+CadetReflect.displayName = 'CadetReflect'
+export default CadetReflect
+
+function estimationOrBad(explanations: Explanation[]) {
+  const estimation = explanations.find(exp => exp.type === 'estimation')
+  const bad = explanations.find(exp => exp.type === 'bad')
+
+  return Math.random() > 0.5 ? estimation : bad
+}

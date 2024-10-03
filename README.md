@@ -14,6 +14,8 @@ You may get the error:
 
 `RPC failed; HTTP 400 curl 22 The requested URL returned error: 400 Bad Request`
 
+[StackOverflow](https://stackoverflow.com/questions/62753648/rpc-failed-http-400-curl-22-the-requested-url-returned-error-400-bad-request)
+
 To fix it, run:
 
 `git config --global http.postBuffer 157286400`

@@ -233,6 +233,15 @@ export const useProblemStore = create<State>((set, get) => ({
     return await submitExplanation(set, get, type)
   },
 
+  setThinksGoodAnswer: async (choice: boolean) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        thinksGoodAnswer: choice,
+      },
+    }))
+  },
+
   getHint: async () => {
     return await getHint(set, get)
   },

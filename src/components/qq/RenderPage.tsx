@@ -22,6 +22,7 @@ import RangerVictory from '../pages/RangerVictory'
 import NewbVideoTotal from '../pages/NewbVideoTotal'
 import CadetPrepForSolveMath from '../pages/CadetPrepForSolveMath'
 import DevFindTutor from '../pages/DevFindTutor'
+import CadetReflect from '../pages/CadetReflect'
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ':' + page.id) {
@@ -112,7 +113,7 @@ export function renderPage(page: YBRpage, index: number) {
     case 'cadet:OwnWords':
       return <RangerOwnWords page={page} index={index}></RangerOwnWords>
     case 'cadet:Reflect':
-      return <RangerReflect page={page} index={index}></RangerReflect>
+      return <CadetReflect page={page} index={index}></CadetReflect>
     case 'cadet:RangerVictory':
       return <RangerVictory page={page} index={index}></RangerVictory>
 
