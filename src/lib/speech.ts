@@ -21,7 +21,29 @@ async function vocalize(message: string, finishedCallback?: () => void) {
 
   const audio = new Audio()
   audio.src = 'data:audio/mp3;base64,' + resp.audio
-  audio.play()
+
+  var playPromise = audio.play()
+  if (playPromise !== undefined) {
+    playPromise
+      .then(_ => {
+        // Audio started playing
+        console.info('Audio started playing')
+      })
+      .catch(error => {
+        // Audio failed to play
+        console.error('Audio playback failed:', error)
+        if (finishedCallback) {
+          finishedCallback()
+        }
+      })
+  } else {
+    // play() was not called successfully
+    console.error('play() was not called successfully')
+    if (finishedCallback) {
+      finishedCallback()
+    }
+  }
+
   audio.onended = () => {
     if (finishedCallback) {
       finishedCallback()
