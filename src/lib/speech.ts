@@ -45,6 +45,8 @@ const AudioManager = (function () {
       },
       pause: () => audio.pause(),
       // ... other audio control methods
+
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/fastSeek
     }
   }
 

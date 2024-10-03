@@ -69,7 +69,7 @@ export function makeVocalizable(text: string) {
     .replace(/➜/g, 'the arrow button')
     .replace(/\\"/g, '')
     .replace(/Read\s/g, 'Reed ')
-    .replace(/✔/g, 'the check step button')
+    .replace(/✔/g, 'the check button')
 
   return noIcons
 }
