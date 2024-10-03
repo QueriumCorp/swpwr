@@ -260,23 +260,25 @@ const StepWisePower = forwardRef<
                           {studentLog.map((item, index) => {
                             return (
                               <tr key={index}>
-                                <td className="select-text border border-slate-300 p-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                                <td className="select-text border border-slate-300 p-4 align-text-top text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
                                   {item.timestamp.toLocaleString('en-us', {
                                     hour: 'numeric',
                                     minute: '2-digit',
                                     second: '2-digit',
                                   })}
                                 </td>
-                                <td className="select-text border border-slate-300 p-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                                <td className="select-text border border-slate-300 p-4 align-text-top text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
                                   {item.page}
                                 </td>
-                                <td className="select-text border border-slate-300 p-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                                <td className="select-text border border-slate-300 p-4 align-text-top text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
                                   {item.activity}
                                 </td>
-                                <td className="select-text border border-slate-300 p-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
-                                  {JSON.stringify(item.data)}
+                                <td className="select-text border border-slate-300 p-4 align-text-top text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                                  <pre>
+                                    {JSON.stringify(item.data, null, 2)}
+                                  </pre>
                                 </td>
-                                <td className="select-text border border-slate-300 p-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                                <td className="select-text border border-slate-300 p-4 align-text-top text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
                                   {item.action}
                                 </td>
                               </tr>
