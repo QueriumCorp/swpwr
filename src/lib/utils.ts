@@ -66,7 +66,7 @@ export function makeVocalizable(text: string) {
   const noIcons = noMarkdown
     .replace(/▶︎▶︎/g, 'April')
     .replace(/▶️/g, 'play')
-    .replace(/➜/g, 'circled arrow')
+    .replace(/➜/g, 'arrow button')
     .replace(/\\"/g, '')
     .replace(/Read\s/g, 'Reed ')
 
