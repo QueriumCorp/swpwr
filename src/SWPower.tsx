@@ -236,31 +236,54 @@ const StepWisePower = forwardRef<
                 <TabsContent value="log" className="h-[90%] w-full">
                   <div className="h-full w-full p-4 pb-0">
                     <div className="h-full w-full overflow-x-auto overflow-y-scroll p-2">
-                      <div className="table w-full">
-                        <div className="table-row w-full select-text p-2">
+                      <table className="w-full border-collapse border border-slate-400 bg-white text-sm shadow-sm dark:border-slate-500 dark:bg-slate-800">
+                        <thead className="bg-slate-50 dark:bg-slate-700">
+                          <tr>
+                            <th className="w-1/2 border border-slate-300 p-4 text-left font-semibold text-slate-900 dark:border-slate-600 dark:text-slate-200">
+                              TimeStamp
+                            </th>
+                            <th className="w-1/2 border border-slate-300 p-4 text-left font-semibold text-slate-900 dark:border-slate-600 dark:text-slate-200">
+                              Page
+                            </th>
+                            <th className="w-1/2 border border-slate-300 p-4 text-left font-semibold text-slate-900 dark:border-slate-600 dark:text-slate-200">
+                              Activity
+                            </th>
+                            <th className="w-1/2 border border-slate-300 p-4 text-left font-semibold text-slate-900 dark:border-slate-600 dark:text-slate-200">
+                              Data
+                            </th>
+                            <th className="w-1/2 border border-slate-300 p-4 text-left font-semibold text-slate-900 dark:border-slate-600 dark:text-slate-200">
+                              Action
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
                           {studentLog.map((item, index) => {
                             return (
-                              <div
-                                key={index}
-                                className="table-row w-full border-b-2 border-b-slate-600 p-2"
-                              >
-                                <div className="table-cell min-w-[100px] text-xs">
+                              <tr key={index}>
+                                <td className="select-text border border-slate-300 p-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
                                   {item.timestamp.toLocaleString('en-us', {
                                     hour: 'numeric',
                                     minute: '2-digit',
                                     second: '2-digit',
                                   })}
-                                </div>
-                                <div className="table-cell">
-                                  <pre className="select-text text-xs">
-                                    {item.action}
-                                  </pre>
-                                </div>
-                              </div>
+                                </td>
+                                <td className="select-text border border-slate-300 p-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                                  {item.page}
+                                </td>
+                                <td className="select-text border border-slate-300 p-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                                  {item.activity}
+                                </td>
+                                <td className="select-text border border-slate-300 p-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                                  {JSON.stringify(item.data)}
+                                </td>
+                                <td className="select-text border border-slate-300 p-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                                  {item.action}
+                                </td>
+                              </tr>
                             )
                           })}
-                        </div>
-                      </div>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </TabsContent>
