@@ -138,6 +138,9 @@ export const ChatBubble = ({
 
   // restart button
   function RestartMsgs() {
+    if (messages && messages.length > 1) {
+      return <div></div>
+    }
     if (current === count && count) {
       return (
         <button
@@ -154,9 +157,9 @@ export const ChatBubble = ({
 
   // Navigation Button
   function NavButton() {
-    if (typeof msgs === 'string') return null
+    if (typeof msgs === 'string') return <div></div>
 
-    if (count === 1 && !closeable) return null
+    if (count === 1 && !closeable) return <div></div>
 
     if (current === count && closeable) {
       return (
@@ -169,14 +172,18 @@ export const ChatBubble = ({
       return <div></div>
     }
 
-    return (
-      <button
-        style={{ all: 'unset', cursor: 'pointer' }}
-        onClick={handleShowMeMore}
-      >
-        <TbPlayerTrackNext />
-      </button>
-    )
+    if (speaking) {
+      return <DisabledNavButton />
+    } else {
+      return (
+        <button
+          style={{ all: 'unset', cursor: 'pointer' }}
+          onClick={handleShowMeMore}
+        >
+          <TbPlayerTrackNext />
+        </button>
+      )
+    }
   }
 
   function DisabledNavButton() {
@@ -195,7 +202,7 @@ export const ChatBubble = ({
     vocalize(messages[api!.selectedScrollSnap()])
   }
   function SpeakButton() {
-    if (session.chatty) return null
+    if (session.chatty) return <div></div>
 
     return (
       <button style={{ all: 'unset', cursor: 'pointer' }} onClick={handleSpeak}>
@@ -252,8 +259,8 @@ export const ChatBubble = ({
       </div>
       <div className="absolute bottom-2 right-0 top-2 flex w-[30px] flex-col items-center justify-between bg-amber-400 text-right italic text-black">
         <SpeakButton></SpeakButton>
-        {messages.length > 1 ? <RestartMsgs></RestartMsgs> : null}
-        {speaking ? <DisabledNavButton /> : <NavButton></NavButton>}
+        <RestartMsgs></RestartMsgs>
+        <NavButton></NavButton>
       </div>
     </div>
   )
