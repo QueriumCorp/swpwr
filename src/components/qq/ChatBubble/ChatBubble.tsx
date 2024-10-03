@@ -12,7 +12,7 @@ import { IoCloseSharp } from 'react-icons/io5'
 import { TbPlayerTrackNext } from 'react-icons/tb'
 
 // Querium Imports
-import { cn, makeVocalizable } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import {
   Carousel,
   CarouselContent,
@@ -168,12 +168,21 @@ export const ChatBubble = ({
     if (current === count && !closeable) {
       return <div></div>
     }
+
     return (
       <button
         style={{ all: 'unset', cursor: 'pointer' }}
         onClick={handleShowMeMore}
       >
         <TbPlayerTrackNext />
+      </button>
+    )
+  }
+
+  function DisabledNavButton() {
+    return (
+      <button style={{ all: 'unset', cursor: 'disabled' }}>
+        <TbPlayerTrackNext className="text-slate-400" />
       </button>
     )
   }
@@ -244,7 +253,7 @@ export const ChatBubble = ({
       <div className="absolute bottom-2 right-0 top-2 flex w-[30px] flex-col items-center justify-between bg-amber-400 text-right italic text-black">
         <SpeakButton></SpeakButton>
         {messages.length > 1 ? <RestartMsgs></RestartMsgs> : null}
-        {speaking ? null : <NavButton></NavButton>}
+        {speaking ? <DisabledNavButton /> : <NavButton></NavButton>}
       </div>
     </div>
   )
