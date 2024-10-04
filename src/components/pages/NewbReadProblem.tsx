@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
@@ -28,7 +28,7 @@ const NewbReadProblem: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, problem, rank } = useProblemStore()
+  const { logAction, problem, rank, session } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -80,7 +80,6 @@ const NewbReadProblem: React.FC<{
 
   function hintChanged(hintStage: string, current: number, count: number) {
     if (count > 0 && current === count) {
-      console.info('hintChanged', hintStage, current, count)
       let newMsg = ''
 
       switch (hintStage) {
@@ -93,7 +92,14 @@ const NewbReadProblem: React.FC<{
       }
 
       setMsg(newMsg)
-      setNavDisabled(false)
+      if (session.chatty) {
+        setNavDisabled(false)
+      } else {
+        // if not chatty, disable next for 5 seconds
+        setTimeout(() => {
+          setNavDisabled(false)
+        }, 5000)
+      }
     }
   }
 
