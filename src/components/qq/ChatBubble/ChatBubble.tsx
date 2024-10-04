@@ -176,21 +176,39 @@ export const ChatBubble = ({
       return <DisabledNavButton />
     } else {
       return (
-        <button
-          style={{ all: 'unset', cursor: 'pointer' }}
-          onClick={handleShowMeMore}
-        >
-          <TbPlayerTrackNext />
-        </button>
+        <div className="relative bg-red-600">
+          <button
+            style={{
+              all: 'unset',
+              cursor: 'pointer',
+              position: 'absolute',
+              right: 0,
+              bottom: 0,
+            }}
+            onClick={handleShowMeMore}
+          >
+            [MORE]
+          </button>
+        </div>
       )
     }
   }
 
   function DisabledNavButton() {
     return (
-      <button style={{ all: 'unset', cursor: 'disabled' }}>
-        <TbPlayerTrackNext className="text-slate-400" />
-      </button>
+      <div className="relative bg-red-600">
+        <button
+          style={{
+            all: 'unset',
+            cursor: 'pointer',
+            position: 'absolute',
+            right: 0,
+            bottom: 0,
+          }}
+        >
+          [MORE]
+        </button>
+      </div>
     )
   }
 
