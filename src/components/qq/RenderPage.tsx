@@ -23,6 +23,8 @@ import NewbVideoTotal from '../pages/NewbVideoTotal'
 import CadetPrepForSolveMath from '../pages/CadetPrepForSolveMath'
 import DevFindTutor from '../pages/DevFindTutor'
 import CadetReflect from '../pages/CadetReflect'
+import NewbVideoFindFacts from '../pages/NewbVideoFindFacts'
+import CadetVideoStepWise from '../pages/CadetVideoStepWise'
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ':' + page.id) {
@@ -69,6 +71,8 @@ export function renderPage(page: YBRpage, index: number) {
       )
     case 'newb:ReadProblem':
       return <NewbReadProblem page={page} index={index}></NewbReadProblem>
+    case 'newb:VideoFindFacts':
+      return <NewbVideoFindFacts page={page} index={index}></NewbVideoFindFacts>
     case 'newb:FindFacts':
       return <NewbFindFacts page={page} index={index}></NewbFindFacts>
     case 'newb:GratzOnPrepare':
@@ -103,6 +107,8 @@ export function renderPage(page: YBRpage, index: number) {
           index={index}
         ></CadetPrepForSolveMath>
       )
+    case 'cadet:VideoStepWise':
+      return <CadetVideoStepWise page={page} index={index}></CadetVideoStepWise>
     case 'cadet:SolveTheEquation':
       return (
         <RangerSolveTheEquation

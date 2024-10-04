@@ -114,6 +114,19 @@ Click ➜ when you're done.`,
   },
   {
     rank: 'newb',
+    id: 'VideoFindFacts',
+    title: 'How to Find Facts',
+    phase: 'I',
+    phaseLabel: 'Instruction',
+    intro: [
+      `The next Prepare task is identify the facts in the problem; the knowns and unknowns.`,
+      `Press ▶️ to start the video.
+
+When it finishes, click ➜ to continue.`,
+    ],
+  },
+  {
+    rank: 'newb',
     id: 'FindFacts',
     title: 'Pull Apart',
     phase: 'P',
@@ -239,6 +252,19 @@ To organize the information, we write an equation. Click me to learn how.`,
     ],
     phaseLabel: 'Organize',
     aiHints: true,
+  },
+  {
+    rank: 'cadet',
+    id: 'VideoStepWise',
+    title: 'How to use StepWise',
+    phase: 'I',
+    phaseLabel: 'Instruction',
+    intro: [
+      `Next I'll show you how to **W**ork the problem step by step.`,
+      `Press ▶️ to start the video and learn how.
+
+When it finishes, click ➜ to continue.`,
+    ],
   },
   {
     rank: 'cadet',
