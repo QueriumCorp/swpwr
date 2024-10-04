@@ -103,7 +103,7 @@ console.table('PROBLEM', problem)
 console.table('STUDENT', student)
 console.table('OPTIONS', options)
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('qqROOT')!).render(
   <React.StrictMode>
     <div className="SWPowerComponent relative h-dvh w-dvw overflow-hidden">
       <StepWisePower

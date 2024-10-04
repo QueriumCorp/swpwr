@@ -137,7 +137,7 @@ const NewbMeetTutor: React.FC<{
         <div className="fixed flex h-full w-full items-center justify-center bg-black bg-opacity-80">
           <Button
             size="lg"
-            className="bg-qqBrand"
+            className="bg-qqBrand hover:bg-qqAccent"
             onClick={() => handleStart()}
           >
             START
