@@ -131,10 +131,10 @@ export const debounce = <T extends (...args: any[]) => any>(
 export function randomThinkingMsg() {
   const thinkingMsgs = [
     'Hmmm...  Let me see...',
-    'Let me check with April...',
-    'Let me check with Maria...',
-    'Let me check with Evan...',
-    'Zugg Zugg...',
+    'Let me think...',
+    "Let's see...",
+    "Ok, I'm thinking...",
+    'Just a second...',
   ]
   return thinkingMsgs[Math.floor(Math.random() * thinkingMsgs.length)]
 }
