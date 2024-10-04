@@ -13,6 +13,7 @@ import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { HintStage, TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
+import { Button } from '../ui/button'
 
 const RangerReadProblem: React.FC<{
   className?: string
@@ -30,12 +31,13 @@ const RangerReadProblem: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { problem, rank, session, getHint } = useProblemStore()
+  const { problem, rank, session, toggleChatty } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
+  const [started, setStarted] = useState(false)
   const [busy, setBusy] = useState(true)
   const [msg, setMsg] = useState<string>(
     rank === 'ranger'
@@ -73,6 +75,11 @@ const RangerReadProblem: React.FC<{
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
+
+  function handleStart() {
+    setStarted(true)
+    toggleChatty()
+  }
 
   ///////////////////////////////////////////////////////////////////
   // JSX
@@ -116,6 +123,17 @@ const RangerReadProblem: React.FC<{
           ></NextButton>
         </div>
       </NavBar>
+      {started ? null : (
+        <div className="fixed flex h-full w-full items-center justify-center bg-black bg-opacity-80">
+          <Button
+            size="lg"
+            className="bg-qqBrand hover:bg-qqAccent"
+            onClick={() => handleStart()}
+          >
+            START
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

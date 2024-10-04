@@ -16,17 +16,28 @@ import { StimulusSelector } from '../qq/StimulusSelector'
 import { CarouselPrevious, CarouselNext } from '../ui/carousel'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
+import { Button } from '../ui/button'
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 const CadetReadProblem: React.FC<{
   className?: string
   children?: React.ReactNode
   page?: YBRpage
   index: number
 }> = ({ className, page, index }) => {
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
   const { current } = React.useContext(NavContext) as NavContextType
 
+  ///////////////////////////////////////////////////////////////////
   // Store
-  const { problem } = useProblemStore()
+  ///////////////////////////////////////////////////////////////////
+
+  const { logAction, problem, toggleChatty } = useProblemStore()
 
   const { sayMsg } = useAvatarAPI() as AvatarAPIType
   React.useEffect(() => {
@@ -35,6 +46,25 @@ const CadetReadProblem: React.FC<{
       'idle:01',
     )
   }, [])
+
+  ///////////////////////////////////////////////////////////////////
+  // State
+  ///////////////////////////////////////////////////////////////////
+
+  const [started, setStarted] = React.useState(false)
+
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
+  // Event Handlers
+  ///////////////////////////////////////////////////////////////////
+
+  function handleStart() {
+    setStarted(true)
+    toggleChatty()
+  }
 
   // JSX
   if (current !== index + 1) return null
@@ -80,6 +110,17 @@ const CadetReadProblem: React.FC<{
         </CarouselPrevious>
         <CarouselNext className="relative right-0">Next</CarouselNext>
       </NavBar>
+      {started ? null : (
+        <div className="fixed flex h-full w-full items-center justify-center bg-black bg-opacity-80">
+          <Button
+            size="lg"
+            className="bg-qqBrand hover:bg-qqAccent"
+            onClick={() => handleStart()}
+          >
+            START
+          </Button>
+        </div>
+      )}
     </div>
   )
 }
