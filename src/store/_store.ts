@@ -69,7 +69,7 @@ export const useProblemStore = create<State>((set, get) => ({
     myOwnWords: '',
     selectedExplanation: '',
     finalAnswer: '',
-    chatty: true,
+    chatty: false,
   },
 
   ybr: [],

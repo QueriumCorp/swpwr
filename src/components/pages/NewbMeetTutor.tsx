@@ -39,13 +39,14 @@ const NewbMeetTutor: React.FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction } = useProblemStore()
+  const { logAction, toggleChatty } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
   const [nextDisabled, setNextDisabled] = React.useState(true)
+  const [started, setStarted] = React.useState(false)
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -54,6 +55,11 @@ const NewbMeetTutor: React.FC<{
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
+
+  function handleStart() {
+    setStarted(true)
+    toggleChatty()
+  }
 
   function handleDance() {
     sayMsg('Dance Dance Revolution', 'gratz')
@@ -127,6 +133,17 @@ const NewbMeetTutor: React.FC<{
           ></NextButton>
         </div>
       </NavBar>
+      {started ? null : (
+        <div className="fixed flex h-full w-full items-center justify-center bg-black bg-opacity-80">
+          <Button
+            size="lg"
+            className="bg-qqBrand"
+            onClick={() => handleStart()}
+          >
+            START
+          </Button>
+        </div>
+      )}
     </div>
   )
 }
