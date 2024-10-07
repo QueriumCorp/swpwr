@@ -110,6 +110,14 @@ const CadetVideoStepWise: FC<{
               })
               setWatchedVideo(true)
             }}
+            onError={(err: unknown) => {
+              logAction({
+                page: page.id,
+                activity: 'watchedVideo',
+                data: { videoUrl: src, err: err },
+              })
+              setWatchedVideo(true)
+            }}
           />
         </div>
       </div>

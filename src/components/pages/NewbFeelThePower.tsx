@@ -51,6 +51,14 @@ const NewbFeelThePower: React.FC<{
             videoUrl={src}
             className="h-full w-full"
             onEnded={() => setWatchedVideo(true)}
+            onError={(err: unknown) => {
+              logAction({
+                page: page.id,
+                activity: 'watchedVideo',
+                data: { videoUrl: src, err: err },
+              })
+              setWatchedVideo(true)
+            }}
           />
         </div>
       </div>

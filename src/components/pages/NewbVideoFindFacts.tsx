@@ -12,6 +12,7 @@ import { useProblemStore } from '@/store/_store'
 import { VideoPlayer } from '../qq/VideoPlayer'
 import { HintStage, TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
+import ReactPlayer from 'react-player'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -23,7 +24,8 @@ const NewbVideoFindFacts: FC<{
   index: number
 }> = ({ className, page, index }) => {
   const ybr = YellowBrickRoad
-  const src = 'https://youtu.be/TqbTHwknMZk?si=AdU06I81o6yLtFJq'
+  // const src = null
+  const src = 'https://querium.wistia.com/medias/6cq1njtrjd?wvideo=6cq1njtrjd'
 
   ///////////////////////////////////////////////////////////////////
   // Contexts
@@ -107,6 +109,14 @@ const NewbVideoFindFacts: FC<{
                 page: page.id,
                 activity: 'watchedVideo',
                 data: { videoUrl: src },
+              })
+              setWatchedVideo(true)
+            }}
+            onError={(err: unknown) => {
+              logAction({
+                page: page.id,
+                activity: 'watchedVideo',
+                data: { videoUrl: src, err: err },
               })
               setWatchedVideo(true)
             }}
