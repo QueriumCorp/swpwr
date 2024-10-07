@@ -55,7 +55,7 @@ export const YellowBrickRoad: YBRpage[] = [
     phase: 'I',
     phaseLabel: 'Instruction',
     intro: [
-      `Hi! My name is Kettu. Welcome to StepWise for Word Problems!
+      `Hi! My name is _Kettu_. Welcome to StepWise for Word Problems!
       
   Look below these words. Do you see [MORE]? That button means I have more to tell you. Click it to find out what.`,
       `Great job!
@@ -189,7 +189,7 @@ Now you know the first POWER step, **P**repare.`,
 1. Pick the problem type`,
       `*And* you now know one problem type: Total.
 
-Click Next to practice and check your understanding.`,
+Click [here to try another problem](https://queriumcorp.github.io/swpwr/?rank=cadet).`,
     ],
   },
 
