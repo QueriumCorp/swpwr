@@ -1,7 +1,7 @@
 {
   "name": "swpwr",
   "private": true,
-  "version": "1.9.165",
+  "version": "1.9.166",
   "type": "module",
   "scripts": {
     "dev": "vite",
