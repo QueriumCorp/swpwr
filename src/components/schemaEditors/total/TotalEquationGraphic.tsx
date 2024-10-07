@@ -136,6 +136,7 @@ export const TotalEquationGraphic = ({
           id="PART1"
           className={cn(
             'relative flex h-16 w-[30%] flex-col items-center justify-start',
+            className,
             p1Value ? '!border-4 !border-qqAccent' : '',
           )}
         >
@@ -145,9 +146,7 @@ export const TotalEquationGraphic = ({
               'flex items-center justify-start',
             )}
           >
-            <div className={cn(p1Value ? 'text-xs' : 'text-xl', className)}>
-              P1
-            </div>
+            <div className={cn(p1Value ? 'text-xs' : 'text-xl')}>P1</div>
           </div>
           <div className={cn(p1Value ? 'text-xl' : 'text-xs', className)}>
             {p1}
@@ -171,9 +170,7 @@ export const TotalEquationGraphic = ({
               'flex items-center justify-start',
             )}
           >
-            <div className={cn(p2Value ? 'text-xs' : 'text-xl', className)}>
-              P2
-            </div>
+            <div className={cn(p2Value ? 'text-xs' : 'text-xl')}>P2</div>
           </div>
           <div className={cn(p2Value ? 'text-xl' : 'text-xs', className)}>
             {p2}
@@ -183,6 +180,7 @@ export const TotalEquationGraphic = ({
         <div className="mx-2 flex items-center justify-center">
           <FaEquals />
         </div>
+
         <Droppable
           id="TOTAL"
           className={cn(
@@ -196,9 +194,7 @@ export const TotalEquationGraphic = ({
               'flex items-center justify-start',
             )}
           >
-            <div className={cn(tValue ? 'text-xs' : 'text-xl', className)}>
-              T
-            </div>
+            <div className={cn(tValue ? 'text-xs' : 'text-xl')}>T</div>
           </div>
           <div className={cn(tValue ? 'text-xl' : 'text-xs', className)}>
             {t}
