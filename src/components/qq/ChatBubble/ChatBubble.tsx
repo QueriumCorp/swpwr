@@ -196,14 +196,15 @@ export const ChatBubble = ({
 
   function DisabledNavButton() {
     return (
-      <div className="relative bg-red-600">
+      <div className="relative">
         <button
           style={{
             all: 'unset',
-            cursor: 'pointer',
+            cursor: 'not-allowed',
             position: 'absolute',
             right: 0,
             bottom: 0,
+            color: 'gray',
           }}
         >
           [MORE]
