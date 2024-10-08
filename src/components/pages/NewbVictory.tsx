@@ -15,6 +15,7 @@ import { CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { Button } from '../ui/button'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
+import { NextButton } from '../qq/NextButton'
 
 const NewbVictory: React.FC<{
   className?: string
@@ -43,6 +44,8 @@ const NewbVictory: React.FC<{
   // State
   ///////////////////////////////////////////////////////////////////
 
+  const [nextDisabled, setNextDisabled] = React.useState(true)
+
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
@@ -62,6 +65,20 @@ const NewbVictory: React.FC<{
     //   data: {},
     // })
     onComplete(session, studentLog)
+  }
+
+  function finishedIntro(current: number, count: number) {
+    if (count > 0 && current === count) {
+      setNextDisabled(false)
+    }
+  }
+
+  async function handleNext(
+    _evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    //If Option+Enter just scroll to next page
+    logAction({ page: page.id, activity: 'clickNext', data: {} })
+    window.open('https://queriumcorp.github.io/swpwr/?rank=cadet')
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -94,26 +111,17 @@ const NewbVictory: React.FC<{
         <ChatBubble
           msgs={page.intro ? page.intro : ''}
           className="absolute bottom-[50%] right-[50%] max-w-[45%] !font-capriola"
+          hintPageChanged={finishedIntro}
         />
       </div>
       <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
-        <div className="m-1 flex grow flex-col gap-1">
-          {emotes.map(emote => (
-            <Button key={emote.name} onClick={handleDance} className="w-full">
-              {emote.name}
-            </Button>
-          ))}
+        <div className="flex h-20 w-20 items-center justify-center">
+          <NextButton
+            className="scale-[200%]"
+            disabled={nextDisabled}
+            onClick={handleNext}
+          ></NextButton>
         </div>
-
-        <CarouselNext
-          className="relative right-0"
-          onClick={() => {
-            logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
-            api?.scrollNext()
-          }}
-        >
-          Next
-        </CarouselNext>
       </NavBar>
     </div>
   )

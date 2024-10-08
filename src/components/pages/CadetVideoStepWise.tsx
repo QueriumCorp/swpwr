@@ -23,7 +23,7 @@ const CadetVideoStepWise: FC<{
   index: number
 }> = ({ className, page, index }) => {
   const ybr = YellowBrickRoad
-  const src = 'https://youtu.be/3f8sjzETQ5o?si=-f879atFcuiPiHXg'
+  const src = 'https://querium.wistia.com/medias/3iht7uc7nw?wvideo=3iht7uc7nw'
 
   ///////////////////////////////////////////////////////////////////
   // Contexts
