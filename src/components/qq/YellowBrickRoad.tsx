@@ -74,7 +74,7 @@ We're going to get the POWER to solve math word problems.
 Each letter in POWER stands for a problem-solving step. I will teach you the steps.`,
       `Are you ready? I know I am!
 
-  Find → under my feet. Click it and we'll get started.`,
+  Find ➜ under my feet. Click it and we'll get started.`,
     ],
   },
   {
@@ -90,9 +90,9 @@ Each letter in POWER stands for a problem-solving step. I will teach you the ste
       `Perfect! You found me!
 
 Anytime you're not sure what to do, you can click me like that. I'll do my best to help.`,
-      `See → next to me? When it's blue, you can click it to move on.
+      `See ➜ next to me? When it's blue, you can click it to move on.
 
-Go ahead and click → now.`,
+Go ahead and click ➜ now.`,
     ],
   },
   {
@@ -111,11 +111,11 @@ The first one is Read.`,
 
       `Find the story in the gray box above. Follow along with me as I read it.
 
-When we're done reading, click →.  
+When we're done reading, click ➜.  
 
 [STIMULUS]`,
     ],
-    psHints: [`Click → when we're done reading.`],
+    psHints: [`Click ➜ when we're done reading.`],
   },
   {
     rank: 'newb',
@@ -157,7 +157,7 @@ Let's find known amounts in the story above. Click me and I'll show you how.`,
 A word problem tells a story. Before you solve a word problem, it helps to know what *type* of story it tells.`,
       `The first type we'll learn about is Total.
 
-Click ▶️ to start the video. When it finishes, click →.`,
+Click ▶️ to start the video. When it finishes, click ➜.`,
     ],
   },
   {
@@ -210,10 +210,10 @@ Click Next to check your understanding.`,
 Remember, the first thing we do to Prepare is Read the problem.`,
       `Don't think about trying to solve the problem yet. Focus on reading and understanding it.`,
 
-      `We'll do it together. Follow along while I read the problem. When we're done reading, click →.
+      `We'll do it together. Follow along while I read the problem. When we're done reading, click ➜.
 [STIMULUS]`,
     ],
-    psHints: [`Click → when we're done reading.`],
+    psHints: [`Click ➜ when we're done reading.`],
     aiHints: false,
   },
   {
@@ -316,10 +316,10 @@ Click ✔ when your sentence is done.`,
       `A good reason does not mean you just restate the answer.`,
       `A good reason does not mean you explain how to find the answer.`,
       `We found the answer for this problem. Here is a possible reason why it makes sense. [EXPLANATION]`,
-      `Do you think the reason is a good reason? Choose Yes or No. Then click →.`,
+      `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
     ],
     psHints: [
-      `Do you think the reason is a good reason? Choose Yes or No. Then click →.`,
+      `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
     ],
 
     aiHints: true,
@@ -410,7 +410,7 @@ I know you can do it! Click Next to get started.`,
       `Do you think the reason is a good reason?`,
     ],
     psHints: [
-      `Do you think the reason is a good reason? Choose Yes or No. Then click →.`,
+      `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
     ],
     aiHints: true,
   },

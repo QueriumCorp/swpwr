@@ -53,7 +53,7 @@ const NewbGratzFoundTutor: React.FC<{
           msg={[
             'Great Job!',
             "I knew you could do it!  When you click on me, I'll do my best to give you a hand.",
-            'Click Next → to continue.',
+            'Click Next ➜ to continue.',
           ]}
           className="absolute bottom-[50%] right-[50%] ml-3 min-h-24 font-capriola"
         />
