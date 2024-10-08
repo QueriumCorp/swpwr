@@ -1,4 +1,5 @@
-import { debounce, makeVocalizable } from './utils'
+import { makeVocalizable } from './utils'
+import AudioManager from './audio'
 
 async function vocalize(message: string, finishedCallback?: () => void) {
   const swapiUrl =
@@ -7,7 +8,8 @@ async function vocalize(message: string, finishedCallback?: () => void) {
     'https://swapi2.onrender.com'
 
   const msgText = makeVocalizable(message)
-  const data = await fetch(`${swapiUrl}/getVocalization`, {
+
+  let data = await fetch(`${swapiUrl}/getVocalization`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,69 +19,52 @@ async function vocalize(message: string, finishedCallback?: () => void) {
       text: msgText,
     }),
   })
-  const resp = await data.json()
 
-  const audio = new Audio()
-  audio.src = 'data:audio/mp3;base64,' + resp.audio
-
-  var playPromise = audio.play()
-  if (playPromise !== undefined) {
-    playPromise
-      .then(_ => {
-        // Audio started playing
-      })
-      .catch(error => {
-        // Audio failed to play
-        console.error('Audio playback failed:', error)
-        if (finishedCallback) {
-          finishedCallback()
-        }
-      })
-  } else {
-    // play() was not called successfully
-    console.error('play() was not called successfully')
-    if (finishedCallback) {
-      finishedCallback()
+  if (data.status !== 200) {
+    console.error('getVocalization failed:', data)
+    const data2 = await fetch(`${swapiUrl}/getVocalization`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        appKey: 'JiraTestPage',
+        text: msgText,
+      }),
+    })
+    if (data2.status == 200) {
+      console.log('second attempt getVocalization successed:', data2)
+      data = data2
+    } else {
+      console.error('getVocalization failed again:', data2)
     }
   }
 
-  audio.onended = () => {
+  if (data.status == 200) {
+    const resp = await data.json()
+
+    const audio = AudioManager.getInstance()
+
+    // stop playing any audio that might be playing
+    audio.pause()
+
+    // setup callback to run when audio is finished playing
+    if (finishedCallback) {
+      audio.addEventListener('ended', () => {
+        audio.removeEventListener('ended', finishedCallback)
+        finishedCallback()
+      })
+    }
+
+    // play the audio
+    audio.play('data:audio/mp3;base64,' + resp.audio)
+
+    return resp
+  } else {
     if (finishedCallback) {
       finishedCallback()
     }
+    return data
   }
 }
 export default vocalize
-
-const AudioManager = (function () {
-  let instance: {
-    play: (src: string) => void
-    pause: () => void
-  }
-
-  function createInstance() {
-    const audio = new Audio()
-    return {
-      play: (src: string) => {
-        audio.src = src
-        audio.play()
-      },
-      pause: () => audio.pause(),
-      // ... other audio control methods
-
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/fastSeek
-    }
-  }
-
-  return {
-    getInstance: () => {
-      if (!instance) {
-        instance = createInstance()
-      }
-      return instance
-    },
-  }
-})()
-
-const audioManager = AudioManager.getInstance()
-// audioManager.play('path/to/audio.mp3')

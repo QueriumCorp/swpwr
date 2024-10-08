@@ -124,10 +124,9 @@ When we're done reading, click ➜.
     phase: 'I',
     phaseLabel: 'Instruction',
     intro: [
-      `The next Prepare task is identify the facts in the problem; the knowns and unknowns.`,
-      `Press ▶️ to start the video.
+      `After Read comes Pull apart. Watch the video to see the basics of what to do.
 
-When it finishes, click ➜ to continue.`,
+Click ▶️ to start the video. When it's finished, click ➜. Then we'll learn more about Pull apart, and we'll try it together.`,
     ],
   },
   {
@@ -263,10 +262,9 @@ To organize, we write an equation. Click me to learn how.`,
     phase: 'I',
     phaseLabel: 'Instruction',
     intro: [
-      `Next I'll show you how to **W**ork the problem step by step.`,
-      `Press ▶️ to start the video and learn how.
+      `The next POWER step is ***W***. ***W*** stands for ***W***ork the Problem.
 
-When it finishes, click ➜ to continue.`,
+The video will show you the W screen and give you some tips. After you watch it, click ➜ and we'll Work the Problem together.`,
     ],
   },
   {
