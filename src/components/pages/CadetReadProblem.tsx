@@ -1,57 +1,76 @@
 'use client'
 
-import * as React from 'react'
+import { useContext, useMemo, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
-import {
-  useAvatarAPI,
-  AvatarAPIType,
-  AnimeTutor,
-  Chat,
-} from '@/components/AnimeTutor'
 import { NavBar } from '../qq/NavBar'
 import { StimulusSelector } from '../qq/StimulusSelector'
-import { CarouselPrevious, CarouselNext } from '../ui/carousel'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
+import { HintStage, TinyTutor } from '../qq/TinyTutor'
+import { NextButton } from '../qq/NextButton'
 import { Button } from '../ui/button'
 
-///////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////
 const CadetReadProblem: React.FC<{
   className?: string
   children?: React.ReactNode
-  page?: YBRpage
+  page: YBRpage
   index: number
 }> = ({ className, page, index }) => {
   ///////////////////////////////////////////////////////////////////
   // Contexts
   ///////////////////////////////////////////////////////////////////
 
-  const { current } = React.useContext(NavContext) as NavContextType
+  const { api, current } = useContext(NavContext) as NavContextType
 
   ///////////////////////////////////////////////////////////////////
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, problem, toggleChatty } = useProblemStore()
-
-  const { sayMsg } = useAvatarAPI() as AvatarAPIType
-  React.useEffect(() => {
-    sayMsg(
-      'Read this statement carefully and then click the right arrow to continue.',
-      'idle:01',
-    )
-  }, [])
+  const { logAction, problem, rank, session, toggleChatty } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [started, setStarted] = React.useState(false)
+  const [navDisabled, setNavDisabled] = useState(true)
+  const [msg, setMsg] = useState('')
+  const [started, setStarted] = useState(false)
+
+  const hintList = useMemo(() => {
+    // get page hints
+    let pageHints: string[] = []
+    let wpHints = problem.wpHints?.find(
+      wpHint => wpHint.page === `${rank}${page.id}`,
+    )
+    if (wpHints?.hints) {
+      pageHints = wpHints.hints
+    } else if (page.psHints) {
+      pageHints = page.psHints
+    }
+
+    // define hint stages
+    let hintStages: HintStage[] = []
+    if (page.intro?.length) {
+      hintStages.push('intro')
+    } else {
+      hintStages.push('pre')
+    }
+    if (pageHints?.length) {
+      hintStages.push('psHints')
+    }
+    if (page.aiHints) {
+      hintStages.push('aiHints')
+    }
+
+    return {
+      stages: hintStages,
+      intro: page.intro,
+      psHints: pageHints,
+    }
+  }, [])
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -66,7 +85,53 @@ const CadetReadProblem: React.FC<{
     toggleChatty()
   }
 
+  function hintChanged(hintStage: string, current: number, count: number) {
+    if (count > 0 && current === count) {
+      let newMsg = ''
+
+      switch (hintStage) {
+        case 'intro':
+          newMsg = page?.intro![page.intro!.length - 1]
+          break
+        case 'psHints':
+          newMsg = page?.psHints![page.psHints!.length - 1]
+          break
+      }
+
+      setMsg(newMsg)
+      if (session.chatty) {
+        setNavDisabled(false)
+      } else {
+        // if not chatty, disable next for 5 seconds
+        setTimeout(() => {
+          setNavDisabled(false)
+        }, 5000)
+      }
+    }
+  }
+
+  async function handleNext(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    if (evt.altKey) {
+      //If Option+Enter just scroll to next page
+      logAction({
+        page: page.id,
+        activity: 'clickNext',
+        data: {},
+        action: 'used option to skip',
+      })
+      api?.scrollNext()
+    } else {
+      logAction({ page: page.id, activity: 'clickNext', data: {} })
+      api?.scrollNext()
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////////
   // JSX
+  ///////////////////////////////////////////////////////////////////
+
   if (current !== index + 1) return null
   return (
     <div
@@ -87,29 +152,27 @@ const CadetReadProblem: React.FC<{
             className,
             'inline',
           )}
-          stimulusText={problem.stimulus || ''}
+          stimulusText={problem.stimulus}
         ></StimulusSelector>
 
         <div className="flex grow gap-2"></div>
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
-        {/* Tiny Avatar */}
-        <AnimeTutor
-          style={{
-            bottom: '0px',
-            right: '0px',
-            height: '100%',
-          }}
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
+        <TinyTutor
+          msg={msg}
+          hintList={hintList}
+          hintChanged={hintChanged}
+          closeable={false}
         />
-        <Chat
-          msg="RATATATA"
-          className="absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit font-capriola"
-        />
-        <CarouselPrevious className="relative left-0">
-          Previous
-        </CarouselPrevious>
-        <CarouselNext className="relative right-0">Next</CarouselNext>
-      </NavBar>
+
+        <div className="flex h-20 w-20 items-center justify-center">
+          <NextButton
+            className="scale-[200%]"
+            disabled={navDisabled}
+            onClick={handleNext}
+          ></NextButton>
+        </div>
+      </NavBar>{' '}
       {started ? null : (
         <div className="fixed flex h-full w-full items-center justify-center bg-black bg-opacity-80">
           <Button

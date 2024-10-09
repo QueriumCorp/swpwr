@@ -25,6 +25,7 @@ import DevFindTutor from '../pages/DevFindTutor'
 import CadetReflect from '../pages/CadetReflect'
 import NewbVideoFindFacts from '../pages/NewbVideoFindFacts'
 import CadetVideoStepWise from '../pages/CadetVideoStepWise'
+import CadetReadProblem from '../pages/CadetReadProblem'
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ':' + page.id) {
@@ -87,7 +88,7 @@ export function renderPage(page: YBRpage, index: number) {
     ///////////////////////////////////////////////////////////////////
 
     case 'cadet:ReadProblem':
-      return <RangerReadProblem page={page} index={index}></RangerReadProblem>
+      return <CadetReadProblem page={page} index={index}></CadetReadProblem>
     case 'cadet:WhatToAnswer':
       return <RangerWhatToAnswer page={page} index={index}></RangerWhatToAnswer>
     case 'cadet:FindFacts':
