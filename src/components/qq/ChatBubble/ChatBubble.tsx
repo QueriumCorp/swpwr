@@ -51,11 +51,13 @@ export const ChatBubble = ({
 
   const messages = typeof msgs === 'string' ? [msgs] : msgs
 
+  // identify stimulus and explanation tagged messages
+
   ///////////////////////////////////////////////////////////////////
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { session } = useProblemStore()
+  const { session, problem, logAction } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -64,6 +66,12 @@ export const ChatBubble = ({
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
   const [speaking, setSpeaking] = useState(false)
+  const [stimulusIndex, setStimulusIndex] = useState(
+    messages?.findIndex(m => m.includes('[STIMULUS]')),
+  )
+  const [explanationIndex, setExplanationIndex] = useState(
+    messages?.findIndex(m => m.includes('[EXPLANATION]')),
+  )
 
   ///////////////////////////////////////////////////////////////////
   // Effects
@@ -110,13 +118,23 @@ export const ChatBubble = ({
   }, [])
 
   useEffect(() => {
+    let stimulusText = problem.stimulus
     if (hintPageChanged) {
       hintPageChanged(current, count)
     }
 
-    if (session.chatty && api && !speaking) {
+    if (stimulusText && messages && session.chatty && api && !speaking) {
       setSpeaking(true)
-      vocalize(messages![api!.selectedScrollSnap()], () => setSpeaking(false))
+      let msgIndex = api!.selectedScrollSnap()
+      let originalMsg = messages[msgIndex]
+      let stimulatedMsg = originalMsg.replace('[STIMULUS]', stimulusText)
+      vocalize(stimulatedMsg, () => {
+        if (stimulusIndex === current) {
+          setSpeaking(false)
+        } else {
+          setSpeaking(false)
+        }
+      })
     }
   }, [msgs, count, current, session.chatty, api])
 
@@ -268,7 +286,7 @@ export const ChatBubble = ({
                     remarkPlugins={[remarkGfm, remarkBreaks]}
                     className="Markdown !font-capriola !text-base"
                   >
-                    {m}
+                    {m.replace('[STIMULUS]', '')}
                   </Markdown>
                 </div>
               </CarouselItem>

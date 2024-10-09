@@ -16,23 +16,23 @@ export const YellowBrickRoad: YBRpage[] = [
 
   {
     rank: 'dev',
-    id: 'FindTutor',
-    title: 'string',
-    phase: 'I',
-    phaseLabel: 'Instruction',
-    intro: ['Intro 1', 'Intro 2', 'Intro 3'],
-    psHints: ['psHint 1', 'psHint 2', 'psHint 3'],
-  },
-  {
-    rank: 'dev',
     id: 'ReadProblem',
     title: 'Read the problem',
     phase: 'P',
     phaseLabel: 'Prepare',
-    psHints: [
-      `Click ➜ when you're done reading.`,
-      `Go ahead and click ➜ to continue.`,
+    intro: [
+      `There are three things we do to Prepare. 
+
+The first one is Read.`,
+
+      `Find the story in the gray box above. Follow along with me as I read it.
+
+When we're done reading, click ➜.  
+
+[STIMULUS]`,
+      'Here is the last msg',
     ],
+    psHints: [`Click ➜ when we're done reading.`],
     aiHints: false,
   },
   {

@@ -34,7 +34,7 @@ export function renderPage(page: YBRpage, index: number) {
     case 'dev:FindTutor':
       return <DevFindTutor page={page} index={index}></DevFindTutor>
     case 'dev:ReadProblem':
-      return <RangerReadProblem page={page} index={index}></RangerReadProblem>
+      return <NewbReadProblem page={page} index={index}></NewbReadProblem>
     case 'dev:SolveTheEquation':
       return (
         <RangerSolveTheEquation
