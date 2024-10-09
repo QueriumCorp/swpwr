@@ -1,7 +1,7 @@
 {
   "name": "swpwr",
   "private": true,
-  "version": "1.9.175",
+  "version": "1.9.173",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -47,7 +47,6 @@
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0",
-    "safe-stringify": "^1.1.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.165.0",

@@ -17,7 +17,6 @@ import { CarouselPrevious, CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
 import { Button } from '../ui/button'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
-import { vocalizeList } from '@/lib/speech'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -69,12 +68,6 @@ const DevMeetTutor: FC<{
     sayMsg('Dance Dance Revolution', 'gratz')
   }
 
-  function speak() {
-    vocalizeList(['message 1 [STIMULUS] message 2 message 3'], () => {
-      alert('done')
-    })
-  }
-
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
@@ -87,9 +80,6 @@ const DevMeetTutor: FC<{
       )}
     >
       <div className="relative grow bg-qqAccent">
-        <Button className="absolute z-10" onClick={() => speak()}>
-          Speak
-        </Button>
         <AnimeTutor
           emote={'celebrate:01'}
           closeUp

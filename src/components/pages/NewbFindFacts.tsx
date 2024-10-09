@@ -253,7 +253,7 @@ const NewbFindFacts: FC<{
       logAction({
         page: page.id,
         activity: 'dndAddUnknownFact',
-        data: { fact: currentFact },
+        data: { event },
       })
     }
     setCurrentFact('')

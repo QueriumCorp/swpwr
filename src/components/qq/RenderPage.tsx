@@ -26,15 +26,12 @@ import CadetReflect from '../pages/CadetReflect'
 import NewbVideoFindFacts from '../pages/NewbVideoFindFacts'
 import CadetVideoStepWise from '../pages/CadetVideoStepWise'
 import CadetReadProblem from '../pages/CadetReadProblem'
-import DevMeetTutor from '../pages/DevMeetTutor'
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ':' + page.id) {
     ///////////////////////////////////////////////////////////////////
     // DEV
     ///////////////////////////////////////////////////////////////////
-    case 'dev:MeetTutor':
-      return <DevMeetTutor page={page} index={index}></DevMeetTutor>
     case 'dev:FindTutor':
       return <DevFindTutor page={page} index={index}></DevFindTutor>
     case 'dev:ReadProblem':
