@@ -83,7 +83,11 @@ const NewbFindTutor: React.FC<{
   ///////////////////////////////////////////////////////////////////
 
   function hintChanged(hintStage: string, current: number, count: number) {
-    if (hintStage === 'psHints' && current === count) {
+    if (
+      hintStage === 'psHints' &&
+      count === hintList.psHints.length &&
+      current === count
+    ) {
       logAction({
         page: page.id,
         activity: 'hintChanged',
