@@ -20,6 +20,18 @@ export const YellowBrickRoad: YBRpage[] = [
     title: 'Find the unknown amount',
     phase: 'W',
     phaseLabel: 'Work the Problem',
+    intro: [
+      `There are three things we do to Prepare. 
+
+The first one is Read.`,
+
+      `Find the story in the gray box above. Follow along with me as I read it.
+
+When we're done reading, click ➜.  
+
+[STIMULUS]`,
+      'Here is the last msg',
+    ],
     aiHints: false,
   },
   {

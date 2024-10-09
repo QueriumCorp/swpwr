@@ -100,14 +100,6 @@ export async function vocalizeList(
       // stop playing any audio that might be playing
       audio.pause()
 
-      // setup callback to run when audio is finished playing
-      if (finishedCallback) {
-        audio.addEventListener('ended', () => {
-          audio.removeEventListener('ended', finishedCallback)
-          finishedCallback()
-        })
-      }
-
       // play the audio
       await audio.playSync('data:audio/mp3;base64,' + resp.audio)
     }

@@ -19,7 +19,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel'
-import vocalize from '@/lib/speech'
+import vocalize, { vocalizeList } from '@/lib/speech'
 import { useProblemStore } from '@/store/_store'
 
 ///////////////////////////////////////////////////////////////////
@@ -117,6 +117,27 @@ export const ChatBubble = ({
     }
   }, [])
 
+  // useEffect(() => {
+  //   let stimulusText = problem.stimulus
+  //   if (hintPageChanged) {
+  //     hintPageChanged(current, count)
+  //   }
+
+  //   if (stimulusText && messages && session.chatty && api && !speaking) {
+  //     setSpeaking(true)
+  //     let msgIndex = api!.selectedScrollSnap()
+  //     let originalMsg = messages[msgIndex]
+  //     let stimulatedMsg = originalMsg.replace('[STIMULUS]', stimulusText)
+  //     vocalize(stimulatedMsg, () => {
+  //       if (stimulusIndex === current) {
+  //         setSpeaking(false)
+  //       } else {
+  //         setSpeaking(false)
+  //       }
+  //     })
+  //   }
+  // }, [msgs, count, current, session.chatty, api])
+
   useEffect(() => {
     let stimulusText = problem.stimulus
     if (hintPageChanged) {
@@ -127,13 +148,18 @@ export const ChatBubble = ({
       setSpeaking(true)
       let msgIndex = api!.selectedScrollSnap()
       let originalMsg = messages[msgIndex]
-      let stimulatedMsg = originalMsg.replace('[STIMULUS]', stimulusText)
-      vocalize(stimulatedMsg, () => {
-        if (stimulusIndex === current) {
-          setSpeaking(false)
-        } else {
-          setSpeaking(false)
+
+      let msgList = originalMsg.split('[STIMULUS]')
+      if (msgList.length > 1) {
+        for (let i = 1; i < msgList.length; i++) {
+          msgList.splice(i, 0, stimulusText)
         }
+      }
+
+      console.log('msgList:', msgList)
+
+      vocalizeList(msgList, () => {
+        setSpeaking(false)
       })
     }
   }, [msgs, count, current, session.chatty, api])

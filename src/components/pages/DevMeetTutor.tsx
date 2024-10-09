@@ -70,7 +70,9 @@ const DevMeetTutor: FC<{
   }
 
   function speak() {
-    vocalizeList(['message 1', 'message 2', 'message 3'])
+    vocalizeList(['message 1 [STIMULUS] message 2 message 3'], () => {
+      alert('done')
+    })
   }
 
   ///////////////////////////////////////////////////////////////////
