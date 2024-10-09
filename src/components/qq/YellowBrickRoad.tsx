@@ -16,6 +16,14 @@ export const YellowBrickRoad: YBRpage[] = [
 
   {
     rank: 'dev',
+    id: 'MeetTutor',
+    title: 'Find the unknown amount',
+    phase: 'W',
+    phaseLabel: 'Work the Problem',
+    aiHints: false,
+  },
+  {
+    rank: 'dev',
     id: 'ReadProblem',
     title: 'Read the problem',
     phase: 'P',
