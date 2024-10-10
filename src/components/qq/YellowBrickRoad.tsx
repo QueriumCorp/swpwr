@@ -4,7 +4,7 @@ export type YBRpage = {
   title: string
   phase: 'I' | 'P' | 'O' | 'W' | 'E' | 'R'
   phaseLabel: string
-  intro?: string | string[]
+  intro?: string[]
   psHints?: string[] // Not used on I pages as they have the giant avatar
   aiHints?: boolean
 }
@@ -14,6 +14,22 @@ export const YellowBrickRoad: YBRpage[] = [
   // DEV
   ///////////////////////////////////////////////////////////////////
 
+  {
+    rank: 'dev',
+    id: 'FindFacts',
+    title: 'Pull Apart',
+    phase: 'P',
+    phaseLabel: 'Prepare',
+    intro: [
+      `Pull apart means we find the important amounts. We pull them out one at a time.
+
+An amount in a word problem can be known or unknown.`,
+      `A known amount has a number. But it's not *just* a number. It also has a word or words that tell what the number means.
+
+Let's find known amounts in the story above. Click me and I'll show you how.`,
+    ],
+    aiHints: false,
+  },
   {
     rank: 'dev',
     id: 'ReadProblem',
@@ -143,7 +159,7 @@ An amount in a word problem can be known or unknown.`,
 
 Let's find known amounts in the story above. Click me and I'll show you how.`,
     ],
-    aiHints: true,
+    aiHints: false,
   },
   {
     rank: 'newb',

@@ -9,7 +9,6 @@ import remarkBreaks from 'remark-breaks'
 import { HiMiniSpeakerWave } from 'react-icons/hi2'
 import { VscDebugRestart } from 'react-icons/vsc'
 import { IoCloseSharp } from 'react-icons/io5'
-import { TbPlayerTrackNext } from 'react-icons/tb'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
@@ -33,25 +32,18 @@ export const ChatBubble = ({
 
   hintPageChanged,
 }: {
-  msgs: string | string[] | null
+  msgs: string[]
   className?: string
   closeable?: boolean
   closeClicked?: () => void
 
   hintPageChanged?: (current: number, count: number) => void
 }) => {
+  console.log('ChatBubble', msgs)
   ///////////////////////////////////////////////////////////////////
   // Refs
   ///////////////////////////////////////////////////////////////////
   const latexRef = useRef(null)
-
-  ///////////////////////////////////////////////////////////////////
-  // Prop Cleanup
-  ///////////////////////////////////////////////////////////////////
-
-  const messages = typeof msgs === 'string' ? [msgs] : msgs
-
-  // identify stimulus and explanation tagged messages
 
   ///////////////////////////////////////////////////////////////////
   // Store
@@ -67,10 +59,10 @@ export const ChatBubble = ({
   const [count, setCount] = useState(0)
   const [speaking, setSpeaking] = useState(false)
   const [stimulusIndex, setStimulusIndex] = useState(
-    messages?.findIndex(m => m.includes('[STIMULUS]')),
+    msgs?.findIndex(m => m.includes('[STIMULUS]')),
   )
   const [explanationIndex, setExplanationIndex] = useState(
-    messages?.findIndex(m => m.includes('[EXPLANATION]')),
+    msgs?.findIndex(m => m.includes('[EXPLANATION]')),
   )
 
   ///////////////////////////////////////////////////////////////////
@@ -91,10 +83,10 @@ export const ChatBubble = ({
   }, [api])
 
   useEffect(() => {
-    if (!messages) {
+    if (!msgs) {
       return
     }
-    setCount(messages.length)
+    setCount(msgs.length)
     setCurrent(0)
     api?.scrollTo(0)
   }, [msgs])
@@ -123,10 +115,10 @@ export const ChatBubble = ({
       hintPageChanged(current, count)
     }
 
-    if (stimulusText && messages && session.chatty && api && !speaking) {
+    if (stimulusText && msgs && session.chatty && api && !speaking) {
       setSpeaking(true)
       let msgIndex = api!.selectedScrollSnap()
-      let originalMsg = messages[msgIndex]
+      let originalMsg = msgs[msgIndex]
       let stimulatedMsg = originalMsg.replace('[STIMULUS]', stimulusText)
       vocalize(stimulatedMsg, () => {
         if (stimulusIndex === current) {
@@ -156,7 +148,7 @@ export const ChatBubble = ({
 
   // restart button
   function RestartMsgs() {
-    if (messages && messages.length > 1) {
+    if (msgs && msgs.length > 1) {
       return <div></div>
     }
     if (current === count && count) {
@@ -175,7 +167,7 @@ export const ChatBubble = ({
 
   // Navigation Button
   function NavButton() {
-    if (typeof msgs === 'string') return <div></div>
+    if (msgs.length <= 1) return <div></div>
 
     if (count === 1 && !closeable) return <div></div>
 
@@ -233,10 +225,10 @@ export const ChatBubble = ({
 
   // Speak Button
   function handleSpeak() {
-    if (!messages) {
+    if (!msgs) {
       return
     }
-    vocalize(messages[api!.selectedScrollSnap()])
+    vocalize(msgs[api!.selectedScrollSnap()])
   }
   function SpeakButton() {
     if (session.chatty) return <div></div>
@@ -252,8 +244,8 @@ export const ChatBubble = ({
   // JSX
   ///////////////////////////////////////////////////////////////////
 
-  if (!msgs || !messages) {
-    // no messages so no chat bubble
+  if (msgs.length === 0) {
+    // no msgs so no chat bubble
     return null
   }
 
@@ -276,11 +268,11 @@ export const ChatBubble = ({
       <div className="max-w-[100%] p-2">
         <Carousel setApi={setApi}>
           <CarouselContent>
-            {messages.map((m, i) => (
+            {msgs.map((m, i) => (
               <CarouselItem key={i}>
                 <div
                   key={i}
-                  className="ChatMsgContainer mr-[15px] flex select-none flex-col gap-1 !font-capriola text-base"
+                  className="ChatMsgContainer mr-[15px] flex min-h-12 select-none flex-col gap-1 !font-capriola text-base"
                 >
                   <Markdown
                     remarkPlugins={[remarkGfm, remarkBreaks]}

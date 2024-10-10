@@ -109,7 +109,7 @@ const NewbVictory: React.FC<{
           )}
         />
         <ChatBubble
-          msgs={page.intro ? page.intro : ''}
+          msgs={page.intro ? page.intro : []}
           className="absolute bottom-[50%] right-[50%] max-w-[45%] !font-capriola"
           hintPageChanged={finishedIntro}
         />

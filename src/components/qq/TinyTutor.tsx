@@ -33,13 +33,27 @@ export const TinyTutor = ({
   // State
   ///////////////////////////////////////////////////////////////////
 
+  const [msgs, setMsgs] = useState<string[]>([])
   const [hintStage, setHintStage] = useState<HintStage>(hintList.stages[0])
-
   const [bubbleShown, setBubbleShow] = useState(true)
 
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    console.log('TinyTutor - msg effect', msg)
+    if (!msg) {
+      return
+    }
+    setMsgs([msg])
+  }, [msg])
+
+  useEffect(() => {
+    console.log('TinyTutor - hintStage effect', hintStage)
+    setMsgs(hintList[hintStage])
+    setBubbleShow(true)
+  }, [hintStage])
 
   useEffect(() => {
     setBubbleShow(true)
@@ -107,7 +121,7 @@ export const TinyTutor = ({
       {bubbleShown ? (
         <ChatBubble
           className="CHATBUBBLE absolute bottom-[50%] right-[200px] h-fit min-h-[64px] w-fit !font-capriola text-sm"
-          msgs={msg ? msg : hintList[hintStage]}
+          msgs={msgs}
           closeable={closeable && !busy}
           closeClicked={closeChatBubble}
           hintPageChanged={hintPageChanged}

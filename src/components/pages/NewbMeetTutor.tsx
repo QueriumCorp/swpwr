@@ -17,7 +17,6 @@ import { useProblemStore } from '@/store/_store'
 import { Button } from '../ui/button'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
 import { NextButton } from '../qq/NextButton'
-import { PiSpeakerHighFill, PiSpeakerXThin } from 'react-icons/pi'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
