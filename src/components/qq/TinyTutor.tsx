@@ -42,7 +42,6 @@ export const TinyTutor = ({
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    console.log('TinyTutor - msg effect', msg)
     if (!msg) {
       return
     }
@@ -50,7 +49,6 @@ export const TinyTutor = ({
   }, [msg])
 
   useEffect(() => {
-    console.log('TinyTutor - hintStage effect', hintStage)
     setMsgs(hintList[hintStage])
     setBubbleShow(true)
   }, [hintStage])

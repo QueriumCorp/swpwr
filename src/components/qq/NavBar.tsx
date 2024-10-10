@@ -24,7 +24,11 @@ const NavBar = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn('NavBar relative min-h-24 w-full border-none', className)}
+      className={cn(
+        'NavBar relative min-h-24 w-full border-none',
+        'relative flex items-center justify-end space-x-3 bg-slate-300 pr-0',
+        className,
+      )}
       {...props}
     >
       <div className="absolute left-3 cursor-pointer" onClick={toggleChatty}>

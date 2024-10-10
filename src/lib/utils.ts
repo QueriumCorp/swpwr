@@ -70,6 +70,7 @@ export function makeVocalizable(text: string) {
     .replace(/\\"/g, '')
     .replace(/Read\s/g, 'Reed ')
     .replace(/✔/g, 'the check button')
+    .replace(/\n1\.\s/g, ' <break time="0.5s" /> ')
 
   return noIcons
 }
