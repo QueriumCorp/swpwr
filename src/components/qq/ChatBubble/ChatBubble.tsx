@@ -243,7 +243,7 @@ export const ChatBubble = ({
   // JSX
   ///////////////////////////////////////////////////////////////////
 
-  if (msgs.length === 0) {
+  if (!msgs || msgs.length === 0) {
     // no msgs so no chat bubble
     return null
   }
