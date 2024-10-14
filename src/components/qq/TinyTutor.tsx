@@ -45,7 +45,12 @@ export const TinyTutor = ({
     if (!msg) {
       return
     }
-    setMsgs([msg])
+    if (msg === '[HIDE]') {
+      setBubbleShow(false)
+    } else {
+      setMsgs([msg])
+      setBubbleShow(true)
+    }
   }, [msg])
 
   useEffect(() => {
@@ -53,9 +58,8 @@ export const TinyTutor = ({
     setBubbleShow(true)
   }, [hintStage])
 
-  useEffect(() => {
-    setBubbleShow(true)
-  }, [msg])
+  // useEffect(() => {
+  // }, [msg])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers

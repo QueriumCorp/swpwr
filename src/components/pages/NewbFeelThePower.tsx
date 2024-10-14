@@ -50,6 +50,7 @@ const NewbFeelThePower: React.FC<{
           <VideoPlayer
             videoUrl={src}
             className="h-full w-full"
+            onStart={() => {}}
             onEnded={() => setWatchedVideo(true)}
             onError={(err: unknown) => {
               logAction({

@@ -102,6 +102,7 @@ const CadetVideoStepWise: FC<{
           <VideoPlayer
             videoUrl={src}
             className="h-full w-full"
+            onStart={() => {}}
             onEnded={() => {
               logAction({
                 page: page.id,

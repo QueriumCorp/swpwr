@@ -43,6 +43,7 @@ const NewbVideoFindFacts: FC<{
   ///////////////////////////////////////////////////////////////////
 
   const [watchedVideo, setWatchedVideo] = useState(false)
+  const [msg, setMsg] = useState('')
 
   const hintList = useMemo(() => {
     // get page hints
@@ -102,13 +103,18 @@ const NewbVideoFindFacts: FC<{
         <div className="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center overflow-y-auto">
           <VideoPlayer
             videoUrl={src}
-            className="h-full w-full"
+            className=""
+            onStart={() => {
+              console.log('onStart')
+              setMsg('[HIDE]')
+            }}
             onEnded={() => {
               logAction({
                 page: page.id,
                 activity: 'watchedVideo',
                 data: { videoUrl: src },
               })
+              setMsg('Click ➜ to continue!')
               setWatchedVideo(true)
             }}
             onError={(err: unknown) => {
@@ -123,7 +129,7 @@ const NewbVideoFindFacts: FC<{
         </div>
       </div>
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
-        <TinyTutor hintList={hintList} />
+        <TinyTutor msg={msg} hintList={hintList} closeable />
         <div className="flex h-20 w-20 items-center justify-center">
           <NextButton
             className="scale-[200%]"
