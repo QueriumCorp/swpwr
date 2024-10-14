@@ -12,7 +12,6 @@ import { useProblemStore } from '@/store/_store'
 import { VideoPlayer } from '../qq/VideoPlayer'
 import { HintStage, TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
-import ReactPlayer from 'react-player'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////

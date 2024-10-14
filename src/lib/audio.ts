@@ -1,8 +1,8 @@
 const AudioManager = (function () {
   let instance: {
     play: (src: string) => void
+    playSync: (src: string) => Promise<unknown>
     pause: () => void
-    onended: unknown
     addEventListener: (event: string, callback: (event: Event) => void) => void
     removeEventListener: (
       event: string,
@@ -17,10 +17,21 @@ const AudioManager = (function () {
         audio.src = src
         audio.play()
       },
+
+      playSync: (src: string) => {
+        return new Promise(function (resolve, reject) {
+          // return a promise
+          audio.preload = 'auto' // intend to play through
+          audio.autoplay = true // autoplay when loaded
+          audio.onerror = reject // on error, reject
+          audio.onended = resolve // when done, resolve
+
+          audio.src = src
+        })
+      },
+
       pause: () => audio.pause(),
       // ... other audio control methods
-
-      onended: audio.onended,
 
       addEventListener: (event: string, callback: (event: Event) => void) => {
         audio.addEventListener(event, callback)

@@ -11,14 +11,14 @@ import { VscDebugRestart } from 'react-icons/vsc'
 import { IoCloseSharp } from 'react-icons/io5'
 
 // Querium Imports
-import { cn } from '@/lib/utils'
+import { cn, splitMessages } from '@/lib/utils'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel'
-import vocalize from '@/lib/speech'
+import vocalize, { vocalizeList } from '@/lib/speech'
 import { useProblemStore } from '@/store/_store'
 
 ///////////////////////////////////////////////////////////////////
@@ -118,14 +118,23 @@ export const ChatBubble = ({
       setSpeaking(true)
       let msgIndex = api!.selectedScrollSnap()
       let originalMsg = msgs[msgIndex]
-      let stimulatedMsg = originalMsg.replace('[STIMULUS]', stimulusText)
-      vocalize(stimulatedMsg, () => {
+
+      let stimulatedMsgs = splitMessages(originalMsg, stimulusText)
+      vocalizeList(stimulatedMsgs, () => {
         if (stimulusIndex === current) {
           setSpeaking(false)
         } else {
           setSpeaking(false)
         }
       })
+      // let stimulatedMsg = originalMsg.replace('[STIMULUS]', stimulusText)
+      // vocalize(stimulatedMsg, () => {
+      //   if (stimulusIndex === current) {
+      //     setSpeaking(false)
+      //   } else {
+      //     setSpeaking(false)
+      //   }
+      // })
     }
   }, [msgs, count, current, session.chatty, api])
 

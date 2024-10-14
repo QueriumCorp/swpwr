@@ -67,4 +67,46 @@ async function vocalize(message: string, finishedCallback?: () => void) {
     return data
   }
 }
+
+export async function vocalizeList(
+  messages: string[],
+  finishedCallback?: () => void,
+) {
+  const swapiUrl =
+    import.meta.env.VITE_SWAPI ||
+    window.swpwr.options.swapiUrl ||
+    'https://swapi2.onrender.com'
+
+  for (const message of messages) {
+    const msgText = makeVocalizable(message)
+
+    // Ask SWAPI for the audio
+    let data = await fetch(`${swapiUrl}/getVocalization`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        appKey: 'JiraTestPage',
+        text: msgText,
+      }),
+    })
+
+    if (data.status == 200) {
+      const resp = await data.json()
+
+      const audio = AudioManager.getInstance()
+
+      // stop playing any audio that might be playing
+      audio.pause()
+
+      // play the audio
+      await audio.playSync('data:audio/mp3;base64,' + resp.audio)
+    }
+  }
+
+  if (finishedCallback) {
+    finishedCallback()
+  }
+}
 export default vocalize

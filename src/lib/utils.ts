@@ -6,6 +6,60 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+// splits [STIMULUS] and [EXPLANATION] into a message list
+export function splitMessages(
+  text: string,
+  stimulus?: string,
+  explanation?: string,
+) {
+  let messages = []
+  const stimTag = '[STIMULUS]'
+  const stimLen = stimTag.length
+  const explTag = '[EXPLANATION]'
+  const explLen = explTag.length
+
+  // Provided a stimulus and [STIMULUS] tag in text
+  const stimulusIndex = text.indexOf(stimTag)
+  if (stimulus && stimulusIndex !== -1) {
+    if (stimulusIndex === 0) {
+      // stimulus is at the beginning
+      messages.push(stimulus)
+      messages.push(text.slice(stimLen))
+    } else if (stimulusIndex >= text.length - stimLen) {
+      // stimulus is at the end
+      messages.push(text.slice(0, stimulusIndex))
+      messages.push(stimulus)
+    } else {
+      // stimulus is in the middle
+      messages = text.split(stimTag)
+      messages.splice(1, 0, stimulus)
+    }
+    return messages
+  }
+
+  // Provided an explanation and [EXPLANATION] tag in text
+  let explanationIndex = text.indexOf(explTag)
+  if (explanation && explanationIndex !== -1) {
+    if (explanationIndex === 0) {
+      // explanation is at the beginning
+      messages.push(explanation)
+      messages.push(text.slice(explLen))
+    } else if (explanationIndex >= text.length - explLen) {
+      // explanation is at the end
+      messages.push(text.slice(0, explanationIndex))
+      messages.push(explanation)
+    } else {
+      // explanation is in the middle
+      messages = text.split(explTag)
+      messages.splice(1, 0, explanation)
+    }
+    return messages
+  }
+
+  // Nothing to do, so wrap the text in an array so vocalizeList can process it
+  return [text]
+}
+
 // converts LaTeX in a string into a vocalizable string
 export function makeVocalizable(text: string) {
   // inline LaTeX delimiters "\\(", "\\)"
