@@ -56,6 +56,8 @@ const initSession = async (set: SetFn, get: GetFn) => {
       identifiers: data.identifiers,
       operators: data.operators,
       explanations: shuffle(data.explanation),
+      endPhaseWEqn: data.endPhaseWEqn,
+      phaseESentence: data.phaseESentence,
       selectedExplanation: '',
     },
   }))
