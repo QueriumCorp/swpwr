@@ -2,7 +2,7 @@
 
 import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
-import { cn, randomThinkingMsg } from '@/lib/utils'
+import { cn, randomClickNextMsg, randomThinkingMsg } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
@@ -129,7 +129,7 @@ const DevFindFacts: FC<{
     } else {
       logAction({ page: page.id, activity: 'checkStep', data: { result } })
 
-      setMsg(result.message)
+      setMsg(`${result.message}\n\n${randomClickNextMsg()}`)
       setEmote('pout:04')
       if (result.stepStatus == 'VALID') {
         logAction({

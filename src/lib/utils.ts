@@ -193,3 +193,18 @@ export function randomThinkingMsg() {
   ]
   return thinkingMsgs[Math.floor(Math.random() * thinkingMsgs.length)]
 }
+export function randomClickNextMsg() {
+  const clickNextMsgs = [
+    'Click me if you want a hint.',
+    `If you're having trouble, click me for a hint.`,
+    `If you don’t know what to do, click me to get a hint.`,
+    `If you’re stuck, click me for a hint.`,
+    `If you want a hint, click me.`,
+    `Click me to get a hint.`,
+    `If you don’t see how to fix it, click me for a hint.`,
+    `If you’re not sure how to fix it, click me for a hint.`,
+    `If you can’t find it, click me to get a hint.`,
+    `Don’t give up. Click me if you want a hint.`,
+  ]
+  return clickNextMsgs[Math.floor(Math.random() * clickNextMsgs.length)]
+}

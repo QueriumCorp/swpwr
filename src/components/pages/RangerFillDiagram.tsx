@@ -4,7 +4,7 @@
 import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
 // Third-party Imports
-import { cn, randomThinkingMsg } from '@/lib/utils'
+import { cn, randomClickNextMsg, randomThinkingMsg } from '@/lib/utils'
 
 // Querium Imports
 import { type YBRpage } from '../qq/YellowBrickRoad'
@@ -126,8 +126,12 @@ const RangerFillDiagram: FC<{
             'RangerFillDiagram : Checked Equation : ' + JSON.stringify(result),
         })
         setBusy(false)
-        setMsg(result.message)
+
+        if (result.stepStatus == 'INVALID') {
+          setMsg(`${result.message}\n\n${randomClickNextMsg()}`)
+        }
         if (result.stepStatus == 'VALID') {
+          setMsg(result.message)
           setComplete(true)
         }
       } else {

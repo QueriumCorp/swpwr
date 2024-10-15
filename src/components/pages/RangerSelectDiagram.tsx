@@ -4,7 +4,7 @@
 import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
 // Querium Imports
-import { cn, randomThinkingMsg } from '@/lib/utils'
+import { cn, randomClickNextMsg, randomThinkingMsg } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
@@ -163,8 +163,12 @@ const RangerSelectDiagram: FC<{
         activity: 'checkStep',
         data: { selectedSchema },
       })
-      setMsg(result.message)
+
+      if (result.stepStatus == 'INVALID') {
+        setMsg(`${result.message}\n\n${randomClickNextMsg()}`)
+      }
       if (result.stepStatus == 'VALID') {
+        setMsg(result.message)
         setComplete(true)
       }
     }
