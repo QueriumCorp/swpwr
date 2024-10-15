@@ -1,5 +1,5 @@
 export type YBRpage = {
-  rank: 'dev' | 'newb' | 'cadet' | 'learner' | 'ranger'
+  rank: 'dev' | 'newb' | 'cadet' | 'scout' | 'ranger'
   id: string
   title: string
   phase: 'I' | 'P' | 'O' | 'W' | 'E' | 'R'
@@ -341,6 +341,156 @@ Click ✔ when your sentence is done.`,
   },
   {
     rank: 'cadet',
+    id: 'RangerVictory',
+    title: 'string',
+    phase: 'I',
+    phaseLabel: 'Congratulations',
+    intro: [
+      `FANTASTIC!! You used all five POWER steps to solve a word problem!
+* [ ] **P**repare
+* [ ] **O**rganize
+* [ ] **W**ork the Problem
+* [ ] **E**xplain the Answer
+* [ ] **R**eflect`,
+      `Let's POWER up by solving more problems!
+
+Now I'll let you take the lead. But don't worry, I'm still here for you. If you're not sure what to do, click me for help. Ok?
+
+I know you can do it! Click Next to get started.`,
+    ],
+  },
+
+  ///////////////////////////////////////////////////////////////////
+  // SCOUT
+  ///////////////////////////////////////////////////////////////////
+
+  {
+    rank: 'scout',
+    id: 'ReadProblem',
+    title: 'Read the problem',
+    phase: 'P',
+    phaseLabel: 'Prepare',
+    intro: [
+      `You know the first POWER step: Prepare.
+
+Remember, the first thing we do to Prepare is Read the problem.`,
+      `Don't think about trying to solve the problem yet. Focus on reading and understanding it.`,
+
+      `We'll do it together. Follow along while I read the problem. When we're done reading, click ➜.
+[STIMULUS]`,
+    ],
+    psHints: [`Click ➜ when we're done reading.`],
+    aiHints: false,
+  },
+  {
+    rank: 'scout',
+    id: 'FindFacts',
+    title: 'Pull apart the problem',
+    phase: 'P',
+    intro: [
+      `Next, we Pull apart the problem. Let's do it together. Click me when you're ready.`,
+    ],
+    phaseLabel: 'Prepare',
+    aiHints: true,
+  },
+  {
+    rank: 'scout',
+    id: 'SelectDiagram',
+    title: 'Pick the problem type',
+    phase: 'P',
+    intro: [
+      `You're doing great! Time to Pick the problem type.
+
+I'll talk you through it. Click me when you're ready.`,
+    ],
+    phaseLabel: 'Prepare',
+    aiHints: true,
+  },
+  {
+    rank: 'scout',
+    id: 'FillDiagram',
+    title: 'Write an equation',
+    phase: 'O',
+    intro: [
+      `Good job! Now you're ready for the second P**O**WER step...
+
+**O** is for **O**rganize!
+
+To organize, we write an equation. Click me to learn how.`,
+    ],
+    phaseLabel: 'Organize',
+    aiHints: true,
+  },
+  {
+    rank: 'scout',
+    id: 'VideoStepWise',
+    title: 'How to use StepWise',
+    phase: 'I',
+    phaseLabel: 'Instruction',
+    intro: [
+      `The next POWER step is ***W***. ***W*** stands for ***W***ork the Problem.
+
+The video will show you the W screen and give you some tips. After you watch it, click ➜ and we'll Work the Problem together.`,
+    ],
+  },
+  {
+    rank: 'scout',
+    id: 'SolveTheEquation',
+    title: 'Find the unknown amount',
+    phase: 'W',
+    intro: [
+      `We're going to find the unknown amount, one step at a time.`,
+      `Let's do the first step together.`,
+      `The first step in W is always the equation from O.`,
+      `If you don't remember the equation, it's up at the top.`,
+      `Type the equation into the math entry box. Then click ✔.`,
+    ],
+    phaseLabel: 'Work the Problem',
+    aiHints: true,
+  },
+  {
+    rank: 'scout',
+    id: 'OwnWords',
+    title: 'Answer the question',
+    phase: 'E',
+    intro: [
+      `Yippee! It's time for the next POWER step.
+
+**E** stands for **E**xplain the Answer.`,
+      `In W, you found the unknown amount. That's part of the answer.
+
+But it's not the *whole* answer. You have to tell what it *means*.`,
+      `The problem asks a question. Write a complete sentence that answers it. The unknown amount should be in your sentence.`,
+      `Give it a try! Click me if you need some help. 
+
+Click ✔ when your sentence is done.`,
+    ],
+    phaseLabel: 'Explain the Answer',
+    aiHints: true,
+  },
+  {
+    rank: 'scout',
+    id: 'Reflect',
+    title: 'Think about the answer',
+    phase: 'R',
+    phaseLabel: 'Reflect',
+    intro: [
+      `This is it! The last POWER step! Let's do this!`,
+      `**R**eflect means to look back. Think about the answer. Does it make sense?`,
+      `Why does the answer make sense? A good reason uses correct math thinking to tell why.`,
+      `A good reason does not mean you just restate the answer.`,
+      `A good reason does not mean you explain how to find the answer.`,
+      `We found the answer for this problem. Here is a possible reason why it makes sense. [EXPLANATION]`,
+      `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
+    ],
+    psHints: [
+      `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
+    ],
+
+    aiHints: false,
+  },
+  {
+    rank: 'scout',
     id: 'RangerVictory',
     title: 'string',
     phase: 'I',

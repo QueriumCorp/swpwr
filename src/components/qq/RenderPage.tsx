@@ -128,6 +128,47 @@ export function renderPage(page: YBRpage, index: number) {
       return <RangerVictory page={page} index={index}></RangerVictory>
 
     ///////////////////////////////////////////////////////////////////
+    // SCOUT
+    ///////////////////////////////////////////////////////////////////
+
+    case 'scout:ReadProblem':
+      return <CadetReadProblem page={page} index={index}></CadetReadProblem>
+    case 'scout:WhatToAnswer':
+      return <RangerWhatToAnswer page={page} index={index}></RangerWhatToAnswer>
+    case 'scout:FindFacts':
+      return <RangerFindFacts page={page} index={index}></RangerFindFacts>
+    case 'scout:SelectDiagram':
+      return (
+        <RangerSelectDiagram page={page} index={index}></RangerSelectDiagram>
+      )
+    case 'scout:FillDiagram':
+      return <RangerFillDiagram page={page} index={index}></RangerFillDiagram>
+    case 'scout:FillEquation':
+      return <RangerFillEquation page={page} index={index}></RangerFillEquation>
+    case 'scout:PrepForSolveMath':
+      return (
+        <CadetPrepForSolveMath
+          page={page}
+          index={index}
+        ></CadetPrepForSolveMath>
+      )
+    case 'scout:VideoStepWise':
+      return <CadetVideoStepWise page={page} index={index}></CadetVideoStepWise>
+    case 'scout:SolveTheEquation':
+      return (
+        <RangerSolveTheEquation
+          page={page}
+          index={index}
+        ></RangerSolveTheEquation>
+      )
+    case 'scout:OwnWords':
+      return <RangerOwnWords page={page} index={index}></RangerOwnWords>
+    case 'scout:Reflect':
+      return <CadetReflect page={page} index={index}></CadetReflect>
+    case 'scout:RangerVictory':
+      return <RangerVictory page={page} index={index}></RangerVictory>
+
+    ///////////////////////////////////////////////////////////////////
     // RANGER
     ///////////////////////////////////////////////////////////////////
 
