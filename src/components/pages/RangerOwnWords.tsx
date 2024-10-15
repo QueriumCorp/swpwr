@@ -195,7 +195,7 @@ const RangerOwnWords: FC<{
           stimulusText={problem.stimulus}
         ></StimulusSelector>
 
-        <MathStatic latex={mathAnswer}></MathStatic>
+        <MathStatic latex={session.endPhaseWEqn || mathAnswer}></MathStatic>
 
         <div className="grow">
           <Textarea
