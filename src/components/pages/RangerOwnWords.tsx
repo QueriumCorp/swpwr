@@ -24,6 +24,7 @@ import { HintStage, TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
 import MathStatic from '../qq/MathStatic'
 import CheckStepButton from '../qq/CheckStepButton'
+import { Input } from '../ui/input'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -62,6 +63,14 @@ const RangerOwnWords: FC<{
   const [disabled, setDisabled] = useState(true)
   const [complete, setComplete] = useState(false)
   const [ownWords, setOwnWords] = useState<string>('')
+
+  const [fragment0, setFragment0] = useState<string>('')
+  const [fragment1, setFragment1] = useState<string>('')
+  const [fragment2, setFragment2] = useState<string>('')
+  const [blank0, setBlank0] = useState<string>('')
+  const [blank1, setBlank1] = useState<string>('')
+  const [value0, setValue0] = useState<string>('')
+  const [value1, setValue1] = useState<string>('')
 
   const mathAnswer = useMemo(() => {
     return isNumber(session.mathAnswer)
@@ -107,14 +116,65 @@ const RangerOwnWords: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    ownWords.length > 3 ? setDisabled(false) : setDisabled(true)
+    ownWords.length >= 3 ? setDisabled(false) : setDisabled(true)
   }, [ownWords])
+
+  useEffect(() => {
+    value0.length > 0 && value1.length > 0
+      ? setDisabled(false)
+      : setDisabled(true)
+  }, [value0, value1])
 
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus()
     }
   }, [])
+
+  useEffect(() => {
+    const unitTag = '[UNIT]'
+    const valueTag = '[VALUE]'
+    if (session.phaseESentence) {
+      const unitIndex = session.phaseESentence.indexOf(unitTag)
+      const valueIndex = session.phaseESentence.indexOf(valueTag)
+
+      setBlank0(unitIndex < valueIndex ? unitTag : valueTag)
+      setBlank1(unitIndex < valueIndex ? valueTag : unitTag)
+
+      let i0 = 0,
+        i1,
+        i2,
+        i3,
+        i4
+      if (unitIndex < valueIndex) {
+        // first block of text
+        i0 = 0
+        i1 = unitIndex
+
+        // second block of text
+        i2 = unitIndex + unitTag.length
+        i3 = valueIndex
+
+        // third block of text - Note that slice continues to the end of the string if no i5 is provided
+        i4 = valueIndex + valueTag.length
+      } else {
+        // first block of text
+        i0 = 0
+        i1 = valueIndex
+
+        // second block of text
+        i2 = valueIndex + valueTag.length
+        i3 = unitIndex
+
+        // third block of text - Note that slice continues to the end of the string if no i5 is provided
+        i4 = unitIndex + unitTag.length
+      }
+
+      setFragment0(session.phaseESentence.slice(i0, i1))
+      setFragment1(session.phaseESentence.slice(i2, i3))
+      setFragment2(session.phaseESentence.slice(i4))
+    }
+  }, [session.phaseESentence])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -125,18 +185,22 @@ const RangerOwnWords: FC<{
   ) {
     if (evt.altKey) {
       api?.scrollNext()
-    } else if (ownWords.length < 3) {
-      setMsg('Please explain your answer in your own words')
     } else {
       setMsg("I'm thinking...")
       setBusy(true)
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
-      const result = await submitMyOwnWords(ownWords)
+
+      let theSentence =
+        ownWords.length > 0
+          ? ownWords
+          : `${fragment0}${value0}${fragment1}${value1}${fragment2}`
+
+      logAction({ page: page.id, activity: 'ACTIVITY', data: { theSentence } })
+      const result = await submitMyOwnWords(theSentence)
       logAction({
         page: page.id,
         activity: 'checkStep',
-        data: { ownWords },
-        action: `RangerOwnWords : Checked OwnWords : ${ownWords} : ${JSON.stringify(result)}`,
+        data: { theSentence },
+        action: `RangerOwnWords : Checked OwnWords : ${theSentence} : ${JSON.stringify(result)}`,
       })
 
       setBusy(false)
@@ -195,16 +259,47 @@ const RangerOwnWords: FC<{
           stimulusText={problem.stimulus}
         ></StimulusSelector>
 
-        <MathStatic latex={session.endPhaseWEqn || mathAnswer}></MathStatic>
-
-        <div className="grow">
-          <Textarea
-            ref={inputRef}
-            value={ownWords}
-            onChange={e => setOwnWords(e.target.value)}
-            placeholder="Type your answer here"
-          />
-        </div>
+        <MathStatic
+          style={{ fontSize: '48px', marginLeft: 'auto', marginRight: 'auto' }}
+          latex={session.endPhaseWEqn || mathAnswer}
+        ></MathStatic>
+        {rank === 'cadet' || rank === 'scout' ? (
+          <div className="mx-auto">
+            <div className="flex grow items-baseline justify-start gap-1">
+              <div className="select-none" style={{ width: 'fitContent' }}>
+                {fragment0}
+              </div>
+              <Input
+                className="w-24"
+                placeholder={blank0 == '[VALUE]' ? 'number' : 'things'}
+                value={value0}
+                onChange={e => setValue0(e.target.value)}
+              ></Input>
+              <div className="select-none" style={{ width: 'fitContent' }}>
+                {fragment1}
+              </div>
+              <Input
+                className="w-24"
+                placeholder={blank1 == '[VALUE]' ? 'number' : 'things'}
+                value={value1}
+                onChange={e => setValue1(e.target.value)}
+              ></Input>
+              <div className="select-none" style={{ width: 'fitContent' }}>
+                {fragment2}
+              </div>
+            </div>
+          </div>
+        ) : (
+          // ranger
+          <div>
+            <Textarea
+              ref={inputRef}
+              value={ownWords}
+              onChange={e => setOwnWords(e.target.value)}
+              placeholder="Type your answer here"
+            />
+          </div>
+        )}
       </div>
 
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
