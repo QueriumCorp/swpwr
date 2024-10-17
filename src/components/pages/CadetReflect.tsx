@@ -19,11 +19,7 @@ import { Card, CardContent, CardHeader } from '../ui/card'
 import { NextButton } from '../qq/NextButton'
 import CheckStepButton from '../qq/CheckStepButton'
 import vocalize from '@/lib/speech'
-
-interface Explanation {
-  type: string
-  text: string
-}
+import { Explanation } from '@/store/_types'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -58,7 +54,10 @@ const CadetReflect: FC<{
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [explanation, setExplanation] = useState<Explanation>()
+  const [explanation, setExplanation] = useState<Explanation>({
+    type: '',
+    text: '',
+  })
   const [answer, setAnswer] = useState<-1 | 0 | 1>(-1) // -1 = not answered, 0 = false, 1 = true
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
@@ -238,8 +237,14 @@ CadetReflect.displayName = 'CadetReflect'
 export default CadetReflect
 
 function estimationOrBad(explanations: Explanation[]) {
-  const estimation = explanations.find(exp => exp.type === 'estimation')
-  const bad = explanations.find(exp => exp.type === 'bad')
+  const estimation = explanations.find(exp => exp.type === 'estimation') || {
+    type: '',
+    text: '',
+  }
+  const bad = explanations.find(exp => exp.type === 'bad') || {
+    type: '',
+    text: '',
+  }
 
   return Math.random() > 0.5 ? estimation : bad
 }

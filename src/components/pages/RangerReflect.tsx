@@ -139,7 +139,7 @@ const RangerReflect: FC<{
         setComplete(false)
         break
     }
-    submitExplanation(explanation?.type || '')
+    submitExplanation(explanation || { type: '', text: '' })
   }
 
   function handleSpeak(text: string) {
