@@ -120,7 +120,7 @@ const RangerOwnWords: FC<{
   }, [ownWords])
 
   useEffect(() => {
-    value0.length > 0 && value1.length > 0
+    value0.length > 0 || value1.length > 0
       ? setDisabled(false)
       : setDisabled(true)
   }, [value0, value1])

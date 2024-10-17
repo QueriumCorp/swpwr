@@ -95,26 +95,12 @@ When we're done reading, click ➜.
     phase: 'I',
     phaseLabel: 'Instruction',
     intro: [
-      `Hi! I'm Kettu. Welcome to StepWise for Word Problems!
-      
-  Look below these words. Do you see [MORE]? That means I have more to tell you. When I'm done talking, you can click it to find out what.`,
-      `Great job!
-
-  Here's a tip. Whenever [MORE] is down there, be sure to click it. Then you won't miss anything important.`,
-      `Good! Here's another tip.
-      
-  In the bottom left corner, you'll see a picture of a speaker. When the speaker is on, like it is now, I will read aloud to you.`,
-      `You can turn the speaker off by clicking it. Then I'll be quiet. You can read my words to yourself.
-
-To turn the speaker back on, click it again.`,
-      `All right!
-      
-We're going to get the POWER to solve math word problems.
-  
-Each letter in POWER stands for a problem-solving step. I will teach you the steps.`,
-      `Are you ready? I know I am!
-
-  Find ➜ under my feet. Click it and we'll get started.`,
+      `Hi! I'm Kettu. Welcome to StepWise for Word Problems!\n\nLook below these words. Do you see [MORE]? That means I have more to tell you. When I'm done talking, you can click it to find out what.`,
+      `GREAT JOB!\n\nHere's a tip. Whenever you see [MORE] down there, be sure to click it. Then you won't miss anything important.`,
+      `GOOD! Here's another tip.\n\nIn the bottom left corner, you'll see a picture of a speaker. When the speaker is on, like it is now, I will read aloud to you.`,
+      `If you want me to be quiet, click the speaker to turn it off. You can read my words to yourself.\n\nTo turn the speaker back on, click it again.`,
+      `ALL RIGHT!\n\nWe're going to get the POWER to solve math word problems.\n\nEach letter in POWER stands for a problem-solving step. I will teach you the steps.`,
+      `I'm ready to go! Are you?\n\nFind → under my feet. Click it and we'll get started.`,
     ],
   },
   {
@@ -124,15 +110,12 @@ Each letter in POWER stands for a problem-solving step. I will teach you the ste
     phase: 'I',
     phaseLabel: 'Instruction',
     intro: [
-      'We’ll work together. I’ll be down here if you need me. Click my cute self to ask for help. Try it now.',
+      `We’ll work together. I’ll be down here if you need me. Click my cute self to ask for help. Try it now.`,
     ],
     psHints: [
-      `Perfect! You found me!
-
-Anytime you're not sure what to do, you can click me like that. I'll do my best to help.`,
-      `See ➜ next to me? When it's blue, you can click it to move on.
-
-Go ahead and click ➜ now.`,
+      `Perfect! You found me!\n\nAnytime you're not sure what to do, you can click me like that. I'll do my best to help.`,
+      `That's important, so I'll say it again. The way to ask for help is to click me. You can click me ANYTIME. Now click [MORE].`,
+      `See ➜ next to me? When it's blue, you can click it to move on.\n\nGo ahead and click ➜ now.`,
     ],
   },
   {
@@ -142,18 +125,9 @@ Go ahead and click ➜ now.`,
     phase: 'P',
     phaseLabel: 'Prepare',
     intro: [
-      `You did that just right! Now let's learn the first POWER step.
-
-**P** is the first step. **P** stands for **P**repare.`,
-      `There are three things we do to Prepare. 
-
-The first one is Read.`,
-
-      `Find the story in the gray box above. Follow along with me as I read it.
-
-When we're done reading, click ➜.  
-
-[STIMULUS]`,
+      `You did that just right! Now let's learn the first POWER step.\n\n**P** is the first step. **P** stands for **P**repare.`,
+      `There are three things we do to Prepare.\n\nThe first one is Read.`,
+      `Find the story in the gray box above. Follow along with me as I read it.\n\nWhen we're done reading, click →. [STIMULUS]`,
     ],
     psHints: [`Click ➜ when we're done reading.`],
   },
@@ -164,9 +138,8 @@ When we're done reading, click ➜.
     phase: 'I',
     phaseLabel: 'Instruction',
     intro: [
-      `After Read comes Pull apart. Watch the video to see the basics of what to do.
-
-Click ▶️ to start the video. When it's finished, click ➜. Then we'll learn more about Pull apart, and we'll try it together.`,
+      `After Read comes Pull apart. The video will show you the basics of what to do.\n\nClick ▶️ to start the video.`,
+      `Click ➜to continue.`,
     ],
   },
   {
@@ -176,12 +149,8 @@ Click ▶️ to start the video. When it's finished, click ➜. Then we'll learn
     phase: 'P',
     phaseLabel: 'Prepare',
     intro: [
-      `Pull apart means we find the important amounts. We pull them out one at a time.
-
-An amount in a word problem can be known or unknown.`,
-      `A known amount has a number. But it's not *just* a number. It also has a word or words that tell what the number means.
-
-Let's find known amounts in the story above. Click me and I'll show you how.`,
+      `Wait! Don't do anything yet. Just listen for now to learn more about Pull apart.\n\nPull apart means we find the important amounts. We pull them out one at a time.\n\nAn amount in a word problem can be known or unknown. Click [MORE].`,
+      `A known amount has a number. But it's not *just* a number. It also has a word or words that tell what the number means.\n\nClick me to find known amounts in the story above.`,
     ],
     aiHints: false,
   },
@@ -192,12 +161,10 @@ Let's find known amounts in the story above. Click me and I'll show you how.`,
     phase: 'I',
     phaseLabel: 'Instruction',
     intro: [
-      `The last Prepare task is Pick the problem type.
-
-A word problem tells a story. Before you solve a word problem, it helps to know what *type* of story it tells.`,
-      `The first type we'll learn about is Total.
-
-Click ▶️ to start the video. When it finishes, click ➜.`,
+      `The last Prepare task is Pick the problem type. Click [MORE].`,
+      `A word problem tells a story. Before you solve a word problem, it helps to know what *type* of story it tells. Click [MORE].`,
+      `The first type we'll learn about is Total. Click ▶️ to start the video.`,
+      `Click ➜ to continue.`,
     ],
   },
   {
@@ -207,11 +174,7 @@ Click ▶️ to start the video. When it finishes, click ➜.`,
     phase: 'P',
     phaseLabel: 'Prepare',
     intro: [
-      `Super! Now let's Pick the problem type.
-
-The only type we know for now is Total. Have we got a Total story here?
-      
-Yes! Click me and I'll explain why.`,
+      `Super! Now let's Pick the problem type.\n\nThe only type we know for now is Total. Have we got a Total story here?\n\nYes! Click me and I'll explain why.`,
     ],
   },
   {
@@ -221,16 +184,9 @@ Yes! Click me and I'll explain why.`,
     phase: 'I',
     phaseLabel: 'Instruction',
     intro: [
-      `Great work!
-
-Now you know the first POWER step, **P**repare.`,
-      `To **P**repare, we:
-1. Read
-1. Pull apart
-1. Pick the problem type`,
-      `*And* now you know one type of problem: Total.
-      
-To learn the rest of the POWER steps and use them to solve a problem, click ➜`,
+      `GREAT WORK!\n\nNow you know the first POWER step, **P**repare.`,
+      `To **P**repare, we:\n\n1. Read\n1. Pull apart\n1. Pick the problem type`,
+      `*And* now you know one type of problem: Total.\n\nClick Next to check your understanding.`,
     ],
   },
 
