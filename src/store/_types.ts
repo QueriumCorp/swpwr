@@ -34,7 +34,8 @@ export interface State {
     values: { variable: string; value: string | null }[],
   ) => Promise<any>
   submitMyOwnWords: (type: string) => Promise<any>
-  submitExplanation: (type: string) => Promise<any>
+  setSelectedExplanation: (explanation: Explanation) => void
+  submitExplanation: (explanation: Explanation) => Promise<any>
   setThinksGoodAnswer: (type: boolean) => void
   getHint: () => Promise<string>
   closeSession: () => Promise<string>
@@ -96,6 +97,12 @@ export const StudentSchema = z.object({
   studentName: z.string(),
 }) satisfies z.ZodType<Student>
 
+// EXPLANATIONS
+export type Explanation = {
+  type: string
+  text: string
+}
+
 // SESSION
 export type Session = {
   // returned by SWAPI
@@ -103,7 +110,7 @@ export type Session = {
   // returned by qEval
   identifiers: string[]
   operators: string[]
-  explanations: { type: string; text: string }[]
+  explanations: Explanation[]
   endPhaseWEqn: string
   phaseESentence: string
   // created by student
@@ -113,7 +120,7 @@ export type Session = {
   schemaValues: { variable: string; value: string | null }[]
   mathAnswer: string
   myOwnWords: string
-  selectedExplanation: string
+  selectedExplanation: Explanation
   thinksGoodAnswer?: boolean
   finalAnswer: string
   chatty?: boolean

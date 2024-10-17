@@ -11,6 +11,7 @@ import {
   LogActionProps,
   State,
   ProblemSchema,
+  Explanation,
 } from './_types'
 
 // Method Implementations
@@ -69,7 +70,7 @@ export const useProblemStore = create<State>((set, get) => ({
     phaseESentence: '',
     mathAnswer: '',
     myOwnWords: '',
-    selectedExplanation: '',
+    selectedExplanation: { type: '', text: '' },
     finalAnswer: '',
     chatty: false,
   },
@@ -225,14 +226,23 @@ export const useProblemStore = create<State>((set, get) => ({
     return await submitMyOwnWords(set, get, myOwnWords)
   },
 
-  submitExplanation: async (type: string) => {
+  setSelectedExplanation: async (explanation: Explanation) => {
     set(state => ({
       session: {
         ...state.session,
-        selectedExplanation: type,
+        selectedExplanation: explanation,
       },
     }))
-    return await submitExplanation(set, get, type)
+  },
+
+  submitExplanation: async (explanation: Explanation) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        selectedExplanation: explanation,
+      },
+    }))
+    return await submitExplanation(set, get, explanation.type)
   },
 
   setThinksGoodAnswer: async (choice: boolean) => {

@@ -110,16 +110,28 @@ export const ChatBubble = ({
 
   useEffect(() => {
     let stimulusText = problem.stimulus
+    let explanationText = session.selectedExplanation?.text
+
     if (hintPageChanged) {
       hintPageChanged(current, count)
     }
 
-    if (stimulusText && msgs && session.chatty && api && !speaking) {
+    if (
+      (stimulusText || explanationText) &&
+      msgs &&
+      session.chatty &&
+      api &&
+      !speaking
+    ) {
       setSpeaking(true)
       let msgIndex = api!.selectedScrollSnap()
       let originalMsg = msgs[msgIndex]
 
-      let stimulatedMsgs = splitMessages(originalMsg, stimulusText)
+      let stimulatedMsgs = splitMessages(
+        originalMsg,
+        stimulusText,
+        explanationText,
+      )
       vocalizeList(stimulatedMsgs, () => {
         if (stimulusIndex === current) {
           setSpeaking(false)
@@ -127,14 +139,6 @@ export const ChatBubble = ({
           setSpeaking(false)
         }
       })
-      // let stimulatedMsg = originalMsg.replace('[STIMULUS]', stimulusText)
-      // vocalize(stimulatedMsg, () => {
-      //   if (stimulusIndex === current) {
-      //     setSpeaking(false)
-      //   } else {
-      //     setSpeaking(false)
-      //   }
-      // })
     }
   }, [msgs, count, current, session.chatty, api])
 
@@ -286,7 +290,7 @@ export const ChatBubble = ({
                     remarkPlugins={[remarkGfm, remarkBreaks]}
                     className="Markdown !font-capriola !text-base"
                   >
-                    {m.replace('[STIMULUS]', '')}
+                    {m.replace('[STIMULUS]', '').replace('[EXPLANATION]', '')}
                   </Markdown>
                 </div>
               </CarouselItem>

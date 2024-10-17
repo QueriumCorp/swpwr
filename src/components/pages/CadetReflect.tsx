@@ -49,6 +49,7 @@ const CadetReflect: FC<{
     logAction,
     session,
     rank,
+    setSelectedExplanation,
     submitExplanation,
     setThinksGoodAnswer,
   } = useProblemStore()
@@ -102,7 +103,9 @@ const CadetReflect: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    setExplanation(estimationOrBad(session.explanations))
+    const selectedExplanation = estimationOrBad(session.explanations)
+    setExplanation(selectedExplanation)
+    setSelectedExplanation(selectedExplanation)
   }, [session.explanations])
 
   ///////////////////////////////////////////////////////////////////
@@ -124,7 +127,7 @@ const CadetReflect: FC<{
       data: { explanation: explanation, answer: answer },
     })
     setThinksGoodAnswer(answer == 1 ? true : false)
-    submitExplanation(explanation?.type || '')
+    submitExplanation(explanation || { type: '', text: '' })
     api?.scrollNext()
   }
 

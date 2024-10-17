@@ -33,6 +33,10 @@ export function renderPage(page: YBRpage, index: number) {
     ///////////////////////////////////////////////////////////////////
     // DEV
     ///////////////////////////////////////////////////////////////////
+    case 'dev:MeetTutor':
+      return <NewbMeetTutor page={page} index={index}></NewbMeetTutor>
+    case 'dev:Reflect':
+      return <CadetReflect page={page} index={index}></CadetReflect>
     case 'dev:FindFacts':
       return <DevFindFacts page={page} index={index}></DevFindFacts>
     case 'dev:FindTutor':
@@ -196,7 +200,7 @@ export function renderPage(page: YBRpage, index: number) {
     case 'ranger:OwnWords':
       return <RangerOwnWords page={page} index={index}></RangerOwnWords>
     case 'ranger:Reflect':
-      return <RangerReflect page={page} index={index}></RangerReflect>
+      return <CadetReflect page={page} index={index}></CadetReflect>
     case 'ranger:RangerVictory':
       return <RangerVictory page={page} index={index}></RangerVictory>
 

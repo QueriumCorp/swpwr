@@ -16,6 +16,30 @@ export const YellowBrickRoad: YBRpage[] = [
 
   {
     rank: 'dev',
+    id: 'MeetTutor',
+    title: 'string',
+    phase: 'I',
+    phaseLabel: 'Instruction',
+    intro: [`Hi! I'm Kettu. Welcome to StepWise for Word Problems!`],
+  },
+  {
+    rank: 'dev',
+    id: 'Reflect',
+    title: 'Think about the answer',
+    phase: 'R',
+    phaseLabel: 'Reflect',
+    intro: [
+      `We found the answer for this problem. Here is a possible reason why it makes sense. [EXPLANATION]`,
+      `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
+    ],
+    psHints: [
+      `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
+    ],
+
+    aiHints: false,
+  },
+  {
+    rank: 'dev',
     id: 'FindFacts',
     title: 'Pull Apart',
     phase: 'P',
