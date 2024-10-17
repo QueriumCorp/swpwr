@@ -44,8 +44,8 @@ const NewbFindFacts: FC<{
 
   const [knowns, setKnowns] = useState<string[]>([])
   const [unknowns, setUnknowns] = useState<string[]>([])
+
   const [currentFact, setCurrentFact] = useState<string>('')
-  const [emote, setEmote] = useState<string>('gratz:02')
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
   const [disabled, setDisabled] = useState(true)
@@ -104,16 +104,17 @@ const NewbFindFacts: FC<{
     logAction({ page: page.id, activity: 'deleteKnown', data: { fact } })
     setKnowns(knowns.filter(thisFact => thisFact !== fact))
   }
+
   const delUnknown = (fact: string) => {
     logAction({ page: page.id, activity: 'deleteUnknown', data: { fact } })
     setUnknowns(unknowns.filter(thisFact => thisFact !== fact))
   }
+
   async function HandleCheckFacts(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     setMsg('Give me a sec to review your knowns and unknowns')
     setBusy(true)
-    setEmote('direct:02')
     const result = await submitTTable(knowns, unknowns)
     setBusy(false)
 
@@ -131,6 +132,7 @@ const NewbFindFacts: FC<{
 
       if (result.stepStatus == 'INVALID') {
         setMsg(`${result.message}\n\n${randomClickNextMsg()}`)
+        setDisabled(true)
       }
       if (result.stepStatus == 'VALID') {
         setMsg(result.message)

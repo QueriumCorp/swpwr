@@ -131,6 +131,7 @@ const RangerFindFacts: FC<{
 
       if (result.stepStatus == 'INVALID') {
         setMsg(`${result.message}\n\n${randomClickNextMsg()}`)
+        setDisabled(true)
       }
       if (result.stepStatus == 'VALID') {
         setMsg(result.message)
