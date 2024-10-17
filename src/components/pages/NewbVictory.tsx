@@ -11,11 +11,8 @@ import {
 } from '@/components/AnimeTutor'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { CarouselNext } from '../ui/carousel'
 import { useProblemStore } from '@/store/_store'
-import { Button } from '../ui/button'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
-import { NextButton } from '../qq/NextButton'
 
 const NewbVictory: React.FC<{
   className?: string
@@ -73,14 +70,6 @@ const NewbVictory: React.FC<{
     }
   }
 
-  async function handleNext(
-    _evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) {
-    //If Option+Enter just scroll to next page
-    logAction({ page: page.id, activity: 'clickNext', data: {} })
-    window.open('https://queriumcorp.github.io/swpwr/?rank=cadet')
-  }
-
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
@@ -114,15 +103,7 @@ const NewbVictory: React.FC<{
           hintPageChanged={finishedIntro}
         />
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
-        <div className="flex h-20 w-20 items-center justify-center">
-          <NextButton
-            className="scale-[200%]"
-            disabled={nextDisabled}
-            onClick={handleNext}
-          ></NextButton>
-        </div>
-      </NavBar>
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2"></NavBar>
     </div>
   )
 }
