@@ -271,7 +271,7 @@ const RangerOwnWords: FC<{
               </div>
               <Input
                 className="w-24"
-                placeholder={blank0 == '[VALUE]' ? 'number' : 'things'}
+                placeholder={blank0 == '[VALUE]' ? 'number' : 'units'}
                 value={value0}
                 onChange={e => setValue0(e.target.value)}
               ></Input>
@@ -280,7 +280,7 @@ const RangerOwnWords: FC<{
               </div>
               <Input
                 className="w-24"
-                placeholder={blank1 == '[VALUE]' ? 'number' : 'things'}
+                placeholder={blank1 == '[VALUE]' ? 'number' : 'units'}
                 value={value1}
                 onChange={e => setValue1(e.target.value)}
               ></Input>
