@@ -11,14 +11,17 @@ import { useProblemStore } from '@/store/_store'
 // const voiceName = 'Aria'
 // const voiceId = 'pFZP5JQG7iQjIQuC4Bku'
 // const voiceName = 'Lily'
-const voiceId = 'cgSgspJ2msm6clMCkdW9'
-const voiceName = 'Jessica'
+// const voiceId = 'cgSgspJ2msm6clMCkdW9'
+// const voiceName = 'Jessica'
 // const voiceId = 'XrExE9yKIg1WjnnlVkGX'
 // const voiceName = 'Matilda'
 // const voiceId = 'Xb7hH8MSUJpSbSDYk0k2'
 // const voiceName = 'Alice'
 
 async function vocalize(message: string, finishedCallback?: () => void) {
+  const voiceId = useProblemStore.getState().voiceId || 'cgSgspJ2msm6clMCkdW9'
+  const voiceName = useProblemStore.getState().voiceName || 'Jessica'
+
   const swapiUrl =
     import.meta.env.VITE_SWAPI ||
     useProblemStore.getState().swapiUrl ||
@@ -93,6 +96,9 @@ export async function vocalizeList(
   messages: string[],
   finishedCallback?: () => void,
 ) {
+  const voiceId = useProblemStore.getState().voiceId || 'cgSgspJ2msm6clMCkdW9'
+  const voiceName = useProblemStore.getState().voiceName || 'Jessica'
+
   const swapiUrl =
     import.meta.env.VITE_SWAPI ||
     useProblemStore.getState().swapiUrl ||

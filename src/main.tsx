@@ -54,6 +54,8 @@ if (window.swpwr) {
     window.swpwr.options.swapiUrl ||
     'https://swapi2.onrender.com'
   options.gltfUrl = window.swpwr.options.gltfUrl
+  options.voiceId = window.swpwr.options.voiceId
+  options.voiceName = window.swpwr.options.voiceName
   options.rank =
     urlRank || import.meta.env.VITE_RANK || window.swpwr.options.rank || 'newb'
   options.disabledSchemas = window.swpwr.options.disabledSchemas
