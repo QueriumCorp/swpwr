@@ -34,6 +34,8 @@ export const useProblemStore = create<State>((set, get) => ({
 
   swapiUrl: 'https://swapi2.onrender.com',
   gltfUrl: '',
+  voiceId: '',
+  voiceName: '',
   rank: '',
   disabledSchemas: [],
 
@@ -100,6 +102,16 @@ export const useProblemStore = create<State>((set, get) => ({
   setGltfUrl: (url: string) => {
     set(_state => ({
       gltfUrl: url,
+    }))
+  },
+  setVoiceId: (id: string) => {
+    set(_state => ({
+      voiceId: id,
+    }))
+  },
+  setVoiceName: (name: string) => {
+    set(_state => ({
+      voiceName: name,
     }))
   },
   setRank: (rank: string) => {

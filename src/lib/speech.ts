@@ -1,10 +1,27 @@
 import { makeVocalizable } from './utils'
 import AudioManager from './audio'
 
+import { useProblemStore } from '@/store/_store'
+
+// const voiceId = 'FGY2WhTYpPnrIDTdsKH5'
+// const voiceName = 'Laura'
+// const voiceId = 'EXAVITQu4vr4xnSDxMaL'
+// const voiceName = 'Sarah'
+// const voiceId = '9BWtsMINqrJLrRacOk9x'
+// const voiceName = 'Aria'
+// const voiceId = 'pFZP5JQG7iQjIQuC4Bku'
+// const voiceName = 'Lily'
+const voiceId = 'cgSgspJ2msm6clMCkdW9'
+const voiceName = 'Jessica'
+// const voiceId = 'XrExE9yKIg1WjnnlVkGX'
+// const voiceName = 'Matilda'
+// const voiceId = 'Xb7hH8MSUJpSbSDYk0k2'
+// const voiceName = 'Alice'
+
 async function vocalize(message: string, finishedCallback?: () => void) {
   const swapiUrl =
     import.meta.env.VITE_SWAPI ||
-    window.swpwr.options.swapiUrl ||
+    useProblemStore.getState().swapiUrl ||
     'https://swapi2.onrender.com'
 
   const msgText = makeVocalizable(message)
@@ -17,6 +34,8 @@ async function vocalize(message: string, finishedCallback?: () => void) {
     body: JSON.stringify({
       appKey: 'JiraTestPage',
       text: msgText,
+      voiceId,
+      voiceName,
     }),
   })
 
@@ -30,6 +49,8 @@ async function vocalize(message: string, finishedCallback?: () => void) {
       body: JSON.stringify({
         appKey: 'JiraTestPage',
         text: msgText,
+        voiceId,
+        voiceName,
       }),
     })
     if (data2.status == 200) {
@@ -74,7 +95,7 @@ export async function vocalizeList(
 ) {
   const swapiUrl =
     import.meta.env.VITE_SWAPI ||
-    window.swpwr.options.swapiUrl ||
+    useProblemStore.getState().swapiUrl ||
     'https://swapi2.onrender.com'
 
   for (const message of messages) {
@@ -89,6 +110,8 @@ export async function vocalizeList(
       body: JSON.stringify({
         appKey: 'JiraTestPage',
         text: msgText,
+        voiceId,
+        voiceName,
       }),
     })
 

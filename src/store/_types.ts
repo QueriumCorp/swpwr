@@ -5,6 +5,8 @@ import { z } from 'zod'
 export interface State {
   swapiUrl: string
   gltfUrl?: string
+  voiceId?: string
+  voiceName?: string
   rank?: string
   disabledSchemas?: string[]
   problem: Problem
@@ -17,6 +19,8 @@ export interface State {
 
   setSwapiUrl: (url: string) => void
   setGltfUrl: (url: string) => void
+  setVoiceId: (id: string) => void
+  setVoiceName: (name: string) => void
   setRank: (rank: string) => void
   setDisabledSchemas: (disabledSchemas: string[]) => void
 
@@ -130,12 +134,16 @@ export type Session = {
 export type Options = {
   swapiUrl?: string
   gltfUrl?: string
+  voiceId?: string
+  voiceName?: string
   rank?: string
   disabledSchemas?: string[]
 }
 export const OptionsSchema = z.object({
   swapiUrl: z.string().optional(),
   gltfUrl: z.string().optional(),
+  voiceId: z.string().optional(),
+  voiceName: z.string().optional(),
   rank: z.string().optional(),
   disabledSchemas: z.array(z.string()).optional(),
 }) satisfies z.ZodType<Options>

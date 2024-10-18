@@ -53,6 +53,8 @@ const StepWisePower = forwardRef<
   const {
     setSwapiUrl,
     setGltfUrl,
+    setVoiceId,
+    setVoiceName,
     setRank,
     setDisabledSchemas,
     setProblem,
@@ -110,6 +112,12 @@ const StepWisePower = forwardRef<
     }
     if (props.options?.gltfUrl) {
       setGltfUrl(props.options.gltfUrl)
+    }
+    if (props.options?.voiceId) {
+      setVoiceId(props.options.voiceId)
+    }
+    if (props.options?.voiceName) {
+      setVoiceName(props.options.voiceName)
     }
     if (props.options?.rank) {
       setRank(props.options.rank)
