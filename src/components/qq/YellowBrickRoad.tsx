@@ -100,7 +100,7 @@ When we're done reading, click ➜.
       `GOOD! Here's another tip.\n\nIn the bottom left corner, you'll see a picture of a speaker. When the speaker is on, like it is now, I will read aloud to you.`,
       `If you want me to be quiet, click the speaker to turn it off. You can read my words to yourself.\n\nTo turn the speaker back on, click it again.`,
       `ALL RIGHT!\n\nWe're going to get the POWER to solve math word problems.\n\nEach letter in POWER stands for a problem-solving step. I will teach you the steps.`,
-      `I'm ready to go! Are you?\n\nFind → under my feet. Click it and we'll get started.`,
+      `I'm ready to go! Are you?\n\nFind ➜ under my feet. Click it and we'll get started.`,
     ],
   },
   {
@@ -127,7 +127,7 @@ When we're done reading, click ➜.
     intro: [
       `You did that just right! Now let's learn the first POWER step.\n\n**P** is the first step. **P** stands for **P**repare.`,
       `There are three things we do to Prepare.\n\nThe first one is Read.`,
-      `Find the story in the gray box above. Follow along with me as I read it.\n\nWhen we're done reading, click →. [STIMULUS]`,
+      `Find the story in the box above. Follow along with me as I read it.\n\nWhen we're done reading, click ➜. [STIMULUS]`,
     ],
     psHints: [`Click ➜ when we're done reading.`],
   },
@@ -139,7 +139,7 @@ When we're done reading, click ➜.
     phaseLabel: 'Instruction',
     intro: [
       `After Read comes Pull apart. The video will show you the basics of what to do.\n\nClick ▶️ to start the video.`,
-      `Click ➜to continue.`,
+      `Click ➜ to continue.`,
     ],
   },
   {
@@ -186,7 +186,7 @@ When we're done reading, click ➜.
     intro: [
       `GREAT WORK!\n\nNow you know the first POWER step, **P**repare.`,
       `To **P**repare, we:\n\n1. Read\n1. Pull apart\n1. Pick the problem type`,
-      `*And* now you know one type of problem: Total.\n\nClick Next to check your understanding.`,
+      `*And* now you know one type of problem: Total.\n\nFind the Next button above my head. Click Next to check your understanding.`,
     ],
   },
 
@@ -201,13 +201,10 @@ When we're done reading, click ➜.
     phase: 'P',
     phaseLabel: 'Prepare',
     intro: [
-      `You know the first POWER step: Prepare.
+      `You know the first POWER step: Prepare.\n\nRemember, the first thing we do to Prepare is Read the problem. Click [MORE].`,
+      `Don't think about trying to solve the problem yet. Focus on reading and understanding it. Click [MORE].`,
 
-Remember, the first thing we do to Prepare is Read the problem.`,
-      `Don't think about trying to solve the problem yet. Focus on reading and understanding it.`,
-
-      `We'll do it together. Follow along while I read the problem. When we're done reading, click ➜.
-[STIMULUS]`,
+      `Follow along while I read the problem. When we're done reading, click ➜.[STIMULUS]`,
     ],
     psHints: [`Click ➜ when we're done reading.`],
     aiHints: false,
@@ -218,7 +215,7 @@ Remember, the first thing we do to Prepare is Read the problem.`,
     title: 'Pull apart the problem',
     phase: 'P',
     intro: [
-      `Next, we Pull apart the problem. Let's do it together. Click me when you're ready.`,
+      `Next, we will Pull apart the problem. Don't start without me! Let's do it together. Click me when you're ready and I'll tell you what to do.`,
     ],
     phaseLabel: 'Prepare',
     aiHints: true,
@@ -229,9 +226,7 @@ Remember, the first thing we do to Prepare is Read the problem.`,
     title: 'Pick the problem type',
     phase: 'P',
     intro: [
-      `You're doing great! Time to Pick the problem type.
-
-I'll talk you through it. Click me when you're ready.`,
+      `You're doing GREAT! Let's Pick the problem type together. Click me when you're ready.`,
     ],
     phaseLabel: 'Prepare',
     aiHints: true,
@@ -242,7 +237,7 @@ I'll talk you through it. Click me when you're ready.`,
     title: 'Write an equation',
     phase: 'O',
     intro: [
-      `Good job! Now you're ready for the second P**O**WER step...
+      `GOOD JOB! Now you're ready for the second P**O**WER step...
 
 **O** is for **O**rganize!
 
@@ -258,9 +253,8 @@ To organize, we write an equation. Click me to learn how.`,
     phase: 'I',
     phaseLabel: 'Instruction',
     intro: [
-      `The next POWER step is ***W***. ***W*** stands for ***W***ork the Problem.
-
-The video will show you the W screen and give you some tips. After you watch it, click ➜ and we'll Work the Problem together.`,
+      `The next POWER step is **W**. **W** stands for **W**ork the Problem.\n\nThe video will show you the W screen. Click ▶️ to start the video.`,
+      `Now click ➜ and we'll Work the Problem together.`,
     ],
   },
   {
@@ -269,11 +263,12 @@ The video will show you the W screen and give you some tips. After you watch it,
     title: 'Find the unknown amount',
     phase: 'W',
     intro: [
-      `We're going to find the unknown amount, one step at a time.`,
-      `Let's do the first step together.`,
-      `The first step in W is always the equation from O.`,
-      `If you don't remember the equation, it's up at the top.`,
-      `Type the equation into the math entry box. Then click ✔.`,
+      `WAIT. Don't do anything yet. Just listen first, ok? Click [MORE].`,
+      `We're going to find the unknown amount, one step at a time. Click [MORE].`,
+      `Let's do the first step together. Click [MORE].`,
+      `The first step in W is always the equation from O. Click [MORE].`,
+      `If you don't remember the equation, it's up at the top. Click [MORE].`,
+      `Now type the equation in the math entry box. Then click ✔.`,
     ],
     phaseLabel: 'Work the Problem',
     aiHints: true,
@@ -284,16 +279,10 @@ The video will show you the W screen and give you some tips. After you watch it,
     title: 'Answer the question',
     phase: 'E',
     intro: [
-      `Yippee! It's time for the next POWER step.
-
-**E** stands for **E**xplain the Answer.`,
-      `In W, you found the unknown amount. That's part of the answer.
-
-But it's not the *whole* answer. You have to tell what it *means*.`,
-      `The problem asks a question. Write a complete sentence that answers it. The unknown amount should be in your sentence.`,
-      `Give it a try! Click me if you need some help. 
-
-Click ✔ when your sentence is done.`,
+      `YIPPEE! It's time for the next POWER step.\n\n**E** stands for **E**xplain the Answer.`,
+      `In W, you found the unknown amount. That number is part of the answer.\n\nBut it's not the *whole* answer. Click [MORE].`,
+      `You have to tell what the number *means*. You can write it in a sentence. Click [MORE].`,
+      `Here is a sentence that answers the question. Click me to learn how to fill in the blanks.`,
     ],
     phaseLabel: 'Explain the Answer',
     aiHints: true,
@@ -305,13 +294,14 @@ Click ✔ when your sentence is done.`,
     phase: 'R',
     phaseLabel: 'Reflect',
     intro: [
-      `This is it! The last POWER step! Let's do this!`,
-      `**R**eflect means to look back. Think about the answer. Does it make sense?`,
-      `Why does the answer make sense? A good reason uses correct math thinking to tell why.`,
-      `A good reason does not mean you just restate the answer.`,
+      `This is it! The last POWER step! Let's do this! Click [MORE].`,
+      `**R**eflect means to look back. Think about the answer. Does it make sense? Why? Click [MORE].`,
+      `A good reason uses correct math thinking to tell why. Click [MORE].`,
+      `A good reason does not mean you just restate the answer. Click [MORE].`,
       `A good reason does not mean you explain how to find the answer.`,
-      `We found the answer for this problem. Here is a possible reason why it makes sense. [EXPLANATION]`,
-      `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
+      `We found the answer for this problem. I will read a possible reason why it makes sense. Click [MORE].`,
+      `The reason I'm about to read might be a good reason, or it might not be. Follow along as I read. [EXPLANATION]`,
+      `Do you think that's a good reason? Choose Yes or No. Then click ➜.`,
     ],
     psHints: [
       `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
@@ -332,11 +322,7 @@ Click ✔ when your sentence is done.`,
 * [ ] **W**ork the Problem
 * [ ] **E**xplain the Answer
 * [ ] **R**eflect`,
-      `Let's POWER up by solving more problems!
-
-Now I'll let you take the lead. But don't worry, I'm still here for you. If you're not sure what to do, click me for help. Ok?
-
-I know you can do it! Click Next to get started.`,
+      `Let's POWER up by solving more problems!\n\nNow I'll let you take the lead. But don't worry, I'm still here for you. Anytime you're not sure what to do, click me for help. Ok?\n\nI know you can do it! Click the Next button above my head to get started.`,
     ],
   },
 
@@ -351,13 +337,8 @@ I know you can do it! Click Next to get started.`,
     phase: 'P',
     phaseLabel: 'Prepare',
     intro: [
-      `You know the first POWER step: Prepare.
-
-Remember, the first thing we do to Prepare is Read the problem.`,
-      `Don't think about trying to solve the problem yet. Focus on reading and understanding it.`,
-
-      `We'll do it together. Follow along while I read the problem. When we're done reading, click ➜.
-[STIMULUS]`,
+      `Here's your next problem. Follow along as I read it. [STIMULUS]`,
+      `Now you will solve the problem. Remember, click me anytime you need help.`,
     ],
     psHints: [`Click ➜ when we're done reading.`],
     aiHints: false,
@@ -367,8 +348,9 @@ Remember, the first thing we do to Prepare is Read the problem.`,
     id: 'FindFacts',
     title: 'Pull apart the problem',
     phase: 'P',
-    intro: [
-      `Next, we Pull apart the problem. Let's do it together. Click me when you're ready.`,
+    intro: [`Pull apart the problem`],
+    psHints: [
+      `A known amount has a number. The unknown amount is in the question sentence.`,
     ],
     phaseLabel: 'Prepare',
     aiHints: true,
@@ -378,11 +360,7 @@ Remember, the first thing we do to Prepare is Read the problem.`,
     id: 'SelectDiagram',
     title: 'Pick the problem type',
     phase: 'P',
-    intro: [
-      `You're doing great! Time to Pick the problem type.
-
-I'll talk you through it. Click me when you're ready.`,
-    ],
+    intro: [`Pick the problem type`],
     phaseLabel: 'Prepare',
     aiHints: true,
   },
@@ -391,40 +369,16 @@ I'll talk you through it. Click me when you're ready.`,
     id: 'FillDiagram',
     title: 'Write an equation',
     phase: 'O',
-    intro: [
-      `Good job! Now you're ready for the second P**O**WER step...
-
-**O** is for **O**rganize!
-
-To organize, we write an equation. Click me to learn how.`,
-    ],
+    intro: [`Organize`],
     phaseLabel: 'Organize',
     aiHints: true,
-  },
-  {
-    rank: 'scout',
-    id: 'VideoStepWise',
-    title: 'How to use StepWise',
-    phase: 'I',
-    phaseLabel: 'Instruction',
-    intro: [
-      `The next POWER step is ***W***. ***W*** stands for ***W***ork the Problem.
-
-The video will show you the W screen and give you some tips. After you watch it, click ➜ and we'll Work the Problem together.`,
-    ],
   },
   {
     rank: 'scout',
     id: 'SolveTheEquation',
     title: 'Find the unknown amount',
     phase: 'W',
-    intro: [
-      `We're going to find the unknown amount, one step at a time.`,
-      `Let's do the first step together.`,
-      `The first step in W is always the equation from O.`,
-      `If you don't remember the equation, it's up at the top.`,
-      `Type the equation into the math entry box. Then click ✔.`,
-    ],
+    intro: [`Work the Problem`],
     phaseLabel: 'Work the Problem',
     aiHints: true,
   },
@@ -433,17 +387,9 @@ The video will show you the W screen and give you some tips. After you watch it,
     id: 'OwnWords',
     title: 'Answer the question',
     phase: 'E',
-    intro: [
-      `Yippee! It's time for the next POWER step.
-
-**E** stands for **E**xplain the Answer.`,
-      `In W, you found the unknown amount. That's part of the answer.
-
-But it's not the *whole* answer. You have to tell what it *means*.`,
-      `The problem asks a question. Write a complete sentence that answers it. The unknown amount should be in your sentence.`,
-      `Give it a try! Click me if you need some help. 
-
-Click ✔ when your sentence is done.`,
+    intro: [`Explain the Answer`],
+    psHints: [
+      `Fill in the sentence. Give the number *and* the units that tell what the number means.`,
     ],
     phaseLabel: 'Explain the Answer',
     aiHints: true,
@@ -455,13 +401,8 @@ Click ✔ when your sentence is done.`,
     phase: 'R',
     phaseLabel: 'Reflect',
     intro: [
-      `This is it! The last POWER step! Let's do this!`,
-      `**R**eflect means to look back. Think about the answer. Does it make sense?`,
-      `Why does the answer make sense? A good reason uses correct math thinking to tell why.`,
-      `A good reason does not mean you just restate the answer.`,
-      `A good reason does not mean you explain how to find the answer.`,
-      `We found the answer for this problem. Here is a possible reason why it makes sense. [EXPLANATION]`,
-      `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
+      `Reflect. Here is a possible reason why the answer makes sense. [EXPLANATION]`,
+      `Do you think that's a good reason?`,
     ],
     psHints: [
       `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
@@ -476,17 +417,7 @@ Click ✔ when your sentence is done.`,
     phase: 'I',
     phaseLabel: 'Congratulations',
     intro: [
-      `FANTASTIC!! You used all five POWER steps to solve a word problem!
-* [ ] **P**repare
-* [ ] **O**rganize
-* [ ] **W**ork the Problem
-* [ ] **E**xplain the Answer
-* [ ] **R**eflect`,
-      `Let's POWER up by solving more problems!
-
-Now I'll let you take the lead. But don't worry, I'm still here for you. If you're not sure what to do, click me for help. Ok?
-
-I know you can do it! Click Next to get started.`,
+      `Congratulations! You solved the problem with POWER!\n\nClick the Next button above my head when you're ready to move on.`,
     ],
   },
 
@@ -501,7 +432,7 @@ I know you can do it! Click Next to get started.`,
     phase: 'P',
     phaseLabel: 'Prepare',
     intro: [`Here's your next problem. Follow along as I read it. [STIMULUS]`],
-    psHints: [`Click ➜ when you're done reading.`],
+    psHints: [`Click ➜ when we're done reading.`],
     aiHints: false,
   },
   {
@@ -541,6 +472,10 @@ I know you can do it! Click Next to get started.`,
     id: 'OwnWords',
     title: 'Answer the question',
     phase: 'E',
+    intro: [`Write a complete sentence that gives the answer.`],
+    psHints: [
+      `Your sentence should have the number answer *and* tell what the number means.`,
+    ],
     phaseLabel: 'Explain the Answer',
     aiHints: true,
   },
@@ -552,7 +487,7 @@ I know you can do it! Click Next to get started.`,
     phaseLabel: 'Reflect',
     intro: [
       `Here is a possible reason why the answer makes sense. [EXPLANATION]`,
-      `Do you think the reason is a good reason?`,
+      `Do you think that's a good reason?`,
     ],
     psHints: [
       `Do you think the reason is a good reason? Choose Yes or No. Then click ➜.`,
@@ -566,9 +501,7 @@ I know you can do it! Click Next to get started.`,
     phase: 'I',
     phaseLabel: 'Congratulations',
     intro: [
-      `Congratulations! You solved the problem with POWER!
-      
-Click Next when you're ready to move on.`,
+      `Congratulations! You solved the problem with POWER!\n\nClick the Next button above my head when you're ready to move on.`,
     ],
   },
 ]
