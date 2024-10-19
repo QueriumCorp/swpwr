@@ -88,6 +88,7 @@ const NewbReadProblem: React.FC<{
           break
         case 'psHints':
           newMsg = page?.psHints![page.psHints!.length - 1]
+
           break
       }
 

@@ -127,9 +127,9 @@ When we're done reading, click ➜.
     intro: [
       `You did that just right! Now let's learn the first POWER step.\n\n**P** is the first step. **P** stands for **P**repare.`,
       `There are three things we do to Prepare.\n\nThe first one is Read.`,
-      `Find the story in the box above. Follow along with me as I read it.\n\nWhen we're done reading, click ➜. [STIMULUS]`,
+      `Find the story in the box above. Follow along with me as I read it.\n\nWhen we're done reading, click [MORE]. [STIMULUS]`,
+      `Click ➜ to continue.`,
     ],
-    psHints: [`Click ➜ when we're done reading.`],
   },
   {
     rank: 'newb',
