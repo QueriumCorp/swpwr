@@ -153,7 +153,7 @@ When we're done reading, click ➜.
       `A known amount has a number. But it's not *just* a number. It also has a word or words that tell what the number means. Click [MORE].`,
       `Click me to find known amounts in the story above.`,
     ],
-    aiHints: false,
+    aiHints: true,
   },
   {
     rank: 'newb',
@@ -185,7 +185,10 @@ When we're done reading, click ➜.
     phaseLabel: 'Instruction',
     intro: [
       `GREAT WORK!\n\nNow you know the first POWER step, **P**repare.`,
-      `To **P**repare, we:\n\n1. Read\n1. Pull apart\n1. Pick the problem type`,
+      `To **P**repare, we:\n
+* [ ] **R**ead
+* [ ] **P**ull apart      
+* [ ] **P**ick the problem type`,
       `*And* now you know one type of problem: Total.\n\nFind the Next button above my head. Click Next to check your understanding.`,
     ],
   },
