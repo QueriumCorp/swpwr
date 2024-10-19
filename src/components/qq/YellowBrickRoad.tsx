@@ -139,7 +139,6 @@ When we're done reading, click ➜.
     phaseLabel: 'Instruction',
     intro: [
       `After Read comes Pull apart. The video will show you the basics of what to do.\n\nClick ▶️ to start the video.`,
-      `Click ➜ to continue.`,
     ],
   },
   {
@@ -149,8 +148,10 @@ When we're done reading, click ➜.
     phase: 'P',
     phaseLabel: 'Prepare',
     intro: [
-      `Wait! Don't do anything yet. Just listen for now to learn more about Pull apart.\n\nPull apart means we find the important amounts. We pull them out one at a time.\n\nAn amount in a word problem can be known or unknown. Click [MORE].`,
-      `A known amount has a number. But it's not *just* a number. It also has a word or words that tell what the number means.\n\nClick me to find known amounts in the story above.`,
+      `Wait! Don't do anything yet. Just listen for now to learn more about Pull apart. Click [MORE].`,
+      `Pull apart means we find the important amounts. We pull them out one at a time.\n\nAn amount in a word problem can be known or unknown. Click [MORE].`,
+      `A known amount has a number. But it's not *just* a number. It also has a word or words that tell what the number means. Click [MORE].`,
+      `Click me to find known amounts in the story above.`,
     ],
     aiHints: false,
   },
@@ -163,8 +164,7 @@ When we're done reading, click ➜.
     intro: [
       `The last Prepare task is Pick the problem type. Click [MORE].`,
       `A word problem tells a story. Before you solve a word problem, it helps to know what *type* of story it tells. Click [MORE].`,
-      `The first type we'll learn about is Total. Click ▶️ to start the video.`,
-      `Click ➜ to continue.`,
+      `The first type we'll learn about is Total. \n\nClick ▶️ to start the video.`,
     ],
   },
   {
@@ -254,7 +254,6 @@ To organize, we write an equation. Click me to learn how.`,
     phaseLabel: 'Instruction',
     intro: [
       `The next POWER step is **W**. **W** stands for **W**ork the Problem.\n\nThe video will show you the W screen. Click ▶️ to start the video.`,
-      `Now click ➜ and we'll Work the Problem together.`,
     ],
   },
   {
@@ -474,7 +473,7 @@ To organize, we write an equation. Click me to learn how.`,
     phase: 'E',
     intro: [`Write a complete sentence that gives the answer.`],
     psHints: [
-      `Your sentence should have the number answer *and* tell what the number means.`,
+      `Your sentence should have the number answer *and* the units that tell what the number means.`,
     ],
     phaseLabel: 'Explain the Answer',
     aiHints: true,
