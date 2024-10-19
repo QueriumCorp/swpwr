@@ -433,8 +433,11 @@ To organize, we write an equation. Click me to learn how.`,
     title: 'Read the problem',
     phase: 'P',
     phaseLabel: 'Prepare',
-    intro: [`Here's your next problem. Follow along as I read it. [STIMULUS]`],
-    psHints: [`Click ➜ when we're done reading.`],
+    intro: [
+      `Here's your next problem. Follow along as I read it. [STIMULUS]`,
+      `Click ➜ to continue.`,
+    ],
+    psHints: [],
     aiHints: false,
   },
   {

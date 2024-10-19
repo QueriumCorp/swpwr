@@ -48,15 +48,32 @@ const RangerReadProblem: React.FC<{
   const hintList = useMemo(() => {
     // get page hints
     let pageHints: string[] = []
+    let wpHints = problem.wpHints?.find(
+      wpHint => wpHint.page === `${rank}${page.id}`,
+    )
+    if (wpHints?.hints) {
+      pageHints = wpHints.hints
+    } else if (page.psHints) {
+      pageHints = page.psHints
+    }
 
     // define hint stages
     let hintStages: HintStage[] = []
-
-    hintStages.push('pre')
+    if (page.intro?.length) {
+      hintStages.push('intro')
+    } else {
+      hintStages.push('pre')
+    }
+    if (pageHints?.length) {
+      hintStages.push('psHints')
+    }
+    if (page.aiHints) {
+      hintStages.push('aiHints')
+    }
 
     return {
       stages: hintStages,
-      intro: [],
+      intro: page.intro,
       psHints: pageHints,
     }
   }, [])
