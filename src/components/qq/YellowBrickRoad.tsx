@@ -206,10 +206,10 @@ When we're done reading, click ➜.
     intro: [
       `You know the first POWER step: Prepare.\n\nRemember, the first thing we do to Prepare is Read the problem. Click [MORE].`,
       `Don't think about trying to solve the problem yet. Focus on reading and understanding it. Click [MORE].`,
-
-      `Follow along while I read the problem. When we're done reading, click ➜.[STIMULUS]`,
+      `Follow along while I read the problem. \n\nWhen we're done reading, click [MORE]. [STIMULUS]`,
+      `Click ➜ to continue.`,
     ],
-    psHints: [`Click ➜ when we're done reading.`],
+    psHints: [],
     aiHints: false,
   },
   {
@@ -339,10 +339,10 @@ To organize, we write an equation. Click me to learn how.`,
     phase: 'P',
     phaseLabel: 'Prepare',
     intro: [
-      `Here's your next problem. Follow along as I read it. [STIMULUS]`,
-      `Now you will solve the problem. Remember, click me anytime you need help.`,
+      `Here's your next problem. Follow along as I read it.\n\nWhen we're done reading, click [MORE].[STIMULUS]`,
+      `Now you will solve the problem. Remember, click me anytime you need help.\n\nClick ➜ to continue.`,
     ],
-    psHints: [`Click ➜ when we're done reading.`],
+    psHints: [],
     aiHints: false,
   },
   {
@@ -434,7 +434,7 @@ To organize, we write an equation. Click me to learn how.`,
     phase: 'P',
     phaseLabel: 'Prepare',
     intro: [
-      `Here's your next problem. Follow along as I read it. [STIMULUS]`,
+      `Here's your next problem. Follow along as I read it.\n\nWhen we're done reading, click [MORE]. [STIMULUS]`,
       `Click ➜ to continue.`,
     ],
     psHints: [],
