@@ -240,13 +240,34 @@ export const ChatBubble = ({
     if (!msgs) {
       return
     }
-    vocalize(msgs[api!.selectedScrollSnap()], evt.altKey ? true : false)
+    // vocalize(msgs[api!.selectedScrollSnap()], evt.altKey ? true : false)
+    let stimulusText = problem.stimulus
+    let explanationText = session.selectedExplanation?.text
+    setSpeaking(true)
+    let msgIndex = api!.selectedScrollSnap()
+    let originalMsg = msgs[msgIndex]
+
+    let stimulatedMsgs = splitMessages(
+      originalMsg,
+      stimulusText,
+      explanationText,
+    )
+    vocalizeList(stimulatedMsgs, evt.altKey ? true : false, () => {
+      if (stimulusIndex === current) {
+        setSpeaking(false)
+      } else {
+        setSpeaking(false)
+      }
+    })
   }
   function SpeakButton() {
     if (session.chatty) return <div></div>
 
     return (
-      <button style={{ all: 'unset', cursor: 'pointer' }} onClick={handleSpeak}>
+      <button
+        style={{ all: 'unset', cursor: 'pointer' }}
+        onClick={evt => handleSpeak(evt)}
+      >
         <HiMiniSpeakerWave />
       </button>
     )
