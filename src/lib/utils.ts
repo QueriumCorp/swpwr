@@ -126,7 +126,19 @@ export function makeVocalizable(text: string) {
     .replace(/✔/g, 'the check button')
     .replace(/\n1\.\s/g, ' <break time="0.5s" /> ')
 
-  return noIcons
+  // Convert currency to spoken form
+  const dollarsRegex = /\$\d+(\.\d{2})?/g
+  const matches = noIcons.match(dollarsRegex) // find all dollar amounts
+  const converted = matches?.map(match => {
+    // convert to spoken form
+    return currencyToWords(match)
+  })
+  let dollarized = noIcons
+  matches?.forEach((match, index) => {
+    // substitute back in
+    dollarized = dollarized.replace(match, converted![index])
+  })
+  return dollarized
 }
 
 function regexIndexOf(string: string, regex: RegExp, startpos: number) {
@@ -207,4 +219,90 @@ export function randomClickNextMsg() {
     `Don’t give up. Click me if you want a hint.`,
   ]
   return clickNextMsgs[Math.floor(Math.random() * clickNextMsgs.length)]
+}
+
+function currencyToWords(amount: string): string {
+  // Remove $ and commas, then convert to a number
+  const num: number = parseFloat(amount.replace(/[$,]/g, ''))
+
+  if (isNaN(num)) return 'Invalid amount'
+
+  const dollars: number = Math.floor(num)
+  const cents: number = Math.round((num - dollars) * 100)
+
+  const numberToWords = (n: number): string => {
+    const ones: string[] = [
+      '',
+      'one',
+      'two',
+      'three',
+      'four',
+      'five',
+      'six',
+      'seven',
+      'eight',
+      'nine',
+    ]
+    const tens: string[] = [
+      '',
+      '',
+      'twenty',
+      'thirty',
+      'forty',
+      'fifty',
+      'sixty',
+      'seventy',
+      'eighty',
+      'ninety',
+    ]
+    const teens: string[] = [
+      'ten',
+      'eleven',
+      'twelve',
+      'thirteen',
+      'fourteen',
+      'fifteen',
+      'sixteen',
+      'seventeen',
+      'eighteen',
+      'nineteen',
+    ]
+    const scales: string[] = ['', 'thousand', 'million']
+
+    if (n === 0) return ''
+    if (n < 10) return ones[n]
+    if (n < 20) return teens[n - 10]
+    if (n < 100)
+      return `${tens[Math.floor(n / 10)]}${n % 10 !== 0 ? '-' + ones[n % 10] : ''}`
+    if (n < 1000)
+      return `${ones[Math.floor(n / 100)]} hundred${n % 100 !== 0 ? ' ' + numberToWords(n % 100) : ''}`
+
+    let result: string = ''
+    let scaleIndex: number = 0
+    while (n > 0) {
+      if (n % 1000 !== 0) {
+        result = `${numberToWords(n % 1000)} ${scales[scaleIndex]} ${result}`
+      }
+      n = Math.floor(n / 1000)
+      scaleIndex++
+    }
+    return result.trim()
+  }
+
+  let result: string = ''
+
+  if (dollars === 0 && cents === 0) {
+    return 'zero dollars'
+  }
+
+  if (dollars > 0) {
+    result += `${numberToWords(dollars)} dollar${dollars !== 1 ? 's' : ''}`
+  }
+
+  if (cents > 0) {
+    if (dollars > 0) result += ' and '
+    result += `${numberToWords(cents)} cent${cents !== 1 ? 's' : ''}`
+  }
+
+  return result
 }
