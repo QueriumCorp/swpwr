@@ -177,7 +177,7 @@ export function renderPage(page: YBRpage, index: number) {
     ///////////////////////////////////////////////////////////////////
 
     case 'ranger:ReadProblem':
-      return <RangerReadProblem page={page} index={index}></RangerReadProblem>
+      return <CadetReadProblem page={page} index={index}></CadetReadProblem>
     case 'ranger:WhatToAnswer':
       return <RangerWhatToAnswer page={page} index={index}></RangerWhatToAnswer>
     case 'ranger:FindFacts':

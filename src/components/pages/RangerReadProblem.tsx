@@ -37,6 +37,8 @@ const RangerReadProblem: React.FC<{
   // State
   ///////////////////////////////////////////////////////////////////
 
+  const [navDisabled, setNavDisabled] = useState(true)
+
   const [started, setStarted] = useState(false)
   const [busy, setBusy] = useState(true)
   const [msg, setMsg] = useState<string>(
@@ -98,6 +100,31 @@ const RangerReadProblem: React.FC<{
     toggleChatty()
   }
 
+  function hintChanged(hintStage: string, current: number, count: number) {
+    if (count > 0 && current === count) {
+      let newMsg = ''
+
+      switch (hintStage) {
+        case 'intro':
+          newMsg = page?.intro![page.intro!.length - 1]
+          break
+        case 'psHints':
+          newMsg = page?.psHints![page.psHints!.length - 1]
+          break
+      }
+
+      setMsg(newMsg)
+      if (session.chatty) {
+        setNavDisabled(false)
+      } else {
+        // if not chatty, disable next for 5 seconds
+        setTimeout(() => {
+          setNavDisabled(false)
+        }, 5000)
+      }
+    }
+  }
+
   ///////////////////////////////////////////////////////////////////
   // JSX
   ///////////////////////////////////////////////////////////////////
@@ -132,10 +159,16 @@ const RangerReadProblem: React.FC<{
         ></StimulusSelector>
       </div>
       <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
-        <TinyTutor msg={msg} busy={busy} hintList={hintList}></TinyTutor>
+        <TinyTutor
+          msg={msg}
+          busy={busy}
+          hintList={hintList}
+          hintChanged={hintChanged}
+        ></TinyTutor>
         <div className="flex h-20 w-20 items-center justify-center">
           <NextButton
             className={cn(busy ? 'scale-[100%]' : 'scale-[200%]')}
+            disabled={navDisabled}
             busy={busy}
           ></NextButton>
         </div>
