@@ -122,12 +122,12 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     //
     // Handlers
     //
-    function handleSpeak() {
-      vocalize(stimulusText)
+    function handleSpeak(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+      vocalize(stimulusText, evt.altKey ? true : false)
     }
     function SpeakButton() {
       return (
-        <button className="border-none text-xs" onClick={handleSpeak}>
+        <button className="border-none text-xs" onClick={e => handleSpeak(e)}>
           <HiMiniSpeakerWave className="text-cyan-900" />
         </button>
       )

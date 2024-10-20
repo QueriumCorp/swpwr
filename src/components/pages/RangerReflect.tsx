@@ -142,14 +142,20 @@ const RangerReflect: FC<{
     submitExplanation(explanation || { type: '', text: '' })
   }
 
-  function handleSpeak(text: string) {
-    vocalize(text)
+  function handleSpeak(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    text: string,
+  ) {
+    vocalize(text, evt.altKey ? true : false)
   }
   const SpeakButton: FC<{
     msg: string
   }> = ({ msg }) => {
     return (
-      <button className="border-none text-xs" onClick={() => handleSpeak(msg)}>
+      <button
+        className="border-none text-xs"
+        onClick={evt => handleSpeak(evt, msg)}
+      >
         <HiMiniSpeakerWave className="text-cyan-900" />
       </button>
     )

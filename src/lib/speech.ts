@@ -18,7 +18,11 @@ import { useProblemStore } from '@/store/_store'
 // const voiceId = 'Xb7hH8MSUJpSbSDYk0k2'
 // const voiceName = 'Alice'
 
-async function vocalize(message: string, finishedCallback?: () => void) {
+async function vocalize(
+  message: string,
+  noCache?: boolean,
+  finishedCallback?: () => void,
+) {
   const voiceId = useProblemStore.getState().voiceId || 'cgSgspJ2msm6clMCkdW9'
   const voiceName = useProblemStore.getState().voiceName || 'Jessica'
 
@@ -37,6 +41,7 @@ async function vocalize(message: string, finishedCallback?: () => void) {
     body: JSON.stringify({
       appKey: 'JiraTestPage',
       text: msgText,
+      noCache,
       voiceId,
       voiceName,
     }),
@@ -94,6 +99,7 @@ async function vocalize(message: string, finishedCallback?: () => void) {
 
 export async function vocalizeList(
   messages: string[],
+  noCache?: boolean,
   finishedCallback?: () => void,
 ) {
   const voiceId = useProblemStore.getState().voiceId || 'cgSgspJ2msm6clMCkdW9'
@@ -116,6 +122,7 @@ export async function vocalizeList(
       body: JSON.stringify({
         appKey: 'JiraTestPage',
         text: msgText,
+        noCache,
         voiceId,
         voiceName,
       }),

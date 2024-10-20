@@ -132,7 +132,7 @@ export const ChatBubble = ({
         stimulusText,
         explanationText,
       )
-      vocalizeList(stimulatedMsgs, () => {
+      vocalizeList(stimulatedMsgs, false, () => {
         if (stimulusIndex === current) {
           setSpeaking(false)
         } else {
@@ -236,11 +236,11 @@ export const ChatBubble = ({
   }
 
   // Speak Button
-  function handleSpeak() {
+  function handleSpeak(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     if (!msgs) {
       return
     }
-    vocalize(msgs[api!.selectedScrollSnap()])
+    vocalize(msgs[api!.selectedScrollSnap()], evt.altKey ? true : false)
   }
   function SpeakButton() {
     if (session.chatty) return <div></div>
