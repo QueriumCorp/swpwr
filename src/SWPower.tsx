@@ -88,6 +88,7 @@ const StepWisePower = forwardRef<
   const [traceComment, setTraceComment] = useState('')
   const [traceMsg, setTraceMsg] = useState('')
   const [enableDebugger, setEnableDebugger] = useState(false)
+  const [chiggerOpen, setchiggerOpen] = useState(false)
   const [propError, setPropError] = useState('')
 
   //
@@ -173,6 +174,7 @@ const StepWisePower = forwardRef<
   useEffect(() => {
     if (criticalError) {
       setEnableDebugger(true)
+      setchiggerOpen(true)
     }
   }, [criticalError])
 
@@ -209,7 +211,7 @@ const StepWisePower = forwardRef<
           props.className,
         )}
       >
-        <Drawer>
+        <Drawer open={chiggerOpen}>
           <DrawerTrigger asChild>
             {enableDebugger && (
               <div className="fixed bottom-0 left-2 z-10 m-1 flex cursor-pointer gap-2 rounded-full bg-transparent text-xs">
