@@ -102,6 +102,9 @@ const CadetReflect: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
+    if (!session?.explanations) {
+      return
+    }
     const selectedExplanation = estimationOrBad(session.explanations)
     setExplanation(selectedExplanation)
     setSelectedExplanation(selectedExplanation)
