@@ -75,6 +75,8 @@ const StepWisePower = forwardRef<
     onComplete,
     setOnComplete,
     setOnStep,
+    setCriticalError,
+    criticalError,
   } = useProblemStore()
 
   //
@@ -136,7 +138,7 @@ const StepWisePower = forwardRef<
 
   // If we have problem but no sessionToken, start up the session.
   useEffect(() => {
-    if (problem.question.length > 10 && session.sessionToken.length == 0) {
+    if (problem?.question?.length > 10 && session?.sessionToken?.length == 0) {
       initSession()
     }
   }, [problem, session])
@@ -167,6 +169,12 @@ const StepWisePower = forwardRef<
       setCurrent(api.selectedScrollSnap() + 1)
     })
   }, [api])
+
+  useEffect(() => {
+    if (criticalError) {
+      setEnableDebugger(true)
+    }
+  }, [criticalError])
 
   //
   // Event Handlers

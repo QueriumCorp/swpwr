@@ -14,6 +14,7 @@ export interface State {
   session: Session
   ybr: YBRpage[]
   studentLog: LogItem[]
+  criticalError: boolean
   onComplete: (session: Session, studentLog: LogItem[]) => void
   onStep: (session: Session, studentLog: LogItem[]) => void
 
@@ -28,6 +29,7 @@ export interface State {
   setStudent: (student: Student) => void
   setSession: (session: Session) => void
   setYBR: (ybr: YBRpage[]) => void
+  setCriticalError: (criticalError: boolean) => void
   toggleChatty: () => boolean
   heartbeat: () => Promise<void>
   initSession: () => void

@@ -2,6 +2,14 @@ import { shuffle } from '@/lib/utils'
 import type { SetFn, GetFn } from './_types'
 
 const initSession = async (set: SetFn, get: GetFn) => {
+  console.log('initSession', get().session?.sessionToken)
+  set(state => ({
+    session: {
+      ...state.session,
+      sessionToken: 'WORKING',
+    },
+  }))
+
   const problem = get().problem
   const student = get().student
 
@@ -48,24 +56,30 @@ const initSession = async (set: SetFn, get: GetFn) => {
   })
 
   const data = await response.json()
-
-  set(state => ({
-    session: {
-      ...state.session,
-      sessionToken: data.sessionToken,
-      identifiers: data.identifiers,
-      operators: data.operators,
-      explanations: shuffle(data.explanation),
-      endPhaseWEqn: data.endPhaseWEqn,
-      phaseESentence: data.phaseESentence,
-      selectedExplanation: { type: '', text: '' },
-    },
-  }))
   get().logAction({
     page: 'none',
     activity: 'initSession',
     data: { theProblem, response, data },
   })
+  if (response.status !== 200) {
+    set({
+      criticalError: true,
+      session: { ...get().session, sessionToken: 'ERROR' },
+    })
+  } else {
+    set(state => ({
+      session: {
+        ...state.session,
+        sessionToken: data.sessionToken,
+        identifiers: data.identifiers,
+        operators: data.operators,
+        explanations: shuffle(data.explanation),
+        endPhaseWEqn: data.endPhaseWEqn,
+        phaseESentence: data.phaseESentence,
+        selectedExplanation: { type: '', text: '' },
+      },
+    }))
+  }
 }
 
 export default initSession

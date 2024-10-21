@@ -78,6 +78,7 @@ export const useProblemStore = create<State>((set, get) => ({
   },
 
   ybr: [],
+  criticalError: false,
 
   studentLog: [],
   onComplete: () => {
@@ -161,6 +162,12 @@ export const useProblemStore = create<State>((set, get) => ({
   setYBR: (ybr: YBRpage[]) => {
     set(_state => ({
       ybr: ybr,
+    }))
+  },
+
+  setCriticalError: (criticalError: boolean) => {
+    set(_state => ({
+      criticalError: criticalError,
     }))
   },
 
