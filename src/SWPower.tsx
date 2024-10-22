@@ -209,6 +209,7 @@ const StepWisePower = forwardRef<
         className={cn(
           'StepWisePower relative min-h-24 w-full border-none',
           props.className,
+          !criticalError ? '' : 'bg-sad-panda',
         )}
       >
         <Drawer open={chiggerOpen}>
@@ -218,6 +219,9 @@ const StepWisePower = forwardRef<
                 <button
                   id="chigger"
                   className="cursor-pointer rounded-full bg-transparent text-xs"
+                  onClick={() => {
+                    setchiggerOpen(true)
+                  }}
                 >
                   <BsBugFill className="text-lg text-red-500" />
                 </button>
@@ -229,7 +233,15 @@ const StepWisePower = forwardRef<
             )}
           </DrawerTrigger>
           <DrawerContent>
-            <div className="relative mx-auto h-[400px] w-full">
+            <button
+              onClick={() => {
+                setchiggerOpen(false)
+              }}
+              className="absolute right-3 top-0 cursor-pointer"
+            >
+              ⨉
+            </button>
+            <div className="relative mx-auto h-[600px] w-full">
               <Tabs defaultValue="speech" className="h-[95%] w-full">
                 <TabsList className="w-full">
                   <TabsTrigger value="props">Props</TabsTrigger>
