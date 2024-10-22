@@ -135,7 +135,11 @@ const TotalEditor: FC<{
               {session.knowns ? (
                 <ul className="flex flex-wrap gap-2">
                   {session.knowns.map(known => (
-                    <FactChicklet key={known} fact={known}></FactChicklet>
+                    <FactChicklet
+                      key={known}
+                      fact={known}
+                      className="text-xl"
+                    ></FactChicklet>
                   ))}
                 </ul>
               ) : null}
@@ -149,7 +153,11 @@ const TotalEditor: FC<{
               {session.unknowns ? (
                 <ul className="flex flex-wrap gap-2">
                   {session.unknowns.map(unknown => (
-                    <FactChicklet key={unknown} fact={unknown}></FactChicklet>
+                    <FactChicklet
+                      key={unknown}
+                      fact={unknown}
+                      className="text-xl"
+                    ></FactChicklet>
                   ))}
                 </ul>
               ) : null}
