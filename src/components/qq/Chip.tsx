@@ -39,14 +39,14 @@ const Chip = ({
           className="scale-102 mr-2 h-8 w-8 translate-x-[-1px] rounded-full ring-2 ring-purple-500"
         />
       )}
-      <p className="flex-grow select-none pl-4 pr-4 text-sm text-black">
-        {label}
-      </p>
+      <p className="flex-grow select-none pl-4 pr-4 text-black">{label}</p>
 
       {onDelete && (
         <button
           onClick={() => onDelete(id)}
-          className="flex rounded-full !border-none bg-transparent p-0 align-middle text-lg text-gray-400 hover:scale-90 hover:border-transparent hover:bg-white hover:text-red-500"
+          className={
+            'flex rounded-full !border-none bg-transparent p-0 align-middle text-lg text-gray-400 !shadow-none hover:scale-90 hover:border-transparent hover:bg-white hover:text-red-500'
+          }
         >
           <span className="px-2">×</span>
         </button>

@@ -177,7 +177,10 @@ const CadetReflect: FC<{
           <div className="relative flex grow flex-col items-center justify-stretch gap-2 p-2">
             <StimulusSelector
               className={cn(
-                'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+                'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2',
+                'ring-offset-background placeholder:text-muted-foreground',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                'disabled:cursor-not-allowed disabled:opacity-50',
                 className,
                 'inline',
               )}
@@ -203,7 +206,10 @@ const CadetReflect: FC<{
                 onClick={() => setAnswer(1)}
                 className={cn(
                   'YES',
-                  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+                  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium',
+                  'ring-offset-background transition-colors',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                  'disabled:pointer-events-none disabled:opacity-50',
                   'border border-input bg-background hover:bg-qqAccent hover:text-white',
                   'h-11 rounded-md px-8',
                   answer === 1 ? 'ring-2 ring-qqBrand' : '',

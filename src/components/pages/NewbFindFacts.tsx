@@ -177,12 +177,13 @@ const NewbFindFacts: FC<{
             interactive={true}
             onChangeFact={setCurrentFact}
             className={cn(
-              'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm',
+              'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2',
               'ring-offset-background placeholder:text-muted-foreground',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
               'disabled:cursor-not-allowed disabled:opacity-50',
               className,
               'inline',
+              'text-xl',
             )}
             stimulusText={problem.stimulus}
           ></StimulusSelector>
@@ -196,6 +197,7 @@ const NewbFindFacts: FC<{
                     key={known}
                     label={known}
                     onDelete={delKnown}
+                    className="text-xl"
                   ></Chip>
                 ))}
               </KnownFacts>
@@ -206,6 +208,7 @@ const NewbFindFacts: FC<{
                     key={unknown}
                     label={unknown}
                     onDelete={delUnknown}
+                    className="text-xl"
                   ></Chip>
                 ))}
               </UnknownFacts>

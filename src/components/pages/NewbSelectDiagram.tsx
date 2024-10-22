@@ -216,7 +216,7 @@ const NewbProblemType: FC<{
 
           <StimulusSelector
             className={cn(
-              'mb-2 flex w-full rounded-md border border-input bg-slate-300 px-3 py-2 text-sm',
+              'mb-2 flex w-full rounded-md border border-input bg-slate-300 px-3 py-2',
               className,
             )}
             stimulusText={problem.stimulus}

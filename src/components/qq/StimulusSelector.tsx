@@ -139,9 +139,14 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
 
     return (
       <>
-        <div ref={theRef} className={cn('STIMULUS', 'pr-4', className)}>
+        <div
+          ref={theRef}
+          className={cn('STIMULUS', 'pr-4', 'text-xl', className)}
+        >
           {preText}
-          {theText.length ? <FactChicklet fact={theText}></FactChicklet> : null}
+          {theText.length ? (
+            <FactChicklet fact={theText} className="text-xl"></FactChicklet>
+          ) : null}
           {postText}
           <div className="absolute right-3 top-1 mt-2 flex items-center justify-between text-right italic text-black">
             <SpeakButton></SpeakButton>
