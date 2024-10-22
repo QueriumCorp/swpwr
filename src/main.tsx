@@ -107,7 +107,7 @@ console.table('OPTIONS', options)
 
 ReactDOM.createRoot(document.getElementById('qqROOT')!).render(
   <React.StrictMode>
-    <div className="SWPowerComponent relative h-dvh max-w-[1024px] overflow-hidden">
+    <div className="SWPowerComponent relative h-dvh w-dvw overflow-hidden">
       <StepWisePower
         className="absolute bottom-0 left-0 right-0 top-0 flex flex-col"
         problem={problem}

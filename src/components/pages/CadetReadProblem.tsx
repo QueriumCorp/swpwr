@@ -81,6 +81,13 @@ const CadetReadProblem: React.FC<{
   ///////////////////////////////////////////////////////////////////
 
   function handleStart() {
+    // if we are in edX, go fullscreen
+    const swReactJSxBlocks =
+      document.getElementsByClassName('sw-reactjs-xblock')
+    if (swReactJSxBlocks.length > 0) {
+      swReactJSxBlocks[0].requestFullscreen()
+    }
+
     setStarted(true)
     toggleChatty()
   }

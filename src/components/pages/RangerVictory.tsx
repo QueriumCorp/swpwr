@@ -61,6 +61,9 @@ const RangerVictory: FC<{
   }
 
   if (current === index + 1) {
+    if (document.fullscreenEnabled) {
+      document.exitFullscreen()
+    }
     onComplete(session, studentLog)
   }
 
