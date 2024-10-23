@@ -29,6 +29,7 @@ import buildInfo from './buildInfo.json'
 import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import VoiceTester from './components/qq/ChatBubble/VoiceTester'
+import FullScreen from './components/qq/FullScreen/FullScreen'
 
 // Props
 const StepWisePowerProps = z.object({
@@ -457,6 +458,7 @@ const StepWisePower = forwardRef<
             </CarouselContent>
           </AvatarAPIProvider>
         </Carousel>
+        <FullScreen />
       </div>
     </NavContext.Provider>
   )

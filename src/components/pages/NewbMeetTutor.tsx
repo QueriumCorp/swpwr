@@ -56,11 +56,16 @@ const NewbMeetTutor: React.FC<{
   ///////////////////////////////////////////////////////////////////
 
   function handleStart() {
-    // if we are in edX, go fullscreen
+    // Are we in edX?
     const swReactJSxBlocks =
       document.getElementsByClassName('sw-reactjs-xblock')
-    if (swReactJSxBlocks.length > 0) {
-      swReactJSxBlocks[0].requestFullscreen()
+
+    const qqROOT = document.getElementById('qqROOT') as HTMLElement
+    const isFullscreen = Boolean(document.fullscreenElement)
+
+    // If we're in edX, then we need to go fullscreen when student presses Start
+    if (swReactJSxBlocks.length > 0 && !isFullscreen) {
+      qqROOT.requestFullscreen()
     }
 
     setStarted(true)
