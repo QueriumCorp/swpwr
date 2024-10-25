@@ -20,7 +20,12 @@ import { YellowBrickRoad } from './components/qq/YellowBrickRoad'
 import { renderPage } from './components/qq/RenderPage'
 import { NavContext } from './NavContext'
 import { cn } from './lib/utils'
-import { OptionsSchema, ProblemSchema, StudentSchema } from './store/_types'
+import {
+  OptionsSchema,
+  ProblemSchema,
+  SessionSchema,
+  StudentSchema,
+} from './store/_types'
 
 import { useProblemStore } from './store/_store'
 import buildInfo from './buildInfo.json'
@@ -36,6 +41,7 @@ import testNetworkSpeed from './lib/network'
 const StepWisePowerProps = z.object({
   problem: ProblemSchema,
   student: StudentSchema,
+  oldSession: SessionSchema,
   options: OptionsSchema.optional(),
   onComplete: z.function().optional(),
   onStep: z.function().optional(),
@@ -77,6 +83,7 @@ const StepWisePower = forwardRef<
     onComplete,
     setOnComplete,
     setOnStep,
+    toggleChatty,
     setCriticalError,
     criticalError,
     setNetworkSpeedMbps,
@@ -85,6 +92,7 @@ const StepWisePower = forwardRef<
   //
   // State
   //
+  const [started, setStarted] = useState(false)
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [closeMsg, setCloseMsg] = useState('')
@@ -204,7 +212,22 @@ const StepWisePower = forwardRef<
   const handleCompleteProblem = async () => {
     onComplete(session, studentLog)
   }
+  function handleStart() {
+    // Are we in edX?
+    const swReactJSxBlocks =
+      document.getElementsByClassName('sw-reactjs-xblock')
 
+    const qqROOT = document.getElementById('qqROOT') as HTMLElement
+    const isFullscreen = Boolean(document.fullscreenElement)
+
+    // If we're in edX, then we need to go fullscreen when student presses Start
+    if (swReactJSxBlocks.length > 0 && !isFullscreen) {
+      qqROOT.requestFullscreen()
+    }
+
+    setStarted(true)
+    toggleChatty()
+  }
   //
   // Hotkeys
   //
@@ -440,7 +463,6 @@ const StepWisePower = forwardRef<
             </div>
           </DrawerContent>
         </Drawer>
-
         <Carousel
           setApi={setApi}
           opts={{ watchDrag: false }}
@@ -469,7 +491,18 @@ const StepWisePower = forwardRef<
             </CarouselContent>
           </AvatarAPIProvider>
         </Carousel>
-        <FullScreen />
+        <FullScreen />{' '}
+        {started ? null : (
+          <div className="fixed flex h-full w-full items-center justify-center bg-black bg-opacity-80">
+            <Button
+              size="lg"
+              className="bg-qqBrand hover:bg-qqAccent"
+              onClick={() => handleStart()}
+            >
+              START
+            </Button>
+          </div>
+        )}
       </div>
     </NavContext.Provider>
   )

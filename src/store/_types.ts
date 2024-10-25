@@ -1,4 +1,5 @@
 import { YBRpage } from '@/components/qq/YellowBrickRoad'
+import { text } from 'stream/consumers'
 import { z } from 'zod'
 
 // STATE
@@ -109,6 +110,10 @@ export type Explanation = {
   type: string
   text: string
 }
+export const ExplanationSchema = z.object({
+  type: z.string(),
+  text: z.string(),
+}) satisfies z.ZodType<Explanation>
 
 // SESSION
 export type Session = {
@@ -131,8 +136,32 @@ export type Session = {
   thinksGoodAnswer?: boolean
   finalAnswer: string
   chatty?: boolean
-  networkSpeedMbps: { type: string; Mbps: number }
+  networkSpeedMbps?: { type: string; Mbps: number }
 }
+export const SessionSchema = z.object({
+  // returned by SWAPI
+  sessionToken: z.string(),
+  // returned by qEval
+  identifiers: z.array(z.string()),
+  operators: z.array(z.string()),
+  explanations: z.array(ExplanationSchema),
+  endPhaseWEqn: z.string(),
+  phaseESentence: z.string(),
+  // created by student
+  knowns: z.array(z.string()),
+  unknowns: z.array(z.string()),
+  schema: z.string(),
+  schemaValues: z.array(
+    z.object({ variable: z.string(), value: z.string().nullable() }),
+  ), // { variable: string; value: string | null }[]
+  mathAnswer: z.string(),
+  myOwnWords: z.string(),
+  selectedExplanation: ExplanationSchema,
+  thinksGoodAnswer: z.boolean().optional(),
+  finalAnswer: z.string(),
+  chatty: z.boolean().optional(),
+  networkSpeedMbps: z.object({ type: z.string(), Mbps: z.number() }).optional(),
+}) satisfies z.ZodType<Session>
 
 // OPTIONS
 export type Options = {
