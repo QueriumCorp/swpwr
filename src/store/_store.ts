@@ -75,6 +75,7 @@ export const useProblemStore = create<State>((set, get) => ({
     selectedExplanation: { type: '', text: '' },
     finalAnswer: '',
     chatty: false,
+    networkSpeedMbps: { type: 'Undetermined', Mbps: -Infinity },
   },
 
   ybr: [],
@@ -181,6 +182,15 @@ export const useProblemStore = create<State>((set, get) => ({
       },
     }))
     return chatty
+  },
+
+  setNetworkSpeedMbps: (type: string, Mbps: number) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        networkSpeedMbps: { type, Mbps },
+      },
+    }))
   },
 
   heartbeat: async () => {

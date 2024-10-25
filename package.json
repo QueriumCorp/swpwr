@@ -34,6 +34,7 @@
     "lucide-react": "^0.372.0",
     "mathlive": "^0.98.6",
     "mathml-to-latex": "^1.4.0",
+    "network-information-types": "^0.1.1",
     "npm": "^10.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

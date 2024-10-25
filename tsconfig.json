@@ -9,6 +9,9 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+        "types": [
+        "./node_modules/network-information-types"
+    ],
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

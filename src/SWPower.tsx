@@ -30,6 +30,7 @@ import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import VoiceTester from './components/qq/ChatBubble/VoiceTester'
 import FullScreen from './components/qq/FullScreen/FullScreen'
+import testNetworkSpeed from './lib/network'
 
 // Props
 const StepWisePowerProps = z.object({
@@ -78,6 +79,7 @@ const StepWisePower = forwardRef<
     setOnStep,
     setCriticalError,
     criticalError,
+    setNetworkSpeedMbps,
   } = useProblemStore()
 
   //
@@ -137,6 +139,15 @@ const StepWisePower = forwardRef<
       setOnStep(props.onStep)
     }
   }, [props])
+
+  // test network speed
+  useEffect(() => {
+    const testSpeed = async () => {
+      let result = await testNetworkSpeed()
+      setNetworkSpeedMbps(result.type, result.speed)
+    }
+    testSpeed()
+  }, [])
 
   // If we have problem but no sessionToken, start up the session.
   useEffect(() => {

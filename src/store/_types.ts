@@ -31,6 +31,7 @@ export interface State {
   setYBR: (ybr: YBRpage[]) => void
   setCriticalError: (criticalError: boolean) => void
   toggleChatty: () => boolean
+  setNetworkSpeedMbps: (type: string, Mbps: number) => void
   heartbeat: () => Promise<void>
   initSession: () => void
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
@@ -130,6 +131,7 @@ export type Session = {
   thinksGoodAnswer?: boolean
   finalAnswer: string
   chatty?: boolean
+  networkSpeedMbps: { type: string; Mbps: number }
 }
 
 // OPTIONS
