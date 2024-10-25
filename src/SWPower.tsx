@@ -216,7 +216,7 @@ const StepWisePower = forwardRef<
         <Drawer open={chiggerOpen}>
           <DrawerTrigger asChild>
             {enableDebugger && (
-              <div className="fixed bottom-0 left-2 z-10 m-1 flex cursor-pointer gap-2 rounded-full bg-transparent text-xs">
+              <div className="absolute bottom-0 left-2 z-10 m-1 flex cursor-pointer gap-2 rounded-full bg-transparent text-xs">
                 <button
                   id="chigger"
                   className="cursor-pointer rounded-full bg-transparent text-xs"
