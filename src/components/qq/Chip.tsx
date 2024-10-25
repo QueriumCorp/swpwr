@@ -39,7 +39,7 @@ const Chip = ({
           className="scale-102 mr-2 h-8 w-8 translate-x-[-1px] rounded-full ring-2 ring-purple-500"
         />
       )}
-      <p className="flex-grow select-none pl-4 pr-4 text-black">{label}</p>
+      <p className="mb-0 flex-grow select-none pl-4 pr-4 text-black">{label}</p>
 
       {onDelete && (
         <button
