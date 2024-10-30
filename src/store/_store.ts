@@ -76,6 +76,7 @@ export const useProblemStore = create<State>((set, get) => ({
     finalAnswer: '',
     chatty: false,
     networkSpeedMbps: { type: 'Undetermined', Mbps: -Infinity },
+    aiBusy: false,
   },
 
   ybr: [],
@@ -193,6 +194,15 @@ export const useProblemStore = create<State>((set, get) => ({
     }))
   },
 
+  setAiBusy: (busy: boolean) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        aiBusy: busy,
+      },
+    }))
+  },
+
   heartbeat: async () => {
     heartbeat(set, get)
   },
@@ -284,7 +294,13 @@ export const useProblemStore = create<State>((set, get) => ({
   },
 
   getHint: async () => {
-    return await getHint(set, get)
+    if (get().session.aiBusy) return
+
+    get().setAiBusy(true)
+    const hintResult = await getHint(set, get)
+    get().setAiBusy(false)
+
+    return hintResult
   },
 
   closeSession: async () => {

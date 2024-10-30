@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { AnimeTutor } from '../AnimeTutor'
 import { ChatBubble } from '../qq/ChatBubble/ChatBubble'
 import { cn } from '@/lib/utils'
+import { useProblemStore } from '@/store/_store'
 
 export type HintStage = 'pre' | 'intro' | 'psHints' | 'aiHints' | 'post'
 
@@ -28,6 +29,8 @@ export const TinyTutor = ({
   ///////////////////////////////////////////////////////////////////
   // Store
   ///////////////////////////////////////////////////////////////////
+
+  const { session } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
@@ -108,6 +111,7 @@ export const TinyTutor = ({
         className={cn(
           'ANIMETUTOR',
           'absolute bottom-0 right-[100px] h-[100px] w-[100px]',
+          session.aiBusy ? 'brightness-50' : '',
         )}
       />
       <div

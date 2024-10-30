@@ -32,6 +32,7 @@ export interface State {
   setCriticalError: (criticalError: boolean) => void
   toggleChatty: () => boolean
   setNetworkSpeedMbps: (type: string, Mbps: number) => void
+  setAiBusy: (busy: boolean) => void
   heartbeat: () => Promise<void>
   initSession: () => void
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
@@ -132,6 +133,7 @@ export type Session = {
   finalAnswer: string
   chatty?: boolean
   networkSpeedMbps: { type: string; Mbps: number }
+  aiBusy?: boolean
 }
 
 // OPTIONS
