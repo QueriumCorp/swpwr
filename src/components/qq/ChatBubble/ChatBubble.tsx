@@ -125,7 +125,8 @@ export const ChatBubble = ({
     ) {
       setSpeaking(true)
       let msgIndex = api!.selectedScrollSnap()
-      let originalMsg = msgs[msgIndex]
+      let originalMsg =
+        msgs[msgIndex > msgs.length - 1 ? msgs.length - 1 : msgIndex]
 
       let stimulatedMsgs = splitMessages(
         originalMsg,
