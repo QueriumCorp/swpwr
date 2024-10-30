@@ -49,20 +49,20 @@ if (window.swpwr) {
   student.studentId = window.swpwr.student.studentId
   student.studentName = window.swpwr.student.fullName
 
-  session.sessionToken = window.swpwr.session.sessionToken
-  session.identifiers = window.swpwr.session.identifiers
-  session.operators = window.swpwr.session.operators
-  session.knowns = window.swpwr.session.knowns
-  session.unknowns = window.swpwr.session.unknowns
-  session.schema = window.swpwr.session.schema
-  session.schemaValues = window.swpwr.session.schemaValues
-  session.explanations = window.swpwr.session.explanations
-  session.endPhaseWEqn = window.swpwr.session.endPhaseWEqn
-  session.phaseESentence = window.swpwr.session.phaseESentence
-  session.mathAnswer = window.swpwr.session.mathAnswer
-  session.myOwnWords = window.swpwr.session.myOwnWords
-  session.finalAnswer = window.swpwr.session.finalAnswer
-  session.chatty = window.swpwr.session.chatty
+  session.sessionToken = window.swpwr.session?.sessionToken
+  session.identifiers = window.swpwr.session?.identifiers
+  session.operators = window.swpwr.session?.operators
+  session.knowns = window.swpwr.session?.knowns
+  session.unknowns = window.swpwr.session?.unknowns
+  session.schema = window.swpwr.session?.schema
+  session.schemaValues = window.swpwr.session?.schemaValues
+  session.explanations = window.swpwr.session?.explanations
+  session.endPhaseWEqn = window.swpwr.session?.endPhaseWEqn
+  session.phaseESentence = window.swpwr.session?.phaseESentence
+  session.mathAnswer = window.swpwr.session?.mathAnswer
+  session.myOwnWords = window.swpwr.session?.myOwnWords
+  session.finalAnswer = window.swpwr.session?.finalAnswer
+  session.chatty = window.swpwr.session?.chatty
 
   options.swapiUrl =
     urlSWAPI ||
