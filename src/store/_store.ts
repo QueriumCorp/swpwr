@@ -74,7 +74,10 @@ export const useProblemStore = create<State>((set, get) => ({
     myOwnWords: '',
     selectedExplanation: { type: '', text: '' },
     finalAnswer: '',
-    chatty: false,
+
+    // if localhost, then chatty is true so the start functions will set it to false
+    chatty: document.location.hostname.includes('localhost') ? true : false,
+
     networkSpeedMbps: { type: 'Undetermined', Mbps: -Infinity },
     aiBusy: false,
   },

@@ -90,7 +90,9 @@ const StepWisePower = forwardRef<
   const [closeMsg, setCloseMsg] = useState('')
   const [traceComment, setTraceComment] = useState('')
   const [traceMsg, setTraceMsg] = useState('')
-  const [enableDebugger, setEnableDebugger] = useState(false)
+  const [enableDebugger, setEnableDebugger] = useState(
+    document.location.hostname.includes('localhost') ? true : false,
+  )
   const [chiggerOpen, setchiggerOpen] = useState(false)
   const [propError, setPropError] = useState('')
 
