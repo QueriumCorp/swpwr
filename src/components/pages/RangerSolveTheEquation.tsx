@@ -184,7 +184,7 @@ const RangerSolveTheEquation: FC<{
     if (evt.altKey) {
       api?.scrollNext()
     } else {
-      if (stepwiseRef.current) {
+      if (stepwiseRef.current && !busy) {
         setWorking(true)
         setBusy(true)
         // @ts-ignore: TS seems to think the ✓ above doesnt exist
