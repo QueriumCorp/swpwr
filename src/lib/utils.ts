@@ -126,7 +126,7 @@ export function makeVocalizable(text: string) {
     .replace(/✔/g, 'the check button')
     .replace(/\n1\.\s/g, ' <break time="0.5s" /> ')
     .replace(/=/g, ' equals ')
-    .replace(/-/g, ' minus ')
+    .replace(/(?<![a-z])-(?![a-z])/gi, ' minus ')
 
   // Convert currency to spoken form
   const dollarsRegex = /\$\d+(\.\d{2})?/g
