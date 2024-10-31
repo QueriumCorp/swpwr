@@ -18,7 +18,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel'
-import vocalize, { vocalizeList } from '@/lib/speech'
+import { vocalizeList } from '@/lib/speech'
 import { useProblemStore } from '@/store/_store'
 
 ///////////////////////////////////////////////////////////////////
@@ -67,6 +67,12 @@ export const ChatBubble = ({
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    if (!session.chatty) {
+      setSpeaking(false)
+    }
+  }, [session.chatty])
 
   useEffect(() => {
     if (!api) {
