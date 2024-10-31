@@ -169,7 +169,7 @@ const RangerSolveTheEquation: FC<{
       setMsg('You have solved the math portion! Continue to the next page.')
       return
     }
-    if (stepwiseRef.current) {
+    if (stepwiseRef.current && !busy) {
       setWorking(true)
       setBusy(true)
       // @ts-ignore: TS seems to think the ✓ above doesnt exist
