@@ -18,6 +18,15 @@ import { useProblemStore } from '@/store/_store'
 // const voiceId = 'Xb7hH8MSUJpSbSDYk0k2'
 // const voiceName = 'Alice'
 
+export async function shutup() {
+  const audio = AudioManager.getInstance()
+  audio.pause()
+}
+export async function resume() {
+  const audio = AudioManager.getInstance()
+  audio.resume()
+}
+
 async function vocalize(
   message: string,
   noCache?: boolean,

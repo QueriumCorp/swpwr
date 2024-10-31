@@ -26,6 +26,7 @@ import submitOrganize from './submitOrganize'
 import { YBRpage } from '@/components/qq/YellowBrickRoad'
 import submitExplanation from './submitExplanation'
 import submitMyOwnWords from './submitMyOwnWords'
+import { resume, shutup } from '@/lib/speech'
 
 export const useProblemStore = create<State>((set, get) => ({
   ///////////////////////////////////////////////////////////////////
@@ -178,6 +179,12 @@ export const useProblemStore = create<State>((set, get) => ({
 
   toggleChatty: () => {
     let chatty = !get().session.chatty
+
+    if (!chatty) {
+      shutup()
+    } else {
+      resume()
+    }
 
     set(state => ({
       session: {
