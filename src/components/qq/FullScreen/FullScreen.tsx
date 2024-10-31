@@ -10,6 +10,7 @@ const FullScreen = ({ className }: { className?: string }) => {
   useEffect(() => {
     function onFullscreenChange() {
       setIsFullscreen(Boolean(document.fullscreenElement))
+      console.info('Fullscreen changed:', document.fullscreenElement)
     }
 
     document.addEventListener('fullscreenchange', onFullscreenChange)
@@ -31,7 +32,7 @@ const FullScreen = ({ className }: { className?: string }) => {
         if (document.fullscreenElement) {
           document.exitFullscreen()
         } else {
-          document.documentElement.requestFullscreen()
+          document.getElementById('qqROOT')!.requestFullscreen()
         }
       }}
     >
