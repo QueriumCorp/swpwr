@@ -31,7 +31,13 @@ const AudioManager = (function () {
         })
       },
 
-      pause: () => audio.pause(),
+      pause: () => {
+        try {
+          audio.pause()
+        } catch (e) {
+          console.log('audio.pause() failed')
+        }
+      },
       resume: () => audio.play(),
       // ... other audio control methods
 

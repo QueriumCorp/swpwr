@@ -114,6 +114,8 @@ export const ChatBubble = ({
     }
   }, [])
 
+  // TODO: Probably should pull out session.chatty so we don't inadvertently restart speech
+  //  That will be complicated.
   useEffect(() => {
     let stimulusText = problem.stimulus
     let explanationText = session.selectedExplanation?.text
