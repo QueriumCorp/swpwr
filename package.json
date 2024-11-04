@@ -4,7 +4,7 @@
   "version": "1.9.203",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "version-update": "npm version patch && npm run get-build-info",
     "git-log": "git  --no-pager log --pretty=format:\"%cd, %s\"",
@@ -37,6 +37,7 @@
     "network-information-types": "^0.1.1",
     "npm": "^10.8.2",
     "react": "^18.2.0",
+    "react-aria": "^3.35.1",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.13",
     "react-hotkeys-hook": "^4.5.0",

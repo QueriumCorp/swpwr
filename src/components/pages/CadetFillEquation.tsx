@@ -8,7 +8,7 @@ import { NavContext, NavContextType } from '@/NavContext'
 import { AnimeTutor, Chat } from '@/components/AnimeTutor'
 import { NavBar } from '../qq/NavBar'
 import { CarouselPrevious, CarouselNext } from '../ui/carousel'
-import { StimulusSelector } from '../qq/StimulusSelector'
+import { StimulusSelector } from '../qq/StimulusSelector/StimulusSelector'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 

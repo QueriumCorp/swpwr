@@ -1,13 +1,14 @@
 // React Imports
-import { forwardRef, useEffect, useRef, useState } from 'react'
+import { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 
 // Third Party Imports
 import { HiMiniSpeakerWave } from 'react-icons/hi2'
 
 // Querium Imports
 import { cn } from '@/lib/utils'
-import { FactChicklet } from './FactChicklet'
-import vocalize from '@/lib/speech'
+import { FactChicklet } from '../FactChicklet'
+import SpeakButton from './components/SpeakButton'
+import { splitIntoSentences } from './functions/Sentences'
 
 // Type Definitions
 export interface StimulusSelectorProps
@@ -23,7 +24,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     //
     // Refs
     //
-    const theRef = useRef(null)
+    const theRef = useRef<HTMLDivElement>(null)
 
     //
     // State
@@ -31,23 +32,47 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     const [preText, setPreText] = useState(stimulusText)
     const [theText, setTheText] = useState('')
     const [postText, setPostText] = useState('')
+    // const { onMouseDown, onMouseUp } = useLongPress(evt => handleLongPress(evt))
+
+    const sentences = useMemo(
+      () => splitIntoSentences(stimulusText),
+      [stimulusText],
+    )
 
     //
     // Handlers
     //
-    function attachSelectionListener(element: HTMLElement): void {
-      if (!element.contentEditable || !interactive) {
-        return
-      }
-      element.onselectstart = () => handleSelectionChange(element)
-    }
 
     function handleSelectionChange(element: HTMLElement): void {
       element.onmouseup = () => retrieveSelection()
-      element.onkeyup = () => retrieveSelection()
+    }
+
+    function handleLongPress(
+      evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ) {
+      console.log('handleLongPress', evt)
+      const sel = document.getSelection()?.anchorOffset
+      if (sel === undefined) {
+        return
+      }
+      const selectedSentence = sentences.find(
+        sentence => sentence.startIndex <= sel && sentence.endIndex >= sel,
+      )
+
+      setPreText(stimulusText.substring(0, selectedSentence!.startIndex))
+      setTheText(
+        stimulusText.substring(
+          selectedSentence!.startIndex,
+          selectedSentence!.endIndex,
+        ),
+      )
+      setPostText(stimulusText.substring(selectedSentence!.endIndex))
+
+      if (onChangeFact) onChangeFact(selectedSentence!.sentence)
     }
 
     function retrieveSelection(): void {
+      console.log('retrieveSelection')
       const sel = document.getSelection()
 
       // Ignore empty selection
@@ -55,7 +80,9 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
         setPreText(stimulusText)
         setTheText('')
         setPostText('')
-        if (onChangeFact) onChangeFact('')
+        if (onChangeFact) {
+          onChangeFact('')
+        }
         return
       }
 
@@ -84,7 +111,6 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
       // front of selection
       let curPos = startSel
       while (curPos >= 0) {
-        console.log('curPos', curPos)
         if (stimulusText.charAt(curPos) == ' ') {
           break
         }
@@ -94,7 +120,6 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
       // end of selection
       curPos = endSel
       while (curPos < stimulusText.length) {
-        console.log('curPos', curPos)
         if (stimulusText.charAt(curPos) == ' ') {
           break
         }
@@ -115,23 +140,19 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     //
     // Side Effects
     //
-    useEffect(() => {
-      if (theRef && theRef.current) attachSelectionListener(theRef.current)
-    }, [theRef])
+
+    // Add listener to capture when text is selected
+    // useEffect(() => {
+    //   console.log('STIMULUS element changed!')
+    //   if (theRef?.current) {
+    //     theRef.current.onselectstart = () =>
+    //       handleSelectionChange(theRef.current!)
+    //   }
+    // }, [theRef])
 
     //
     // Handlers
     //
-    function handleSpeak(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-      vocalize(stimulusText, evt.altKey ? true : false)
-    }
-    function SpeakButton() {
-      return (
-        <button className="border-none text-xs" onClick={e => handleSpeak(e)}>
-          <HiMiniSpeakerWave className="text-cyan-900" />
-        </button>
-      )
-    }
 
     //
     // JSX
@@ -142,6 +163,11 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
         <div
           ref={theRef}
           className={cn('STIMULUS', 'pr-4', 'text-xl', className)}
+          // onMouseDown={onMouseDown}
+          // onTouchStart={onMouseDown}
+          // onMouseUp={onMouseUp}
+          onTouchEnd={interactive ? retrieveSelection : undefined}
+          onMouseUp={interactive ? retrieveSelection : undefined}
         >
           {preText}
           {theText.length ? (
@@ -149,7 +175,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
           ) : null}
           {postText}
           <div className="absolute right-3 top-1 mt-2 flex items-center justify-between text-right italic text-black">
-            <SpeakButton></SpeakButton>
+            <SpeakButton text={stimulusText}></SpeakButton>
           </div>
         </div>
       </>
@@ -160,3 +186,45 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
 StimulusSelector.displayName = 'StimulusSelector'
 
 export { StimulusSelector }
+
+interface UseLongPressResult {
+  onMouseDown: () => void
+  onMouseUp: () => void
+  isLongPressing: boolean
+}
+
+const useLongPress = (
+  callback: () => void,
+  threshold: number = 500,
+): UseLongPressResult => {
+  const [isLongPressing, setIsLongPressing] = useState<boolean>(false)
+  const timerRef = useRef<number | null>(null)
+
+  const handleMouseDown = (): void => {
+    timerRef.current = window.setTimeout(() => {
+      setIsLongPressing(true)
+      callback()
+    }, threshold)
+  }
+
+  const handleMouseUp = (): void => {
+    if (timerRef.current !== null) {
+      window.clearTimeout(timerRef.current)
+    }
+    setIsLongPressing(false)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) {
+        window.clearTimeout(timerRef.current)
+      }
+    }
+  }, [])
+
+  return {
+    onMouseDown: handleMouseDown,
+    onMouseUp: handleMouseUp,
+    isLongPressing,
+  }
+}

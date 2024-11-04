@@ -7,7 +7,7 @@ import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
 import { CarouselPrevious, CarouselNext } from '../ui/carousel'
-import { StimulusSelector } from '../qq/StimulusSelector'
+import { StimulusSelector } from '../qq/StimulusSelector/StimulusSelector'
 import {
   AnimeTutor,
   AvatarAPIType,

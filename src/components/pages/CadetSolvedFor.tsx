@@ -12,7 +12,7 @@ import {
 } from '@/components/AnimeTutor'
 import { NavBar } from '../qq/NavBar'
 import { CarouselPrevious, CarouselNext } from '../ui/carousel'
-import { StimulusSelector } from '../qq/StimulusSelector'
+import { StimulusSelector } from '../qq/StimulusSelector/StimulusSelector'
 import { Textarea } from '../ui/textarea'
 import { useProblemStore } from '@/store/_store'
 import { HdrBar } from '../qq/HdrBar'
