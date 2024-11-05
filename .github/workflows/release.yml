@@ -85,6 +85,7 @@ jobs:
       - name: Create VERSION file
         if: env.VERSION_CHANGED == 'true'
         run: echo "${latest_release}" > VERSION
+        
       - name: Push VERSION file to S3
         if: env.VERSION_CHANGED == 'true'
         run: aws s3 cp VERSION s3://${{ env.swm-openedx-us-prod-storage }}/swpwr/VERSION --acl public-read        
