@@ -75,9 +75,6 @@ jobs:
       - name: Download latest release tarball
         if: env.VERSION_CHANGED == 'true'
         run: |
-          latest_release=$(curl -s https://api.github.com/repos/QueriumCorp/swpwr/releases/latest | jq -r .tag_name)
-          curl -L -o swpwr-${latest_release}.tar.gz https://github.com/QueriumCorp/swpwr/archive/refs/tags/${latest_release}.tar.gz
-
           latest_release=$(curl -s ${{ env.REPO_URL }}/releases/latest | jq -r .tag_name)
           curl -L -o swpwr-${latest_release}.tar.gz ${{ env.REPO_URL }}/archive/refs/tags/${latest_release}.tar.gz          
 
