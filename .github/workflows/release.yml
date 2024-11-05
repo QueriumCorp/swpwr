@@ -1,12 +1,12 @@
 ---
-  #------------------------------------------------------------------------------
-  # Lawrence McDaniel - https://lawrencemcdaniel.com
-  # Release open-release/redwood.master to AWS S3
-  #
-  # Calculate the next version of based on semantic-release rules. If there is
-  # a version change, build the project, run semantic-release, download the
-  # latest release tarball, and push the tarball to an S3 bucket.
-  #------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+# Lawrence McDaniel - https://lawrencemcdaniel.com
+# Release open-release/redwood.master to AWS S3
+#
+# Calculate the next version of based on semantic-release rules. If there is
+# a version change, build the project, run semantic-release, download the
+# latest release tarball, and push the tarball to an S3 bucket.
+#------------------------------------------------------------------------------
 name: Release open-release/redwood.master
 
 on:
@@ -75,12 +75,17 @@ jobs:
       - name: Download latest release tarball
         if: env.VERSION_CHANGED == 'true'
         run: |
-          latest_release=$(curl -s https://api.github.com/repos/QueriumCorp/swpwr/releases/latest | jq -r .tag_name)
-          curl -L -o swpwr-${latest_release}.tar.gz https://github.com/QueriumCorp/swpwr/archive/refs/tags/${latest_release}.tar.gz
-
           latest_release=$(curl -s ${{ env.REPO_URL }}/releases/latest | jq -r .tag_name)
           curl -L -o swpwr-${latest_release}.tar.gz ${{ env.REPO_URL }}/archive/refs/tags/${latest_release}.tar.gz          
 
       - name: Push to S3
         if: env.VERSION_CHANGED == 'true'
         run: aws s3 cp swpwr-${latest_release}.tar.gz s3://${{ env.swm-openedx-us-prod-storage }}/swpwr/ --acl public-read
+
+      - name: Create VERSION file
+        if: env.VERSION_CHANGED == 'true'
+        run: echo "${latest_release}" > VERSION
+
+      - name: Push VERSION file to S3
+        if: env.VERSION_CHANGED == 'true'
+        run: aws s3 cp VERSION s3://${{ env.swm-openedx-us-prod-storage }}/swpwr/VERSION --acl public-read        
