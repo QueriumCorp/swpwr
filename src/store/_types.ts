@@ -119,6 +119,7 @@ export type Session = {
   identifiers: string[]
   operators: string[]
   explanations: Explanation[]
+  highlights: string[]
   endPhaseWEqn: string
   phaseESentence: string
   // created by student

@@ -74,6 +74,7 @@ const initSession = async (set: SetFn, get: GetFn) => {
         identifiers: data.identifiers,
         operators: data.operators,
         explanations: shuffle(data.explanation),
+        highlights: data.highlights,
         endPhaseWEqn: data.endPhaseWEqn,
         phaseESentence: data.phaseESentence,
         selectedExplanation: { type: '', text: '' },

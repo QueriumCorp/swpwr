@@ -69,6 +69,7 @@ export const useProblemStore = create<State>((set, get) => ({
     schema: '',
     schemaValues: [],
     explanations: [],
+    highlights: [],
     endPhaseWEqn: '',
     phaseESentence: '',
     mathAnswer: '',

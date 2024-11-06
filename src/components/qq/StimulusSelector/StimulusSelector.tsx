@@ -171,7 +171,11 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
         >
           {preText}
           {theText.length ? (
-            <FactChicklet fact={theText} className="text-xl"></FactChicklet>
+            <FactChicklet
+              fact={theText}
+              className="text-xl"
+              tabIndex={0}
+            ></FactChicklet>
           ) : null}
           {postText}
           <div className="absolute right-3 top-1 mt-2 flex items-center justify-between text-right italic text-black">

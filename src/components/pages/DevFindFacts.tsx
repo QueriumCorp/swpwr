@@ -5,7 +5,15 @@ import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 import { cn, randomClickNextMsg, randomThinkingMsg } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
-import { DndContext, DragEndEvent } from '@dnd-kit/core'
+import {
+  DndContext,
+  DragEndEvent,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
 import Chip from '../qq/Chip'
 import KnownFacts from '../qq/KnownFacts'
 import { StimulusSelector } from '../qq/StimulusSelector/StimulusSelector'
@@ -84,6 +92,12 @@ const DevFindFacts: FC<{
     }
   }, [])
 
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor),
+  )
+
   ///////////////////////////////////////////////////////////////////
   // Effects
   ///////////////////////////////////////////////////////////////////
@@ -147,6 +161,7 @@ const DevFindFacts: FC<{
       setMsg('You have solved this part! Continue to the next page.')
       return
     }
+
     setBusy(true)
     setMsg(randomThinkingMsg())
     setMsg(await getHint())
@@ -173,7 +188,7 @@ const DevFindFacts: FC<{
         instructions={page?.title}
       ></HdrBar>
       <div className="relative flex grow flex-col justify-stretch gap-2 p-2">
-        <DndContext onDragEnd={handleDragEnd}>
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
           <StimulusSelector
             interactive={true}
             onChangeFact={setCurrentFact}
