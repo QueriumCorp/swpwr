@@ -19,6 +19,7 @@ env:
   AWS_REGION: us-east-2
   AWS_S3_BUCKET: swm-openedx-us-dev-storage
   REPO_URL: https://api.github.com/repos/QueriumCorp/swpwr
+  VERSION_CHANGED: false
 
 jobs:
   release:
