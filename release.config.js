@@ -23,6 +23,7 @@ export default {
           "package.json",
           "package-lock.json",
           "CHANGELOG.md",
+          "public/**/*",
           "dist/**/*",
         ],
         message:

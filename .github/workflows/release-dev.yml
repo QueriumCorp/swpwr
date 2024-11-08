@@ -7,7 +7,7 @@
 # a version change, build the project, run semantic-release, download the
 # latest release tarball, and push the tarball to an S3 bucket.
 #------------------------------------------------------------------------------
-name: Release open-release/redwood.master
+name: Release dev open-release/redwood.master
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ on:
 
 env:
   AWS_REGION: us-east-2
-  AWS_S3_BUCKET: swm-openedx-us-prod-storage
+  AWS_S3_BUCKET: swm-openedx-us-dev-storage
   REPO_URL: https://api.github.com/repos/QueriumCorp/swpwr
 
 jobs:
@@ -80,7 +80,7 @@ jobs:
 
       - name: Push to S3
         if: env.VERSION_CHANGED == 'true'
-        run: aws s3 cp swpwr-${latest_release}.tar.gz s3://${{ env.swm-openedx-us-prod-storage }}/swpwr/ --acl public-read
+        run: aws s3 cp swpwr-${latest_release}.tar.gz s3://${{ env.AWS_S3_BUCKET }}/swpwr/ --acl public-read
 
       - name: Create VERSION file
         if: env.VERSION_CHANGED == 'true'
@@ -88,4 +88,4 @@ jobs:
 
       - name: Push VERSION file to S3
         if: env.VERSION_CHANGED == 'true'
-        run: aws s3 cp VERSION s3://${{ env.swm-openedx-us-prod-storage }}/swpwr/VERSION --acl public-read        
+        run: aws s3 cp VERSION s3://${{ env.AWS_S3_BUCKET }}/swpwr/VERSION --acl public-read        

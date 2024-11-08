@@ -1,0 +1,91 @@
+---
+  #------------------------------------------------------------------------------
+  # Lawrence McDaniel - https://lawrencemcdaniel.com
+  # Release open-release/redwood.master to AWS S3
+  #
+  # Calculate the next version of based on semantic-release rules. If there is
+  # a version change, build the project, run semantic-release, download the
+  # latest release tarball, and push the tarball to an S3 bucket.
+  #------------------------------------------------------------------------------
+  name: Release staging open-release/redwood.master
+  
+  on:
+    workflow_dispatch:
+    push:
+      branches:
+        - open-release/redwood.master
+  
+  env:
+    AWS_REGION: us-east-2
+    AWS_S3_BUCKET: swm-openedx-us-staging-storage
+    REPO_URL: https://api.github.com/repos/QueriumCorp/swpwr
+  
+  jobs:
+    release:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+  
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '20.12.1'
+  
+        - name: Install dependencies
+          run: npm install
+  
+        - name: Get current version and calculate next version
+          id: version
+          run: |
+            CURRENT_VERSION=$(node -p "require('./package.json').version")
+            NEXT_VERSION=$(npx semantic-release --dry-run --no-ci | awk '/The next release version is/{print $NF}')
+            NEXT_VERSION=${NEXT_VERSION:-$CURRENT_VERSION}
+            VERSION_CHANGED=$([ "$CURRENT_VERSION" != "$NEXT_VERSION" ] && echo "true" || echo "false")
+            echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+            echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
+            echo "VERSION_CHANGED=$VERSION_CHANGED" >> $GITHUB_ENV
+          env:
+            GITHUB_TOKEN: ${{ secrets.PAT }}
+  
+        - name: Configure AWS credentials
+          if: env.VERSION_CHANGED == 'true'
+          id: aws-credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            aws-access-key-id: ${{ secrets.AWS_KEY }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET }}
+            aws-region: ${{ env.AWS_REGION }}  
+    
+        - name: Build project
+          if: env.VERSION_CHANGED == 'true'
+          run: npm run build
+  
+        - name: Run Semantic Release
+          if: env.VERSION_CHANGED == 'true'
+          id: semantic-release
+          env:
+            GITHUB_TOKEN: ${{ secrets.PAT }}
+          run: npx semantic-release
+  
+        - name: Install jq
+          if: env.VERSION_CHANGED == 'true'
+          run: sudo apt-get update && sudo apt-get install -y jq
+  
+        - name: Download latest release tarball
+          if: env.VERSION_CHANGED == 'true'
+          run: |
+            latest_release=$(curl -s ${{ env.REPO_URL }}/releases/latest | jq -r .tag_name)
+            curl -L -o swpwr-${latest_release}.tar.gz https://github.com/QueriumCorp/swpwr/archive/refs/tags/${latest_release}.tar.gz
+  
+        - name: Push to S3
+          if: env.VERSION_CHANGED == 'true'
+          run: aws s3 cp swpwr-${latest_release}.tar.gz s3://${{ env.AWS_S3_BUCKET }}/swpwr/ --acl public-read
+  
+        - name: Create VERSION file
+          if: env.VERSION_CHANGED == 'true'
+          run: echo "${latest_release}" > VERSION
+  
+        - name: Push VERSION file to S3
+          if: env.VERSION_CHANGED == 'true'
+          run: aws s3 cp VERSION s3://${{ env.AWS_S3_BUCKET }}/swpwr/VERSION --acl public-read        
