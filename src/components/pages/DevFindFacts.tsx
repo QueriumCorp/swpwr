@@ -143,7 +143,6 @@ const DevFindFacts: FC<{
     } else {
       logAction({ page: page.id, activity: 'checkStep', data: { result } })
 
-      setMsg(`${result.message}\n\n${randomClickNextMsg()}`)
       setEmote('pout:04')
       if (result.stepStatus == 'VALID') {
         logAction({
@@ -152,6 +151,8 @@ const DevFindFacts: FC<{
           data: {},
         })
         setComplete(true)
+      } else {
+        setMsg(`${result.message}\n\n${randomClickNextMsg()}`)
       }
     }
   }
@@ -252,6 +253,7 @@ const DevFindFacts: FC<{
   )
 
   function handleDragEnd(event: DragEndEvent) {
+    console.log('handleDragEnd', event)
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
     if (knowns.includes(currentFact)) return
 

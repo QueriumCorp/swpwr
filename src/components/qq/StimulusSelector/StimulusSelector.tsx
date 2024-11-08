@@ -1,9 +1,6 @@
 // React Imports
 import { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 
-// Third Party Imports
-import { HiMiniSpeakerWave } from 'react-icons/hi2'
-
 // Querium Imports
 import { cn } from '@/lib/utils'
 import { FactChicklet } from '../FactChicklet'
@@ -55,7 +52,6 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
 
     /// POINTER DOWN
     function handlePointerDown(evt: React.PointerEvent<HTMLDivElement>) {
-      console.info('handlePointerDown')
       setIsLongPressing(false)
       setIsStationary(false)
       setReady4Preview(false)
@@ -81,7 +77,6 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
 
     // POINTER UP
     function handlePointerUp(evt: React.PointerEvent<HTMLDivElement>) {
-      console.info('handlePointerUp')
       let moved = Moved(startPos, { x: evt.clientX, y: evt.clientY })
       // Check for quick tap and RESET selection
       if (!moved && !isLongPressing) {
@@ -130,7 +125,6 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
 
     // RESET SELECTION
     function resetSelection(): void {
-      console.info('resetSelection')
       setPreText(stimulusText)
       setTheText('')
       setPostText('')
@@ -141,27 +135,6 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
 
     // CHICKLETIZE SELECTION
     function chickletizeSelection(): void {
-      console.log('chickletizeSelection')
-      retrieveSelection()
-      // const sel = document.getSelection()
-
-      // // handle empty selection
-      // if (!sel || !sel.toString() || sel.isCollapsed) {
-      //   setPreText(stimulusText)
-      //   setTheText('')
-      //   setPostText('')
-      //   if (onChangeFact) {
-      //     onChangeFact('')
-      //   }
-      //   return
-      // }
-
-      //
-      // the end
-    }
-
-    function retrieveSelection(): void {
-      console.log('retrieveSelection')
       const sel = document.getSelection()
 
       // Ignore empty selection
@@ -169,9 +142,6 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
         setPreText(stimulusText)
         setTheText('')
         setPostText('')
-        if (onChangeFact) {
-          onChangeFact('')
-        }
         return
       }
 
@@ -223,7 +193,9 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
       setTheText(stimulusText.substring(startSel, endSel))
       setPostText(stimulusText.substring(endSel))
 
-      if (onChangeFact) onChangeFact(stimulusText.substring(startSel, endSel))
+      if (onChangeFact) {
+        onChangeFact(stimulusText.substring(startSel, endSel))
+      }
     }
 
     // EFFECTS
@@ -236,37 +208,27 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
       <>
         <div
           ref={theRef}
-          className={cn('STIMULUS', 'pr-4', 'text-xl', className)}
+          className={cn(
+            'STIMULUS',
+            'pr-4',
+            interactive ? '!bg-white p-10 text-5xl' : 'text-xl',
+            className,
+          )}
           onPointerDown={interactive ? handlePointerDown : undefined}
           onPointerMove={interactive ? handlePointerMove : undefined}
           onPointerUp={interactive ? handlePointerUp : undefined}
-          // onSelect={interactive ? retrieveSelection : undefined}
         >
           {preText}
           {theText.length ? (
             <FactChicklet
               fact={theText}
-              className="text-xl"
+              className="text-5xl"
               tabIndex={0}
             ></FactChicklet>
           ) : null}
           {postText}
           <div className="absolute right-3 top-1 mt-2 flex items-center justify-between text-right italic text-black">
             <SpeakButton text={stimulusText}></SpeakButton>
-          </div>
-          <div className="flex gap-5 text-xs text-red-600">
-            <div>
-              startPos: {Math.round(startPos.x)},{Math.round(startPos.y)}
-            </div>
-            <div>
-              currentPos: {Math.round(currentPos.x)},{Math.round(currentPos.y)}
-            </div>
-            <div>
-              endPos: {Math.round(endPos.x)},{Math.round(endPos.y)}
-            </div>
-            <div>isStationary: {isStationary ? 'true' : 'false'}</div>
-            <div>isLongPressing: {isLongPressing ? 'true' : 'false'}</div>
-            <div>ready4Preview: {ready4Preview ? 'true' : 'false'}</div>
           </div>
         </div>
       </>
@@ -277,14 +239,3 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
 StimulusSelector.displayName = 'StimulusSelector'
 
 export { StimulusSelector }
-
-// const handleLongPress = (evt: React.PointerEvent<HTMLDivElement>) => {
-//   console.log('handleLongPress', evt)
-//   const sel = document.getSelection()?.anchorOffset
-//   if (sel === undefined) {
-//     return
-//   }
-//   const selectedSentence = sentences.find(
-//     sentence => sentence.startIndex <= sel && sentence.endIndex >= sel,
-//   )
-// }
