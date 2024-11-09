@@ -11,6 +11,11 @@ import { Moved } from './functions/Moved'
 import { useProblemStore } from '@/store/_store'
 import { type Highlight } from '@/store/_types'
 import { findHighlightIndeces } from './functions/FindHighlightIndeces'
+import {
+  findClickedCharIndex,
+  highlightClickedChar,
+} from './functions/FindClickedCharIndex'
+import { getCaretOffset } from './functions/getCaretOffset'
 
 // Type Definitions
 export interface StimulusSelectorProps
@@ -49,6 +54,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     const [startPos, setStartPos] = useState({ x: 0, y: 0 })
     const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 })
     const [endPos, setEndPos] = useState({ x: 0, y: 0 })
+    const [caretOffset, setCaretOffset] = useState<number>(0)
     const [isStationary, setIsStationary] = useState<boolean>(false)
     const [isLongPressing, setIsLongPressing] = useState<boolean>(false)
     const [ready4Preview, setReady4Preview] = useState<boolean>(false)
@@ -60,6 +66,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
 
     /// POINTER DOWN
     function handlePointerDown(evt: React.PointerEvent<HTMLDivElement>) {
+      setCaretOffset(getCaretOffset(evt))
       setIsLongPressing(false)
       setIsStationary(false)
       setReady4Preview(false)
@@ -108,6 +115,14 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
         return
       }
 
+      // See if we can find a highlight
+      const highlight = findHighlightIndeces(
+        caretOffset,
+        stimulusText,
+        session.highlights,
+      )
+      console.log('PREVIEW SELECTION highlight', highlight)
+
       // Long press so preview the selection
       const sel = document.getSelection()?.anchorOffset
       if (sel === undefined) {
@@ -123,19 +138,13 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
         selectedSentence!.sentence,
       )
 
-      // Find the best highlight match for the selection
-      const highlightIndeces = findHighlightIndeces(
-        selectedSentence,
-        session.highlights,
-      )
-      console.log('highlightIndeces:', highlightIndeces)
-
       // Select the text in the stimulusText element
-      selectTextRange(
-        theRef.current!,
-        selectedSentenceIndex,
-        selectedSentenceIndex + selectedSentence!.sentence.length,
-      )
+      // selectTextRange(
+      //   theRef.current!,
+      //   selectedSentenceIndex,
+      //   selectedSentenceIndex + selectedSentence!.sentence.length,
+      // )
+      selectTextRange(theRef.current!, highlight.start, highlight.end)
     }
 
     // RESET SELECTION
@@ -151,7 +160,6 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     // CHICKLETIZE SELECTION
     function chickletizeSelection(): void {
       const sel = document.getSelection()
-      console.log('sel:', sel)
 
       // Ignore empty selection
       if (!sel || !sel.toString() || sel.isCollapsed) {
