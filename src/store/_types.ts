@@ -111,6 +111,9 @@ export type Explanation = {
   text: string
 }
 
+// HIGHLIGHTS
+export type Highlight = [string, string] | string
+
 // SESSION
 export type Session = {
   // returned by SWAPI
@@ -119,7 +122,7 @@ export type Session = {
   identifiers: string[]
   operators: string[]
   explanations: Explanation[]
-  highlights: string[]
+  highlights: Highlight[]
   endPhaseWEqn: string
   phaseESentence: string
   // created by student

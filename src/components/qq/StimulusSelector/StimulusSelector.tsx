@@ -8,6 +8,9 @@ import SpeakButton from './components/SpeakButton'
 import { splitIntoSentences } from './functions/Sentences'
 import { selectTextRange } from './functions/SelectTextRange'
 import { Moved } from './functions/Moved'
+import { useProblemStore } from '@/store/_store'
+import { type Highlight } from '@/store/_types'
+import { findHighlightIndeces } from './functions/FindHighlightIndeces'
 
 // Type Definitions
 export interface StimulusSelectorProps
@@ -24,6 +27,11 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     // Refs
     //
     const theRef = useRef<HTMLDivElement>(null)
+
+    //
+    // Store
+    //
+    const { session } = useProblemStore()
 
     //
     // State
@@ -115,6 +123,13 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
         selectedSentence!.sentence,
       )
 
+      // Find the best highlight match for the selection
+      const highlightIndeces = findHighlightIndeces(
+        selectedSentence,
+        session.highlights,
+      )
+      console.log('highlightIndeces:', highlightIndeces)
+
       // Select the text in the stimulusText element
       selectTextRange(
         theRef.current!,
@@ -136,6 +151,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
     // CHICKLETIZE SELECTION
     function chickletizeSelection(): void {
       const sel = document.getSelection()
+      console.log('sel:', sel)
 
       // Ignore empty selection
       if (!sel || !sel.toString() || sel.isCollapsed) {
@@ -211,7 +227,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
           className={cn(
             'STIMULUS',
             'pr-4',
-            interactive ? '!bg-white p-10 text-5xl' : 'text-xl',
+            interactive ? 'touch-none !bg-white p-10 text-5xl' : 'text-xl',
             className,
           )}
           onPointerDown={interactive ? handlePointerDown : undefined}

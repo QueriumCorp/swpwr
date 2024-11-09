@@ -56,6 +56,7 @@ const initSession = async (set: SetFn, get: GetFn) => {
   })
 
   const data = await response.json()
+  console.log('initSession', response, data)
   get().logAction({
     page: 'none',
     activity: 'initSession',
