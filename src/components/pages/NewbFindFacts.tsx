@@ -183,7 +183,6 @@ const NewbFindFacts: FC<{
               'disabled:cursor-not-allowed disabled:opacity-50',
               className,
               'inline',
-              'text-xl',
             )}
             stimulusText={problem.stimulus}
           ></StimulusSelector>
