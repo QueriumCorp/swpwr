@@ -133,17 +133,14 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
       const selectedSentence = sentences.find(
         sentence => sentence.startIndex <= sel && sentence.endIndex >= sel,
       )
+      if (!selectedSentence) {
+        return
+      }
       // Find the index of the selected sentence in the stimulusText
       const selectedSentenceIndex = stimulusText.indexOf(
-        selectedSentence!.sentence,
+        selectedSentence.sentence,
       )
 
-      // Select the text in the stimulusText element
-      // selectTextRange(
-      //   theRef.current!,
-      //   selectedSentenceIndex,
-      //   selectedSentenceIndex + selectedSentence!.sentence.length,
-      // )
       selectTextRange(theRef.current!, highlight.start, highlight.end)
     }
 
