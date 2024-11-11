@@ -16,7 +16,7 @@ import {
 
 // Method Implementations
 import heartbeat from './heartbeat'
-import initSession from './initSession'
+import initSession from './initSession/initSession'
 import submitTTable from './submitT-Table'
 import getHint from './getHint'
 import submitPickSchema from './submitPickSchema'
