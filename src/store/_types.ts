@@ -112,7 +112,12 @@ export type Explanation = {
 }
 
 // HIGHLIGHTS
-export type Highlight = [string, string] | string
+export type Highlight = {
+  highlight: [string, string] | string
+  index: string
+  type: string
+  done: boolean
+}
 
 // SESSION
 export type Session = {

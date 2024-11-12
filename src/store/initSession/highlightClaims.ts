@@ -15,15 +15,7 @@ export function createHighlightClaims(
   let stimulusClaims: string = 'createHighlightClaims'
 
   // enhance and sort highlights array
-  let sortedHighlights = sortHighlights(rawHighlights)
-  let highlights = sortedHighlights.map((highlight, index) => {
-    return {
-      highlight,
-      index: String.fromCharCode(65 + index),
-      type: Array.isArray(highlight) ? 'valueUnit' : 'string',
-      done: false,
-    }
-  })
+  let highlights = sortAndEnhanceHighlights(rawHighlights)
 
   // get sentences
   let sentences = splitIntoSentences(stimulusText).map(
@@ -122,6 +114,19 @@ export function createHighlightClaims(
 //     [['5', 'sticker books'], 'Find the cost of each sticker book.', '$6.25'],
 //   ),
 // )
+
+export function sortAndEnhanceHighlights(rawHighlights: Highlight[]) {
+  let sortedHighlights = sortHighlights(rawHighlights)
+  let highlights = sortedHighlights.map((highlight, index) => {
+    return {
+      highlight,
+      index: String.fromCharCode(65 + index),
+      type: Array.isArray(highlight) ? 'valueUnit' : 'string',
+      done: false,
+    }
+  })
+  return highlights
+}
 
 function sortHighlights(highlights: Highlight[]) {
   return highlights.sort((a, b) => {

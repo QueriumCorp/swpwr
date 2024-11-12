@@ -118,7 +118,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
       // See if we can find a highlight
       const highlight = findHighlightIndeces(
         caretOffset,
-        stimulusText,
+        session.stimulusClaims,
         session.highlights,
       )
       console.log('PREVIEW SELECTION highlight', highlight)
