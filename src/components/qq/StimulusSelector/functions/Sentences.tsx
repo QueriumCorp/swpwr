@@ -14,7 +14,7 @@ export function splitIntoSentences(paragraph: string): SentenceInfo[] {
 
   for (const { segment, index } of segments) {
     sentences.push({
-      sentence: segment.trim(),
+      sentence: segment,
       startIndex: index,
       endIndex: index + segment.length - 1,
     })

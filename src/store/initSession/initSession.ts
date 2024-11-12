@@ -1,9 +1,9 @@
 import { shuffle } from '@/lib/utils'
 import type { SetFn, GetFn } from '../_types'
 import { convertMixedFractionsToLatex } from './mixedFractions'
+import { createHighlightClaims } from './highlightClaims'
 
 const initSession = async (set: SetFn, get: GetFn) => {
-  console.log('initSession', get().session?.sessionToken)
   set(state => ({
     session: {
       ...state.session,
@@ -57,7 +57,6 @@ const initSession = async (set: SetFn, get: GetFn) => {
   })
 
   const data = await response.json()
-  console.log('initSession', response, data)
   get().logAction({
     page: 'none',
     activity: 'initSession',
@@ -77,6 +76,10 @@ const initSession = async (set: SetFn, get: GetFn) => {
         operators: data.operators,
         explanations: shuffle(data.explanation),
         highlights: data.highlights,
+        stimulusClaims: createHighlightClaims(
+          problem.stimulus,
+          data.highlights,
+        ),
         endPhaseWEqn: convertMixedFractionsToLatex(data.endPhaseWEqn),
         phaseESentence: data.phaseESentence,
         selectedExplanation: { type: '', text: '' },

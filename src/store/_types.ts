@@ -125,6 +125,8 @@ export type Session = {
   highlights: Highlight[]
   endPhaseWEqn: string
   phaseESentence: string
+  // prepped for student
+  stimulusClaims: string
   // created by student
   knowns: string[]
   unknowns: string[]
@@ -135,6 +137,7 @@ export type Session = {
   selectedExplanation: Explanation
   thinksGoodAnswer?: boolean
   finalAnswer: string
+  // ui operations
   chatty?: boolean
   networkSpeedMbps: { type: string; Mbps: number }
   aiBusy?: boolean
