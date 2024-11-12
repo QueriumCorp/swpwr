@@ -111,15 +111,17 @@ export function createHighlightClaims(
 
   // Concat sentence arrays into stimulusClaims
 
-  return stimulusClaims
+  return sentenceClaims.join('')
 }
 
-console.info(
-  createHighlightClaims(
-    'Minh spent $6.25 on 5  sticker books to give his nephews. Find the cost of each sticker book.',
-    [['5', 'sticker books'], 'Find the cost of each sticker book.', '$6.25'],
-  ),
-)
+// TEST
+
+// console.info(
+//   createHighlightClaims(
+//     'Minh spent $6.25 on 5  sticker books to give his nephews. Find the cost of each sticker book.',
+//     [['5', 'sticker books'], 'Find the cost of each sticker book.', '$6.25'],
+//   ),
+// )
 
 function sortHighlights(highlights: Highlight[]) {
   return highlights.sort((a, b) => {
