@@ -32,7 +32,7 @@ export function createHighlightClaims(
       highlight.type === 'string' &&
       typeof highlight.highlight === 'string'
     ) {
-      let factoid = highlight.highlight
+      let factoid = highlight.highlight as string
       let found = false
       sentences.some((sentence, index) => {
         // Look for the factoid in this sentence
@@ -56,9 +56,10 @@ export function createHighlightClaims(
 
     // [value, unit]
     if (highlight.type === 'valueUnit') {
-      const valueUnit = highlight.highlight // [value, unit]
       // define regex to find value some whitespace and unit
-      const regex = new RegExp(`${valueUnit[0]}\\s+${valueUnit[1]}`)
+      const regex = new RegExp(
+        `${highlight.highlight[0]}\\s+${highlight.highlight[1]}`,
+      )
 
       // check each sentence
       sentences.some((sentence, index) => {
@@ -66,8 +67,8 @@ export function createHighlightClaims(
         // is the value unit combo in this sentence?
         if (regex.test(sentence)) {
           offset = sentence.search(regex)
-          let unitOffset = sentence.indexOf(valueUnit[1], offset)
-          length = unitOffset + valueUnit[1].length - offset
+          let unitOffset = sentence.indexOf(highlight.highlight[1], offset)
+          length = unitOffset + highlight.highlight[1].length - offset
 
           highlight.done = true
           sentenceClaims[index] = claim(
@@ -93,10 +94,6 @@ export function createHighlightClaims(
         }
       })
     }
-    console.info(sentences[0])
-    console.info(sentenceClaims[0])
-    console.info(sentences[1])
-    console.info(sentenceClaims[1])
   })
 
   // Find and claim for valueUnit highlights. Mark highlight done
@@ -115,33 +112,34 @@ export function createHighlightClaims(
 //   ),
 // )
 
-export function sortAndEnhanceHighlights(rawHighlights: Highlight[]) {
-  let sortedHighlights = sortHighlights(rawHighlights)
-  let highlights = sortedHighlights.map((highlight, index) => {
+export function sortAndEnhanceHighlights(rawHighlights: unknown): Highlight[] {
+  let sortedHighlights = sortHighlights(rawHighlights as Highlight[])
+  let highlights: unknown = sortedHighlights.map((highlight, index) => {
     return {
-      highlight,
+      highlight: highlight,
       index: String.fromCharCode(65 + index),
       type: Array.isArray(highlight) ? 'valueUnit' : 'string',
       done: false,
     }
   })
-  return highlights
+  return highlights as Highlight[]
 }
 
-function sortHighlights(highlights: Highlight[]) {
+// sortHighlights
+function sortHighlights(highlights: Highlight[]): Highlight[] {
   return highlights.sort((a, b) => {
     // If both are strings
-    if (typeof a === 'string' && typeof b === 'string') {
-      return b.length - a.length // Sort by descending length
+    if (a.type === 'string' && b.type === 'string') {
+      return b.highlight.length - a.highlight.length // Sort by descending length
     }
 
     // If 'a' is a string and 'b' is an array, 'a' should come first
-    if (typeof a === 'string' && Array.isArray(b)) {
+    if (a.type === 'string' && b.type === 'valueUnit') {
       return -1
     }
 
     // If 'a' is an array and 'b' is a string, 'b' should come first
-    if (Array.isArray(a) && typeof b === 'string') {
+    if (a.type === 'valueUnit' && b.type === 'string') {
       return 1
     }
 

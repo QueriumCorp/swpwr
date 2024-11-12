@@ -112,12 +112,19 @@ export type Explanation = {
 }
 
 // HIGHLIGHTS
-export type Highlight = {
-  highlight: [string, string] | string
-  index: string
-  type: string
-  done: boolean
-}
+export type Highlight =
+  | {
+      highlight: string
+      index: string
+      type: 'string'
+      done: boolean
+    }
+  | {
+      highlight: [string, string]
+      index: string
+      type: 'valueUnit'
+      done: boolean
+    }
 
 // SESSION
 export type Session = {
