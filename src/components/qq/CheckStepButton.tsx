@@ -55,9 +55,9 @@ const CheckStepButton = ({
           'absolute h-8 w-8 !p-0',
           'rounded-full border-white bg-green-500 text-xl text-white',
           'hover:bg-green-700 hover:text-white',
-          'disabled:border-slate-400 disabled:bg-slate-200 disabled:text-slate-400',
+          'disabled:border-slate-400 disabled:bg-slate-100 disabled:text-slate-400',
           disabled
-            ? 'cursor-not-allowed border-slate-400 bg-slate-200 text-slate-400'
+            ? 'cursor-not-allowed border-slate-400 bg-slate-100 text-slate-400'
             : 'cursor-pointer',
         )}
         disabled={disabled}

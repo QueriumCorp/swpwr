@@ -49,7 +49,7 @@ const Stimulus = () => {
   }, [])
 
   return (
-    <div ref={latexRef} className="bg-slate-200">
+    <div ref={latexRef} className="bg-slate-100">
       <p className="mt-2 text-sm text-slate-500">{stimulus}</p>
     </div>
   )

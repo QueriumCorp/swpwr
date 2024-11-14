@@ -26,7 +26,7 @@ const Keyboard = (props: KeyboardProps) => {
         ))}
         {specialOperators.map(operator => (
           <Key
-            className="bg-slate-300"
+            className="bg-slate-100"
             key={operator.operator}
             operator={operator}
             keyPress={onKeyPress}

@@ -146,6 +146,7 @@ const CadetReflect: FC<{
       <button
         className="border-none text-xs"
         onClick={evt => handleSpeak(evt, msg)}
+        aria-label="Speak"
       >
         <HiMiniSpeakerWave className="text-cyan-900" />
       </button>
@@ -177,7 +178,7 @@ const CadetReflect: FC<{
           <div className="relative flex grow flex-col items-center justify-stretch gap-2 p-2">
             <StimulusSelector
               className={cn(
-                'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2',
+                'flex w-full rounded-md border border-input bg-slate-100 px-3 py-2',
                 'ring-offset-background placeholder:text-muted-foreground',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
                 'disabled:cursor-not-allowed disabled:opacity-50',
@@ -234,7 +235,7 @@ const CadetReflect: FC<{
         </div>
       </div>
 
-      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-100 pr-0">
         <TinyTutor msg={msg} busy={busy} hintList={hintList} />
 
         <div className="flex h-20 w-20 items-center justify-center">

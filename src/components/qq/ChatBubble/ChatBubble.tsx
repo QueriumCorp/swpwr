@@ -176,6 +176,7 @@ export const ChatBubble = ({
       return (
         <button
           style={{ all: 'unset', cursor: 'pointer' }}
+          aria-label="Restart"
           onClick={handleStartOver}
         >
           <VscDebugRestart />
@@ -209,6 +210,7 @@ export const ChatBubble = ({
       return (
         <div className="relative bg-red-600">
           <button
+            aria-label="More"
             style={{
               all: 'unset',
               cursor: 'pointer',
@@ -229,6 +231,7 @@ export const ChatBubble = ({
     return (
       <div className="relative">
         <button
+          aria-label="More"
           style={{
             all: 'unset',
             cursor: 'not-allowed',
@@ -274,6 +277,7 @@ export const ChatBubble = ({
 
     return (
       <button
+        aria-label="Speak"
         style={{ all: 'unset', cursor: 'pointer' }}
         onClick={evt => handleSpeak(evt)}
       >

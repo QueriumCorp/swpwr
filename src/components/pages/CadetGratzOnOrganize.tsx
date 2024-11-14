@@ -49,7 +49,7 @@ const CadetGratzOnOrganize: React.FC<{
           className="absolute bottom-[50%] right-[300px] font-capriola"
         />
       </div>
-      <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="flex justify-end space-x-3 bg-slate-100 pr-2">
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

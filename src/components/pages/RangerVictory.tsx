@@ -104,7 +104,7 @@ const RangerVictory: FC<{
           className="absolute bottom-[50%] right-[50%] max-w-[350px] !font-capriola"
         />
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-100 pr-2">
         <div className="m-1 flex grow flex-col gap-1">
           {emotes.map(emote => (
             <Button key={emote.name} onClick={handleDance} className="w-full">

@@ -44,7 +44,7 @@ const NewbGratzOnPrepare: React.FC<{
       )}
     >
       <ReactPlayer url={src} height={'100%'} style={{ margin: 'auto' }} />
-      <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="flex justify-end space-x-3 bg-slate-100 pr-2">
         {/* Tiny Avatar */}
         <AnimeTutor
           emote={'direct:04'}

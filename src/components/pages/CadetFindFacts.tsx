@@ -72,7 +72,7 @@ const CadetFindFacts: React.FC<{
           <StimulusSelector
             onChangeFact={setCurrentFact}
             className={cn(
-              'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2',
+              'flex w-full rounded-md border border-input bg-slate-100 px-3 py-2',
               'ring-offset-background placeholder:text-muted-foreground',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
               'disabled:cursor-not-allowed disabled:opacity-50',
@@ -108,7 +108,7 @@ const CadetFindFacts: React.FC<{
           </div>
         </DndContext>
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-100 pr-2">
         {/* Tiny Avatar */}
         <AnimeTutor
           style={{

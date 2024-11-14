@@ -54,7 +54,7 @@ const CadetSelectDiagram: React.FC<{
           </div>
           <StimulusSelector
             className={cn(
-              'mb-2 flex w-full rounded-md border border-input bg-slate-300 px-3 py-2',
+              'mb-2 flex w-full rounded-md border border-input bg-slate-100 px-3 py-2',
               className,
             )}
             stimulusText={problem.stimulus || ''}
@@ -91,7 +91,7 @@ const CadetSelectDiagram: React.FC<{
           </div>
         </div>
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-100 pr-2">
         <h3 className="absolute bottom-0 text-slate-400">CadetSelectDiagram</h3>
         {/* Tiny Avatar */}
         <AnimeTutor

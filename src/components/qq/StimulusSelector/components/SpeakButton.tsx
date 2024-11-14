@@ -9,7 +9,11 @@ function handleSpeak(
 }
 export default function SpeakButton({ text }: { text: string }) {
   return (
-    <button className="border-none text-xs" onClick={e => handleSpeak(e, text)}>
+    <button
+      aria-label="Speak"
+      className="border-none text-xs"
+      onClick={e => handleSpeak(e, text)}
+    >
       <HiMiniSpeakerWave className="text-cyan-900" />
     </button>
   )

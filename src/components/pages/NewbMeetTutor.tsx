@@ -128,7 +128,7 @@ const NewbMeetTutor: React.FC<{
         />
       </div>
 
-      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-100 pr-0">
         <div className="m-1 flex grow flex-col gap-1">
           {emotes.map(emote => (
             <Button key={emote.name} onClick={handleDance} className="w-full">

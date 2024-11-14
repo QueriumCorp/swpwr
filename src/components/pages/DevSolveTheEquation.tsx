@@ -93,7 +93,7 @@ const DevSolveTheEquation: FC<{
           student={student}
         />
       </div>
-      <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="flex justify-end space-x-3 bg-slate-100 pr-2">
         <TinyTutor />
         <CarouselPrevious className="relative left-0">
           Previous
