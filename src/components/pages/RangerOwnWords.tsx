@@ -263,7 +263,7 @@ const RangerOwnWords: FC<{
           style={{ fontSize: '48px', marginLeft: 'auto', marginRight: 'auto' }}
           latex={session.endPhaseWEqn || mathAnswer}
         ></MathStatic>
-        {rank === 'cadet' || rank === 'scout' ? (
+        {rank === 'cadet' || rank === 'scout' || rank === 'ranger' ? (
           <div className="mx-auto">
             <div className="flex grow items-baseline justify-start gap-1">
               <div className="select-none" style={{ width: 'fitContent' }}>
@@ -290,7 +290,7 @@ const RangerOwnWords: FC<{
             </div>
           </div>
         ) : (
-          // ranger
+          // old ranger
           <div>
             <Textarea
               ref={inputRef}
