@@ -36,6 +36,7 @@ export interface State {
   setAiBusy: (busy: boolean) => void
   heartbeat: () => Promise<void>
   initSession: () => void
+  resumeSession: (oldSession: Session) => Promise<boolean>
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
   submitPickSchema: (schema: string, fake?: boolean) => Promise<any>
   submitOrganize: (

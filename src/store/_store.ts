@@ -27,6 +27,7 @@ import { YBRpage } from '@/components/qq/YellowBrickRoad'
 import submitExplanation from './submitExplanation'
 import submitMyOwnWords from './submitMyOwnWords'
 import { resume, shutup } from '@/lib/speech'
+import { sessionResumable } from './resumeSession'
 
 export const useProblemStore = create<State>((set, get) => ({
   ///////////////////////////////////////////////////////////////////
@@ -221,6 +222,16 @@ export const useProblemStore = create<State>((set, get) => ({
 
   initSession: async () => {
     return await initSession(set, get)
+  },
+
+  resumeSession: async (oldSession: Session) => {
+    set(() => ({
+      session: {
+        ...oldSession,
+      },
+    }))
+
+    return sessionResumable(get().swapiUrl, get().session.sessionToken)
   },
 
   submitTTable: async (knowns: string[], unknowns: string[]) => {
