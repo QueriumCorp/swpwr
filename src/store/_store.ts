@@ -16,7 +16,7 @@ import {
 
 // Method Implementations
 import heartbeat from './heartbeat'
-import initSession from './initSession'
+import initSession from './initSession/initSession'
 import submitTTable from './submitT-Table'
 import getHint from './getHint'
 import submitPickSchema from './submitPickSchema'
@@ -26,6 +26,7 @@ import submitOrganize from './submitOrganize'
 import { YBRpage } from '@/components/qq/YellowBrickRoad'
 import submitExplanation from './submitExplanation'
 import submitMyOwnWords from './submitMyOwnWords'
+import { resume, shutup } from '@/lib/speech'
 
 export const useProblemStore = create<State>((set, get) => ({
   ///////////////////////////////////////////////////////////////////
@@ -68,14 +69,20 @@ export const useProblemStore = create<State>((set, get) => ({
     schema: '',
     schemaValues: [],
     explanations: [],
+    highlights: [],
+    stimulusClaims: '',
     endPhaseWEqn: '',
     phaseESentence: '',
     mathAnswer: '',
     myOwnWords: '',
     selectedExplanation: { type: '', text: '' },
     finalAnswer: '',
-    chatty: false,
+
+    // if localhost, then chatty is true so the start functions will set it to false
+    chatty: document.location.hostname.includes('localhost') ? true : false,
+
     networkSpeedMbps: { type: 'Undetermined', Mbps: -Infinity },
+    aiBusy: false,
   },
 
   ybr: [],
@@ -175,6 +182,12 @@ export const useProblemStore = create<State>((set, get) => ({
   toggleChatty: () => {
     let chatty = !get().session.chatty
 
+    if (!chatty) {
+      shutup()
+    } else {
+      resume()
+    }
+
     set(state => ({
       session: {
         ...state.session,
@@ -189,6 +202,15 @@ export const useProblemStore = create<State>((set, get) => ({
       session: {
         ...state.session,
         networkSpeedMbps: { type, Mbps },
+      },
+    }))
+  },
+
+  setAiBusy: (busy: boolean) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        aiBusy: busy,
       },
     }))
   },
@@ -284,7 +306,13 @@ export const useProblemStore = create<State>((set, get) => ({
   },
 
   getHint: async () => {
-    return await getHint(set, get)
+    if (get().session.aiBusy) return
+
+    get().setAiBusy(true)
+    const hintResult = await getHint(set, get)
+    get().setAiBusy(false)
+
+    return hintResult
   },
 
   closeSession: async () => {

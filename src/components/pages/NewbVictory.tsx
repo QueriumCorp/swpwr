@@ -67,9 +67,16 @@ const NewbVictory: React.FC<{
   function finishedIntro(current: number, count: number) {
     if (count > 0 && current === count) {
       if (document.fullscreenEnabled) {
-        document.exitFullscreen()
+        document
+          .exitFullscreen()
+          .then(() => {
+            console.log('Fullscreen exited successfully')
+          })
+          .catch(error => {
+            console.log('Error exiting fullscreen:', error)
+          })
+        setNextDisabled(false)
       }
-      setNextDisabled(false)
     }
   }
 
@@ -106,7 +113,7 @@ const NewbVictory: React.FC<{
           hintPageChanged={finishedIntro}
         />
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2"></NavBar>
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-100 pr-2"></NavBar>
     </div>
   )
 }

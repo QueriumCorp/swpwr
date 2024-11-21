@@ -1,8 +1,12 @@
 import { shuffle } from '@/lib/utils'
-import type { SetFn, GetFn } from './_types'
+import type { SetFn, GetFn } from '../_types'
+import { convertMixedFractionsToLatex } from './mixedFractions'
+import {
+  createHighlightClaims,
+  sortAndEnhanceHighlights,
+} from './highlightClaims'
 
 const initSession = async (set: SetFn, get: GetFn) => {
-  console.log('initSession', get().session?.sessionToken)
   set(state => ({
     session: {
       ...state.session,
@@ -74,7 +78,12 @@ const initSession = async (set: SetFn, get: GetFn) => {
         identifiers: data.identifiers,
         operators: data.operators,
         explanations: shuffle(data.explanation),
-        endPhaseWEqn: data.endPhaseWEqn,
+        highlights: sortAndEnhanceHighlights(data.highlights),
+        stimulusClaims: createHighlightClaims(
+          problem.stimulus,
+          data.highlights,
+        ),
+        endPhaseWEqn: convertMixedFractionsToLatex(data.endPhaseWEqn),
         phaseESentence: data.phaseESentence,
         selectedExplanation: { type: '', text: '' },
       },

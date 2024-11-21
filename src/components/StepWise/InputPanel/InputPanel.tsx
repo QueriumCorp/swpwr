@@ -130,7 +130,7 @@ const InputPanel: FC<InputPanelProps> = ({ onStepChange }) => {
     <>
       <div
         className={cn(
-          'flex w-full max-w-[640px] items-center rounded-full bg-slate-300 py-2',
+          'flex w-full max-w-[640px] items-center rounded-full bg-slate-100 py-2',
           displayHintButton ? '' : 'px-4',
         )}
       >

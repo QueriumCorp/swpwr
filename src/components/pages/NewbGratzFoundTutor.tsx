@@ -58,7 +58,7 @@ const NewbGratzFoundTutor: React.FC<{
           className="absolute bottom-[50%] right-[50%] ml-3 min-h-24 font-capriola"
         />
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-100 pr-2">
         <CarouselPrevious className="relative left-0">
           Previous
         </CarouselPrevious>

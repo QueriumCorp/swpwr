@@ -26,7 +26,7 @@ const NavBar = React.forwardRef<
       ref={ref}
       className={cn(
         'NavBar relative min-h-24 w-full border-none',
-        'relative flex items-center justify-end space-x-3 bg-slate-300 pr-0',
+        'relative flex items-center justify-end space-x-3 bg-slate-100 pr-0',
         className,
       )}
       {...props}

@@ -169,7 +169,7 @@ const RangerSolveTheEquation: FC<{
       setMsg('You have solved the math portion! Continue to the next page.')
       return
     }
-    if (stepwiseRef.current) {
+    if (stepwiseRef.current && !busy) {
       setWorking(true)
       setBusy(true)
       // @ts-ignore: TS seems to think the ✓ above doesnt exist
@@ -184,7 +184,7 @@ const RangerSolveTheEquation: FC<{
     if (evt.altKey) {
       api?.scrollNext()
     } else {
-      if (stepwiseRef.current) {
+      if (stepwiseRef.current && !busy) {
         setWorking(true)
         setBusy(true)
         // @ts-ignore: TS seems to think the ✓ above doesnt exist
@@ -323,7 +323,7 @@ const RangerSolveTheEquation: FC<{
           </div>
         </div>
       </div>
-      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-100 pr-0">
         <TinyTutor msg={msg} hintList={hintList} getAiHints={getExternalHint} />
         <div className="flex h-20 w-20 items-center justify-center">
           {!complete ? (

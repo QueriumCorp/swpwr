@@ -128,7 +128,7 @@ const NewbVideoFindFacts: FC<{
           />
         </div>
       </div>
-      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-100 pr-0">
         <TinyTutor msg={msg} hintList={hintList} closeable />
         <div className="flex h-20 w-20 items-center justify-center">
           <NextButton

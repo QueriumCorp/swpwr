@@ -33,6 +33,7 @@ export interface State {
   setCriticalError: (criticalError: boolean) => void
   toggleChatty: () => boolean
   setNetworkSpeedMbps: (type: string, Mbps: number) => void
+  setAiBusy: (busy: boolean) => void
   heartbeat: () => Promise<void>
   initSession: () => void
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
@@ -110,10 +111,21 @@ export type Explanation = {
   type: string
   text: string
 }
-export const ExplanationSchema = z.object({
-  type: z.string(),
-  text: z.string(),
-}) satisfies z.ZodType<Explanation>
+
+// HIGHLIGHTS
+export type Highlight =
+  | {
+      highlight: string
+      index: string
+      type: 'string'
+      done: boolean
+    }
+  | {
+      highlight: [string, string]
+      index: string
+      type: 'valueUnit'
+      done: boolean
+    }
 
 // SESSION
 export type Session = {
@@ -123,8 +135,11 @@ export type Session = {
   identifiers: string[]
   operators: string[]
   explanations: Explanation[]
+  highlights: Highlight[]
   endPhaseWEqn: string
   phaseESentence: string
+  // prepped for student
+  stimulusClaims: string
   // created by student
   knowns: string[]
   unknowns: string[]
@@ -135,8 +150,10 @@ export type Session = {
   selectedExplanation: Explanation
   thinksGoodAnswer?: boolean
   finalAnswer: string
+  // ui operations
   chatty?: boolean
-  networkSpeedMbps?: { type: string; Mbps: number }
+  networkSpeedMbps: { type: string; Mbps: number }
+  aiBusy?: boolean
 }
 export const SessionSchema = z.object({
   // returned by SWAPI

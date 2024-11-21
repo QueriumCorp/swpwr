@@ -7,7 +7,7 @@ import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
 import { CarouselPrevious, CarouselNext } from '../ui/carousel'
-import { StimulusSelector } from '../qq/StimulusSelector'
+import { StimulusSelector } from '../qq/StimulusSelector/StimulusSelector'
 import {
   AnimeTutor,
   AvatarAPIType,
@@ -58,7 +58,7 @@ const CadetFillDiagram: React.FC<{
           </div>
           <StimulusSelector
             className={cn(
-              'mb-2 flex w-full rounded-md border border-input bg-slate-300 px-3 py-2',
+              'mb-2 flex w-full rounded-md border border-input bg-slate-100 px-3 py-2',
               className,
             )}
             stimulusText={problem.stimulus || ''}
@@ -101,7 +101,7 @@ const CadetFillDiagram: React.FC<{
           <div className="grid grow grid-cols-2 gap-2"></div>
         </div>
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="relative flex justify-end space-x-3 bg-slate-100 pr-2">
         {/* Tiny Avatar */}
         <AnimeTutor
           style={{

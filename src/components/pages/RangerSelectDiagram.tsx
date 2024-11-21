@@ -8,7 +8,7 @@ import { cn, randomClickNextMsg, randomThinkingMsg } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { StimulusSelector } from '../qq/StimulusSelector'
+import { StimulusSelector } from '../qq/StimulusSelector/StimulusSelector'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
@@ -209,14 +209,14 @@ const RangerSelectDiagram: FC<{
 
           <StimulusSelector
             className={cn(
-              'mb-2 flex w-full rounded-md border border-input bg-slate-300 px-3 py-2',
+              'mb-2 flex w-full rounded-md border border-input bg-slate-100 px-3 py-2',
               className,
             )}
             stimulusText={problem.stimulus}
           ></StimulusSelector>
 
           <div className="grid grow grid-cols-2 gap-2">
-            <Card className="bg-slate-300">
+            <Card className="bg-slate-100">
               <CardHeader className="pb-2">
                 <CardTitle>Known</CardTitle>
               </CardHeader>
@@ -232,7 +232,7 @@ const RangerSelectDiagram: FC<{
                 ) : null}
               </CardContent>
             </Card>
-            <Card className="bg-slate-300">
+            <Card className="bg-slate-100">
               <CardHeader className="pb-2">
                 <CardTitle>Unknown</CardTitle>
               </CardHeader>
@@ -372,7 +372,7 @@ const RangerSelectDiagram: FC<{
           </div>
         </div>
       </div>
-      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-100 pr-0">
         <TinyTutor
           msg={msg}
           busy={busy}

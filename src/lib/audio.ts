@@ -3,6 +3,7 @@ const AudioManager = (function () {
     play: (src: string) => void
     playSync: (src: string) => Promise<unknown>
     pause: () => void
+    resume: () => void
     addEventListener: (event: string, callback: (event: Event) => void) => void
     removeEventListener: (
       event: string,
@@ -30,7 +31,14 @@ const AudioManager = (function () {
         })
       },
 
-      pause: () => audio.pause(),
+      pause: () => {
+        try {
+          audio.pause()
+        } catch (e) {
+          console.log('audio.pause() failed')
+        }
+      },
+      resume: () => audio.play(),
       // ... other audio control methods
 
       addEventListener: (event: string, callback: (event: Event) => void) => {

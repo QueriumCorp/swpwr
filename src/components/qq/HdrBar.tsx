@@ -24,8 +24,8 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
         ref={ref}
         className={cn(
           'HdrBar',
-          'relative w-full border-none bg-slate-300 pl-2 pr-2',
-          'grid grid-cols-3 gap-4',
+          'relative w-full border-none bg-slate-100 pl-2 pr-2',
+          'grid grid-cols-3 items-center gap-4',
           className,
         )}
         {...props}
@@ -86,7 +86,7 @@ const HdrBar = React.forwardRef<HTMLDivElement, HdrBarProps>(
           className={cn(
             'flex items-end justify-center',
             'select-none text-center font-capriola text-qqBrand',
-            'sm:text-lg md:text-xl xl:text-2xl',
+            'sm:text-lg md:text-xl xl:text-4xl',
           )}
         >
           <div>{instructions}</div>

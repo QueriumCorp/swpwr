@@ -1,10 +1,10 @@
 {
   "name": "swpwr",
   "private": true,
-  "version": "1.9.198",
+  "version": "1.9.211",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "version-update": "npm version patch && npm run get-build-info",
     "git-log": "git  --no-pager log --pretty=format:\"%cd, %s\"",
@@ -37,6 +37,7 @@
     "network-information-types": "^0.1.1",
     "npm": "^10.8.2",
     "react": "^18.2.0",
+    "react-aria": "^3.35.1",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.13",
     "react-hotkeys-hook": "^4.5.0",
@@ -75,6 +76,11 @@
     "rollup-preserve-directives": "^1.1.1",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.0",
+    "@semantic-release/release-notes-generator": "^14.0.0"
   }
 }

@@ -25,8 +25,8 @@ const Chip = ({
   return (
     <div
       className={cn(
-        selected ? 'bg-gray-500' : 'bg-gray-300',
-        'relative mx-1 my-1 !mb-0 inline-flex min-h-8 w-auto cursor-pointer items-center rounded-full align-middle shadow',
+        selected ? 'bg-gray-500' : 'bg-gray-100 ring-1 ring-qqAccent',
+        'relative mx-1 my-1 mb-1 inline-flex min-h-8 w-auto cursor-pointer items-center rounded-full align-middle shadow',
         className,
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -44,6 +44,7 @@ const Chip = ({
       {onDelete && (
         <button
           onClick={() => onDelete(id)}
+          aria-label="Delete"
           className={
             'flex rounded-full !border-none bg-transparent p-0 align-middle text-lg text-gray-400 !shadow-none hover:scale-90 hover:border-transparent hover:bg-white hover:text-red-500'
           }

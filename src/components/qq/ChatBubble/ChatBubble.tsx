@@ -18,7 +18,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel'
-import vocalize, { vocalizeList } from '@/lib/speech'
+import { vocalizeList } from '@/lib/speech'
 import { useProblemStore } from '@/store/_store'
 
 ///////////////////////////////////////////////////////////////////
@@ -69,6 +69,12 @@ export const ChatBubble = ({
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
+    if (!session.chatty) {
+      setSpeaking(false)
+    }
+  }, [session.chatty])
+
+  useEffect(() => {
     if (!api) {
       return
     }
@@ -108,6 +114,8 @@ export const ChatBubble = ({
     }
   }, [])
 
+  // TODO: Probably should pull out session.chatty so we don't inadvertently restart speech
+  //  That will be complicated.
   useEffect(() => {
     let stimulusText = problem.stimulus
     let explanationText = session.selectedExplanation?.text
@@ -125,7 +133,8 @@ export const ChatBubble = ({
     ) {
       setSpeaking(true)
       let msgIndex = api!.selectedScrollSnap()
-      let originalMsg = msgs[msgIndex]
+      let originalMsg =
+        msgs[msgIndex > msgs.length - 1 ? msgs.length - 1 : msgIndex]
 
       let stimulatedMsgs = splitMessages(
         originalMsg,
@@ -167,6 +176,7 @@ export const ChatBubble = ({
       return (
         <button
           style={{ all: 'unset', cursor: 'pointer' }}
+          aria-label="Restart"
           onClick={handleStartOver}
         >
           <VscDebugRestart />
@@ -200,6 +210,7 @@ export const ChatBubble = ({
       return (
         <div className="relative bg-red-600">
           <button
+            aria-label="More"
             style={{
               all: 'unset',
               cursor: 'pointer',
@@ -220,6 +231,7 @@ export const ChatBubble = ({
     return (
       <div className="relative">
         <button
+          aria-label="More"
           style={{
             all: 'unset',
             cursor: 'not-allowed',
@@ -265,6 +277,7 @@ export const ChatBubble = ({
 
     return (
       <button
+        aria-label="Speak"
         style={{ all: 'unset', cursor: 'pointer' }}
         onClick={evt => handleSpeak(evt)}
       >

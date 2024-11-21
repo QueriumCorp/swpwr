@@ -98,7 +98,9 @@ const StepWisePower = forwardRef<
   const [closeMsg, setCloseMsg] = useState('')
   const [traceComment, setTraceComment] = useState('')
   const [traceMsg, setTraceMsg] = useState('')
-  const [enableDebugger, setEnableDebugger] = useState(false)
+  const [enableDebugger, setEnableDebugger] = useState(
+    document.location.hostname.includes('localhostXXX') ? true : false,
+  )
   const [chiggerOpen, setchiggerOpen] = useState(false)
   const [propError, setPropError] = useState('')
 
@@ -253,12 +255,16 @@ const StepWisePower = forwardRef<
               <div className="absolute bottom-0 left-2 z-10 m-1 flex cursor-pointer gap-2 rounded-full bg-transparent text-xs">
                 <button
                   id="chigger"
+                  aria-label="Chigger"
                   className="cursor-pointer rounded-full bg-transparent text-xs"
                   onClick={() => {
                     setchiggerOpen(true)
                   }}
                 >
-                  <BsBugFill className="text-lg text-red-500" />
+                  <BsBugFill
+                    aria-labelledby="chigger"
+                    className="text-lg text-red-500"
+                  />
                 </button>
                 <div>{buildInfo.version}</div>
                 <div>{formattedDate(buildInfo.buildDate)}</div>
@@ -272,6 +278,7 @@ const StepWisePower = forwardRef<
               onClick={() => {
                 setchiggerOpen(false)
               }}
+              aria-label="Close Chigger"
               className="absolute right-3 top-0 cursor-pointer"
             >
               ⨉

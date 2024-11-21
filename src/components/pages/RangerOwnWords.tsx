@@ -16,7 +16,7 @@ import { cn, randomClickNextMsg, randomThinkingMsg } from '@/lib/utils'
 import { type YBRpage } from '../qq/YellowBrickRoad'
 import { NavContext, NavContextType } from '@/NavContext'
 import { NavBar } from '../qq/NavBar'
-import { StimulusSelector } from '../qq/StimulusSelector'
+import { StimulusSelector } from '../qq/StimulusSelector/StimulusSelector'
 import { HdrBar } from '../qq/HdrBar'
 import { useProblemStore } from '@/store/_store'
 import { Textarea } from '../ui/textarea'
@@ -248,7 +248,7 @@ const RangerOwnWords: FC<{
       <div className="m-2 flex grow flex-col justify-stretch gap-2 overflow-y-auto p-2">
         <StimulusSelector
           className={cn(
-            'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2',
+            'flex w-full rounded-md border border-input bg-slate-100 px-3 py-2',
             'ring-offset-background',
             'placeholder:text-muted-foreground',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
@@ -263,7 +263,7 @@ const RangerOwnWords: FC<{
           style={{ fontSize: '48px', marginLeft: 'auto', marginRight: 'auto' }}
           latex={session.endPhaseWEqn || mathAnswer}
         ></MathStatic>
-        {rank === 'cadet' || rank === 'scout' ? (
+        {rank === 'cadet' || rank === 'scout' || rank === 'ranger' ? (
           <div className="mx-auto">
             <div className="flex grow items-baseline justify-start gap-1">
               <div className="select-none" style={{ width: 'fitContent' }}>
@@ -290,7 +290,7 @@ const RangerOwnWords: FC<{
             </div>
           </div>
         ) : (
-          // ranger
+          // old ranger
           <div>
             <Textarea
               ref={inputRef}
@@ -302,7 +302,7 @@ const RangerOwnWords: FC<{
         )}
       </div>
 
-      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-300 pr-0">
+      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-100 pr-0">
         <TinyTutor
           msg={msg}
           busy={busy}

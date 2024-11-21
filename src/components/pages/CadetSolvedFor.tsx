@@ -12,7 +12,7 @@ import {
 } from '@/components/AnimeTutor'
 import { NavBar } from '../qq/NavBar'
 import { CarouselPrevious, CarouselNext } from '../ui/carousel'
-import { StimulusSelector } from '../qq/StimulusSelector'
+import { StimulusSelector } from '../qq/StimulusSelector/StimulusSelector'
 import { Textarea } from '../ui/textarea'
 import { useProblemStore } from '@/store/_store'
 import { HdrBar } from '../qq/HdrBar'
@@ -53,7 +53,7 @@ const CadetSolvedFor: React.FC<{
           ></HdrBar>
           <StimulusSelector
             className={cn(
-              'mb-2 flex w-full rounded-md border border-input bg-slate-300 px-3 py-2',
+              'mb-2 flex w-full rounded-md border border-input bg-slate-100 px-3 py-2',
               className,
             )}
             stimulusText={problem.stimulus || ''}
@@ -63,7 +63,7 @@ const CadetSolvedFor: React.FC<{
         </div>
       </div>
 
-      <NavBar className="flex justify-end space-x-3 bg-slate-300 pr-2">
+      <NavBar className="flex justify-end space-x-3 bg-slate-100 pr-2">
         {/* Tiny Avatar */}
         {YellowBrickRoad[current].phase !== 'I' ? (
           <AnimeTutor

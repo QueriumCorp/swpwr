@@ -10,7 +10,7 @@ import { NavContext, NavContextType } from '@/NavContext'
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import Chip from '../qq/Chip'
 import KnownFacts from '../qq/KnownFacts'
-import { StimulusSelector } from '../qq/StimulusSelector'
+import { StimulusSelector } from '../qq/StimulusSelector/StimulusSelector'
 import UnknownFacts from '../qq/UnknownFacts'
 import { NavBar } from '../qq/NavBar'
 import { HdrBar } from '../qq/HdrBar'
@@ -176,7 +176,7 @@ const RangerFindFacts: FC<{
             interactive={true}
             onChangeFact={setCurrentFact}
             className={cn(
-              'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-xl',
+              'flex w-full rounded-md border border-input bg-slate-200 px-3 py-2',
               'ring-offset-background placeholder:text-muted-foreground',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
               'disabled:cursor-not-allowed disabled:opacity-50',
