@@ -19,10 +19,49 @@
     <title>StepWise Power</title>
 
     <script>
+      let oldSession = {
+        sessionToken:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkJhbmFuYXMiLCJzdHVkZW50SWQiOiJDYWx2aW4gSG9iYmVzIiwic2VydmVyVXJsIjoiaHR0cHM6Ly9zdGVwd2lzZWFpMDAucXVlcml1bS5jb20vd2ViTWF0aGVtYXRpY2EvYXBpLyIsInN0YXJ0ZWRBdCI6MTcyOTg4NDYxNzAyOCwiaWF0IjoxNzI5ODg0NjE3fQ.G9iHld5xEtCRCCd0VciAo0XpZ-jqYSiA_TNfpe7D3SU',
+        identifiers: ['T'],
+        operators: ['Frac'],
+        knowns: [],
+        unknowns: [],
+        schema: '',
+        schemaValues: [],
+        explanations: [
+          {
+            type: 'estimation',
+            text: "One bunch has 5 bananas. The other bunch has more than 5 bananas. So the total is more than 5 + 5 = 10 bananas. The answer 11 makes sense because it's more than 10.",
+          },
+          {
+            type: 'schema',
+            text: 'The total is more than the bananas in either bunch. The answer 11 is more than 6 and 5, so it makes sense.',
+          },
+          {
+            type: 'bad',
+            text: 'You have to add 6 and 5, and 6 + 5 = 11. So the answer 11 makes sense.',
+          },
+        ],
+        endPhaseWEqn: 'T = 11',
+        phaseESentence: 'Ava buys [VALUE] [UNIT] in all.',
+        mathAnswer: '',
+        myOwnWords: '',
+        selectedExplanation: {
+          type: 'bad',
+          text: 'You have to add 6 and 5, and 6 + 5 = 11. So the answer 11 makes sense.',
+        },
+        finalAnswer: '',
+        chatty: false,
+        networkSpeedMbps: {
+          type: '4g (Mbps)',
+          Mbps: 7.2,
+        },
+      }
+
       let params = new URLSearchParams(window.location.search)
       let urlRank = params.get('rank')
       let urlAppKey = params.get('appKey')
-      console.info('🤩')
+
       if (urlRank === 'newb') {
         window.swpwr = {
           options: {
@@ -230,6 +269,7 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
               },
             ],
           },
+          session: oldSession,
           handlers: {
             onComplete: (session, studentLog) => {
               console.info("I'm an external onComplete Handler")
@@ -389,7 +429,7 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
         }
       }
     </script>
-    <script type="module" crossorigin src="/swpwr/assets/index-DZNZJXx9.js"></script>
+    <script type="module" crossorigin src="/swpwr/assets/index-By9qbg9P.js"></script>
     <link rel="stylesheet" crossorigin href="/swpwr/assets/index-DBsnA11q.css">
   </head>
   <body>
