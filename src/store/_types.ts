@@ -111,6 +111,10 @@ export type Explanation = {
   type: string
   text: string
 }
+export const ExplanationSchema = z.object({
+  type: z.string(),
+  text: z.string(),
+}) satisfies z.ZodType<Explanation>
 
 // HIGHLIGHTS
 export type Highlight =
@@ -126,6 +130,21 @@ export type Highlight =
       type: 'valueUnit'
       done: boolean
     }
+
+const HighlightSchema = z.union([
+  z.object({
+    highlight: z.string(),
+    index: z.string(),
+    type: z.literal('string'),
+    done: z.boolean(),
+  }),
+  z.object({
+    highlight: z.tuple([z.string(), z.string()]),
+    index: z.string(),
+    type: z.literal('valueUnit'),
+    done: z.boolean(),
+  }),
+])
 
 // SESSION
 export type Session = {
@@ -162,8 +181,11 @@ export const SessionSchema = z.object({
   identifiers: z.array(z.string()),
   operators: z.array(z.string()),
   explanations: z.array(ExplanationSchema),
+  highlights: z.array(HighlightSchema),
   endPhaseWEqn: z.string(),
   phaseESentence: z.string(),
+  // prepped for student
+  stimulusClaims: z.string(),
   // created by student
   knowns: z.array(z.string()),
   unknowns: z.array(z.string()),
@@ -177,7 +199,7 @@ export const SessionSchema = z.object({
   thinksGoodAnswer: z.boolean().optional(),
   finalAnswer: z.string(),
   chatty: z.boolean().optional(),
-  networkSpeedMbps: z.object({ type: z.string(), Mbps: z.number() }).optional(),
+  networkSpeedMbps: z.object({ type: z.string(), Mbps: z.number() }),
 }) satisfies z.ZodType<Session>
 
 // OPTIONS
