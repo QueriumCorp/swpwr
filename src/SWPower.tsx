@@ -21,6 +21,7 @@ import { renderPage } from './components/qq/RenderPage'
 import { NavContext } from './NavContext'
 import { cn } from './lib/utils'
 import {
+  LogItemArraySchema,
   OptionsSchema,
   ProblemSchema,
   SessionSchema,
@@ -42,6 +43,7 @@ const StepWisePowerProps = z.object({
   problem: ProblemSchema,
   student: StudentSchema,
   oldSession: SessionSchema,
+  oldStudentLog: LogItemArraySchema,
   options: OptionsSchema.optional(),
   onComplete: z.function().optional(),
   onStep: z.function().optional(),
@@ -78,6 +80,7 @@ const StepWisePower = forwardRef<
     rank,
     disabledSchemas,
     initSession,
+    resumeSession,
     closeSession,
     saveTrace,
     onComplete,
@@ -215,6 +218,26 @@ const StepWisePower = forwardRef<
     onComplete(session, studentLog)
   }
   function handleStart() {
+    // Are we in edX?
+    const swReactJSxBlocks =
+      document.getElementsByClassName('sw-reactjs-xblock')
+
+    const qqROOT = document.getElementById('qqROOT') as HTMLElement
+    const isFullscreen = Boolean(document.fullscreenElement)
+
+    // If we're in edX, then we need to go fullscreen when student presses Start
+    if (swReactJSxBlocks.length > 0 && !isFullscreen) {
+      qqROOT.requestFullscreen()
+    }
+
+    setStarted(true)
+    toggleChatty()
+  }
+
+  function handleResume() {
+    const resumeable = resumeSession(props.oldSession)
+    if (!resumeable) return
+
     // Are we in edX?
     const swReactJSxBlocks =
       document.getElementsByClassName('sw-reactjs-xblock')
@@ -498,9 +521,9 @@ const StepWisePower = forwardRef<
             </CarouselContent>
           </AvatarAPIProvider>
         </Carousel>
-        <FullScreen />{' '}
+        <FullScreen />
         {started ? null : (
-          <div className="fixed flex h-full w-full items-center justify-center bg-black bg-opacity-80">
+          <div className="fixed flex h-full w-full items-center justify-center gap-2 bg-black bg-opacity-80">
             <Button
               size="lg"
               className="bg-qqBrand hover:bg-qqAccent"
@@ -508,6 +531,15 @@ const StepWisePower = forwardRef<
             >
               START
             </Button>
+            {props.oldSession || true ? (
+              <Button
+                size="lg"
+                className="bg-purple-500 hover:bg-purple-800"
+                onClick={() => handleResume()}
+              >
+                RESUME
+              </Button>
+            ) : null}
           </div>
         )}
       </div>

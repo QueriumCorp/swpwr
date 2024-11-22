@@ -1,5 +1,4 @@
 import { YBRpage } from '@/components/qq/YellowBrickRoad'
-import { text } from 'stream/consumers'
 import { z } from 'zod'
 
 // STATE
@@ -229,6 +228,16 @@ export type LogItem = {
   activity?: string
   data?: any
 }
+export const LogItemSchema = z.object({
+  timestamp: z.date(),
+  action: z.string().optional(),
+  page: z.string().optional(),
+  activity: z.string().optional(),
+  data: z.any().optional(),
+}) satisfies z.ZodType<LogItem>
+export const LogItemArraySchema = z.array(LogItemSchema)
+type LogItemArray = z.infer<typeof LogItemArraySchema>
+
 export type LogActionProps = {
   action?: string
   page?: string

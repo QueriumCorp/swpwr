@@ -231,7 +231,7 @@ export const useProblemStore = create<State>((set, get) => ({
       },
     }))
 
-    return sessionResumable(get().swapiUrl, get().session.sessionToken)
+    return sessionResumable(set, get)
   },
 
   submitTTable: async (knowns: string[], unknowns: string[]) => {

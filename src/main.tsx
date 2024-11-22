@@ -25,6 +25,7 @@ let problem: any = {},
   student: any = {},
   options: any = {},
   session: any = {},
+  log: any = [],
   handlers: any = {}
 
 if (window.swpwr) {
@@ -130,6 +131,7 @@ ReactDOM.createRoot(document.getElementById('qqROOT')!).render(
         problem={problem}
         student={student}
         oldSession={session}
+        oldStudentLog={log}
         options={options}
         onComplete={handlers.onComplete}
         onStep={handlers.onStep}
