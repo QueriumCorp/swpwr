@@ -35,6 +35,7 @@ export interface State {
   setAiBusy: (busy: boolean) => void
   heartbeat: () => Promise<void>
   initSession: () => void
+  setSessionResumable: (sessionToken: string) => void
   resumeSession: (oldSession: Session) => Promise<boolean>
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
   submitPickSchema: (schema: string, fake?: boolean) => Promise<any>
@@ -173,6 +174,7 @@ export type Session = {
   chatty?: boolean
   networkSpeedMbps: { type: string; Mbps: number }
   aiBusy?: boolean
+  sessionResumable?: boolean
 }
 export const SessionSchema = z.object({
   // returned by SWAPI

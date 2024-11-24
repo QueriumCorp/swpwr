@@ -37,6 +37,7 @@ import { Input } from './components/ui/input'
 import VoiceTester from './components/qq/ChatBubble/VoiceTester'
 import FullScreen from './components/qq/FullScreen/FullScreen'
 import testNetworkSpeed from './lib/network'
+import { sessionResumable } from './store/sessionResumable'
 
 // Props
 const StepWisePowerProps = z.object({
@@ -50,16 +51,21 @@ const StepWisePowerProps = z.object({
 })
 export type StepWisePowerProps = z.infer<typeof StepWisePowerProps> | undefined
 
-//
-// StepWisePower COMPONENT
-//
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 const StepWisePower = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & StepWisePowerProps
 >((props, _ref) => {
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
   // Store
-  //
+  ///////////////////////////////////////////////////////////////////
+
   const {
     setSwapiUrl,
     setGltfUrl,
@@ -80,6 +86,7 @@ const StepWisePower = forwardRef<
     rank,
     disabledSchemas,
     initSession,
+    setSessionResumable,
     resumeSession,
     closeSession,
     saveTrace,
@@ -92,9 +99,10 @@ const StepWisePower = forwardRef<
     setNetworkSpeedMbps,
   } = useProblemStore()
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // State
-  //
+  ///////////////////////////////////////////////////////////////////
+
   const [started, setStarted] = useState(false)
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
@@ -107,9 +115,10 @@ const StepWisePower = forwardRef<
   const [chiggerOpen, setchiggerOpen] = useState(false)
   const [propError, setPropError] = useState('')
 
-  //
-  // Props Management
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
   useEffect(() => {
     if (props.problem) {
       if (props.problem.stimulus) {
@@ -162,12 +171,12 @@ const StepWisePower = forwardRef<
     testSpeed()
   }, [])
 
-  // If we have problem but no sessionToken, start up the session.
+  // check if session resumable.
   useEffect(() => {
-    if (problem?.question?.length > 10 && session?.sessionToken?.length == 0) {
-      initSession()
+    if (problem?.question?.length > 10 && props?.oldSession?.sessionToken) {
+      setSessionResumable(props.oldSession.sessionToken)
     }
-  }, [problem, session])
+  }, [problem, props.oldSession])
 
   //
   // Prep YellowBrickRoad
@@ -203,21 +212,29 @@ const StepWisePower = forwardRef<
     }
   }, [criticalError])
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // Event Handlers
-  //
+  ///////////////////////////////////////////////////////////////////
+
   const handleCloseSession = async () => {
     const msg = await closeSession()
     setCloseMsg(msg)
   }
+
   const handleSaveTrace = async () => {
     const msg = await saveTrace(traceComment)
     setTraceMsg(msg)
   }
+
   const handleCompleteProblem = async () => {
     onComplete(session, studentLog)
   }
+
   function handleStart() {
+    if (problem?.question?.length > 10 && session?.sessionToken?.length == 0) {
+      initSession()
+    }
+
     // Are we in edX?
     const swReactJSxBlocks =
       document.getElementsByClassName('sw-reactjs-xblock')
@@ -234,9 +251,8 @@ const StepWisePower = forwardRef<
     toggleChatty()
   }
 
-  function handleResume() {
-    const resumeable = resumeSession(props.oldSession)
-    if (!resumeable) return
+  async function handleResume() {
+    console.log('handleResume')
 
     // Are we in edX?
     const swReactJSxBlocks =
@@ -253,16 +269,19 @@ const StepWisePower = forwardRef<
     setStarted(true)
     toggleChatty()
   }
-  //
+
+  ///////////////////////////////////////////////////////////////////
   // Hotkeys
-  //
+  ///////////////////////////////////////////////////////////////////
+
   useHotkeys('shift+ctrl+alt+q', () => {
     setEnableDebugger(!!!enableDebugger)
   })
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  //
+  ///////////////////////////////////////////////////////////////////
+
   return (
     <NavContext.Provider value={{ current, setCurrent, api }}>
       <div
@@ -441,6 +460,15 @@ const StepWisePower = forwardRef<
                     <div className="flex w-full items-center justify-start border-b-2 border-b-slate-600">
                       <Button
                         className="mr-2 w-48"
+                        onClick={() => handleResume()}
+                      >
+                        Session Resumeable
+                      </Button>
+                      <p className="select-text text-xs">{closeMsg}</p>
+                    </div>
+                    <div className="flex w-full items-center justify-start border-b-2 border-b-slate-600">
+                      <Button
+                        className="mr-2 w-48"
                         onClick={() => handleCloseSession()}
                       >
                         Close Session
@@ -531,7 +559,7 @@ const StepWisePower = forwardRef<
             >
               START
             </Button>
-            {props.oldSession || true ? (
+            {session.sessionResumable ? (
               <Button
                 size="lg"
                 className="bg-purple-500 hover:bg-purple-800"
