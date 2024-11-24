@@ -10,33 +10,36 @@ import {
   CarouselContent,
   CarouselItem,
   type CarouselApi,
-} from './components/ui/carousel'
-import { Drawer, DrawerTrigger, DrawerContent } from './components/ui/drawer'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs'
+} from '@/components/ui/carousel'
+import { Drawer, DrawerTrigger, DrawerContent } from '@/components/ui/drawer'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 // SWPWR-specific imports
 import { AvatarAPIProvider } from '@/components/AnimeTutor'
-import { YellowBrickRoad } from './components/qq/YellowBrickRoad'
-import { renderPage } from './components/qq/RenderPage'
-import { NavContext } from './NavContext'
-import { cn } from './lib/utils'
+import { YellowBrickRoad } from '@/components/qq/YellowBrickRoad'
+import { renderPage } from '@/components/qq/RenderPage'
+import { NavContext } from '@/NavContext'
+import { cn } from '@/lib/utils'
 import {
   LogItemArraySchema,
   OptionsSchema,
   ProblemSchema,
   SessionSchema,
   StudentSchema,
-} from './store/_types'
+} from '@/store/_types'
 
-import { useProblemStore } from './store/_store'
-import buildInfo from './buildInfo.json'
+import { useProblemStore } from '@/store/_store'
+import buildInfo from '@/buildInfo.json'
 
 // ShadCN/UI Components
-import { Button } from './components/ui/button'
-import { Input } from './components/ui/input'
-import VoiceTester from './components/qq/ChatBubble/VoiceTester'
-import FullScreen from './components/qq/FullScreen/FullScreen'
-import testNetworkSpeed from './lib/network'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import VoiceTester from '@/components/qq/ChatBubble/VoiceTester'
+import FullScreen from '@/components/qq/FullScreen/FullScreen'
+import testNetworkSpeed from '@/lib/network'
+import BusyIndicator from './components/qq/BusyIndicator/BusyIndicator'
+import { base64Img } from './components/qq/KettuAvatarImg'
 import { sessionResumable } from './store/sessionResumable'
 
 // Props
@@ -61,7 +64,7 @@ const StepWisePower = forwardRef<
   ///////////////////////////////////////////////////////////////////
   // Contexts
   ///////////////////////////////////////////////////////////////////
-
+  // console.log(props.oldSession)
   ///////////////////////////////////////////////////////////////////
   // Store
   ///////////////////////////////////////////////////////////////////
@@ -103,6 +106,7 @@ const StepWisePower = forwardRef<
   // State
   ///////////////////////////////////////////////////////////////////
 
+  const [ready, setReady] = useState(false)
   const [started, setStarted] = useState(false)
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
@@ -173,11 +177,29 @@ const StepWisePower = forwardRef<
 
   // check if session resumable.
   useEffect(() => {
+    console.log('useEffect session.sessionResumable')
+
+    // if no oldSession, set resumable to false
+    if (!props?.oldSession || !props?.oldSession.sessionToken) {
+      setSessionResumable('')
+      return
+    }
+
+    // if we have a problem and an oldSession sessionToken, see if qEval has it
     if (problem?.question?.length > 10 && props?.oldSession?.sessionToken) {
       setSessionResumable(props.oldSession.sessionToken)
     }
   }, [problem, props.oldSession])
-
+  useEffect(() => {
+    console.log('useEffect session.sessionResumable')
+    if (
+      (typeof session.sessionResumable === 'boolean' &&
+        session.sessionResumable) ||
+      typeof session.sessionResumable == 'undefined'
+    ) {
+      setReady(true)
+    }
+  }, [session.sessionResumable])
   //
   // Prep YellowBrickRoad
   //
@@ -551,22 +573,30 @@ const StepWisePower = forwardRef<
         </Carousel>
         <FullScreen />
         {started ? null : (
-          <div className="fixed flex h-full w-full items-center justify-center gap-2 bg-black bg-opacity-80">
-            <Button
-              size="lg"
-              className="bg-qqBrand hover:bg-qqAccent"
-              onClick={() => handleStart()}
-            >
-              START
-            </Button>
-            {session.sessionResumable ? (
-              <Button
-                size="lg"
-                className="bg-purple-500 hover:bg-purple-800"
-                onClick={() => handleResume()}
-              >
-                RESUME
-              </Button>
+          <div className="fixed flex h-full w-full flex-col items-center justify-center gap-2 bg-black bg-opacity-80">
+            <Avatar className="h-[200px] w-[200px] border-4 border-white">
+              <AvatarImage src={base64Img} />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            {ready ? (
+              <div className="flex items-center justify-center gap-2">
+                <Button
+                  size="lg"
+                  className="bg-qqBrand hover:bg-qqAccent"
+                  onClick={() => handleStart()}
+                >
+                  START
+                </Button>
+                {session.sessionResumable ? (
+                  <Button
+                    size="lg"
+                    className="bg-purple-500 hover:bg-purple-800"
+                    onClick={() => handleResume()}
+                  >
+                    RESUME
+                  </Button>
+                ) : null}
+              </div>
             ) : null}
           </div>
         )}

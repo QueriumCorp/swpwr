@@ -86,7 +86,6 @@ const useProblemStore = create<State>(
 
       networkSpeedMbps: { type: 'Undetermined', Mbps: -Infinity },
       aiBusy: false,
-      sessionResumable: false,
     },
 
     ybr: [],
