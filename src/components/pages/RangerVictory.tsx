@@ -61,7 +61,7 @@ const RangerVictory: FC<{
   }
 
   if (current === index + 1) {
-    if (document.fullscreenEnabled) {
+    if (document.fullscreenElement) {
       try {
         document.exitFullscreen()
       } catch (e) {

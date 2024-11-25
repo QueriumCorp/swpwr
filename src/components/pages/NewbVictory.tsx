@@ -66,7 +66,7 @@ const NewbVictory: React.FC<{
 
   function finishedIntro(current: number, count: number) {
     if (count > 0 && current === count) {
-      if (document.fullscreenEnabled) {
+      if (document.fullscreenElement) {
         document
           .exitFullscreen()
           .then(() => {
