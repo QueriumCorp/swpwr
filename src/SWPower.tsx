@@ -40,7 +40,6 @@ import FullScreen from '@/components/qq/FullScreen/FullScreen'
 import testNetworkSpeed from '@/lib/network'
 import BusyIndicator from './components/qq/BusyIndicator/BusyIndicator'
 import { base64Img } from './components/qq/KettuAvatarImg'
-import { sessionResumable } from './store/sessionResumable'
 
 // Props
 const StepWisePowerProps = z.object({
@@ -177,8 +176,6 @@ const StepWisePower = forwardRef<
 
   // check if session resumable.
   useEffect(() => {
-    console.log('useEffect session.sessionResumable')
-
     // if no oldSession, set resumable to false
     if (!props?.oldSession || !props?.oldSession.sessionToken) {
       setSessionResumable('')
@@ -191,7 +188,6 @@ const StepWisePower = forwardRef<
     }
   }, [problem, props.oldSession])
   useEffect(() => {
-    console.log('useEffect session.sessionResumable', session.sessionResumable)
     if (
       (typeof session.sessionResumable === 'boolean' &&
         session.sessionResumable) ||
@@ -200,6 +196,7 @@ const StepWisePower = forwardRef<
       setReady(true)
     }
   }, [session.sessionResumable])
+
   //
   // Prep YellowBrickRoad
   //

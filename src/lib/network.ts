@@ -22,11 +22,11 @@ async function testNetworkSpeed() {
   //   )
   if (navigator.connection) {
     const { effectiveType, downlink } = navigator.connection
-    console.info(
-      'NETWORK SPEED - Falling back to browser guestimate:',
-      effectiveType,
-      downlink,
-    )
+    // console.info(
+    //   'NETWORK SPEED - Falling back to browser guestimate:',
+    //   effectiveType,
+    //   downlink,
+    // )
     return { type: effectiveType + ' (Mbps)', speed: downlink || 0 }
   } else {
     return { type: 'NetworkSpeedUnavailable:', speed: -1 }
