@@ -389,7 +389,11 @@ const useProblemStore = create<State>((set, get) => ({
     set(state => ({
       studentLog: [...state.studentLog, actionLog],
     }))
-    setTimeout(() => get().onStep(get().session, get().studentLog), 50)
+    setTimeout(() => {
+      const session = get().session
+      delete session.sessionResumable
+      get().onStep(session, get().studentLog)
+    }, 50)
   },
 
   setOnComplete: (onComplete: () => void) => {
