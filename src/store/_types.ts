@@ -36,7 +36,10 @@ export interface State {
   heartbeat: () => Promise<void>
   initSession: () => void
   setSessionResumable: (sessionToken: string) => void
-  resumeSession: (oldSession: Session) => Promise<boolean>
+  resumeSession: (
+    oldSession: Session,
+    oldStudentLog: LogItem[],
+  ) => Promise<boolean>
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
   submitPickSchema: (schema: string, fake?: boolean) => Promise<any>
   submitOrganize: (

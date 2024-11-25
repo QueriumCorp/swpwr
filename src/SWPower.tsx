@@ -191,7 +191,7 @@ const StepWisePower = forwardRef<
     }
   }, [problem, props.oldSession])
   useEffect(() => {
-    console.log('useEffect session.sessionResumable')
+    console.log('useEffect session.sessionResumable', session.sessionResumable)
     if (
       (typeof session.sessionResumable === 'boolean' &&
         session.sessionResumable) ||
@@ -274,6 +274,7 @@ const StepWisePower = forwardRef<
   }
 
   async function handleResume() {
+    resumeSession(props.oldSession, props.oldStudentLog)
     console.log('handleResume')
 
     // Are we in edX?

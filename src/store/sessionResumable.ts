@@ -18,5 +18,5 @@ export async function sessionResumable(
   })
 
   const data = await response.json()
-  return data.resumeable
+  return data.resumable
 }

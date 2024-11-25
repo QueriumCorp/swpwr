@@ -258,7 +258,9 @@ const useProblemStore = create<State>((set, get) => ({
     }
   },
 
-  resumeSession: async (_oldSession: Session) => {
+  resumeSession: async (oldSession: Session, oldStudentLog: LogItem[]) => {
+    console.log('oldSession', oldSession)
+    console.log('oldStudentLog', oldStudentLog)
     return false
   },
 
