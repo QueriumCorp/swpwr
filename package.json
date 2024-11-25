@@ -31,6 +31,7 @@
     "@wistia/wistia-player": "^0.0.0-alpha.39",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "cross-spawn": "^7.0.6",
     "embla-carousel-react": "^8.0.2",
     "lucide-react": "^0.372.0",
     "mathlive": "^0.98.6",
