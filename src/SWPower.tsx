@@ -63,7 +63,7 @@ const StepWisePower = forwardRef<
   ///////////////////////////////////////////////////////////////////
   // Contexts
   ///////////////////////////////////////////////////////////////////
-  // console.log(props.oldSession)
+
   ///////////////////////////////////////////////////////////////////
   // Store
   ///////////////////////////////////////////////////////////////////
@@ -99,6 +99,8 @@ const StepWisePower = forwardRef<
     setCriticalError,
     criticalError,
     setNetworkSpeedMbps,
+    setCurrentPageIndex,
+    logAction,
   } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
@@ -221,6 +223,12 @@ const StepWisePower = forwardRef<
     // This fires when the user selects a new page
     api.on('select', () => {
       setCurrent(api.selectedScrollSnap() + 1)
+      setCurrentPageIndex(api.selectedScrollSnap())
+      logAction({
+        page: ybr[api.selectedScrollSnap()].id,
+        activity: 'ARRIVED',
+        data: {},
+      })
     })
   }, [api])
 
@@ -271,8 +279,13 @@ const StepWisePower = forwardRef<
   }
 
   async function handleResume() {
+    // reload our state's session and logs
     resumeSession(props.oldSession, props.oldStudentLog)
-    console.log('handleResume')
+
+    // scroll to the last page the student accessed
+    if (props.oldSession.lastPageIndex) {
+      api?.scrollTo(props.oldSession.lastPageIndex)
+    }
 
     // Are we in edX?
     const swReactJSxBlocks =
@@ -332,6 +345,9 @@ const StepWisePower = forwardRef<
                 <div>{formattedDate(buildInfo.buildDate)}</div>
                 <div>{ybr[current - 1]?.rank}</div>
                 <div>{ybr[current - 1]?.id}</div>
+                <div>
+                  {api?.selectedScrollSnap()} vs {session.lastPageIndex}
+                </div>
               </div>
             )}
           </DrawerTrigger>
@@ -580,7 +596,7 @@ const StepWisePower = forwardRef<
               <div className="flex items-center justify-center gap-2">
                 <Button
                   size="lg"
-                  className="bg-qqBrand hover:bg-qqAccent"
+                  className="min-w-32 bg-qqBrand text-xl hover:bg-qqAccent"
                   onClick={() => handleStart()}
                 >
                   START
@@ -588,7 +604,7 @@ const StepWisePower = forwardRef<
                 {session.sessionResumable ? (
                   <Button
                     size="lg"
-                    className="bg-purple-500 hover:bg-purple-800"
+                    className="min-w-32 bg-purple-500 text-xl hover:bg-purple-800"
                     onClick={() => handleResume()}
                   >
                     RESUME

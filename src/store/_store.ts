@@ -216,6 +216,15 @@ const useProblemStore = create<State>((set, get) => ({
     }))
   },
 
+  setCurrentPageIndex: (pageNumber: number) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        lastPageIndex: pageNumber,
+      },
+    }))
+  },
+
   heartbeat: async () => {
     heartbeat(set, get)
   },
@@ -380,7 +389,7 @@ const useProblemStore = create<State>((set, get) => ({
     set(state => ({
       studentLog: [...state.studentLog, actionLog],
     }))
-    get().onStep(get().session, get().studentLog)
+    setTimeout(() => get().onStep(get().session, get().studentLog), 50)
   },
 
   setOnComplete: (onComplete: () => void) => {

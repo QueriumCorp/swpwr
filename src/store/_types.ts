@@ -33,6 +33,7 @@ export interface State {
   toggleChatty: () => boolean
   setNetworkSpeedMbps: (type: string, Mbps: number) => void
   setAiBusy: (busy: boolean) => void
+  setCurrentPageIndex: (pageNumber: number) => void
   heartbeat: () => Promise<void>
   initSession: () => void
   setSessionResumable: (sessionToken: string) => void
@@ -178,6 +179,7 @@ export type Session = {
   networkSpeedMbps: { type: string; Mbps: number }
   aiBusy?: boolean
   sessionResumable?: boolean
+  lastPageIndex?: number
 }
 export const SessionSchema = z.object({
   // returned by SWAPI
@@ -205,6 +207,7 @@ export const SessionSchema = z.object({
   finalAnswer: z.string(),
   chatty: z.boolean().optional(),
   networkSpeedMbps: z.object({ type: z.string(), Mbps: z.number() }),
+  lastPageIndex: z.number().optional(),
 }) satisfies z.ZodType<Session>
 
 // OPTIONS

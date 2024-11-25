@@ -5,7 +5,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Required Google Fonts -->
@@ -19,48 +18,44 @@
     <title>StepWise Power</title>
 
     <script>
-      let oldSession = {
-        sessionToken:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkJhbmFuYXMiLCJzdHVkZW50SWQiOiJDYWx2aW4gSG9iYmVzIiwic2VydmVyVXJsIjoiaHR0cHM6Ly9zdGVwd2lzZWFpMDAucXVlcml1bS5jb20vd2ViTWF0aGVtYXRpY2EvYXBpLyIsInN0YXJ0ZWRBdCI6MTcyOTg4NDYxNzAyOCwiaWF0IjoxNzI5ODg0NjE3fQ.G9iHld5xEtCRCCd0VciAo0XpZ-jqYSiA_TNfpe7D3SU',
-        identifiers: ['T'],
-        operators: ['Frac'],
-        knowns: [],
-        unknowns: [],
-        schema: '',
-        schemaValues: [],
-        explanations: [
-          {
-            type: 'estimation',
-            text: "One bunch has 5 bananas. The other bunch has more than 5 bananas. So the total is more than 5 + 5 = 10 bananas. The answer 11 makes sense because it's more than 10.",
-          },
-          {
-            type: 'schema',
-            text: 'The total is more than the bananas in either bunch. The answer 11 is more than 6 and 5, so it makes sense.',
-          },
-          {
-            type: 'bad',
-            text: 'You have to add 6 and 5, and 6 + 5 = 11. So the answer 11 makes sense.',
-          },
-        ],
-        endPhaseWEqn: 'T = 11',
-        phaseESentence: 'Ava buys [VALUE] [UNIT] in all.',
-        mathAnswer: '',
-        myOwnWords: '',
-        selectedExplanation: {
-          type: 'bad',
-          text: 'You have to add 6 and 5, and 6 + 5 = 11. So the answer 11 makes sense.',
-        },
-        finalAnswer: '',
-        chatty: false,
-        networkSpeedMbps: {
-          type: '4g (Mbps)',
-          Mbps: 7.2,
-        },
+      const onCompleteHandler = (session, studentLog) => {
+        localStorage.removeItem(urlRank)
+      }
+
+      const onStepHandler = (session, studentLog) => {
+        const now = new Date()
+
+        const options = {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
+          hour12: true, // Use 12-hour format
+        }
+
+        const shortDateTime = new Intl.DateTimeFormat('en-US', options).format(
+          now,
+        )
+
+        localStorage.setItem(
+          urlRank,
+          JSON.stringify({ updatedAt: shortDateTime, session, studentLog }),
+        )
       }
 
       let params = new URLSearchParams(window.location.search)
       let urlRank = params.get('rank')
       let urlAppKey = params.get('appKey')
+
+      let oldSession = {},
+        oldLog = [],
+        oldSessionAndLog = JSON.parse(localStorage.getItem(urlRank))
+      if (oldSessionAndLog) {
+        oldSession = oldSessionAndLog.session
+        oldLog = oldSessionAndLog.studentLog
+      }
 
       if (urlRank === 'newb') {
         window.swpwr = {
@@ -172,7 +167,8 @@ Choose Total. Then click ✔.`,
               },
             ],
           },
-
+          oldSession: oldSession,
+          oldLog: oldLog,
           handlers: {
             onComplete: (session, studentLog) => {
               console.info("I'm an external onComplete Handler")
@@ -183,6 +179,7 @@ Choose Total. Then click ✔.`,
               console.info("I'm an external onStep Handler")
               console.info('session', session)
               console.info('studentLog', studentLog)
+              localStorage.setItem(session.sessionToken, 'test')
             },
           },
         }
@@ -269,18 +266,11 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
               },
             ],
           },
-          session: oldSession,
+          oldSession: oldSession,
+          oldLog: oldLog,
           handlers: {
-            onComplete: (session, studentLog) => {
-              console.info("I'm an external onComplete Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
-            onStep: (session, studentLog) => {
-              console.info("I'm an external onStep Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
+            onComplete: onCompleteHandler,
+            onStep: onStepHandler,
           },
         }
       } else if (urlRank === 'scout') {
@@ -324,16 +314,8 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
             ],
           },
           handlers: {
-            onComplete: (session, studentLog) => {
-              console.info("I'm an external onComplete Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
-            onStep: (session, studentLog) => {
-              console.info("I'm an external onStep Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
+            onComplete: onCompleteHandler,
+            onStep: onStepHandler,
           },
         }
       } else if (urlRank === 'ranger') {
@@ -371,17 +353,11 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
               // { page: 'ranger:ReadProblem', hints: ['wpHint1', 'wbHint2'] },
             ],
           },
+          oldSession: oldSession,
+          oldLog: oldLog,
           handlers: {
-            onComplete: (session, studentLog) => {
-              // console.info("I'm an external onComplete Handler")
-              // console.info('session', session)
-              // console.info('studentLog', studentLog)
-            },
-            onStep: (session, studentLog) => {
-              // console.info("I'm an external onStep Handler")
-              // console.info('session', session)
-              // console.info('studentLog', studentLog)
-            },
+            onComplete: onCompleteHandler,
+            onStep: onStepHandler,
           },
         }
       } else {
@@ -414,17 +390,11 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
               // { page: 'ranger:ReadProblem', hints: ['wpHint1', 'wbHint2'] },
             ],
           },
+          oldSession: oldSession,
+          oldLog: oldLog,
           handlers: {
-            onComplete: (session, studentLog) => {
-              console.info("I'm an external onComplete Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
-            onStep: (session, studentLog) => {
-              console.info("I'm an external onStep Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
+            onComplete: onCompleteHandler,
+            onStep: onStepHandler,
           },
         }
       }
