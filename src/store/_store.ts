@@ -234,6 +234,7 @@ const useProblemStore = create<State>((set, get) => ({
   },
 
   setSessionResumable: async (sessionToken: string) => {
+    console.info('store:setSessionResumable', sessionToken)
     if (!sessionToken) {
       set(state => ({
         session: {
