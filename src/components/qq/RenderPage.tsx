@@ -27,6 +27,7 @@ import NewbVideoFindFacts from '../pages/NewbVideoFindFacts'
 import CadetVideoStepWise from '../pages/CadetVideoStepWise'
 import CadetReadProblem from '../pages/CadetReadProblem'
 import DevFindFacts from '../pages/DevFindFacts'
+import FindFacts from '../pages/FindFacts'
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ':' + page.id) {
@@ -82,7 +83,7 @@ export function renderPage(page: YBRpage, index: number) {
     case 'newb:VideoFindFacts':
       return <NewbVideoFindFacts page={page} index={index}></NewbVideoFindFacts>
     case 'newb:FindFacts':
-      return <NewbFindFacts page={page} index={index}></NewbFindFacts>
+      return <FindFacts page={page} index={index}></FindFacts>
     case 'newb:GratzOnPrepare':
       return <NewbGratzOnPrepare page={page} index={index}></NewbGratzOnPrepare>
     case 'newb:NewbProblemType':

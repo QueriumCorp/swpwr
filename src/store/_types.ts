@@ -41,6 +41,7 @@ export interface State {
     oldSession: Session,
     oldStudentLog: LogItem[],
   ) => Promise<boolean>
+  updateTTable: (knowns: string[], unknowns: string[]) => void
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
   submitPickSchema: (schema: string, fake?: boolean) => Promise<any>
   submitOrganize: (

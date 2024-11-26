@@ -278,6 +278,16 @@ const useProblemStore = create<State>((set, get) => ({
     return false
   },
 
+  updateTTable: async (knowns: string[], unknowns: string[]) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        knowns: knowns,
+        unknowns: unknowns,
+      },
+    }))
+  },
+
   submitTTable: async (knowns: string[], unknowns: string[]) => {
     set(state => ({
       session: {
