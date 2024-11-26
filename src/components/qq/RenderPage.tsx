@@ -39,7 +39,7 @@ export function renderPage(page: YBRpage, index: number) {
     case 'dev:Reflect':
       return <CadetReflect page={page} index={index}></CadetReflect>
     case 'dev:FindFacts':
-      return <DevFindFacts page={page} index={index}></DevFindFacts>
+      return <FindFacts page={page} index={index}></FindFacts>
     case 'dev:FindTutor':
       return <DevFindTutor page={page} index={index}></DevFindTutor>
     case 'dev:ReadProblem':
@@ -100,7 +100,7 @@ export function renderPage(page: YBRpage, index: number) {
     case 'cadet:WhatToAnswer':
       return <RangerWhatToAnswer page={page} index={index}></RangerWhatToAnswer>
     case 'cadet:FindFacts':
-      return <RangerFindFacts page={page} index={index}></RangerFindFacts>
+      return <FindFacts page={page} index={index}></FindFacts>
     case 'cadet:SelectDiagram':
       return (
         <RangerSelectDiagram page={page} index={index}></RangerSelectDiagram>
@@ -141,7 +141,7 @@ export function renderPage(page: YBRpage, index: number) {
     case 'scout:WhatToAnswer':
       return <RangerWhatToAnswer page={page} index={index}></RangerWhatToAnswer>
     case 'scout:FindFacts':
-      return <RangerFindFacts page={page} index={index}></RangerFindFacts>
+      return <FindFacts page={page} index={index}></FindFacts>
     case 'scout:SelectDiagram':
       return (
         <RangerSelectDiagram page={page} index={index}></RangerSelectDiagram>
@@ -182,7 +182,7 @@ export function renderPage(page: YBRpage, index: number) {
     case 'ranger:WhatToAnswer':
       return <RangerWhatToAnswer page={page} index={index}></RangerWhatToAnswer>
     case 'ranger:FindFacts':
-      return <RangerFindFacts page={page} index={index}></RangerFindFacts>
+      return <FindFacts page={page} index={index}></FindFacts>
     case 'ranger:SelectDiagram':
       return (
         <RangerSelectDiagram page={page} index={index}></RangerSelectDiagram>
