@@ -37,7 +37,6 @@ const CadetReadProblem: React.FC<{
 
   const [navDisabled, setNavDisabled] = useState(true)
   const [msg, setMsg] = useState('')
-  const [started, setStarted] = useState(false)
 
   const hintList = useMemo(() => {
     // get page hints
@@ -79,23 +78,6 @@ const CadetReadProblem: React.FC<{
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
-
-  function handleStart() {
-    // Are we in edX?
-    const swReactJSxBlocks =
-      document.getElementsByClassName('sw-reactjs-xblock')
-
-    const qqROOT = document.getElementById('qqROOT') as HTMLElement
-    const isFullscreen = Boolean(document.fullscreenElement)
-
-    // If we're in edX, then we need to go fullscreen when student presses Start
-    if (swReactJSxBlocks.length > 0 && !isFullscreen) {
-      qqROOT.requestFullscreen()
-    }
-
-    setStarted(true)
-    toggleChatty()
-  }
 
   function hintChanged(hintStage: string, current: number, count: number) {
     if (count > 0 && current === count) {
@@ -188,18 +170,7 @@ const CadetReadProblem: React.FC<{
             onClick={handleNext}
           ></NextButton>
         </div>
-      </NavBar>{' '}
-      {started ? null : (
-        <div className="fixed flex h-full w-full items-center justify-center bg-black bg-opacity-80">
-          <Button
-            size="lg"
-            className="bg-qqBrand text-xl hover:bg-qqAccent"
-            onClick={() => handleStart()}
-          >
-            START
-          </Button>
-        </div>
-      )}
+      </NavBar>
     </div>
   )
 }

@@ -24,6 +24,8 @@ let urlSWAPI = params.get('swapi')
 let problem: any = {},
   student: any = {},
   options: any = {},
+  session: any = {},
+  log: any = [],
   handlers: any = {}
 
 if (window.swpwr) {
@@ -47,6 +49,9 @@ if (window.swpwr) {
 
   student.studentId = window.swpwr.student.studentId
   student.studentName = window.swpwr.student.fullName
+
+  session = { ...window.swpwr.oldSession }
+  log = { ...window.swpwr.oldLog }
 
   options.swapiUrl =
     urlSWAPI ||
@@ -104,6 +109,7 @@ if (window.swpwr) {
 console.table('PROBLEM', problem)
 console.table('STUDENT', student)
 console.table('OPTIONS', options)
+console.table('SESSION', session)
 
 ReactDOM.createRoot(document.getElementById('qqROOT')!).render(
   <React.StrictMode>
@@ -112,6 +118,8 @@ ReactDOM.createRoot(document.getElementById('qqROOT')!).render(
         className="absolute bottom-0 left-0 right-0 top-0 flex flex-col"
         problem={problem}
         student={student}
+        oldSession={session}
+        oldStudentLog={log}
         options={options}
         onComplete={handlers.onComplete}
         onStep={handlers.onStep}

@@ -10,48 +10,64 @@ import {
   CarouselContent,
   CarouselItem,
   type CarouselApi,
-} from './components/ui/carousel'
-import { Drawer, DrawerTrigger, DrawerContent } from './components/ui/drawer'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs'
+} from '@/components/ui/carousel'
+import { Drawer, DrawerTrigger, DrawerContent } from '@/components/ui/drawer'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 // SWPWR-specific imports
 import { AvatarAPIProvider } from '@/components/AnimeTutor'
-import { YellowBrickRoad } from './components/qq/YellowBrickRoad'
-import { renderPage } from './components/qq/RenderPage'
-import { NavContext } from './NavContext'
-import { cn } from './lib/utils'
-import { OptionsSchema, ProblemSchema, StudentSchema } from './store/_types'
+import { YellowBrickRoad } from '@/components/qq/YellowBrickRoad'
+import { renderPage } from '@/components/qq/RenderPage'
+import { NavContext } from '@/NavContext'
+import { cn } from '@/lib/utils'
+import {
+  LogItemArraySchema,
+  OptionsSchema,
+  ProblemSchema,
+  SessionSchema,
+  StudentSchema,
+} from '@/store/_types'
 
-import { useProblemStore } from './store/_store'
-import buildInfo from './buildInfo.json'
+import { useProblemStore } from '@/store/_store'
+import buildInfo from '@/buildInfo.json'
 
 // ShadCN/UI Components
-import { Button } from './components/ui/button'
-import { Input } from './components/ui/input'
-import VoiceTester from './components/qq/ChatBubble/VoiceTester'
-import FullScreen from './components/qq/FullScreen/FullScreen'
-import testNetworkSpeed from './lib/network'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import VoiceTester from '@/components/qq/ChatBubble/VoiceTester'
+import FullScreen from '@/components/qq/FullScreen/FullScreen'
+import testNetworkSpeed from '@/lib/network'
+import BusyIndicator from './components/qq/BusyIndicator/BusyIndicator'
+import { base64Img } from './components/qq/KettuAvatarImg'
 
 // Props
 const StepWisePowerProps = z.object({
   problem: ProblemSchema,
   student: StudentSchema,
+  oldSession: SessionSchema,
+  oldStudentLog: LogItemArraySchema,
   options: OptionsSchema.optional(),
   onComplete: z.function().optional(),
   onStep: z.function().optional(),
 })
 export type StepWisePowerProps = z.infer<typeof StepWisePowerProps> | undefined
 
-//
-// StepWisePower COMPONENT
-//
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 const StepWisePower = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & StepWisePowerProps
 >((props, _ref) => {
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Contexts
+  ///////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////
   // Store
-  //
+  ///////////////////////////////////////////////////////////////////
+
   const {
     setSwapiUrl,
     setGltfUrl,
@@ -72,19 +88,27 @@ const StepWisePower = forwardRef<
     rank,
     disabledSchemas,
     initSession,
+    setSessionResumable,
+    resumeSession,
     closeSession,
     saveTrace,
     onComplete,
     setOnComplete,
     setOnStep,
+    toggleChatty,
     setCriticalError,
     criticalError,
     setNetworkSpeedMbps,
+    setCurrentPageIndex,
+    logAction,
   } = useProblemStore()
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // State
-  //
+  ///////////////////////////////////////////////////////////////////
+
+  const [ready, setReady] = useState(false)
+  const [started, setStarted] = useState(false)
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [closeMsg, setCloseMsg] = useState('')
@@ -96,9 +120,10 @@ const StepWisePower = forwardRef<
   const [chiggerOpen, setchiggerOpen] = useState(false)
   const [propError, setPropError] = useState('')
 
-  //
-  // Props Management
-  //
+  ///////////////////////////////////////////////////////////////////
+  // Effects
+  ///////////////////////////////////////////////////////////////////
+
   useEffect(() => {
     if (props.problem) {
       if (props.problem.stimulus) {
@@ -151,12 +176,30 @@ const StepWisePower = forwardRef<
     testSpeed()
   }, [])
 
-  // If we have problem but no sessionToken, start up the session.
+  // check if session resumable.
   useEffect(() => {
-    if (problem?.question?.length > 10 && session?.sessionToken?.length == 0) {
-      initSession()
+    console.info('SWPower:useEffect:problem/oldSession')
+    // if no oldSession, set resumable to false
+    if (!props?.oldSession || !props?.oldSession.sessionToken) {
+      setSessionResumable('')
+      return
     }
-  }, [problem, session])
+
+    // if we have a problem and an oldSession sessionToken, see if qEval has it
+    if (problem?.question?.length > 10 && props?.oldSession?.sessionToken) {
+      setSessionResumable(props.oldSession.sessionToken)
+    }
+  }, [problem, props.oldSession])
+  useEffect(() => {
+    console.info('SWPower:useEffect:sessionResumable')
+    if (
+      (typeof session.sessionResumable === 'boolean' &&
+        session.sessionResumable) ||
+      typeof session.sessionResumable == 'undefined'
+    ) {
+      setReady(true)
+    }
+  }, [session.sessionResumable])
 
   //
   // Prep YellowBrickRoad
@@ -182,6 +225,12 @@ const StepWisePower = forwardRef<
     // This fires when the user selects a new page
     api.on('select', () => {
       setCurrent(api.selectedScrollSnap() + 1)
+      setCurrentPageIndex(api.selectedScrollSnap())
+      logAction({
+        page: ybr[api.selectedScrollSnap()].id,
+        activity: 'ARRIVED',
+        data: {},
+      })
     })
   }, [api])
 
@@ -192,31 +241,82 @@ const StepWisePower = forwardRef<
     }
   }, [criticalError])
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // Event Handlers
-  //
+  ///////////////////////////////////////////////////////////////////
+
   const handleCloseSession = async () => {
     const msg = await closeSession()
     setCloseMsg(msg)
   }
+
   const handleSaveTrace = async () => {
     const msg = await saveTrace(traceComment)
     setTraceMsg(msg)
   }
+
   const handleCompleteProblem = async () => {
     onComplete(session, studentLog)
   }
 
-  //
+  function handleStart() {
+    if (problem?.question?.length > 10 && session?.sessionToken?.length == 0) {
+      initSession()
+    }
+
+    // Are we in edX?
+    const swReactJSxBlocks =
+      document.getElementsByClassName('sw-reactjs-xblock')
+
+    const qqROOT = document.getElementById('qqROOT') as HTMLElement
+    const isFullscreen = Boolean(document.fullscreenElement)
+
+    // If we're in edX, then we need to go fullscreen when student presses Start
+    if (swReactJSxBlocks.length > 0 && !isFullscreen) {
+      qqROOT.requestFullscreen()
+    }
+
+    setStarted(true)
+    toggleChatty()
+  }
+
+  async function handleResume() {
+    // reload our state's session and logs
+    resumeSession(props.oldSession, props.oldStudentLog)
+
+    // scroll to the last page the student accessed
+    if (props.oldSession.lastPageIndex) {
+      api?.scrollTo(props.oldSession.lastPageIndex)
+    }
+
+    // Are we in edX?
+    const swReactJSxBlocks =
+      document.getElementsByClassName('sw-reactjs-xblock')
+
+    const qqROOT = document.getElementById('qqROOT') as HTMLElement
+    const isFullscreen = Boolean(document.fullscreenElement)
+
+    // If we're in edX, then we need to go fullscreen when student presses Start
+    if (swReactJSxBlocks.length > 0 && !isFullscreen) {
+      qqROOT.requestFullscreen()
+    }
+
+    setStarted(true)
+    toggleChatty()
+  }
+
+  ///////////////////////////////////////////////////////////////////
   // Hotkeys
-  //
+  ///////////////////////////////////////////////////////////////////
+
   useHotkeys('shift+ctrl+alt+q', () => {
     setEnableDebugger(!!!enableDebugger)
   })
 
-  //
+  ///////////////////////////////////////////////////////////////////
   // JSX
-  //
+  ///////////////////////////////////////////////////////////////////
+
   return (
     <NavContext.Provider value={{ current, setCurrent, api }}>
       <div
@@ -247,6 +347,9 @@ const StepWisePower = forwardRef<
                 <div>{formattedDate(buildInfo.buildDate)}</div>
                 <div>{ybr[current - 1]?.rank}</div>
                 <div>{ybr[current - 1]?.id}</div>
+                <div>
+                  {api?.selectedScrollSnap()} vs {session.lastPageIndex}
+                </div>
               </div>
             )}
           </DrawerTrigger>
@@ -395,6 +498,15 @@ const StepWisePower = forwardRef<
                     <div className="flex w-full items-center justify-start border-b-2 border-b-slate-600">
                       <Button
                         className="mr-2 w-48"
+                        onClick={() => handleResume()}
+                      >
+                        Session Resumeable
+                      </Button>
+                      <p className="select-text text-xs">{closeMsg}</p>
+                    </div>
+                    <div className="flex w-full items-center justify-start border-b-2 border-b-slate-600">
+                      <Button
+                        className="mr-2 w-48"
                         onClick={() => handleCloseSession()}
                       >
                         Close Session
@@ -447,7 +559,6 @@ const StepWisePower = forwardRef<
             </div>
           </DrawerContent>
         </Drawer>
-
         <Carousel
           setApi={setApi}
           opts={{ watchDrag: false }}
@@ -477,6 +588,34 @@ const StepWisePower = forwardRef<
           </AvatarAPIProvider>
         </Carousel>
         <FullScreen />
+        {started ? null : (
+          <div className="fixed flex h-full w-full flex-col items-center justify-center gap-2 bg-black bg-opacity-80">
+            <Avatar className="h-[200px] w-[200px] border-4 border-white">
+              <AvatarImage src={base64Img} />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            {ready ? (
+              <div className="flex items-center justify-center gap-2">
+                <Button
+                  size="lg"
+                  className="min-w-32 bg-qqBrand text-xl hover:bg-qqAccent"
+                  onClick={() => handleStart()}
+                >
+                  START
+                </Button>
+                {session.sessionResumable ? (
+                  <Button
+                    size="lg"
+                    className="min-w-32 bg-purple-500 text-xl hover:bg-purple-800"
+                    onClick={() => handleResume()}
+                  >
+                    RESUME
+                  </Button>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+        )}
       </div>
     </NavContext.Provider>
   )

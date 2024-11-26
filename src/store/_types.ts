@@ -33,8 +33,14 @@ export interface State {
   toggleChatty: () => boolean
   setNetworkSpeedMbps: (type: string, Mbps: number) => void
   setAiBusy: (busy: boolean) => void
+  setCurrentPageIndex: (pageNumber: number) => void
   heartbeat: () => Promise<void>
   initSession: () => void
+  setSessionResumable: (sessionToken: string) => void
+  resumeSession: (
+    oldSession: Session,
+    oldStudentLog: LogItem[],
+  ) => Promise<boolean>
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
   submitPickSchema: (schema: string, fake?: boolean) => Promise<any>
   submitOrganize: (
@@ -110,6 +116,10 @@ export type Explanation = {
   type: string
   text: string
 }
+export const ExplanationSchema = z.object({
+  type: z.string(),
+  text: z.string(),
+}) satisfies z.ZodType<Explanation>
 
 // HIGHLIGHTS
 export type Highlight =
@@ -125,6 +135,21 @@ export type Highlight =
       type: 'valueUnit'
       done: boolean
     }
+
+const HighlightSchema = z.union([
+  z.object({
+    highlight: z.string(),
+    index: z.string(),
+    type: z.literal('string'),
+    done: z.boolean(),
+  }),
+  z.object({
+    highlight: z.tuple([z.string(), z.string()]),
+    index: z.string(),
+    type: z.literal('valueUnit'),
+    done: z.boolean(),
+  }),
+])
 
 // SESSION
 export type Session = {
@@ -153,7 +178,37 @@ export type Session = {
   chatty?: boolean
   networkSpeedMbps: { type: string; Mbps: number }
   aiBusy?: boolean
+  sessionResumable?: boolean
+  lastPageIndex?: number
 }
+export const SessionSchema = z.object({
+  // returned by SWAPI
+  sessionToken: z.string(),
+  // returned by qEval
+  identifiers: z.array(z.string()),
+  operators: z.array(z.string()),
+  explanations: z.array(ExplanationSchema),
+  highlights: z.array(HighlightSchema),
+  endPhaseWEqn: z.string(),
+  phaseESentence: z.string(),
+  // prepped for student
+  stimulusClaims: z.string(),
+  // created by student
+  knowns: z.array(z.string()),
+  unknowns: z.array(z.string()),
+  schema: z.string(),
+  schemaValues: z.array(
+    z.object({ variable: z.string(), value: z.string().nullable() }),
+  ), // { variable: string; value: string | null }[]
+  mathAnswer: z.string(),
+  myOwnWords: z.string(),
+  selectedExplanation: ExplanationSchema,
+  thinksGoodAnswer: z.boolean().optional(),
+  finalAnswer: z.string(),
+  chatty: z.boolean().optional(),
+  networkSpeedMbps: z.object({ type: z.string(), Mbps: z.number() }),
+  lastPageIndex: z.number().optional(),
+}) satisfies z.ZodType<Session>
 
 // OPTIONS
 export type Options = {
@@ -181,6 +236,16 @@ export type LogItem = {
   activity?: string
   data?: any
 }
+export const LogItemSchema = z.object({
+  timestamp: z.date(),
+  action: z.string().optional(),
+  page: z.string().optional(),
+  activity: z.string().optional(),
+  data: z.any().optional(),
+}) satisfies z.ZodType<LogItem>
+export const LogItemArraySchema = z.array(LogItemSchema)
+type LogItemArray = z.infer<typeof LogItemArraySchema>
+
 export type LogActionProps = {
   action?: string
   page?: string

@@ -5,7 +5,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Required Google Fonts -->
@@ -19,10 +18,45 @@
     <title>StepWise Power</title>
 
     <script>
+      const onCompleteHandler = (session, studentLog) => {
+        localStorage.removeItem(urlRank)
+      }
+
+      const onStepHandler = (session, studentLog) => {
+        const now = new Date()
+
+        const options = {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
+          hour12: true, // Use 12-hour format
+        }
+
+        const shortDateTime = new Intl.DateTimeFormat('en-US', options).format(
+          now,
+        )
+
+        localStorage.setItem(
+          urlRank,
+          JSON.stringify({ updatedAt: shortDateTime, session, studentLog }),
+        )
+      }
+
       let params = new URLSearchParams(window.location.search)
       let urlRank = params.get('rank')
       let urlAppKey = params.get('appKey')
-      console.info('🤩')
+
+      let oldSession = {},
+        oldLog = [],
+        oldSessionAndLog = JSON.parse(localStorage.getItem(urlRank))
+      if (oldSessionAndLog) {
+        oldSession = oldSessionAndLog.session
+        oldLog = oldSessionAndLog.studentLog
+      }
+
       if (urlRank === 'newb') {
         window.swpwr = {
           options: {
@@ -133,7 +167,8 @@ Choose Total. Then click ✔.`,
               },
             ],
           },
-
+          oldSession: oldSession,
+          oldLog: oldLog,
           handlers: {
             onComplete: (session, studentLog) => {
               console.info("I'm an external onComplete Handler")
@@ -144,6 +179,7 @@ Choose Total. Then click ✔.`,
               console.info("I'm an external onStep Handler")
               console.info('session', session)
               console.info('studentLog', studentLog)
+              localStorage.setItem(session.sessionToken, 'test')
             },
           },
         }
@@ -230,17 +266,11 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
               },
             ],
           },
+          oldSession: oldSession,
+          oldLog: oldLog,
           handlers: {
-            onComplete: (session, studentLog) => {
-              console.info("I'm an external onComplete Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
-            onStep: (session, studentLog) => {
-              console.info("I'm an external onStep Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
+            onComplete: onCompleteHandler,
+            onStep: onStepHandler,
           },
         }
       } else if (urlRank === 'scout') {
@@ -284,16 +314,8 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
             ],
           },
           handlers: {
-            onComplete: (session, studentLog) => {
-              console.info("I'm an external onComplete Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
-            onStep: (session, studentLog) => {
-              console.info("I'm an external onStep Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
+            onComplete: onCompleteHandler,
+            onStep: onStepHandler,
           },
         }
       } else if (urlRank === 'ranger') {
@@ -331,17 +353,11 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
               // { page: 'ranger:ReadProblem', hints: ['wpHint1', 'wbHint2'] },
             ],
           },
+          oldSession: oldSession,
+          oldLog: oldLog,
           handlers: {
-            onComplete: (session, studentLog) => {
-              // console.info("I'm an external onComplete Handler")
-              // console.info('session', session)
-              // console.info('studentLog', studentLog)
-            },
-            onStep: (session, studentLog) => {
-              // console.info("I'm an external onStep Handler")
-              // console.info('session', session)
-              // console.info('studentLog', studentLog)
-            },
+            onComplete: onCompleteHandler,
+            onStep: onStepHandler,
           },
         }
       } else {
@@ -374,17 +390,11 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
               // { page: 'ranger:ReadProblem', hints: ['wpHint1', 'wbHint2'] },
             ],
           },
+          oldSession: oldSession,
+          oldLog: oldLog,
           handlers: {
-            onComplete: (session, studentLog) => {
-              console.info("I'm an external onComplete Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
-            onStep: (session, studentLog) => {
-              console.info("I'm an external onStep Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
+            onComplete: onCompleteHandler,
+            onStep: onStepHandler,
           },
         }
       }

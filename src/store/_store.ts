@@ -27,8 +27,9 @@ import { YBRpage } from '@/components/qq/YellowBrickRoad'
 import submitExplanation from './submitExplanation'
 import submitMyOwnWords from './submitMyOwnWords'
 import { resume, shutup } from '@/lib/speech'
+import { sessionResumable } from './sessionResumable'
 
-export const useProblemStore = create<State>((set, get) => ({
+const useProblemStore = create<State>((set, get) => ({
   ///////////////////////////////////////////////////////////////////
   // DATA
   ///////////////////////////////////////////////////////////////////
@@ -215,12 +216,67 @@ export const useProblemStore = create<State>((set, get) => ({
     }))
   },
 
+  setCurrentPageIndex: (pageNumber: number) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        lastPageIndex: pageNumber,
+      },
+    }))
+  },
+
   heartbeat: async () => {
     heartbeat(set, get)
   },
 
   initSession: async () => {
     return await initSession(set, get)
+  },
+
+  setSessionResumable: async (sessionToken: string) => {
+    console.info('store:setSessionResumable', sessionToken)
+    if (!sessionToken) {
+      set(state => ({
+        session: {
+          ...state.session,
+          sessionResumable: false,
+        },
+      }))
+    } else {
+      const swapiUrl = get().swapiUrl
+      const problem = get().problem
+      const resumable = await sessionResumable(
+        swapiUrl,
+        problem.appKey,
+        sessionToken,
+      )
+      if (!resumable) {
+        set(state => ({
+          session: {
+            ...state.session,
+            sessionResumable: false,
+          },
+        }))
+      } else {
+        set(state => ({
+          session: {
+            ...state.session,
+            sessionResumable: true,
+          },
+        }))
+      }
+    }
+  },
+
+  resumeSession: async (oldSession: Session, oldStudentLog: LogItem[]) => {
+    console.log('oldSession', oldSession)
+    console.log('oldStudentLog', oldStudentLog)
+    set(_state => ({
+      session: {
+        ...oldSession,
+      },
+    }))
+    return false
   },
 
   submitTTable: async (knowns: string[], unknowns: string[]) => {
@@ -334,7 +390,11 @@ export const useProblemStore = create<State>((set, get) => ({
     set(state => ({
       studentLog: [...state.studentLog, actionLog],
     }))
-    get().onStep(get().session, get().studentLog)
+    setTimeout(() => {
+      const session = get().session
+      delete session.sessionResumable
+      get().onStep(session, get().studentLog)
+    }, 50)
   },
 
   setOnComplete: (onComplete: () => void) => {
@@ -349,3 +409,5 @@ export const useProblemStore = create<State>((set, get) => ({
     }))
   },
 }))
+
+export { useProblemStore }
