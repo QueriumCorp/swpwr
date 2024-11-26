@@ -170,17 +170,8 @@ Choose Total. Then click ✔.`,
           oldSession: oldSession,
           oldLog: oldLog,
           handlers: {
-            onComplete: (session, studentLog) => {
-              console.info("I'm an external onComplete Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
-            onStep: (session, studentLog) => {
-              console.info("I'm an external onStep Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-              localStorage.setItem(session.sessionToken, 'test')
-            },
+            onComplete: onCompleteHandler,
+            onStep: onStepHandler,
           },
         }
       } else if (urlRank === 'cadet') {
@@ -313,6 +304,8 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
               },
             ],
           },
+          oldSession: oldSession,
+          oldLog: oldLog,
           handlers: {
             onComplete: onCompleteHandler,
             onStep: onStepHandler,
@@ -399,7 +392,7 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
         }
       }
     </script>
-    <script type="module" crossorigin src="/swpwr/assets/index-BisU_3wg.js"></script>
+    <script type="module" crossorigin src="/swpwr/assets/index-DKHPG1wP.js"></script>
     <link rel="stylesheet" crossorigin href="/swpwr/assets/index-njl-iVZJ.css">
   </head>
   <body>
