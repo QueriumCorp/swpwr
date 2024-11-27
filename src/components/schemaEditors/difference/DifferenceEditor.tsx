@@ -13,13 +13,14 @@ import { DifferenceEquationGraphic } from './DifferenceEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
 
 const DifferenceEditor: FC<{
+  initialValues: { variable: string; value: string | null }[]
   onChange?: (
     latex: string,
     values: { variable: string; value: string | null }[],
   ) => void
   className?: string
   children?: ReactNode
-}> = ({ onChange, className }) => {
+}> = ({ initialValues, onChange, className }) => {
   //
   // Nav Context
   //
@@ -33,9 +34,18 @@ const DifferenceEditor: FC<{
   //
   // State
   //
-  const [l, setL] = useState<string>('')
-  const [d, setD] = useState<string>('')
-  const [g, setG] = useState<string>('')
+  let L = initialValues.find(el => el.variable == 'L')?.value
+  L = typeof L == 'string' ? L : L == null ? 'L' : ''
+
+  let D = initialValues.find(el => el.variable == 'D')?.value
+  D = typeof D == 'string' ? D : D == null ? 'D' : ''
+
+  let G = initialValues.find(el => el.variable == 'G')?.value
+  G = typeof G == 'string' ? G : G == null ? 'G' : ''
+
+  const [l, setL] = useState<string>(L)
+  const [d, setD] = useState<string>(D)
+  const [g, setG] = useState<string>(G)
 
   //
   // Side Effects
@@ -46,7 +56,6 @@ const DifferenceEditor: FC<{
     // If any are blank, equation is blank and disable Next
     if (l.length === 0 || d.length === 0 || g.length === 0) onChange('', [])
 
-    console.log(`${g}\\minus${l}\=${d}`)
     onChange(`${g}\\minus${l}\=${d}`, [
       { variable: 'L', value: l == 'L' ? null : l },
       { variable: 'D', value: d == 'D' ? null : d },

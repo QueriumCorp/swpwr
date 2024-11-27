@@ -13,13 +13,14 @@ import { TotalEquationGraphic } from './TotalEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
 
 const TotalEditor: FC<{
+  initialValues: { variable: string; value: string | null }[]
   onChange?: (
     latex: string,
     values: { variable: string; value: string | null }[],
   ) => void
   className?: string
   children?: ReactNode
-}> = ({ onChange, className }) => {
+}> = ({ initialValues, onChange, className }) => {
   //
   // Nav Context
   //
@@ -33,9 +34,18 @@ const TotalEditor: FC<{
   //
   // State
   //
-  const [p1, setP1] = useState<string>('')
-  const [p2, setP2] = useState<string>('')
-  const [t, setT] = useState<string>('')
+  let P1 = initialValues.find(el => el.variable == 'P1')?.value
+  P1 = typeof P1 == 'string' ? P1 : P1 == null ? 'P1' : ''
+
+  let P2 = initialValues.find(el => el.variable == 'P2')?.value
+  P2 = typeof P2 == 'string' ? P2 : P2 == null ? 'P2' : ''
+
+  let T = initialValues.find(el => el.variable == 'T')?.value
+  T = typeof T == 'string' ? T : T == null ? 'T' : ''
+
+  const [p1, setP1] = useState<string>(P1)
+  const [p2, setP2] = useState<string>(P2)
+  const [t, setT] = useState<string>(T)
 
   //
   // Side Effects

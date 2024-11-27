@@ -148,32 +148,29 @@ const PickSchema: FC<{
         break
     }
 
-    const fake = evt.altKey
-    const result = await submitPickSchema(selectedSchema, fake)
-
+    const result = await submitPickSchema(selectedSchema, false)
     setBusy(false)
-    if (fake) {
-      // Bypass qEval validation
+    if (evt.altKey) {
       logAction({
         page: page.id,
         activity: 'byPassCheckStep',
         data: { selectedSchema },
       })
-      api?.scrollNext()
+      result.stepStatus = 'VALID'
     } else {
       logAction({
         page: page.id,
         activity: 'checkStep',
         data: { selectedSchema },
       })
+    }
 
-      if (result.stepStatus == 'INVALID') {
-        setMsg(`${result.message}\n\n${randomClickNextMsg()}`)
-      }
-      if (result.stepStatus == 'VALID') {
-        setMsg(result.message)
-        setComplete(true)
-      }
+    if (result.stepStatus == 'INVALID') {
+      setMsg(`${result.message}\n\n${randomClickNextMsg()}`)
+    }
+    if (result.stepStatus == 'VALID') {
+      setMsg(result.message)
+      setComplete(true)
     }
   }
 

@@ -205,6 +205,7 @@ const RangerFillDiagram: FC<{
         <div className="grow">
           {session.schema === 'additiveTotalSchema' ? (
             <TotalEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></TotalEditor>
@@ -218,24 +219,28 @@ const RangerFillDiagram: FC<{
           ) : null}
           {session.schema === 'additiveDifferenceSchema' ? (
             <DifferenceEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></DifferenceEditor>
           ) : null}
           {session.schema === 'subtractiveChangeSchema' ? (
             <ChangeDecreaseEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></ChangeDecreaseEditor>
           ) : null}
           {session.schema === 'additiveChangeSchema' ? (
             <ChangeIncreaseEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></ChangeIncreaseEditor>
           ) : null}
           {session.schema === 'multiplicativeCompareSchema' ? (
             <CompareEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></CompareEditor>
