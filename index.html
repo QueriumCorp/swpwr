@@ -41,7 +41,11 @@
 
         localStorage.setItem(
           urlRank,
-          JSON.stringify({ updatedAt: shortDateTime, session, studentLog }),
+          JSON.stringify({
+            updatedAt: shortDateTime,
+            session,
+            studentLog: studentLog,
+          }),
         )
       }
 
@@ -312,6 +316,7 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
           },
         }
       } else if (urlRank === 'ranger') {
+        console.log('RANGER')
         window.swpwr = {
           options: {
             gltfUrl:
@@ -392,8 +397,8 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
         }
       }
     </script>
-    <script type="module" crossorigin src="/swpwr/assets/index-DKHPG1wP.js"></script>
-    <link rel="stylesheet" crossorigin href="/swpwr/assets/index-njl-iVZJ.css">
+    <script type="module" crossorigin src="/swpwr/assets/index-DPPGGUV3.js"></script>
+    <link rel="stylesheet" crossorigin href="/swpwr/assets/index-gX7mXBSe.css">
   </head>
   <body>
     <div id="qqROOT"></div>
