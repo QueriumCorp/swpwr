@@ -51,7 +51,7 @@ if (window.swpwr) {
   student.studentName = window.swpwr.student.fullName
 
   session = { ...window.swpwr.oldSession }
-  log = { ...window.swpwr.oldLog }
+  log = [...window.swpwr.oldLog]
 
   options.swapiUrl =
     urlSWAPI ||
