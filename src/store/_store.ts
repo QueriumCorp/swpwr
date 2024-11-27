@@ -68,6 +68,7 @@ const useProblemStore = create<State>((set, get) => ({
     knowns: [],
     unknowns: [],
     schema: '',
+    equation: '',
     schemaValues: [],
     explanations: [],
     highlights: [],
@@ -299,6 +300,14 @@ const useProblemStore = create<State>((set, get) => ({
     }))
     return await submitTTable(set, get, knowns, unknowns)
   },
+  updatePickSchema: async (schema: string) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        schema: schema,
+      },
+    }))
+  },
 
   submitPickSchema: async (schema: string, _fake?: boolean) => {
     set(state => ({
@@ -308,6 +317,19 @@ const useProblemStore = create<State>((set, get) => ({
       },
     }))
     return await submitPickSchema(set, get, schema)
+  },
+
+  updateOrganize: async (
+    equation: string,
+    values: { variable: string; value: string | null }[],
+  ) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        equation: equation,
+        schemaValues: values,
+      },
+    }))
   },
 
   submitOrganize: async (

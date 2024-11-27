@@ -17,9 +17,10 @@ const EqualGroupsEditor: FC<{
     latex: string,
     values: { variable: string; value: string | null }[],
   ) => void
+  initialValues: { variable: string; value: string | null }[]
   className?: string
   children?: ReactNode
-}> = ({ onChange, className }) => {
+}> = ({ initialValues, onChange, className }) => {
   //
   // Nav Context
   //
@@ -33,9 +34,18 @@ const EqualGroupsEditor: FC<{
   //
   // State
   //
-  const [g, setG] = useState<string>('')
-  const [n, setN] = useState<string>('')
-  const [p, setP] = useState<string>('')
+  let G = initialValues.find(el => el.variable == 'G')?.value
+  G = typeof G == 'string' ? G : G == null ? 'G' : ''
+
+  let N = initialValues.find(el => el.variable == 'N')?.value
+  N = typeof N == 'string' ? N : N == null ? 'N' : ''
+
+  let P = initialValues.find(el => el.variable == 'P')?.value
+  P = typeof P == 'string' ? P : P == null ? 'P' : ''
+
+  const [g, setG] = useState<string>(G)
+  const [n, setN] = useState<string>(N)
+  const [p, setP] = useState<string>(P)
 
   //
   // Side Effects

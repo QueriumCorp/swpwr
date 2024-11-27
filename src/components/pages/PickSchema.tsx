@@ -30,7 +30,7 @@ import CheckStepButton from '../qq/CheckStepButton'
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-const RangerSelectDiagram: FC<{
+const PickSchema: FC<{
   className?: string
   children?: ReactNode
   page: YBRpage
@@ -48,6 +48,7 @@ const RangerSelectDiagram: FC<{
 
   const {
     logAction,
+    updatePickSchema,
     submitPickSchema,
     getHint,
     problem,
@@ -60,7 +61,6 @@ const RangerSelectDiagram: FC<{
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [schema, setSchema] = useState('')
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
   const [disabled, setDisabled] = useState(true)
@@ -104,20 +104,20 @@ const RangerSelectDiagram: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    if (schema === '') {
+    if (session.schema === '') {
       setDisabled(true)
     } else {
       setDisabled(false)
     }
-  }, [schema])
+  }, [session.schema])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
 
   async function handleSelectSchema(schema: string) {
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
-    setSchema(schema)
+    logAction({ page: page.id, activity: 'selectedSchema', data: { schema } })
+    updatePickSchema(schema)
   }
 
   async function handleCheckSchema(
@@ -125,10 +125,9 @@ const RangerSelectDiagram: FC<{
   ) {
     setMsg('Just a moment while I verify your choice')
     setBusy(true)
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
 
     let selectedSchema: SchemaType = 'additiveChangeSchema'
-    switch (schema) {
+    switch (session.schema) {
       case 'TOTAL':
         selectedSchema = 'additiveTotalSchema'
         break
@@ -150,12 +149,16 @@ const RangerSelectDiagram: FC<{
     }
 
     const fake = evt.altKey
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
     const result = await submitPickSchema(selectedSchema, fake)
 
     setBusy(false)
     if (fake) {
       // Bypass qEval validation
+      logAction({
+        page: page.id,
+        activity: 'byPassCheckStep',
+        data: { selectedSchema },
+      })
       api?.scrollNext()
     } else {
       logAction({
@@ -193,7 +196,7 @@ const RangerSelectDiagram: FC<{
   return (
     <div
       className={cn(
-        'RangerSelectDiagram',
+        'PickSchema',
         'rounded-lg bg-card text-card-foreground shadow-sm',
         'm-0 mb-2 flex h-full w-full flex-col justify-stretch pl-2 pr-2 pt-2',
         className,
@@ -256,7 +259,7 @@ const RangerSelectDiagram: FC<{
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('additiveTotalSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : schema === 'TOTAL'
+                  : session.schema === 'TOTAL'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
@@ -276,7 +279,7 @@ const RangerSelectDiagram: FC<{
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('additiveDifferenceSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : schema === 'DIFFERENCE'
+                  : session.schema === 'DIFFERENCE'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
@@ -296,7 +299,7 @@ const RangerSelectDiagram: FC<{
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('additiveChangeSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : schema === 'CHANGEINCREASE'
+                  : session.schema === 'CHANGEINCREASE'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
@@ -315,7 +318,7 @@ const RangerSelectDiagram: FC<{
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('subtractiveChangeSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : schema === 'CHANGEDECREASE'
+                  : session.schema === 'CHANGEDECREASE'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
@@ -333,12 +336,12 @@ const RangerSelectDiagram: FC<{
             <Card
               className={cn(
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
-                schema === 'EQUALGROUPS'
+                session.schema === 'EQUALGROUPS'
                   ? 'border-4 border-qqAccent'
                   : 'bg-white',
                 disabledSchemas?.includes('multiplicativeEqualGroupsSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : schema === 'EQUALGROUPS'
+                  : session.schema === 'EQUALGROUPS'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
@@ -356,7 +359,7 @@ const RangerSelectDiagram: FC<{
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('multiplicativeCompareSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : schema === 'COMPARE'
+                  : session.schema === 'COMPARE'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
@@ -390,7 +393,7 @@ const RangerSelectDiagram: FC<{
             <NextButton
               className="scale-[200%]"
               busy={busy}
-              disabled={schema.length === 0}
+              disabled={session.schema.length === 0}
             ></NextButton>
           )}
         </div>
@@ -399,5 +402,5 @@ const RangerSelectDiagram: FC<{
   )
 }
 
-RangerSelectDiagram.displayName = 'RangerSelectDiagram'
-export default RangerSelectDiagram
+PickSchema.displayName = 'PickSchema'
+export default PickSchema

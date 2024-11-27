@@ -214,7 +214,7 @@ const StepWisePower = forwardRef<
     setYBR(ybr)
   }, [])
 
-  // Not sure why I did this
+  // When navigating to a new page
   useEffect(() => {
     if (!api) {
       return
