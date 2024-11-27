@@ -274,6 +274,7 @@ const useProblemStore = create<State>((set, get) => ({
       session: {
         ...oldSession,
       },
+      // studentLog: [...oldStudentLog],
     }))
     return false
   },

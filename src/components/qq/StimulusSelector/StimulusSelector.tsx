@@ -243,7 +243,7 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
           {theText.length ? (
             <FactChicklet
               fact={theText}
-              className="text-5xl"
+              className="text-5xl font-normal"
               tabIndex={0}
             ></FactChicklet>
           ) : null}

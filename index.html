@@ -41,7 +41,11 @@
 
         localStorage.setItem(
           urlRank,
-          JSON.stringify({ updatedAt: shortDateTime, session, studentLog }),
+          JSON.stringify({
+            updatedAt: shortDateTime,
+            session,
+            studentLog: studentLog,
+          }),
         )
       }
 
@@ -312,6 +316,7 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
           },
         }
       } else if (urlRank === 'ranger') {
+        console.log('RANGER')
         window.swpwr = {
           options: {
             gltfUrl:
