@@ -1,32 +1,27 @@
-import NewbFeelThePower from '../pages/NewbFeelThePower'
-import NewbFindTutor from '../pages/NewbFindTutor'
-import NewbGratzFoundTutor from '../pages/NewbGratzFoundTutor'
-import NewbGratzOnPrepare from '../pages/NewbGratzOnPrepare'
-import NewbGratzWatchedVideo from '../pages/NewbGratzWatchedVideo'
-import NewbFindFacts from '../pages/NewbFindFacts'
-import NewbMeetTutor from '../pages/NewbMeetTutor'
-import NewbProblemType from '../pages/NewbSelectDiagram'
-import NewbReadProblem from '../pages/NewbReadProblem'
-import RangerFillDiagram from '../pages/RangerFillDiagram'
-import RangerFillEquation from '../pages/RangerFillEquation'
-import RangerFindFacts from '../pages/RangerFindFacts'
-import RangerReadProblem from '../pages/RangerReadProblem'
-import RangerReflect from '../pages/RangerReflect'
-import RangerSelectDiagram from '../pages/RangerSelectDiagram'
-import RangerSolveTheEquation from '../pages/RangerSolveTheEquation'
-import RangerOwnWords from '../pages/RangerOwnWords'
-import RangerWhatToAnswer from '../pages/RangerWhatToAnswer'
 import { YBRpage } from './YellowBrickRoad'
-import NewbVictory from '../pages/NewbVictory'
-import RangerVictory from '../pages/RangerVictory'
-import NewbVideoTotal from '../pages/NewbVideoTotal'
-import CadetPrepForSolveMath from '../pages/CadetPrepForSolveMath'
+
+import FindFacts from '../pages/FindFacts'
+import PickSchema from '../pages/PickSchema'
+
 import DevFindTutor from '../pages/DevFindTutor'
-import CadetReflect from '../pages/CadetReflect'
+
+import NewbMeetTutor from '../pages/NewbMeetTutor'
+import NewbFindTutor from '../pages/NewbFindTutor'
+import NewbReadProblem from '../pages/NewbReadProblem'
 import NewbVideoFindFacts from '../pages/NewbVideoFindFacts'
+// generic FindFacts
+import NewbVideoTotal from '../pages/NewbVideoTotal'
+// generic PickSchema
+import NewbVictory from '../pages/NewbVictory'
+
+import CadetReflect from '../pages/CadetReflect'
 import CadetVideoStepWise from '../pages/CadetVideoStepWise'
 import CadetReadProblem from '../pages/CadetReadProblem'
-import DevFindFacts from '../pages/DevFindFacts'
+
+import RangerFillDiagram from '../pages/RangerFillDiagram'
+import RangerSolveTheEquation from '../pages/RangerSolveTheEquation'
+import RangerOwnWords from '../pages/RangerOwnWords'
+import RangerVictory from '../pages/RangerVictory'
 
 export function renderPage(page: YBRpage, index: number) {
   switch (page.rank + ':' + page.id) {
@@ -38,7 +33,7 @@ export function renderPage(page: YBRpage, index: number) {
     case 'dev:Reflect':
       return <CadetReflect page={page} index={index}></CadetReflect>
     case 'dev:FindFacts':
-      return <DevFindFacts page={page} index={index}></DevFindFacts>
+      return <FindFacts page={page} index={index}></FindFacts>
     case 'dev:FindTutor':
       return <DevFindTutor page={page} index={index}></DevFindTutor>
     case 'dev:ReadProblem':
@@ -57,36 +52,18 @@ export function renderPage(page: YBRpage, index: number) {
 
     case 'newb:MeetTutor':
       return <NewbMeetTutor page={page} index={index}></NewbMeetTutor>
-    case 'newb:FeelThePower':
-      return <NewbFeelThePower page={page} index={index}></NewbFeelThePower>
-    case 'newb:VideoTotal':
-      return <NewbVideoTotal page={page} index={index}></NewbVideoTotal>
-    case 'newb:GratzWatchedVideo':
-      return (
-        <NewbGratzWatchedVideo
-          page={page}
-          index={index}
-        ></NewbGratzWatchedVideo>
-      )
     case 'newb:FindTutor':
       return <NewbFindTutor page={page} index={index}></NewbFindTutor>
-    case 'newb:Reflect':
-      return <RangerReflect page={page} index={index}></RangerReflect>
-
-    case 'newb:GratzFoundTutor':
-      return (
-        <NewbGratzFoundTutor page={page} index={index}></NewbGratzFoundTutor>
-      )
     case 'newb:ReadProblem':
       return <NewbReadProblem page={page} index={index}></NewbReadProblem>
     case 'newb:VideoFindFacts':
       return <NewbVideoFindFacts page={page} index={index}></NewbVideoFindFacts>
     case 'newb:FindFacts':
-      return <NewbFindFacts page={page} index={index}></NewbFindFacts>
-    case 'newb:GratzOnPrepare':
-      return <NewbGratzOnPrepare page={page} index={index}></NewbGratzOnPrepare>
-    case 'newb:NewbProblemType':
-      return <NewbProblemType page={page} index={index}></NewbProblemType>
+      return <FindFacts page={page} index={index}></FindFacts>
+    case 'newb:VideoTotal':
+      return <NewbVideoTotal page={page} index={index}></NewbVideoTotal>
+    case 'newb:PickSchema':
+      return <PickSchema page={page} index={index}></PickSchema>
     case 'newb:NewbVictory':
       return <NewbVictory page={page} index={index}></NewbVictory>
 
@@ -96,25 +73,12 @@ export function renderPage(page: YBRpage, index: number) {
 
     case 'cadet:ReadProblem':
       return <CadetReadProblem page={page} index={index}></CadetReadProblem>
-    case 'cadet:WhatToAnswer':
-      return <RangerWhatToAnswer page={page} index={index}></RangerWhatToAnswer>
     case 'cadet:FindFacts':
-      return <RangerFindFacts page={page} index={index}></RangerFindFacts>
+      return <FindFacts page={page} index={index}></FindFacts>
     case 'cadet:SelectDiagram':
-      return (
-        <RangerSelectDiagram page={page} index={index}></RangerSelectDiagram>
-      )
+      return <PickSchema page={page} index={index}></PickSchema>
     case 'cadet:FillDiagram':
       return <RangerFillDiagram page={page} index={index}></RangerFillDiagram>
-    case 'cadet:FillEquation':
-      return <RangerFillEquation page={page} index={index}></RangerFillEquation>
-    case 'cadet:PrepForSolveMath':
-      return (
-        <CadetPrepForSolveMath
-          page={page}
-          index={index}
-        ></CadetPrepForSolveMath>
-      )
     case 'cadet:VideoStepWise':
       return <CadetVideoStepWise page={page} index={index}></CadetVideoStepWise>
     case 'cadet:SolveTheEquation':
@@ -137,27 +101,12 @@ export function renderPage(page: YBRpage, index: number) {
 
     case 'scout:ReadProblem':
       return <CadetReadProblem page={page} index={index}></CadetReadProblem>
-    case 'scout:WhatToAnswer':
-      return <RangerWhatToAnswer page={page} index={index}></RangerWhatToAnswer>
     case 'scout:FindFacts':
-      return <RangerFindFacts page={page} index={index}></RangerFindFacts>
+      return <FindFacts page={page} index={index}></FindFacts>
     case 'scout:SelectDiagram':
-      return (
-        <RangerSelectDiagram page={page} index={index}></RangerSelectDiagram>
-      )
+      return <PickSchema page={page} index={index}></PickSchema>
     case 'scout:FillDiagram':
       return <RangerFillDiagram page={page} index={index}></RangerFillDiagram>
-    case 'scout:FillEquation':
-      return <RangerFillEquation page={page} index={index}></RangerFillEquation>
-    case 'scout:PrepForSolveMath':
-      return (
-        <CadetPrepForSolveMath
-          page={page}
-          index={index}
-        ></CadetPrepForSolveMath>
-      )
-    case 'scout:VideoStepWise':
-      return <CadetVideoStepWise page={page} index={index}></CadetVideoStepWise>
     case 'scout:SolveTheEquation':
       return (
         <RangerSolveTheEquation
@@ -178,18 +127,12 @@ export function renderPage(page: YBRpage, index: number) {
 
     case 'ranger:ReadProblem':
       return <CadetReadProblem page={page} index={index}></CadetReadProblem>
-    case 'ranger:WhatToAnswer':
-      return <RangerWhatToAnswer page={page} index={index}></RangerWhatToAnswer>
     case 'ranger:FindFacts':
-      return <RangerFindFacts page={page} index={index}></RangerFindFacts>
+      return <FindFacts page={page} index={index}></FindFacts>
     case 'ranger:SelectDiagram':
-      return (
-        <RangerSelectDiagram page={page} index={index}></RangerSelectDiagram>
-      )
+      return <PickSchema page={page} index={index}></PickSchema>
     case 'ranger:FillDiagram':
-      return <RangerFillDiagram page={page} index={index}></RangerFillDiagram> // DEFAULT
-    case 'ranger:FillEquation':
-      return <RangerFillEquation page={page} index={index}></RangerFillEquation>
+      return <RangerFillDiagram page={page} index={index}></RangerFillDiagram>
     case 'ranger:SolveTheEquation':
       return (
         <RangerSolveTheEquation

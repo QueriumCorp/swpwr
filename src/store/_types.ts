@@ -41,8 +41,14 @@ export interface State {
     oldSession: Session,
     oldStudentLog: LogItem[],
   ) => Promise<boolean>
+  updateTTable: (knowns: string[], unknowns: string[]) => void
   submitTTable: (knowns: string[], unknowns: string[]) => Promise<any>
+  updatePickSchema: (schema: string) => void
   submitPickSchema: (schema: string, fake?: boolean) => Promise<any>
+  updateOrganize: (
+    equation: string,
+    values: { variable: string; value: string | null }[],
+  ) => void
   submitOrganize: (
     equation: string,
     values: { variable: string; value: string | null }[],
@@ -168,6 +174,7 @@ export type Session = {
   knowns: string[]
   unknowns: string[]
   schema: string
+  equation: string
   schemaValues: { variable: string; value: string | null }[]
   mathAnswer: string
   myOwnWords: string
@@ -197,6 +204,7 @@ export const SessionSchema = z.object({
   knowns: z.array(z.string()),
   unknowns: z.array(z.string()),
   schema: z.string(),
+  equation: z.string(),
   schemaValues: z.array(
     z.object({ variable: z.string(), value: z.string().nullable() }),
   ), // { variable: string; value: string | null }[]

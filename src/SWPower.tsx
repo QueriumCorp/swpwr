@@ -178,7 +178,6 @@ const StepWisePower = forwardRef<
 
   // check if session resumable.
   useEffect(() => {
-    console.info('SWPower:useEffect:problem/oldSession')
     // if no oldSession, set resumable to false
     if (!props?.oldSession || !props?.oldSession.sessionToken) {
       setSessionResumable('')
@@ -191,7 +190,6 @@ const StepWisePower = forwardRef<
     }
   }, [problem, props.oldSession])
   useEffect(() => {
-    console.info('SWPower:useEffect:sessionResumable')
     if (
       (typeof session.sessionResumable === 'boolean' &&
         session.sessionResumable) ||
@@ -216,7 +214,7 @@ const StepWisePower = forwardRef<
     setYBR(ybr)
   }, [])
 
-  // Not sure why I did this
+  // When navigating to a new page
   useEffect(() => {
     if (!api) {
       return

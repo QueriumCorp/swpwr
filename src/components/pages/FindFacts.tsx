@@ -19,7 +19,7 @@ import { HintStage, TinyTutor } from '../qq/TinyTutor'
 import { NextButton } from '../qq/NextButton'
 import CheckStepButton from '../qq/CheckStepButton'
 
-const RangerFindFacts: FC<{
+const FindFacts: FC<{
   className?: string
   children?: ReactNode
   page: YBRpage
@@ -35,14 +35,26 @@ const RangerFindFacts: FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, submitTTable, getHint, problem, rank } = useProblemStore()
+  const {
+    logAction,
+    updateTTable,
+    submitTTable,
+    getHint,
+    problem,
+    session,
+    rank,
+  } = useProblemStore()
+  const setKnowns = (newKnowns: string[]) => {
+    updateTTable(newKnowns, session.unknowns)
+  }
+  const setUnknowns = (newUnknowns: string[]) => {
+    updateTTable(session.knowns, newUnknowns)
+  }
 
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [knowns, setKnowns] = useState<string[]>([])
-  const [unknowns, setUnknowns] = useState<string[]>([])
   const [currentFact, setCurrentFact] = useState<string>('')
   const [emote, setEmote] = useState<string>('gratz:02')
   const [msg, setMsg] = useState<string>('')
@@ -87,25 +99,25 @@ const RangerFindFacts: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    if (knowns.length === 0 && unknowns.length === 0) {
+    if (session.knowns.length === 0 && session.unknowns.length === 0) {
       setDisabled(true)
     } else {
       setDisabled(false)
     }
-  }, [knowns, unknowns])
+  }, [session.knowns, session.unknowns])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
 
   const delKnown = (fact: string) => {
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
-    setKnowns(knowns.filter(thisFact => thisFact !== fact))
+    logAction({ page: page.id, activity: 'deleteKnownFact', data: { fact } })
+    setKnowns(session.knowns.filter(thisFact => thisFact !== fact))
   }
 
   const delUnknown = (fact: string) => {
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
-    setUnknowns(unknowns.filter(thisFact => thisFact !== fact))
+    logAction({ page: page.id, activity: 'deleteUnknownFact', data: { fact } })
+    setUnknowns(session.unknowns.filter(thisFact => thisFact !== fact))
   }
 
   async function HandleCheckFacts(
@@ -115,7 +127,7 @@ const RangerFindFacts: FC<{
     setBusy(true)
     setEmote('direct:02')
 
-    const result = await submitTTable(knowns, unknowns)
+    const result = await submitTTable(session.knowns, session.unknowns)
     setBusy(false)
     if (evt.altKey) {
       //If Cmd+Enter just scroll to next page
@@ -159,7 +171,7 @@ const RangerFindFacts: FC<{
   return (
     <div
       className={cn(
-        'RangerFindFacts',
+        'FindFacts',
         'rounded-lg border bg-card text-card-foreground shadow-sm',
         'm-0 flex h-full w-full flex-col justify-stretch p-0',
         className,
@@ -189,7 +201,7 @@ const RangerFindFacts: FC<{
           <div className="grow">
             <div className="grid h-full grid-cols-2 gap-1">
               <KnownFacts add={addKnown}>
-                {knowns.map(known => (
+                {session.knowns.map(known => (
                   <Chip
                     id={known}
                     key={known}
@@ -199,7 +211,7 @@ const RangerFindFacts: FC<{
                 ))}
               </KnownFacts>
               <UnknownFacts add={addUnknown}>
-                {unknowns.map(unknown => (
+                {session.unknowns.map(unknown => (
                   <Chip
                     id={unknown}
                     key={unknown}
@@ -236,35 +248,51 @@ const RangerFindFacts: FC<{
 
   function handleDragEnd(event: DragEndEvent) {
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
-    if (knowns.includes(currentFact)) return
+    if (session.knowns.includes(currentFact)) return
 
     if (event.over && event.over.id === 'KnownFacts') {
-      setKnowns([...knowns, currentFact])
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+      setKnowns([...session.knowns, currentFact])
+      logAction({
+        page: page.id,
+        activity: 'dndAddKnownFact',
+        data: { fact: currentFact },
+      })
     }
     if (event.over && event.over.id === 'UnknownFacts') {
-      setUnknowns([...unknowns, currentFact])
-      logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
+      setUnknowns([...session.unknowns, currentFact])
+      logAction({
+        page: page.id,
+        activity: 'dndAddUnknownFact',
+        data: { fact: currentFact },
+      })
     }
     setCurrentFact('')
   }
 
   function addKnown() {
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
-    if (knowns.includes(currentFact)) return
+    if (session.knowns.includes(currentFact)) return
 
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
-    setKnowns([...knowns, currentFact])
+    logAction({
+      page: page.id,
+      activity: 'clickAddKnownFact',
+      data: { fact: currentFact },
+    })
+    setKnowns([...session.knowns, currentFact])
     setCurrentFact('')
   }
   function addUnknown() {
     if (currentFact.length == 0 || currentFact.trim().length == 0) return
-    if (unknowns.includes(currentFact)) return
-    logAction({ page: page.id, activity: 'ACTIVITY', data: {} })
-    setUnknowns([...unknowns, currentFact])
+    if (session.unknowns.includes(currentFact)) return
+    logAction({
+      page: page.id,
+      activity: 'clickAddUnknownFact',
+      data: { fact: currentFact },
+    })
+    setUnknowns([...session.unknowns, currentFact])
     setCurrentFact('')
   }
 }
 
-RangerFindFacts.displayName = 'RangerFindFacts'
-export default RangerFindFacts
+FindFacts.displayName = 'FindFacts'
+export default FindFacts

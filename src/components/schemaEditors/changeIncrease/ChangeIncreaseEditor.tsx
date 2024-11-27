@@ -13,13 +13,14 @@ import { ChangeIncreaseEquationGraphic } from './ChangeIncreaseEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
 
 const ChangeIncreaseEditor: FC<{
+  initialValues: { variable: string; value: string | null }[]
   onChange?: (
     latex: string,
     values: { variable: string; value: string | null }[],
   ) => void
   className?: string
   children?: ReactNode
-}> = ({ onChange, className }) => {
+}> = ({ initialValues, onChange, className }) => {
   //
   // Nav Context
   //
@@ -33,9 +34,18 @@ const ChangeIncreaseEditor: FC<{
   //
   // State
   //
-  const [s, setS] = useState<string>('')
-  const [c, setC] = useState<string>('')
-  const [e, setE] = useState<string>('')
+  let S = initialValues.find(el => el.variable == 'S')?.value
+  S = typeof S == 'string' ? S : S == null ? 'S' : ''
+
+  let C = initialValues.find(el => el.variable == 'C')?.value
+  C = typeof C == 'string' ? C : C == null ? 'C' : ''
+
+  let E = initialValues.find(el => el.variable == 'E')?.value
+  E = typeof E == 'string' ? E : E == null ? 'E' : ''
+
+  const [s, setS] = useState<string>(S)
+  const [c, setC] = useState<string>(C)
+  const [e, setE] = useState<string>(E)
 
   //
   // Side Effects
@@ -46,7 +56,6 @@ const ChangeIncreaseEditor: FC<{
     // If any are blank, equation is blank and disable Next
     if (s.length === 0 || c.length === 0 || e.length === 0) onChange('', [])
 
-    console.log(`${s}\\plus${c}\=${e}`)
     onChange(`${s}\\plus${c}\=${e}`, [
       { variable: 'S', value: s === 'S' ? null : s },
       { variable: 'C', value: c === 'C' ? null : c },

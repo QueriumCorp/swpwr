@@ -41,7 +41,11 @@
 
         localStorage.setItem(
           urlRank,
-          JSON.stringify({ updatedAt: shortDateTime, session, studentLog }),
+          JSON.stringify({
+            updatedAt: shortDateTime,
+            session,
+            studentLog: studentLog,
+          }),
         )
       }
 
@@ -170,17 +174,8 @@ Choose Total. Then click ✔.`,
           oldSession: oldSession,
           oldLog: oldLog,
           handlers: {
-            onComplete: (session, studentLog) => {
-              console.info("I'm an external onComplete Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-            },
-            onStep: (session, studentLog) => {
-              console.info("I'm an external onStep Handler")
-              console.info('session', session)
-              console.info('studentLog', studentLog)
-              localStorage.setItem(session.sessionToken, 'test')
-            },
+            onComplete: onCompleteHandler,
+            onStep: onStepHandler,
           },
         }
       } else if (urlRank === 'cadet') {
@@ -313,12 +308,15 @@ The equation is 6 + 5 = T. Click ✔ and I'll check that you've got it right.`,
               },
             ],
           },
+          oldSession: oldSession,
+          oldLog: oldLog,
           handlers: {
             onComplete: onCompleteHandler,
             onStep: onStepHandler,
           },
         }
       } else if (urlRank === 'ranger') {
+        console.log('RANGER')
         window.swpwr = {
           options: {
             gltfUrl:

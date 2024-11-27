@@ -42,17 +42,20 @@ const RangerFillDiagram: FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, submitOrganize, getHint, problem, session, rank } =
-    useProblemStore()
+  const {
+    logAction,
+    updateOrganize,
+    submitOrganize,
+    getHint,
+    problem,
+    session,
+    rank,
+  } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // State
   ///////////////////////////////////////////////////////////////////
 
-  const [equation, setEquation] = useState<string>('')
-  const [values, setValues] = useState<
-    { variable: string; value: string | null }[]
-  >([])
   const [msg, setMsg] = useState<string>('')
   const [busy, setBusy] = useState(false)
   const [disabled, setDisabled] = useState(true)
@@ -96,12 +99,12 @@ const RangerFillDiagram: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    if (valuesComplete(values)) {
+    if (valuesComplete(session.schemaValues)) {
       setDisabled(false)
     } else {
       setDisabled(true)
     }
-  }, [values])
+  }, [session.schemaValues])
 
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
@@ -116,8 +119,11 @@ const RangerFillDiagram: FC<{
       setBusy(true)
       setMsg('Just a moment while I verify your equation')
 
-      if (valuesComplete(values)) {
-        const result = await submitOrganize(equation, values)
+      if (valuesComplete(session.schemaValues)) {
+        const result = await submitOrganize(
+          session.equation,
+          session.schemaValues,
+        )
         logAction({
           page: page.id,
           activity: 'checkStep',
@@ -156,8 +162,9 @@ const RangerFillDiagram: FC<{
     latex: string,
     values: { variable: string; value: string | null }[],
   ) {
-    setEquation(latex)
-    setValues(values)
+    if (latex.length == 0 || values.length == 0) return
+
+    updateOrganize(latex, values)
     logAction({
       page: page.id,
       activity: 'changedValues',
@@ -198,36 +205,42 @@ const RangerFillDiagram: FC<{
         <div className="grow">
           {session.schema === 'additiveTotalSchema' ? (
             <TotalEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></TotalEditor>
           ) : null}
           {session.schema === 'multiplicativeEqualGroupsSchema' ? (
             <EqualGroupsEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></EqualGroupsEditor>
           ) : null}
           {session.schema === 'additiveDifferenceSchema' ? (
             <DifferenceEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></DifferenceEditor>
           ) : null}
           {session.schema === 'subtractiveChangeSchema' ? (
             <ChangeDecreaseEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></ChangeDecreaseEditor>
           ) : null}
           {session.schema === 'additiveChangeSchema' ? (
             <ChangeIncreaseEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></ChangeIncreaseEditor>
           ) : null}
           {session.schema === 'multiplicativeCompareSchema' ? (
             <CompareEditor
+              initialValues={session.schemaValues}
               onChange={HandleEquationChange}
               className={className}
             ></CompareEditor>

@@ -68,6 +68,7 @@ const useProblemStore = create<State>((set, get) => ({
     knowns: [],
     unknowns: [],
     schema: '',
+    equation: '',
     schemaValues: [],
     explanations: [],
     highlights: [],
@@ -234,7 +235,6 @@ const useProblemStore = create<State>((set, get) => ({
   },
 
   setSessionResumable: async (sessionToken: string) => {
-    console.info('store:setSessionResumable', sessionToken)
     if (!sessionToken) {
       set(state => ({
         session: {
@@ -275,8 +275,19 @@ const useProblemStore = create<State>((set, get) => ({
       session: {
         ...oldSession,
       },
+      studentLog: [...oldStudentLog],
     }))
     return false
+  },
+
+  updateTTable: async (knowns: string[], unknowns: string[]) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        knowns: knowns,
+        unknowns: unknowns,
+      },
+    }))
   },
 
   submitTTable: async (knowns: string[], unknowns: string[]) => {
@@ -289,6 +300,14 @@ const useProblemStore = create<State>((set, get) => ({
     }))
     return await submitTTable(set, get, knowns, unknowns)
   },
+  updatePickSchema: async (schema: string) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        schema: schema,
+      },
+    }))
+  },
 
   submitPickSchema: async (schema: string, _fake?: boolean) => {
     set(state => ({
@@ -298,6 +317,19 @@ const useProblemStore = create<State>((set, get) => ({
       },
     }))
     return await submitPickSchema(set, get, schema)
+  },
+
+  updateOrganize: async (
+    equation: string,
+    values: { variable: string; value: string | null }[],
+  ) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        equation: equation,
+        schemaValues: values,
+      },
+    }))
   },
 
   submitOrganize: async (

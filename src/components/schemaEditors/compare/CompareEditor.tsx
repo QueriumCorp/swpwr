@@ -13,13 +13,14 @@ import { CompareEquationGraphic } from './CompareEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
 
 const CompareEditor: FC<{
+  initialValues: { variable: string; value: string | null }[]
   onChange?: (
     latex: string,
     values: { variable: string; value: string | null }[],
   ) => void
   className?: string
   children?: ReactNode
-}> = ({ onChange, className }) => {
+}> = ({ initialValues, onChange, className }) => {
   //
   // Nav Context
   //
@@ -33,10 +34,18 @@ const CompareEditor: FC<{
   //
   // State
   //
-  const [s, setS] = useState<string>('')
-  const [m, setM] = useState<string>('')
-  const [p, setP] = useState<string>('')
-  console.log('CompareEditor', s, m, p)
+  let S = initialValues.find(el => el.variable == 'S')?.value
+  S = typeof S == 'string' ? S : S == null ? 'S' : ''
+
+  let M = initialValues.find(el => el.variable == 'M')?.value
+  M = typeof M == 'string' ? M : M == null ? 'M' : ''
+
+  let P = initialValues.find(el => el.variable == 'P')?.value
+  P = typeof P == 'string' ? P : P == null ? 'P' : ''
+  const [s, setS] = useState<string>(S)
+  const [m, setM] = useState<string>(M)
+  const [p, setP] = useState<string>(P)
+
   //
   // Side Effects
   //
@@ -45,7 +54,6 @@ const CompareEditor: FC<{
 
     // If any are blank, equation is blank and disable Next
     if (s.length === 0 || m.length === 0 || p.length === 0) onChange('', [])
-    console.info(`${s}\\times${m}=${p}`)
     onChange(`${s}\\times${m}=${p}`, [
       { variable: 'S', value: s === 'S' ? null : s },
       { variable: 'M', value: m === 'M' ? null : m },
