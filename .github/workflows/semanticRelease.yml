@@ -114,6 +114,7 @@ jobs:
           VERSION_CHANGED: ${{ env.VERSION_CHANGED }}
 
   merge-master:
+    needs: bump-version
     runs-on: ubuntu-latest
 
     steps:
