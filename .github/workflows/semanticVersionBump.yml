@@ -41,7 +41,7 @@
           - name: Setup Node.js environment
             uses: actions/setup-node@v4
             with:
-              node-version: "${{ env.NODE_VERSION }}"
+              node-version: "<=${{ env.NODE_VERSION }}"
     
           - name: Install npm dependencies
             run: npm install
