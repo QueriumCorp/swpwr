@@ -7,73 +7,85 @@ export type Hint = {
   tag: string
   message: string
 }
+export const HintSchema = z.object({
+  type: z.enum(['advisory', 'genhint', 'writedown']),
+  tag: z.string(),
+  message: z.string(),
+}) satisfies z.ZodType<Hint>
 
 export type ShowMeStep = {
   key: string
   suggestedStep: string
   instruction: string
 }
+export const ShowMeStepSchema = z.object({
+  key: z.string(),
+  suggestedStep: z.string(),
+  instruction: z.string(),
+}) satisfies z.ZodType<ShowMeStep>
 
 /**
  * Step type defines the structure of a step in the solution state.
  * It contains a timestamp, type indicating if the step was correct/incorrect/hint/showMe,
  * the math content of the step, array of hints, and a message.
  */
-export type Step = {
-  timestamp: number
-} & (
-  | {
-      type: 'correct'
-      status: string
-      stepStatus: 'VALID'
-      message: string
-      rawResponse: string
-      latex: string
-      hintObject: Hint[]
-    }
-  | {
-      type: 'incorrect'
-      status: string
-      stepStatus: 'INVALID'
-      message: string
-      rawResponse: string
-      latex: string
-      hintObject: Hint[]
-    }
-  | {
-      type: 'hint'
-      status: string
-      hintText: string
-      hintObject: Hint[]
-    }
-  | {
-      type: 'showMe'
-      status: string
-      showMe: ShowMeStep[]
-    }
-  | {
-      type: 'victory'
-      status: string
-      stepStatus: 'COMPLETE'
-      message: string
-      rawResponse: string
-      latex: string
-      hintObject: Hint[]
-    }
-  | {
-      type: 'mathComplete'
-      status: string
-      stepStatus: 'MATHCOMPLETE'
-      message: string
-      rawResponse: string
-      latex: string
-      hintObject: Hint[]
-    }
-)
+export const StepSchema = z.discriminatedUnion('type', [
+  z.object({
+    timestamp: z.number(),
+    type: z.literal('correct'),
+    status: z.string(),
+    stepStatus: z.literal('VALID'),
+    message: z.string(),
+    rawResponse: z.string(),
+    latex: z.string(),
+    hintObject: z.array(HintSchema),
+  }),
+  z.object({
+    timestamp: z.number(),
+    type: z.literal('incorrect'),
+    status: z.string(),
+    stepStatus: z.literal('INVALID'),
+    message: z.string(),
+    rawResponse: z.string(),
+    latex: z.string(),
+    hintObject: z.array(HintSchema),
+  }),
+  z.object({
+    timestamp: z.number(),
+    type: z.literal('hint'),
+    status: z.string(),
+    hintText: z.string(),
+    hintObject: z.array(HintSchema),
+  }),
+  z.object({
+    timestamp: z.number(),
+    type: z.literal('showMe'),
+    status: z.string(),
+    showMe: z.array(ShowMeStepSchema),
+  }),
+  z.object({
+    timestamp: z.number(),
+    type: z.literal('victory'),
+    status: z.string(),
+    stepStatus: z.literal('COMPLETE'),
+    message: z.string(),
+    rawResponse: z.string(),
+    latex: z.string(),
+    hintObject: z.array(HintSchema),
+  }),
+  z.object({
+    timestamp: z.number(),
+    type: z.literal('mathComplete'),
+    status: z.string(),
+    stepStatus: z.literal('MATHCOMPLETE'),
+    message: z.string(),
+    rawResponse: z.string(),
+    latex: z.string(),
+    hintObject: HintSchema,
+  }),
+])
 
-export const StepSchema = z.object({
-  type: z.string(),
-})
+export type Step = z.infer<typeof StepSchema>
 
 export type Log = {
   timestamp: number

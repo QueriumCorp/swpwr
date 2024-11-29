@@ -1,4 +1,12 @@
-import React, { CSSProperties, useImperativeHandle, useRef } from 'react'
+import React, {
+  CSSProperties,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react'
+
+import { useDebounce } from '@uidotdev/usehooks'
 
 // Note: putting the lint recommended '?inline' in the fonts.css import will break it
 // import mathliveStyle from "mathlive/fonts.css";
@@ -27,6 +35,9 @@ export interface StepWiseProps {
   go?: boolean
   assistant?: (msg: string, busy?: boolean) => void
   onComplete?: (steps: Step[], log: Log[]) => void
+  onStep?: (steps: Step[]) => void
+  solutionUpdated?: (steps: Step[]) => void
+  logActivity?: (log: Log) => void
   onStepChange?: (step: string) => void
   className?: string
   style?: CSSProperties
@@ -49,6 +60,9 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
       problem,
       assistant,
       onComplete,
+      onStep,
+      solutionUpdated,
+      logActivity,
       onStepChange,
       server,
       options,
@@ -98,10 +112,52 @@ export const StepWise = React.forwardRef<StepWiseAPI, StepWiseProps>(
         options,
         assistant,
         onComplete,
+        onStep,
       )
     }
 
-    // Active Session
+    // Monitor changes to steps
+    const [steps, setSteps] = useState<Step[]>()
+    const debouncedSteps = useDebounce(steps, 300)
+    useEffect(() => {
+      storeRef.current!.subscribe(
+        state => state.steps,
+        (steps, prevSteps) => {
+          if (prevSteps.length !== steps.length) {
+            setSteps(steps)
+          }
+        },
+      )
+    }, [])
+    useEffect(() => {
+      if (solutionUpdated && debouncedSteps) {
+        solutionUpdated(debouncedSteps)
+      }
+    }, [debouncedSteps])
+
+    // Monitor changes to logs
+    const [logs, setLogs] = useState<Log[]>()
+    const debouncedLogs = useDebounce(logs, 300)
+    useEffect(() => {
+      storeRef.current!.subscribe(
+        state => state.log,
+        (logs, prevLogs) => {
+          if (prevLogs.length !== logs.length) {
+            setLogs(logs)
+          }
+        },
+      )
+    }, [])
+    useEffect(() => {
+      if (logActivity && debouncedLogs) {
+        logActivity(debouncedLogs[debouncedLogs?.length - 1])
+      }
+    }, [debouncedLogs])
+
+    ///////////////////////////////////////////////////////////////////
+    // JSX
+    ///////////////////////////////////////////////////////////////////
+
     return (
       <SessionContext.Provider value={storeRef.current}>
         <ActiveSession

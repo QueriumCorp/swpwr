@@ -65,6 +65,7 @@ const RangerSolveTheEquation: FC<{
     rank,
     swapiUrl,
     setMathAnswer,
+    updateMathSolution,
     logAction,
   } = useProblemStore()
 
@@ -152,6 +153,14 @@ const RangerSolveTheEquation: FC<{
     }
   }, [current, page])
 
+  // use mathAnswer to detect if math is complete
+  // important for restoring session
+  useEffect(() => {
+    if (session.mathAnswer?.length > 0) {
+      setComplete(true)
+    }
+  }, [session.mathAnswer])
+
   ///////////////////////////////////////////////////////////////////
   // Event Handlers
   ///////////////////////////////////////////////////////////////////
@@ -218,6 +227,17 @@ const RangerSolveTheEquation: FC<{
     setComplete(true)
   }
 
+  // write last step to the mathSolution property in session
+  function handleSolutionUpdated(steps: Step[]) {
+    updateMathSolution(steps)
+  }
+
+  // write log messages to the
+  function handleLog(log: any) {
+    logAction({ page: page.id, activity: log.action, data: log })
+  }
+
+  // handle enabling/disabling of check button
   function handleStepChange(step: string) {
     step.length === 0 ? setDisabled(true) : setDisabled(false)
   }
@@ -262,6 +282,8 @@ const RangerSolveTheEquation: FC<{
                 student={student}
                 assistant={setMsg}
                 onComplete={onComplete}
+                solutionUpdated={handleSolutionUpdated}
+                logActivity={handleLog}
                 onStepChange={handleStepChange}
               >
                 <div className="mt-2">

@@ -1,4 +1,5 @@
 import { YBRpage } from '@/components/qq/YellowBrickRoad'
+import { Step, StepSchema } from '@/components/StepWise/stores/solution'
 import { z } from 'zod'
 
 // STATE
@@ -53,6 +54,7 @@ export interface State {
     equation: string,
     values: { variable: string; value: string | null }[],
   ) => Promise<any>
+  updateMathSolution: (solution: any[]) => void
   submitMyOwnWords: (type: string) => Promise<any>
   setSelectedExplanation: (explanation: Explanation) => void
   submitExplanation: (explanation: Explanation) => Promise<any>
@@ -176,6 +178,7 @@ export type Session = {
   schema: string
   equation: string
   schemaValues: { variable: string; value: string | null }[]
+  mathSolution: Step[]
   mathAnswer: string
   myOwnWords: string
   selectedExplanation: Explanation
@@ -208,6 +211,7 @@ export const SessionSchema = z.object({
   schemaValues: z.array(
     z.object({ variable: z.string(), value: z.string().nullable() }),
   ), // { variable: string; value: string | null }[]
+  mathSolution: z.array(StepSchema),
   mathAnswer: z.string(),
   myOwnWords: z.string(),
   selectedExplanation: ExplanationSchema,

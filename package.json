@@ -27,6 +27,7 @@
     "@react-three/fiber": "^8.16.8",
     "@redux-devtools/extension": "^3.3.0",
     "@storybook/react": "^8.1.5",
+    "@uidotdev/usehooks": "^2.4.1",
     "@wistia/react-embeds": "^0.0.22-snapshot.1",
     "@wistia/wistia-player": "^0.0.0-alpha.39",
     "class-variance-authority": "^0.7.0",

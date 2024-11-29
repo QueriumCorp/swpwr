@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 import { createStore } from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { devtools, subscribeWithSelector } from 'zustand/middleware'
 import type {} from '@redux-devtools/extension' // for devtools typing
 
 // problem imports
@@ -61,6 +61,7 @@ export const createSessionStore = (
   options?: Options,
   assistant?: (msg: string, busy?: boolean) => void,
   onComplete?: (steps: Step[], log: Log[]) => void,
+  onStep?: (steps: Step[], log: Log[]) => void,
 ) => {
   initialState = initialState || 'GO'
 
@@ -82,7 +83,7 @@ export const createSessionStore = (
 
   return createStore<State>()(
     devtools(
-      (set, get) => ({
+      subscribeWithSelector((set, get) => ({
         ...DEFAULT_STUDENT,
         ...DEFAULT_STUDENT_STATUS,
         ...DEFAULT_PROBLEM,
@@ -263,7 +264,7 @@ export const createSessionStore = (
             identifiers: session.identifiers,
             operators: preppedOperators,
             log: [...state.log, logEntry],
-            steps: [],
+            steps: [...session.mathSolution],
           }))
           return
         },
@@ -661,6 +662,13 @@ export const createSessionStore = (
               lastAction: now,
             }))
 
+            setTimeout(() => {
+              if (typeof onStep === 'function') {
+                const log = get().log
+                onStep([...get().steps], [...get().log])
+              }
+            }, 100)
+
             return body.message
           }
         },
@@ -847,7 +855,7 @@ export const createSessionStore = (
             editingStep: stepInProgress,
           }))
         },
-      }), // end of state
+      })), // end of state
       { name: 'session' },
     ),
   )

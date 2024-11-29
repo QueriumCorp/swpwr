@@ -75,6 +75,7 @@ const useProblemStore = create<State>((set, get) => ({
     stimulusClaims: '',
     endPhaseWEqn: '',
     phaseESentence: '',
+    mathSolution: [],
     mathAnswer: '',
     myOwnWords: '',
     selectedExplanation: { type: '', text: '' },
@@ -351,6 +352,15 @@ const useProblemStore = create<State>((set, get) => ({
       session: {
         ...state.session,
         mathAnswer: latex,
+      },
+    }))
+  },
+
+  updateMathSolution: (solution: any[]) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        mathSolution: [...solution],
       },
     }))
   },
