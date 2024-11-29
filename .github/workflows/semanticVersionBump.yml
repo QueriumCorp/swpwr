@@ -22,7 +22,7 @@
         runs-on: ubuntu-latest
         env:
           VERSION_FILE: package.json
-          PACKAGE_PATH: ${{ github.workspace }}/swpwr/
+          PACKAGE_PATH: ${{ github.workspace }}/
     
         steps:
           - uses: actions/checkout@v4
