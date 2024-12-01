@@ -365,6 +365,17 @@ const useProblemStore = create<State>((set, get) => ({
     }))
   },
 
+  updateMyOwnWords: async (myOwnWords: string) => {
+    // TODO: implement this for restore
+    console.log(myOwnWords)
+    // set(state => ({
+    //   session: {
+    //     ...state.session,
+    //     myOwnWords: myOwnWords,
+    //   },
+    // }))
+  },
+
   submitMyOwnWords: async (myOwnWords: string) => {
     set(state => ({
       session: {
