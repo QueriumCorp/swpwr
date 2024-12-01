@@ -55,6 +55,8 @@ export interface State {
     values: { variable: string; value: string | null }[],
   ) => Promise<any>
   updateMathSolution: (solution: any[]) => void
+
+  updateMyOwnWords: (type: string) => Promise<any>
   submitMyOwnWords: (type: string) => Promise<any>
   setSelectedExplanation: (explanation: Explanation) => void
   submitExplanation: (explanation: Explanation) => Promise<any>

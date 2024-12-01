@@ -163,7 +163,7 @@ When we're done reading, click ➜.
   },
   {
     rank: 'newb',
-    id: 'NewbProblemType',
+    id: 'PickSchema',
     title: 'Pick the problem type',
     phase: 'P',
     phaseLabel: 'Prepare',
