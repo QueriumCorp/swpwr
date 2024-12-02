@@ -25,6 +25,7 @@ import { NextButton } from '../qq/NextButton'
 import MathStatic from '../qq/MathStatic'
 import CheckStepButton from '../qq/CheckStepButton'
 import { Input } from '../ui/input'
+import { useDebounce } from '@uidotdev/usehooks'
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -45,8 +46,15 @@ const RangerOwnWords: FC<{
   // Store
   ///////////////////////////////////////////////////////////////////
 
-  const { logAction, submitMyOwnWords, getHint, problem, session, rank } =
-    useProblemStore()
+  const {
+    logAction,
+    updateMyOwnWordsParts,
+    submitMyOwnWords,
+    getHint,
+    problem,
+    session,
+    rank,
+  } = useProblemStore()
 
   ///////////////////////////////////////////////////////////////////
   // Ref
@@ -62,15 +70,23 @@ const RangerOwnWords: FC<{
   const [busy, setBusy] = useState(false)
   const [disabled, setDisabled] = useState(true)
   const [complete, setComplete] = useState(false)
+
   const [ownWords, setOwnWords] = useState<string>('')
 
-  const [fragment0, setFragment0] = useState<string>('')
-  const [fragment1, setFragment1] = useState<string>('')
-  const [fragment2, setFragment2] = useState<string>('')
-  const [blank0, setBlank0] = useState<string>('')
-  const [blank1, setBlank1] = useState<string>('')
-  const [value0, setValue0] = useState<string>('')
-  const [value1, setValue1] = useState<string>('')
+  const fragment0 = session?.myOwnWordsParts?.fragment0 || ''
+  const fragment1 = session?.myOwnWordsParts?.fragment1 || ''
+  const fragment2 = session?.myOwnWordsParts?.fragment2 || ''
+  const blank0 = session?.myOwnWordsParts?.blank0 || ''
+  const blank1 = session?.myOwnWordsParts?.blank1 || ''
+
+  const value0 = session?.myOwnWordsParts?.value0 || ''
+  const setValue0 = (it: string) => {
+    updateMyOwnWordsParts({ ...session.myOwnWordsParts, value0: it })
+  }
+  const value1 = session?.myOwnWordsParts?.value1 || ''
+  const setValue1 = (it: string) => {
+    updateMyOwnWordsParts({ ...session.myOwnWordsParts, value1: it })
+  }
 
   const mathAnswer = useMemo(() => {
     return isNumber(session.mathAnswer)
@@ -119,11 +135,19 @@ const RangerOwnWords: FC<{
     ownWords.length >= 3 ? setDisabled(false) : setDisabled(true)
   }, [ownWords])
 
+  const debouncedValue0 = useDebounce(value0, 300)
+  const debouncedValue1 = useDebounce(value1, 300)
   useEffect(() => {
-    value0.length > 0 || value1.length > 0
+    logAction({
+      page: page.id,
+      activity: 'changedValues',
+      data: { value0: debouncedValue0, value1: debouncedValue1 },
+    })
+
+    debouncedValue0.length > 0 || debouncedValue1.length > 0
       ? setDisabled(false)
       : setDisabled(true)
-  }, [value0, value1])
+  }, [debouncedValue0, debouncedValue1])
 
   useEffect(() => {
     if (inputRef.current) {
@@ -138,8 +162,8 @@ const RangerOwnWords: FC<{
       const unitIndex = session.phaseESentence.indexOf(unitTag)
       const valueIndex = session.phaseESentence.indexOf(valueTag)
 
-      setBlank0(unitIndex < valueIndex ? unitTag : valueTag)
-      setBlank1(unitIndex < valueIndex ? valueTag : unitTag)
+      let blank0 = unitIndex < valueIndex ? unitTag : valueTag
+      let blank1 = unitIndex < valueIndex ? valueTag : unitTag
 
       let i0 = 0,
         i1,
@@ -170,9 +194,18 @@ const RangerOwnWords: FC<{
         i4 = unitIndex + unitTag.length
       }
 
-      setFragment0(session.phaseESentence.slice(i0, i1))
-      setFragment1(session.phaseESentence.slice(i2, i3))
-      setFragment2(session.phaseESentence.slice(i4))
+      let fragment0 = session.phaseESentence.slice(i0, i1)
+      let fragment1 = session.phaseESentence.slice(i2, i3)
+      let fragment2 = session.phaseESentence.slice(i4)
+      updateMyOwnWordsParts({
+        fragment0,
+        fragment1,
+        fragment2,
+        blank0,
+        blank1,
+        value0,
+        value1,
+      })
     }
   }, [session.phaseESentence])
 
@@ -194,7 +227,6 @@ const RangerOwnWords: FC<{
           ? ownWords
           : `${fragment0}${value0}${fragment1}${value1}${fragment2}`
 
-      logAction({ page: page.id, activity: 'ACTIVITY', data: { theSentence } })
       const result = await submitMyOwnWords(theSentence)
       logAction({
         page: page.id,

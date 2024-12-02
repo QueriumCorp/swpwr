@@ -56,7 +56,7 @@ export interface State {
   ) => Promise<any>
   updateMathSolution: (solution: any[]) => void
 
-  updateMyOwnWords: (type: string) => Promise<any>
+  updateMyOwnWordsParts: (parts: MyOwnWordsParts) => void
   submitMyOwnWords: (type: string) => Promise<any>
   setSelectedExplanation: (explanation: Explanation) => void
   submitExplanation: (explanation: Explanation) => Promise<any>
@@ -161,6 +161,17 @@ const HighlightSchema = z.union([
   }),
 ])
 
+const MyOwnWordsPartsSchema = z.object({
+  fragment0: z.string(),
+  fragment1: z.string(),
+  fragment2: z.string(),
+  blank0: z.string(),
+  blank1: z.string(),
+  value0: z.string(),
+  value1: z.string(),
+})
+export type MyOwnWordsParts = z.infer<typeof MyOwnWordsPartsSchema>
+
 // SESSION
 export type Session = {
   // returned by SWAPI
@@ -183,6 +194,7 @@ export type Session = {
   mathSolution: Step[]
   mathAnswer: string
   myOwnWords: string
+  myOwnWordsParts: MyOwnWordsParts
   selectedExplanation: Explanation
   thinksGoodAnswer?: boolean
   finalAnswer: string
@@ -216,6 +228,7 @@ export const SessionSchema = z.object({
   mathSolution: z.array(StepSchema),
   mathAnswer: z.string(),
   myOwnWords: z.string(),
+  myOwnWordsParts: MyOwnWordsPartsSchema,
   selectedExplanation: ExplanationSchema,
   thinksGoodAnswer: z.boolean().optional(),
   finalAnswer: z.string(),

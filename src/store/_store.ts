@@ -12,6 +12,7 @@ import {
   State,
   ProblemSchema,
   Explanation,
+  MyOwnWordsParts,
 } from './_types'
 
 // Method Implementations
@@ -77,6 +78,15 @@ const useProblemStore = create<State>((set, get) => ({
     phaseESentence: '',
     mathSolution: [],
     mathAnswer: '',
+    myOwnWordsParts: {
+      fragment0: '',
+      fragment1: '',
+      fragment2: '',
+      blank0: '',
+      blank1: '',
+      value0: '',
+      value1: '',
+    },
     myOwnWords: '',
     selectedExplanation: { type: '', text: '' },
     finalAnswer: '',
@@ -365,15 +375,13 @@ const useProblemStore = create<State>((set, get) => ({
     }))
   },
 
-  updateMyOwnWords: async (myOwnWords: string) => {
-    // TODO: implement this for restore
-    console.log(myOwnWords)
-    // set(state => ({
-    //   session: {
-    //     ...state.session,
-    //     myOwnWords: myOwnWords,
-    //   },
-    // }))
+  updateMyOwnWordsParts: async (myOwnWordsParts: MyOwnWordsParts) => {
+    set(state => ({
+      session: {
+        ...state.session,
+        myOwnWordsParts: myOwnWordsParts,
+      },
+    }))
   },
 
   submitMyOwnWords: async (myOwnWords: string) => {
