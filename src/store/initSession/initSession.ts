@@ -60,6 +60,11 @@ const initSession = async (set: SetFn, get: GetFn) => {
   })
 
   const data = await response.json()
+
+  // Clean up quotes for edX survival
+  theProblem.definition = theProblem.definition.replaceAll('"', '`')
+  data.rawResponse = data.rawResponse.replaceAll('"', '`')
+
   get().logAction({
     page: 'none',
     activity: 'initSession',
