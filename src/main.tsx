@@ -51,7 +51,7 @@ if (window.swpwr) {
   student.studentName = window.swpwr.student.fullName
 
   const oldSession = window.swpwr.oldSession
-  const oldLog = window.swpwr.oldLog
+  let oldLog = window.swpwr.oldLog
 
   // const oldSession =
   //   "{&quot;sessionToken&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkZhbGwyMDI0UFMxUTEiLCJzdHVkZW50SWQiOiJqaW0iLCJzZXJ2ZXJVcmwiOiJodHRwczovL3N0ZXB3aXNlYWkwMC5xdWVyaXVtLmNvbS93ZWJNYXRoZW1hdGljYS9hcGkvIiwic3RhcnRlZEF0IjoxNzMzMjM5NzczMDQ4LCJpYXQiOjE3MzMyMzk3NzMsImV4cCI6MTczNDEwMzc3M30.JO0tfkwYgpfHU04OCw5cqbmHYfxEtATe8eJcFZVLU7E&quot;, &quot;identifiers&quot;: [&quot;T&quot;], &quot;operators&quot;: [&quot;Frac&quot;], &quot;knowns&quot;: [&quot;7 miles&quot;], &quot;unknowns&quot;: [], &quot;schema&quot;: &quot;&quot;, &quot;equation&quot;: &quot;&quot;, &quot;schemaValues&quot;: [], &quot;explanations&quot;: [{&quot;type&quot;: &quot;bad&quot;, &quot;text&quot;: &quot;Pilar drove to two different places. So the total 18 miles makes sense.&quot;}, {&quot;type&quot;: &quot;estimation&quot;, &quot;text&quot;: &quot;Pilar drove about 10 miles to school. She drove about 10 miles to her job. So she drove about 10 + 10 = 20 miles in all. The answer 18 miles makes sense because it's close to 20 miles.&quot;}, {&quot;type&quot;: &quot;schema&quot;, &quot;text&quot;: &quot;The total distance is more than each part. So 18 miles makes sense because it's greater than 7 miles and 11 miles.&quot;}], &quot;highlights&quot;: [{&quot;highlight&quot;: [&quot;7&quot;, &quot;miles&quot;], &quot;index&quot;: &quot;A&quot;, &quot;type&quot;: &quot;valueUnit&quot;, &quot;done&quot;: false}, {&quot;highlight&quot;: [&quot;11&quot;, &quot;miles&quot;], &quot;index&quot;: &quot;B&quot;, &quot;type&quot;: &quot;valueUnit&quot;, &quot;done&quot;: false}, {&quot;highlight&quot;: &quot;What is the total distance that Pilar drove?&quot;, &quot;index&quot;: &quot;C&quot;, &quot;type&quot;: &quot;string&quot;, &quot;done&quot;: false}], &quot;stimulusClaims&quot;: &quot;____________AAAAAAA_____________________________________BBBBBBBB_____________CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC&quot;, &quot;endPhaseWEqn&quot;: &quot;T = 18&quot;, &quot;phaseESentence&quot;: &quot;Pilar drove a total of [VALUE] [UNIT].&quot;, &quot;mathSolution&quot;: [], &quot;mathAnswer&quot;: &quot;&quot;, &quot;myOwnWordsParts&quot;: {&quot;fragment0&quot;: &quot;Pilar drove a total of &quot;, &quot;fragment1&quot;: &quot; &quot;, &quot;fragment2&quot;: &quot;.&quot;, &quot;blank0&quot;: &quot;[VALUE]&quot;, &quot;blank1&quot;: &quot;[UNIT]&quot;, &quot;value0&quot;: &quot;&quot;, &quot;value1&quot;: &quot;&quot;}, &quot;myOwnWords&quot;: &quot;&quot;, &quot;selectedExplanation&quot;: {&quot;type&quot;: &quot;estimation&quot;, &quot;text&quot;: &quot;Pilar drove about 10 miles to school. She drove about 10 miles to her job. So she drove about 10 + 10 = 20 miles in all. The answer 18 miles makes sense because it's close to 20 miles.&quot;}, &quot;finalAnswer&quot;: &quot;&quot;, &quot;chatty&quot;: false, &quot;networkSpeedMbps&quot;: {&quot;type&quot;: &quot;4g (Mbps)&quot;, &quot;Mbps&quot;: 10}, &quot;aiBusy&quot;: false, &quot;lastPageIndex&quot;: 1}"
@@ -96,15 +96,60 @@ if (window.swpwr) {
   if (oldLog && typeof oldLog == 'string' && oldLog.includes('&quot;')) {
     // oldLog has &quot; and needs full data cleansing
     try {
-      log = JSON.parse(oldLog.replace(/&quot;/g, '"'))
-    } catch {
+      /* FULLURL
+        The fullURL sent to qEval contains a question queryString that contains exactly two &quot;
+        Replace them with &apos;
+        Sample question queryString
+        question=SolveWordProblemAns[%7B&quot;Pilar%20drove%207%20miles%20from%20home%20to%20school.%20Then%20she%20drove%2011%20miles%20to%20her%20job.%20What%20is%20the%20total%20distance%20that%20Pilar%20drove?&quot;%7D]
+      */
+      let questionIndex = oldLog.indexOf('question=')
+      if (questionIndex !== -1) {
+        // Find the substring starting from "question="
+        let substringAfterQuestion = oldLog.substring(questionIndex)
+
+        // Replace the first two "&quot;" with "&apos;"
+        let modifiedSubstring = substringAfterQuestion.replace(
+          /&quot;/g,
+          (match, index, original) => {
+            return index <
+              original.indexOf('&quot;', original.indexOf('&quot;') + 1) + 6
+              ? "'"
+              : match
+          },
+        )
+
+        // Combine the parts
+        oldLog = oldLog.substring(0, questionIndex) + modifiedSubstring
+      }
+
+      /* REPLACE REMAINING &quot; CHARACTERS 
+        Replace all the remaining &quot; with the " character
+      */
+      oldLog = oldLog.replace(/&quot;/g, '"')
+
+      /* RAWRESULTS
+        Within the rawResults <result></result> tag from qEval, replace the " with '
+        Sample rawResult
+        <result>{&quot;explanation&quot;:[{&quot;type&quot;:&quot;schema&quot;,&quot;text&quot;:&quot;The total distance is more than each part. So 18 miles makes sense because it&apos;s greater than 7 miles and 11 miles.&quot;},{&quot;type&quot;:&quot;estimation&quot;,&quot;text&quot;:&quot;Pilar drove about 10 miles to school. She drove about 10 miles to her job. So she drove about 10 + 10 = 20 miles in all. The answer 18 miles makes sense because it&apos;s close to 20 miles.&quot;},{&quot;type&quot;:&quot;bad&quot;,&quot;text&quot;:&quot;Pilar drove to two different places. So the total 18 miles makes sense.&quot;}],&quot;statefile&quot;:&quot;\/var\/lib\/tomcat8\/webapps\/webMathematica\/api\/states\/Fall2024PS1Q1xjimx1733331864466.mx&quot;,&quot;cmdResponse&quot;:&quot;reProcessLRV&quot;,&quot;feedback&quot;:&quot;Pilar drove 7 miles from home to school. Then she drove 11 miles to her job. What is the total distance that Pilar drove?&quot;,&quot;variables&quot;:[&quot;T&quot;],&quot;operators&quot;:[&quot;Frac&quot;],&quot;phaseESentence&quot;:&quot;Pilar drove a total of [VALUE] [UNIT].&quot;,&quot;endPhaseWEqn&quot;:&quot;T = 18&quot;,&quot;highlights&quot;:{&quot;highlight1&quot;:[&quot;7&quot;,&quot;miles&quot;],&quot;highlight2&quot;:[&quot;11&quot;,&quot;miles&quot;],&quot;highlight3&quot;:&quot;What is the total distance that Pilar drove?&quot;}}</result>
+      */
+      oldLog = oldLog.replace(
+        /(<result>)(.*?)(<\/result>)/gs,
+        (_match: string, p1: string, p2: string, p3: string) => {
+          return p1 + p2.replace(/"/g, "'") + p3
+        },
+      )
+
+      log = JSON.parse(oldLog)
+    } catch (e) {
+      console.error(e)
       log = []
     }
   } else if (typeof oldLog == 'string') {
     // oldLog is a string so needs parsing
     try {
       log = JSON.parse(oldLog)
-    } catch {
+    } catch (e) {
+      console.error(e)
       log = []
     }
   } else if (typeof oldLog == 'object') {
