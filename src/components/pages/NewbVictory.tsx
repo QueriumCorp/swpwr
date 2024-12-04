@@ -61,7 +61,7 @@ const NewbVictory: React.FC<{
     //   activity: 'achievedVictory',
     //   data: {},
     // })
-    onComplete(session, studentLog)
+    setTimeout(() => onComplete(session, studentLog), 5000)
   }
 
   function finishedIntro(current: number, count: number) {

@@ -68,7 +68,7 @@ const RangerVictory: FC<{
         console.log(e)
       }
     }
-    onComplete(session, studentLog)
+    setTimeout(() => onComplete(session, studentLog), 5000)
   }
 
   ///////////////////////////////////////////////////////////////////
