@@ -104,6 +104,7 @@ const PickSchema: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
+    console.log('session.schema:', session.schema)
     if (session.schema === '') {
       setDisabled(true)
     } else {
@@ -126,42 +127,20 @@ const PickSchema: FC<{
     setMsg('Just a moment while I verify your choice')
     setBusy(true)
 
-    let selectedSchema: SchemaType = 'additiveChangeSchema'
-    switch (session.schema) {
-      case 'TOTAL':
-        selectedSchema = 'additiveTotalSchema'
-        break
-      case 'DIFFERENCE':
-        selectedSchema = 'additiveDifferenceSchema'
-        break
-      case 'CHANGEINCREASE':
-        selectedSchema = 'additiveChangeSchema'
-        break
-      case 'CHANGEDECREASE':
-        selectedSchema = 'subtractiveChangeSchema'
-        break
-      case 'EQUALGROUPS':
-        selectedSchema = 'multiplicativeEqualGroupsSchema'
-        break
-      case 'COMPARE':
-        selectedSchema = 'multiplicativeCompareSchema'
-        break
-    }
-
-    const result = await submitPickSchema(selectedSchema, false)
+    const result = await submitPickSchema(session.schema, false)
     setBusy(false)
     if (evt.altKey) {
       logAction({
         page: page.id,
         activity: 'byPassCheckStep',
-        data: { selectedSchema },
+        data: { selectedSchema: session.schema },
       })
       result.stepStatus = 'VALID'
     } else {
       logAction({
         page: page.id,
         activity: 'checkStep',
-        data: { selectedSchema },
+        data: { selectedSchema: session.schema },
       })
     }
 
@@ -256,11 +235,11 @@ const PickSchema: FC<{
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('additiveTotalSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : session.schema === 'TOTAL'
+                  : session.schema === 'additiveTotalSchema'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
-              onClick={() => handleSelectSchema('TOTAL')}
+              onClick={() => handleSelectSchema('additiveTotalSchema')}
             >
               <CardHeader className="pb-2">
                 <CardTitle>Total</CardTitle>
@@ -276,11 +255,11 @@ const PickSchema: FC<{
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('additiveDifferenceSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : session.schema === 'DIFFERENCE'
+                  : session.schema === 'additiveDifferenceSchema'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
-              onClick={() => handleSelectSchema('DIFFERENCE')}
+              onClick={() => handleSelectSchema('additiveDifferenceSchema')}
             >
               <CardHeader className="pb-2">
                 <CardTitle>Difference</CardTitle>
@@ -296,11 +275,11 @@ const PickSchema: FC<{
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('additiveChangeSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : session.schema === 'CHANGEINCREASE'
+                  : session.schema === 'additiveChangeSchema'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
-              onClick={() => handleSelectSchema('CHANGEINCREASE')}
+              onClick={() => handleSelectSchema('additiveChangeSchema')}
             >
               <CardHeader className="pb-2">
                 <CardTitle>Change Increase</CardTitle>
@@ -315,11 +294,11 @@ const PickSchema: FC<{
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('subtractiveChangeSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : session.schema === 'CHANGEDECREASE'
+                  : session.schema === 'subtractiveChangeSchema'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
-              onClick={() => handleSelectSchema('CHANGEDECREASE')}
+              onClick={() => handleSelectSchema('subtractiveChangeSchema')}
             >
               <CardHeader className="pb-2">
                 <CardTitle>Change Decrease</CardTitle>
@@ -333,16 +312,18 @@ const PickSchema: FC<{
             <Card
               className={cn(
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
-                session.schema === 'EQUALGROUPS'
+                session.schema === 'multiplicativeEqualGroupsSchema'
                   ? 'border-4 border-qqAccent'
                   : 'bg-white',
                 disabledSchemas?.includes('multiplicativeEqualGroupsSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : session.schema === 'EQUALGROUPS'
+                  : session.schema === 'multiplicativeEqualGroupsSchema'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
-              onClick={() => handleSelectSchema('EQUALGROUPS')}
+              onClick={() =>
+                handleSelectSchema('multiplicativeEqualGroupsSchema')
+              }
             >
               <CardHeader className="pb-2">
                 <CardTitle>Equal Groups</CardTitle>
@@ -356,11 +337,11 @@ const PickSchema: FC<{
                 'box-border w-[400px] sm:w-[250px] md:w-[48%] lg:w-[500] xl:w-[520px] 2xl:w-[300px]',
                 disabledSchemas?.includes('multiplicativeCompareSchema')
                   ? 'cursor-not-allowed bg-slate-400 text-slate-500'
-                  : session.schema === 'COMPARE'
+                  : session.schema === 'multiplicativeCompareSchema'
                     ? 'cursor-pointer border-4 border-qqAccent'
                     : 'cursor-pointer bg-white',
               )}
-              onClick={() => handleSelectSchema('COMPARE')}
+              onClick={() => handleSelectSchema('multiplicativeCompareSchema')}
             >
               <CardHeader className="pb-2">
                 <CardTitle>Compare</CardTitle>
