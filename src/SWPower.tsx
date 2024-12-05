@@ -107,6 +107,7 @@ const StepWisePower = forwardRef<
   // State
   ///////////////////////////////////////////////////////////////////
 
+  const [detectingResumable, setDetectingResumable] = useState(true)
   const [ready, setReady] = useState(false)
   const [started, setStarted] = useState(false)
   const [api, setApi] = useState<CarouselApi>()
@@ -190,11 +191,13 @@ const StepWisePower = forwardRef<
     }
   }, [problem, props.oldSession])
   useEffect(() => {
-    if (
-      (typeof session.sessionResumable === 'boolean' &&
-        session.sessionResumable) ||
-      typeof session.sessionResumable == 'undefined'
-    ) {
+    if (typeof session.sessionResumable == 'undefined') {
+      setReady(false)
+      return
+    }
+    // sessionResumable is a boolean once we know
+    if (typeof session.sessionResumable === 'boolean') {
+      setDetectingResumable(false)
       setReady(true)
     }
   }, [session.sessionResumable])
@@ -590,7 +593,7 @@ const StepWisePower = forwardRef<
           <div className="fixed flex h-full w-full flex-col items-center justify-center gap-2 bg-black bg-opacity-80">
             <div className="relative flex h-[200px] w-[200px] items-center justify-center bg-none">
               <BusyIndicator
-                busy={true}
+                busy={detectingResumable}
                 size={460}
                 strokeWidth={2}
                 className="h-[200px] w-[200px]"
@@ -619,7 +622,9 @@ const StepWisePower = forwardRef<
                   </Button>
                 ) : null}
               </div>
-            ) : null}
+            ) : (
+              <div className="h-11" />
+            )}
           </div>
         )}
       </div>
