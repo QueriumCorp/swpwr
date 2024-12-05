@@ -11,6 +11,7 @@ import { NavContext, NavContextType } from '@/NavContext'
 import { useProblemStore } from '@/store/_store'
 import { TotalEquationGraphic } from './TotalEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
+import { initializeValue } from '../initializeValue'
 
 const TotalEditor: FC<{
   initialValues: { variable: string; value: string | null }[]
@@ -34,18 +35,9 @@ const TotalEditor: FC<{
   //
   // State
   //
-  let P1 = initialValues.find(el => el.variable == 'P1')?.value
-  P1 = typeof P1 == 'string' ? P1 : P1 == null ? 'P1' : ''
-
-  let P2 = initialValues.find(el => el.variable == 'P2')?.value
-  P2 = typeof P2 == 'string' ? P2 : P2 == null ? 'P2' : ''
-
-  let T = initialValues.find(el => el.variable == 'T')?.value
-  T = typeof T == 'string' ? T : T == null ? 'T' : ''
-
-  const [p1, setP1] = useState<string>(P1)
-  const [p2, setP2] = useState<string>(P2)
-  const [t, setT] = useState<string>(T)
+  const [p1, setP1] = useState<string>(initializeValue('P1', initialValues))
+  const [p2, setP2] = useState<string>(initializeValue('P2', initialValues))
+  const [t, setT] = useState<string>(initializeValue('T', initialValues))
 
   //
   // Side Effects

@@ -11,6 +11,7 @@ import { NavContext, NavContextType } from '@/NavContext'
 import { useProblemStore } from '@/store/_store'
 import { DifferenceEquationGraphic } from './DifferenceEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
+import { initializeValue } from '../initializeValue'
 
 const DifferenceEditor: FC<{
   initialValues: { variable: string; value: string | null }[]
@@ -34,18 +35,9 @@ const DifferenceEditor: FC<{
   //
   // State
   //
-  let L = initialValues.find(el => el.variable == 'L')?.value
-  L = typeof L == 'string' ? L : L == null ? 'L' : ''
-
-  let D = initialValues.find(el => el.variable == 'D')?.value
-  D = typeof D == 'string' ? D : D == null ? 'D' : ''
-
-  let G = initialValues.find(el => el.variable == 'G')?.value
-  G = typeof G == 'string' ? G : G == null ? 'G' : ''
-
-  const [l, setL] = useState<string>(L)
-  const [d, setD] = useState<string>(D)
-  const [g, setG] = useState<string>(G)
+  const [l, setL] = useState<string>(initializeValue('L', initialValues))
+  const [d, setD] = useState<string>(initializeValue('D', initialValues))
+  const [g, setG] = useState<string>(initializeValue('G', initialValues))
 
   //
   // Side Effects

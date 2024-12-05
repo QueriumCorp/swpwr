@@ -11,6 +11,7 @@ import { NavContext, NavContextType } from '@/NavContext'
 import { useProblemStore } from '@/store/_store'
 import { EqualGroupsEquationGraphic } from './EqualGroupsEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
+import { initializeValue } from '../initializeValue'
 
 const EqualGroupsEditor: FC<{
   onChange?: (
@@ -34,18 +35,9 @@ const EqualGroupsEditor: FC<{
   //
   // State
   //
-  let G = initialValues.find(el => el.variable == 'G')?.value
-  G = typeof G == 'string' ? G : G == null ? 'G' : ''
-
-  let N = initialValues.find(el => el.variable == 'N')?.value
-  N = typeof N == 'string' ? N : N == null ? 'N' : ''
-
-  let P = initialValues.find(el => el.variable == 'P')?.value
-  P = typeof P == 'string' ? P : P == null ? 'P' : ''
-
-  const [g, setG] = useState<string>(G)
-  const [n, setN] = useState<string>(N)
-  const [p, setP] = useState<string>(P)
+  const [g, setG] = useState<string>(initializeValue('G', initialValues))
+  const [n, setN] = useState<string>(initializeValue('N', initialValues))
+  const [p, setP] = useState<string>(initializeValue('P', initialValues))
 
   //
   // Side Effects

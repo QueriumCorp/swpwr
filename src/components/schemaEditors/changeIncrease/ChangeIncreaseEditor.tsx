@@ -11,6 +11,7 @@ import { NavContext, NavContextType } from '@/NavContext'
 import { useProblemStore } from '@/store/_store'
 import { ChangeIncreaseEquationGraphic } from './ChangeIncreaseEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
+import { initializeValue } from '../initializeValue'
 
 const ChangeIncreaseEditor: FC<{
   initialValues: { variable: string; value: string | null }[]
@@ -34,18 +35,9 @@ const ChangeIncreaseEditor: FC<{
   //
   // State
   //
-  let S = initialValues.find(el => el.variable == 'S')?.value
-  S = typeof S == 'string' ? S : S == null ? 'S' : ''
-
-  let C = initialValues.find(el => el.variable == 'C')?.value
-  C = typeof C == 'string' ? C : C == null ? 'C' : ''
-
-  let E = initialValues.find(el => el.variable == 'E')?.value
-  E = typeof E == 'string' ? E : E == null ? 'E' : ''
-
-  const [s, setS] = useState<string>(S)
-  const [c, setC] = useState<string>(C)
-  const [e, setE] = useState<string>(E)
+  const [s, setS] = useState<string>(initializeValue('S', initialValues))
+  const [c, setC] = useState<string>(initializeValue('C', initialValues))
+  const [e, setE] = useState<string>(initializeValue('E', initialValues))
 
   //
   // Side Effects

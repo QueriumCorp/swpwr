@@ -11,6 +11,7 @@ import { NavContext, NavContextType } from '@/NavContext'
 import { useProblemStore } from '@/store/_store'
 import { CompareEquationGraphic } from './CompareEquationGraphic'
 import { FactChicklet } from '@/components/qq/FactChicklet'
+import { initializeValue } from '../initializeValue'
 
 const CompareEditor: FC<{
   initialValues: { variable: string; value: string | null }[]
@@ -34,17 +35,9 @@ const CompareEditor: FC<{
   //
   // State
   //
-  let S = initialValues.find(el => el.variable == 'S')?.value
-  S = typeof S == 'string' ? S : S == null ? 'S' : ''
-
-  let M = initialValues.find(el => el.variable == 'M')?.value
-  M = typeof M == 'string' ? M : M == null ? 'M' : ''
-
-  let P = initialValues.find(el => el.variable == 'P')?.value
-  P = typeof P == 'string' ? P : P == null ? 'P' : ''
-  const [s, setS] = useState<string>(S)
-  const [m, setM] = useState<string>(M)
-  const [p, setP] = useState<string>(P)
+  const [s, setS] = useState<string>(initializeValue('S', initialValues))
+  const [m, setM] = useState<string>(initializeValue('M', initialValues))
+  const [p, setP] = useState<string>(initializeValue('P', initialValues))
 
   //
   // Side Effects
