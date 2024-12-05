@@ -48,7 +48,11 @@ const CheckStepButton = ({
   ///////////////////////////////////////////////////////////////////
   return (
     <div className="relative flex h-10 w-10 items-center justify-center bg-none">
-      <BusyIndicator busy={busy} className="BusyIndicator"></BusyIndicator>
+      <BusyIndicator
+        busy={busy}
+        size={100}
+        className="BusyIndicator"
+      ></BusyIndicator>
       <Button
         size="icon"
         className={cn(

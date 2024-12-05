@@ -588,12 +588,20 @@ const StepWisePower = forwardRef<
         <FullScreen />
         {started ? null : (
           <div className="fixed flex h-full w-full flex-col items-center justify-center gap-2 bg-black bg-opacity-80">
-            <Avatar className="h-[200px] w-[200px] border-4 border-white">
-              <AvatarImage src={base64Img} />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            <div className="relative flex h-[200px] w-[200px] items-center justify-center bg-none">
+              <BusyIndicator
+                busy={true}
+                size={460}
+                strokeWidth={2}
+                className="h-[200px] w-[200px]"
+              />
+              <Avatar className="h-[200px] w-[200px] border-4 border-white">
+                <AvatarImage src={base64Img} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </div>
             {ready ? (
-              <div className="flex items-center justify-center gap-2">
+              <div className="z-10 flex items-center justify-center gap-2">
                 <Button
                   size="lg"
                   className="min-w-32 bg-qqBrand text-xl hover:bg-qqAccent"

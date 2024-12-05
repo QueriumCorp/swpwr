@@ -1,7 +1,6 @@
 .loader {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  /* Remove fixed width and height */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -9,9 +8,11 @@
 
 .circular {
   animation: rotate 2s linear infinite;
-  height: 100px;
+  /* Remove fixed height */
   position: relative;
-  width: 100px;
+  /* Remove fixed width */
+  width: 100%; /* Make it fill the container */
+  height: 100%; /* Make it fill the container */
 }
 
 .path {
