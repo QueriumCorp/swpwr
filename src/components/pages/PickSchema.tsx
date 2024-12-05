@@ -104,7 +104,6 @@ const PickSchema: FC<{
   ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    console.log('session.schema:', session.schema)
     if (session.schema === '') {
       setDisabled(true)
     } else {

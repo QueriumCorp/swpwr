@@ -9,12 +9,7 @@ import { splitIntoSentences } from './functions/Sentences'
 import { selectTextRange } from './functions/SelectTextRange'
 import { Moved } from './functions/Moved'
 import { useProblemStore } from '@/store/_store'
-import { type Highlight } from '@/store/_types'
 import { findHighlightIndeces } from './functions/FindHighlightIndeces'
-import {
-  findClickedCharIndex,
-  highlightClickedChar,
-} from './functions/FindClickedCharIndex'
 import { getCaretOffset } from './functions/getCaretOffset'
 
 // Type Definitions
@@ -121,7 +116,6 @@ const StimulusSelector = forwardRef<HTMLDivElement, StimulusSelectorProps>(
         session.stimulusClaims,
         session.highlights,
       )
-      console.log('PREVIEW SELECTION highlight', highlight)
 
       // Long press so preview the selection
       const sel = document.getSelection()?.anchorOffset

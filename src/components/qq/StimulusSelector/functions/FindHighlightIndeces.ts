@@ -165,7 +165,6 @@ export function findHighlightIndeces(
   }
 
   let claimKey = claims.charAt(caretOffset)
-  console.log(claimKey)
   let start = caretOffset
   let end = caretOffset
   if (claimKey !== '_') {

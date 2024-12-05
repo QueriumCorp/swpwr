@@ -280,8 +280,6 @@ const useProblemStore = create<State>((set, get) => ({
   },
 
   resumeSession: async (oldSession: Session, oldStudentLog: LogItem[]) => {
-    console.log('oldSession', oldSession)
-    console.log('oldStudentLog', oldStudentLog)
     set(_state => ({
       session: {
         ...oldSession,
