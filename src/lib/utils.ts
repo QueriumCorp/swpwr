@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from 'clsx'
 import { convertLatexToSpeakableText } from 'mathlive'
 import { twMerge } from 'tailwind-merge'
+import { findAndReplaceFractions } from './fractions'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -140,7 +141,9 @@ export function makeVocalizable(text: string) {
     // substitute back in
     dollarized = dollarized.replace(match, converted![index])
   })
-  return dollarized
+
+  let { fractions, replacedText } = findAndReplaceFractions(dollarized)
+  return replacedText
 }
 
 function regexIndexOf(string: string, regex: RegExp, startpos: number) {
