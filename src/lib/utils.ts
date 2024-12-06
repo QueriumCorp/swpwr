@@ -126,8 +126,6 @@ export function makeVocalizable(text: string) {
     .replace(/Read\s/g, 'Reed ')
     .replace(/✔/g, 'the check button')
     .replace(/\n1\.\s/g, ' <break time="0.5s" /> ')
-    .replace(/=/g, ' equals ')
-    .replace(/(?<![a-z])-(?![a-z])/gi, ' minus ')
 
   // Convert currency to spoken form
   const dollarsRegex = /\$\d+(\.\d{2})?/g
@@ -143,7 +141,11 @@ export function makeVocalizable(text: string) {
   })
 
   let { fractions, replacedText } = findAndReplaceFractions(dollarized)
-  return replacedText
+
+  let vocalizedText = replacedText
+    .replace(/=/g, ' equals ')
+    .replace(/(?<![a-z])-(?![a-z])/gi, ' minus ')
+  return vocalizedText
 }
 
 function regexIndexOf(string: string, regex: RegExp, startpos: number) {
