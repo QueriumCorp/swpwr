@@ -76,6 +76,11 @@ export type WPHint = {
   page: string
   hints: string[]
 }
+// WORD PROBLEM VIDEOS
+export type PSVideo = {
+  page: string
+  videos: { title: string; url: string }[]
+}
 
 // PROBLEM
 export type Problem = {
@@ -92,6 +97,7 @@ export type Problem = {
   qs2?: string
   qs3?: string
   wpHints?: WPHint[]
+  psVideos?: PSVideo[]
 }
 export const ProblemSchema = z.object({
   appKey: z.string(),
@@ -108,6 +114,14 @@ export const ProblemSchema = z.object({
   qs3: z.string().optional(),
   wpHints: z
     .array(z.object({ page: z.string(), hints: z.array(z.string()) }))
+    .optional(),
+  psVidoes: z
+    .array(
+      z.object({
+        page: z.string(),
+        videos: z.array(z.object({ title: z.string(), url: z.string() })),
+      }),
+    )
     .optional(),
 }) satisfies z.ZodType<Problem>
 

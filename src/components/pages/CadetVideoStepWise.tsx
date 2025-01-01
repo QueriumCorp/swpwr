@@ -122,7 +122,10 @@ const CadetVideoStepWise: FC<{
           />
         </div>
       </div>
-      <NavBar className="relative flex items-center justify-end space-x-3 bg-slate-100 pr-0">
+      <NavBar
+        className="relative flex items-center justify-end space-x-3 bg-slate-100 pr-0"
+        page={page}
+      >
         <TinyTutor hintList={hintList} />
         <div className="flex h-20 w-20 items-center justify-center">
           <NextButton

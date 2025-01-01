@@ -113,7 +113,10 @@ const NewbVictory: React.FC<{
           hintPageChanged={finishedIntro}
         />
       </div>
-      <NavBar className="relative flex justify-end space-x-3 bg-slate-100 pr-2"></NavBar>
+      <NavBar
+        className="relative flex justify-end space-x-3 bg-slate-100 pr-2"
+        page={page}
+      ></NavBar>
     </div>
   )
 }

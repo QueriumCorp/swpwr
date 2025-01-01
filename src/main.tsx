@@ -47,6 +47,8 @@ if (window.swpwr) {
     },
   )
 
+  problem.psVideos = window.swpwr.problem.psVideos
+
   student.studentId = window.swpwr.student.studentId
   student.studentName = window.swpwr.student.fullName
 

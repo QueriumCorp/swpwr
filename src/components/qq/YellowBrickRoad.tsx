@@ -7,6 +7,7 @@ export type YBRpage = {
   intro?: string[]
   psHints?: string[] // Not used on I pages as they have the giant avatar
   aiHints?: boolean
+  videos?: { title: string; url: string }[]
 }
 
 export const YellowBrickRoad: YBRpage[] = [
@@ -22,6 +23,46 @@ export const YellowBrickRoad: YBRpage[] = [
     phaseLabel: 'Prepare',
     intro: [],
     aiHints: false,
+    videos: [
+      {
+        title: 'Pull Apart',
+        url: 'https://querium.wistia.com/medias/6cq1njtrjd',
+      },
+
+      {
+        title: 'Work the Problem',
+        url: 'https://querium.wistia.com/medias/3iht7uc7nw',
+      },
+
+      {
+        title: 'Total Problems',
+        url: 'https://querium.wistia.com/medias/sjxgx93yp3',
+      },
+      {
+        title: 'More Total Problems',
+        url: 'https://querium.wistia.com/medias/kwwo2f1d0v',
+      },
+      {
+        title: 'Change Problems',
+        url: 'https://querium.wistia.com/medias/w1i6awm1wz',
+      },
+      {
+        title: 'More Change Problems',
+        url: 'https://querium.wistia.com/medias/be860p7oat',
+      },
+      {
+        title: 'Difference Problems',
+        url: 'https://querium.wistia.com/medias/wf7uchx2b8',
+      },
+      {
+        title: 'Equal Groups Problems',
+        url: 'https://querium.wistia.com/medias/zqv49r0xu0',
+      },
+      {
+        title: 'Compare Problems',
+        url: 'https://querium.wistia.com/medias/57rdlxaf90',
+      },
+    ],
   },
   {
     rank: 'dev',
@@ -111,6 +152,12 @@ When we're done reading, click ➜.
       `That's important, so I'll say it again. The way to ask for help is to click me. You can click me ANYTIME. Now click [MORE].`,
       `See ➜ next to me? When it's blue, you can click it to move on.\n\nGo ahead and click ➜ now.`,
     ],
+    videos: [
+      {
+        title: 'Pull Apart',
+        url: 'https://querium.wistia.com/medias/6cq1njtrjd',
+      },
+    ],
   },
   {
     rank: 'newb',
@@ -123,6 +170,46 @@ When we're done reading, click ➜.
       `There are three things we do to Prepare.\n\nThe first one is Read.`,
       `Find the story in the box above. Follow along with me as I read it.\n\nWhen we're done reading, click [MORE]. [STIMULUS]`,
       `Click ➜ to continue.`,
+    ],
+    videos: [
+      {
+        title: 'Pull Apart',
+        url: 'https://querium.wistia.com/medias/6cq1njtrjd',
+      },
+
+      {
+        title: 'Work the Problem',
+        url: 'https://querium.wistia.com/medias/3iht7uc7nw',
+      },
+
+      {
+        title: 'Total Problems',
+        url: 'https://querium.wistia.com/medias/sjxgx93yp3',
+      },
+      {
+        title: 'More Total Problems',
+        url: 'https://querium.wistia.com/medias/kwwo2f1d0v',
+      },
+      {
+        title: 'Change Problems',
+        url: 'https://querium.wistia.com/medias/w1i6awm1wz',
+      },
+      {
+        title: 'More Change Problems',
+        url: 'https://querium.wistia.com/medias/be860p7oat',
+      },
+      {
+        title: 'Difference Problems',
+        url: 'https://querium.wistia.com/medias/wf7uchx2b8',
+      },
+      {
+        title: 'Equal Groups Problems',
+        url: 'https://querium.wistia.com/medias/zqv49r0xu0',
+      },
+      {
+        title: 'Compare Problems',
+        url: 'https://querium.wistia.com/medias/57rdlxaf90',
+      },
     ],
   },
   {
